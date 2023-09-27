@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/categories/data/category_extension.dart';
 import 'package:classic_shop/src/features/categories/data/category_local_service.dart';
 import 'package:classic_shop/src/features/categories/data/category_remote_service.dart';
@@ -19,7 +20,7 @@ class CategoryRepository {
   Future<Either<CategoryFailure, Fresh<List<Category>>>> fetchCategory() async {
     try {
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/usr/v1/categories',
       );
       final category = await _remoteService.fetchCategories(

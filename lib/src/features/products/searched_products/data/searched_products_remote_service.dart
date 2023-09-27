@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/pagination_config.dart';
 import 'package:classic_shop/src/features/core/data/remote_response.dart';
 import 'package:classic_shop/src/features/products/core/data/product_dto.dart';
@@ -14,7 +15,7 @@ class SearchedProductsRemoteService extends ProductRemoteService {
       productsFunction: ProductsFunction.searchProducts,
       query: query,
       requestUri: Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/search-product-items',
         {
           'query': query,
@@ -33,7 +34,7 @@ class SearchedProductsRemoteService extends ProductRemoteService {
       query: query,
       lastItemId: lastItemId,
       requestUri: Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/search-product-items-next-page',
         {
           'query': query,

@@ -102,7 +102,7 @@ class HomePage extends ConsumerWidget {
                   height: 8,
                 ),
               ),
-              HomePagePromotedProductsHListView()
+              HomePagePromotedProductsHListView(),
               // HomePageNewProductsHListView(key: ValueKey('ProductList2')),
             ],
           ),
@@ -218,7 +218,7 @@ class _HomePageNewProductsHListViewState
               isNew: true,
             ),
         ref.read(cartNotifierProvider.notifier).fetchCart(),
-        ref.read(wishListNotifierProvider.notifier).fetchWishList()
+        ref.read(wishListNotifierProvider.notifier).fetchWishList(),
       ]);
     });
   }
@@ -325,7 +325,7 @@ class _HomePagePromotedProductsHListViewState
           itemBuilder: (context, index) => ProviderScope(
             key: UniqueKey(),
             overrides: [
-              homepagePromotedProductsIndexProvider.overrideWithValue(index)
+              homepagePromotedProductsIndexProvider.overrideWithValue(index),
             ],
             child: state.map(
               initial: (_) => const SizedBox.shrink(),

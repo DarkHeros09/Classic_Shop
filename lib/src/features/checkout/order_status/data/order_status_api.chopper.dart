@@ -6,7 +6,7 @@ part of 'order_status_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$OrderStatusApi extends OrderStatusApi {
   _$OrderStatusApi([ChopperClient? client]) {
     if (client == null) return;
@@ -22,7 +22,7 @@ final class _$OrderStatusApi extends OrderStatusApi {
     required String statusId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/order-status/${statusId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/order-status/${statusId}');
     final Request $request = Request(
       'GET',
       $url,

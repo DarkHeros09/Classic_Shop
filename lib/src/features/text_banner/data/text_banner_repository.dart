@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/network_exceptions.dart';
 import 'package:classic_shop/src/features/core/data/response_headers_cache.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
@@ -25,7 +26,7 @@ class TextBannerRepository {
       fetchTextBanner() async {
     try {
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/wish-lists',
       );
       final textBanner = await _remoteService.fetchTextBanner(

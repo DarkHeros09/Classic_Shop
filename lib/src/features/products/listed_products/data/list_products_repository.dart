@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/network_exceptions.dart';
 import 'package:classic_shop/src/features/core/data/pagination_config.dart';
 import 'package:classic_shop/src/features/core/data/remote_response.dart';
@@ -77,7 +78,7 @@ class ListProductsRepository {
         isPromoted: isPromoted,
       );
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/product-items-V2',
         queryParams,
       );
@@ -123,7 +124,7 @@ class ListProductsRepository {
         isPromoted: isPromoted,
       );
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/product-items-next-page',
         queryParams,
       );

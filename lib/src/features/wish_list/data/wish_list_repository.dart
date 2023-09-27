@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/network_exceptions.dart';
 import 'package:classic_shop/src/features/core/data/response_headers_cache.dart';
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
@@ -33,7 +34,7 @@ class WishListRepository {
       final user = await _userStorage.read();
       if (user != null) {
         final requestUri = Uri.http(
-          '192.168.10.170:8080',
+          Env.httpAddress,
           '/usr/v1/users/${user.id}/wish-lists/items',
         );
         final wishList = await _remoteService.fetchWishList(

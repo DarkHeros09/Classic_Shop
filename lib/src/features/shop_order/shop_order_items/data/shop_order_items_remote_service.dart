@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/network_exceptions.dart';
 import 'package:classic_shop/src/features/core/data/remote_response.dart';
 import 'package:classic_shop/src/features/core/data/response_headers.dart';
@@ -29,7 +30,7 @@ class ShopOrderItemsRemoteService implements IShopOrderItemsRemoteService {
     required int orderId,
   }) async {
     final requestUri = Uri.http(
-      '192.168.10.170:8080',
+      Env.httpAddress,
       '/usr/v1/users/$userId/shop-order-items/$orderId',
     );
     final previousHeaders = await _headersCache.getHeaders(requestUri);

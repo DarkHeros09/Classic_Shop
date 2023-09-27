@@ -6,7 +6,7 @@ part of 'payment_method_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$PaymentMethodApi extends PaymentMethodApi {
   _$PaymentMethodApi([ChopperClient? client]) {
     if (client == null) return;
@@ -22,7 +22,7 @@ final class _$PaymentMethodApi extends PaymentMethodApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/payment-methods');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/payment-methods');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -39,7 +39,7 @@ final class _$PaymentMethodApi extends PaymentMethodApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/payment-method');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/payment-method');
     final $body = data;
     final Request $request = Request(
       'GET',

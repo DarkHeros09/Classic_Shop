@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/address/data/address_dto.dart';
 import 'package:classic_shop/src/features/address/data/address_extension.dart';
 import 'package:classic_shop/src/features/address/data/address_local_service.dart';
@@ -28,7 +29,7 @@ class AddressRepository {
 
       // if (user != null) {
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/usr/v1/users/$userId/addresses',
       );
       final address = await _remoteService.fetchAddress(

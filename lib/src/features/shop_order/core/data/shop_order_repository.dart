@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/network_exceptions.dart';
 import 'package:classic_shop/src/features/core/data/pagination_config.dart';
 import 'package:classic_shop/src/features/core/data/remote_response.dart';
@@ -49,7 +50,7 @@ class ShopOrderRepository {
     try {
       final queryParams = _createQueryParams(orderStatus: orderStatus);
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/usr/v1/users/$userId/shop-orders-v2',
         queryParams,
       );
@@ -84,7 +85,7 @@ class ShopOrderRepository {
         lastItemId: lastItemId,
       );
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/usr/v1/users/$userId/shop-orders-next-page',
         queryParams,
       );

@@ -6,7 +6,7 @@ part of 'payment_type_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$PaymentTypeApi extends PaymentTypeApi {
   _$PaymentTypeApi([ChopperClient? client]) {
     if (client == null) return;
@@ -20,7 +20,7 @@ final class _$PaymentTypeApi extends PaymentTypeApi {
   Future<Response<List<Map<String, dynamic>>>> listPaymentTypes(
       {required String userId}) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/payment-types');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/payment-types');
     final Request $request = Request(
       'GET',
       $url,

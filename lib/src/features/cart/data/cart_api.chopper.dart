@@ -6,7 +6,7 @@ part of 'cart_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$CartApi extends CartApi {
   _$CartApi([ChopperClient? client]) {
     if (client == null) return;
@@ -22,7 +22,7 @@ final class _$CartApi extends CartApi {
     required String userId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/carts/items');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/carts/items');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };
@@ -43,7 +43,7 @@ final class _$CartApi extends CartApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/carts/${cartId}/items');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/carts/${cartId}/items');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -62,7 +62,7 @@ final class _$CartApi extends CartApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/carts/${cartId}/items/${shoppingCartItemId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/carts/${cartId}/items/${shoppingCartItemId}');
     final $body = data;
     final Request $request = Request(
       'PUT',
@@ -80,7 +80,7 @@ final class _$CartApi extends CartApi {
     required String shoppingCartItemId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/carts/${cartId}/items/${shoppingCartItemId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/carts/${cartId}/items/${shoppingCartItemId}');
     final Request $request = Request(
       'DELETE',
       $url,
@@ -95,7 +95,7 @@ final class _$CartApi extends CartApi {
     required String cartId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/carts/${cartId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/carts/${cartId}');
     final Request $request = Request(
       'DELETE',
       $url,

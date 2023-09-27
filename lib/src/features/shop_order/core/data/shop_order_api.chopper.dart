@@ -6,7 +6,7 @@ part of 'shop_order_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$ShopOrderApi extends ShopOrderApi {
   _$ShopOrderApi([ChopperClient? client]) {
     if (client == null) return;
@@ -24,7 +24,7 @@ final class _$ShopOrderApi extends ShopOrderApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/shop-orders');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-orders');
     final Map<String, dynamic> $params = <String, dynamic>{
       'page_id': pageId,
       'page_size': pageSize,
@@ -51,7 +51,7 @@ final class _$ShopOrderApi extends ShopOrderApi {
     String? orderStatus,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/shop-orders-v2');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-orders-v2');
     final Map<String, dynamic> $params = <String, dynamic>{
       'limit': pageSize,
       'order_status': orderStatus,
@@ -79,7 +79,7 @@ final class _$ShopOrderApi extends ShopOrderApi {
     String? orderStatus,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/shop-orders-next-page');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-orders-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'cursor': lastItemId,
       'limit': pageSize,

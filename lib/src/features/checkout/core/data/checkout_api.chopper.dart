@@ -6,7 +6,7 @@ part of 'checkout_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$CheckoutApi extends CheckoutApi {
   _$CheckoutApi([ChopperClient? client]) {
     if (client == null) return;
@@ -23,7 +23,7 @@ final class _$CheckoutApi extends CheckoutApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/carts/${cartId}/purchase');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/carts/${cartId}/purchase');
     final $body = data;
     final Request $request = Request(
       'PUT',

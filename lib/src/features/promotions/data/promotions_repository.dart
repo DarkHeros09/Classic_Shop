@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/core/data/network_exceptions.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:classic_shop/src/features/promotions/data/product_extensions.dart';
@@ -27,15 +28,15 @@ class PromotionsRepository {
   Future<Either<PromotionsFailure, Fresh<Promotions>>> getPromotions() async {
     try {
       final productPromotionsRequestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/product-promotions-images',
       );
       final brandPromotionsRequestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/brand-promotions-images',
       );
       final categoryPromotionsRequestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/api/v1/category-promotions-images',
       );
       final remoteProductPromotions = await _remoteService.fetchPromotions(

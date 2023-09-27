@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:chopper/chopper.dart';
+import 'package:classic_shop/gen/env.g.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/io_client.dart';
 
 part 'brand_api.chopper.dart';
 
-@ChopperApi(baseUrl: 'http://192.168.10.170:8080/api/v1')
+@ChopperApi(baseUrl: 'http:///${Env.httpAddress}/api/v1')
 abstract class BrandApi extends ChopperService {
   static BrandApi create() {
     final client = ChopperClient(

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chopper/chopper.dart';
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/auth/data/auth_interceptor.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/io_client.dart';
@@ -9,7 +10,7 @@ part 'auth_api.chopper.dart';
 
 const normalheaders = {'Content-Type': 'application/json'};
 
-@ChopperApi(baseUrl: 'http://192.168.10.170:8080/api/v1')
+@ChopperApi(baseUrl: 'http:///${Env.httpAddress}/api/v1')
 abstract class AuthApi extends ChopperService {
   static AuthApi create() {
     final client = ChopperClient(
@@ -55,7 +56,7 @@ abstract class AuthApi extends ChopperService {
   });
 }
 
-@ChopperApi(baseUrl: 'http://192.168.10.170:8080/usr/v1')
+@ChopperApi(baseUrl: 'http:///${Env.httpAddress}/usr/v1')
 abstract class AuthApi2 extends ChopperService {
   static AuthApi2 create() {
     final client = ChopperClient(

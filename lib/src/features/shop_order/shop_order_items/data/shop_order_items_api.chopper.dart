@@ -6,7 +6,7 @@ part of 'shop_order_items_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$ShopOrderItemsApi extends ShopOrderItemsApi {
   _$ShopOrderItemsApi([ChopperClient? client]) {
     if (client == null) return;
@@ -23,7 +23,7 @@ final class _$ShopOrderItemsApi extends ShopOrderItemsApi {
     required String orderId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/shop-order-items/${orderId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-order-items/${orderId}');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };

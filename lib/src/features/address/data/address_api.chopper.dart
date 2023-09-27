@@ -6,7 +6,7 @@ part of 'address_api.dart';
 // ChopperGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_brace_in_string_interps
+// ignore_for_file: always_put_control_body_on_new_line, always_specify_types, prefer_const_declarations, unnecessary_string_interpolations, unnecessary_brace_in_string_interps
 final class _$AddressApi extends AddressApi {
   _$AddressApi([ChopperClient? client]) {
     if (client == null) return;
@@ -21,8 +21,8 @@ final class _$AddressApi extends AddressApi {
     required String userId,
     required Map<String, dynamic> data,
   }) {
-    final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/addresses');
+    final Uri $url =
+        Uri.parse('http://192.168.1.104:8080/usr/v1/users/${userId}/addresses');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -40,8 +40,8 @@ final class _$AddressApi extends AddressApi {
     required int pageId,
     required int pageSize,
   }) {
-    final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/addresses');
+    final Uri $url =
+        Uri.parse('http://192.168.1.104:8080/usr/v1/users/${userId}/addresses');
     final Map<String, dynamic> $params = <String, dynamic>{
       'page_id': pageId,
       'page_size': pageSize,
@@ -67,7 +67,7 @@ final class _$AddressApi extends AddressApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/addresses/${addressId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/addresses/${addressId}');
     final $body = data;
     final Request $request = Request(
       'PUT',
@@ -84,7 +84,7 @@ final class _$AddressApi extends AddressApi {
     required String addressId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.10.170:8080/usr/v1/users/${userId}/addresses/${addressId}');
+        'http://192.168.1.104:8080/usr/v1/users/${userId}/addresses/${addressId}');
     final Request $request = Request(
       'DELETE',
       $url,

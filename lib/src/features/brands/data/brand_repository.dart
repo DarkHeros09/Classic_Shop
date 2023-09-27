@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/brands/data/brand_extension.dart';
 import 'package:classic_shop/src/features/brands/data/brand_local_service.dart';
 import 'package:classic_shop/src/features/brands/data/brand_remote_service.dart';
@@ -19,7 +20,7 @@ class BrandRepository {
   Future<Either<BrandFailure, Fresh<List<Brand>>>> fetchBrand() async {
     try {
       final requestUri = Uri.http(
-        '192.168.10.170:8080',
+        Env.httpAddress,
         '/usr/v1/categories',
       );
       final category = await _remoteService.fetchBrands(

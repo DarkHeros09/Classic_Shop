@@ -1,3 +1,4 @@
+import 'package:classic_shop/gen/env.g.dart';
 import 'package:classic_shop/src/features/cart/data/cart_extension.dart';
 import 'package:classic_shop/src/features/cart/data/cart_local_service.dart';
 import 'package:classic_shop/src/features/cart/data/cart_remote_service.dart';
@@ -58,7 +59,7 @@ class CartRepository {
         //   }
         // }
         final requestUri = Uri.http(
-          '192.168.10.170:8080',
+          Env.httpAddress,
           '/usr/v1/users/${user.id}/carts/items',
         );
         final cart = await _remoteService.fetchCart(
