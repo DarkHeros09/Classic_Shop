@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "974728477095",
+    "project_id": "notifications-3eca3",
+    "storage_bucket": "notifications-3eca3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974728477095:android:bfa0d3668d12143f915e82",
+        "android_client_info": {
+          "package_name": "com.example.classic_shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDznGPvynuuTHCrCiMf-nm9O3bCQEMbSIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
