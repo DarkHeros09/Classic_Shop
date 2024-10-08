@@ -12,7 +12,16 @@
           "package_name": "com.example.classic_shop"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "974728477095-vct1lphh064f6il19luibvngn3jpcuee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.classic_shop",
+            "certificate_hash": "9038a84685ec08ad815c056620813a229a37be01"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDznGPvynuuTHCrCiMf-nm9O3bCQEMbSIA"

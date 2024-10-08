@@ -118,6 +118,7 @@ class AddressRepository {
     try {
       final address = await _remoteService.createAddress(
         userId: userId,
+        name: dto.name,
         addressLine: dto.addressLine,
         region: dto.region,
         city: dto.city,
@@ -129,6 +130,7 @@ class AddressRepository {
             final completedDTO = dto.copyWith(
               id: data.id,
               defaultAddress: data.defaultAddress,
+              name: data.name,
               city: data.city,
               region: data.region,
               addressLine: data.addressLine,
@@ -161,6 +163,7 @@ class AddressRepository {
         userId: userId,
         addressId: dto.id ?? 0,
         defaultAddress: dto.defaultAddress.toString(),
+        name: dto.name,
         city: dto.city,
         region: dto.region,
         addressLine: dto.addressLine,
@@ -172,6 +175,7 @@ class AddressRepository {
             final updatedDTO = dto.copyWith(
               id: data.id,
               defaultAddress: data.defaultAddress,
+              name: data.name,
               city: data.city,
               region: data.region,
               addressLine: data.addressLine,

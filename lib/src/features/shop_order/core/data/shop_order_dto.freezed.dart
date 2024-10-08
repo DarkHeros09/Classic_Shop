@@ -34,8 +34,12 @@ mixin _$ShopOrderDTO {
   int get itemCount => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this ShopOrderDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ShopOrderDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShopOrderDTOCopyWith<ShopOrderDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -70,6 +74,8 @@ class _$ShopOrderDTOCopyWithImpl<$Res, $Val extends ShopOrderDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShopOrderDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -164,6 +170,8 @@ class __$$ShopOrderDTOImplCopyWithImpl<$Res>
       _$ShopOrderDTOImpl _value, $Res Function(_$ShopOrderDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrderDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -304,7 +312,7 @@ class _$ShopOrderDTOImpl extends _ShopOrderDTO {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -320,7 +328,9 @@ class _$ShopOrderDTOImpl extends _ShopOrderDTO {
       itemCount,
       createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrderDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShopOrderDTOImplCopyWith<_$ShopOrderDTOImpl> get copyWith =>
@@ -359,8 +369,8 @@ abstract class _ShopOrderDTO extends ShopOrderDTO {
   @override
   String get trackNumber;
   @override
-  int get userId;
-  @override // required final int paymentMethodId,
+  int get userId; // required final int paymentMethodId,
+  @override
   int get shippingAddressId;
   @override
   String get orderTotal;
@@ -375,8 +385,11 @@ abstract class _ShopOrderDTO extends ShopOrderDTO {
   int get itemCount;
   @override
   DateTime get createdAt;
+
+  /// Create a copy of ShopOrderDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShopOrderDTOImplCopyWith<_$ShopOrderDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

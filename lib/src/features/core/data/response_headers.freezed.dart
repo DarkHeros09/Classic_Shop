@@ -23,8 +23,12 @@ mixin _$ResponseHeaders {
   String? get etag => throw _privateConstructorUsedError;
   bool? get nextAvailable => throw _privateConstructorUsedError;
 
+  /// Serializes this ResponseHeaders to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ResponseHeaders
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ResponseHeadersCopyWith<ResponseHeaders> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$ResponseHeadersCopyWithImpl<$Res, $Val extends ResponseHeaders>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ResponseHeaders
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$ResponseHeadersImplCopyWithImpl<$Res>
       _$ResponseHeadersImpl _value, $Res Function(_$ResponseHeadersImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ResponseHeaders
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,11 +151,13 @@ class _$ResponseHeadersImpl extends _ResponseHeaders
                 other.nextAvailable == nextAvailable));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, etag, nextAvailable);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ResponseHeaders
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ResponseHeadersImplCopyWith<_$ResponseHeadersImpl> get copyWith =>
@@ -174,8 +184,11 @@ abstract class _ResponseHeaders extends ResponseHeaders {
   String? get etag;
   @override
   bool? get nextAvailable;
+
+  /// Create a copy of ResponseHeaders
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ResponseHeadersImplCopyWith<_$ResponseHeadersImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

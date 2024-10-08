@@ -23,7 +23,9 @@ mixin _$BrandPromotions {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BrandPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BrandPromotionsCopyWith<BrandPromotions> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$BrandPromotionsCopyWithImpl<$Res, $Val extends BrandPromotions>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BrandPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,6 +121,8 @@ class __$$BrandPromotionsImplCopyWithImpl<$Res>
       _$BrandPromotionsImpl _value, $Res Function(_$BrandPromotionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BrandPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -206,7 +212,9 @@ class _$BrandPromotionsImpl extends _BrandPromotions {
   int get hashCode => Object.hash(runtimeType, brandId, promotionId,
       brandPromotionImage, active, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BrandPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BrandPromotionsImplCopyWith<_$BrandPromotionsImpl> get copyWith =>
@@ -236,8 +244,11 @@ abstract class _BrandPromotions extends BrandPromotions {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+
+  /// Create a copy of BrandPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BrandPromotionsImplCopyWith<_$BrandPromotionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

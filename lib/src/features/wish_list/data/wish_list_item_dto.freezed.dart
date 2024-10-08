@@ -25,13 +25,40 @@ mixin _$WishListItemDTO {
   int get productItemId => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get productImage => throw _privateConstructorUsedError;
+  String? get color => throw _privateConstructorUsedError;
+  String? get size => throw _privateConstructorUsedError;
   String? get price => throw _privateConstructorUsedError;
   bool? get active => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  int? get categoryPromoId => throw _privateConstructorUsedError;
+  String? get categoryPromoName => throw _privateConstructorUsedError;
+  String? get categoryPromoDescription => throw _privateConstructorUsedError;
+  int? get categoryPromoDiscountRate => throw _privateConstructorUsedError;
+  bool? get categoryPromoActive => throw _privateConstructorUsedError;
+  DateTime? get categoryPromoStartDate => throw _privateConstructorUsedError;
+  DateTime? get categoryPromoEndDate => throw _privateConstructorUsedError;
+  int? get brandPromoId => throw _privateConstructorUsedError;
+  String? get brandPromoName => throw _privateConstructorUsedError;
+  String? get brandPromoDescription => throw _privateConstructorUsedError;
+  int? get brandPromoDiscountRate => throw _privateConstructorUsedError;
+  bool? get brandPromoActive => throw _privateConstructorUsedError;
+  DateTime? get brandPromoStartDate => throw _privateConstructorUsedError;
+  DateTime? get brandPromoEndDate => throw _privateConstructorUsedError;
+  int? get productPromoId => throw _privateConstructorUsedError;
+  String? get productPromoName => throw _privateConstructorUsedError;
+  String? get productPromoDescription => throw _privateConstructorUsedError;
+  int? get productPromoDiscountRate => throw _privateConstructorUsedError;
+  bool? get productPromoActive => throw _privateConstructorUsedError;
+  DateTime? get productPromoStartDate => throw _privateConstructorUsedError;
+  DateTime? get productPromoEndDate => throw _privateConstructorUsedError;
 
+  /// Serializes this WishListItemDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of WishListItemDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $WishListItemDTOCopyWith<WishListItemDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,10 +75,33 @@ abstract class $WishListItemDTOCopyWith<$Res> {
       int productItemId,
       String? name,
       String? productImage,
+      String? color,
+      String? size,
       String? price,
       bool? active,
       DateTime? createdAt,
-      DateTime? updatedAt});
+      DateTime? updatedAt,
+      int? categoryPromoId,
+      String? categoryPromoName,
+      String? categoryPromoDescription,
+      int? categoryPromoDiscountRate,
+      bool? categoryPromoActive,
+      DateTime? categoryPromoStartDate,
+      DateTime? categoryPromoEndDate,
+      int? brandPromoId,
+      String? brandPromoName,
+      String? brandPromoDescription,
+      int? brandPromoDiscountRate,
+      bool? brandPromoActive,
+      DateTime? brandPromoStartDate,
+      DateTime? brandPromoEndDate,
+      int? productPromoId,
+      String? productPromoName,
+      String? productPromoDescription,
+      int? productPromoDiscountRate,
+      bool? productPromoActive,
+      DateTime? productPromoStartDate,
+      DateTime? productPromoEndDate});
 }
 
 /// @nodoc
@@ -64,6 +114,8 @@ class _$WishListItemDTOCopyWithImpl<$Res, $Val extends WishListItemDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of WishListItemDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -72,10 +124,33 @@ class _$WishListItemDTOCopyWithImpl<$Res, $Val extends WishListItemDTO>
     Object? productItemId = null,
     Object? name = freezed,
     Object? productImage = freezed,
+    Object? color = freezed,
+    Object? size = freezed,
     Object? price = freezed,
     Object? active = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? categoryPromoId = freezed,
+    Object? categoryPromoName = freezed,
+    Object? categoryPromoDescription = freezed,
+    Object? categoryPromoDiscountRate = freezed,
+    Object? categoryPromoActive = freezed,
+    Object? categoryPromoStartDate = freezed,
+    Object? categoryPromoEndDate = freezed,
+    Object? brandPromoId = freezed,
+    Object? brandPromoName = freezed,
+    Object? brandPromoDescription = freezed,
+    Object? brandPromoDiscountRate = freezed,
+    Object? brandPromoActive = freezed,
+    Object? brandPromoStartDate = freezed,
+    Object? brandPromoEndDate = freezed,
+    Object? productPromoId = freezed,
+    Object? productPromoName = freezed,
+    Object? productPromoDescription = freezed,
+    Object? productPromoDiscountRate = freezed,
+    Object? productPromoActive = freezed,
+    Object? productPromoStartDate = freezed,
+    Object? productPromoEndDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -98,6 +173,14 @@ class _$WishListItemDTOCopyWithImpl<$Res, $Val extends WishListItemDTO>
           ? _value.productImage
           : productImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      size: freezed == size
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -113,6 +196,90 @@ class _$WishListItemDTOCopyWithImpl<$Res, $Val extends WishListItemDTO>
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      categoryPromoId: freezed == categoryPromoId
+          ? _value.categoryPromoId
+          : categoryPromoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      categoryPromoName: freezed == categoryPromoName
+          ? _value.categoryPromoName
+          : categoryPromoName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryPromoDescription: freezed == categoryPromoDescription
+          ? _value.categoryPromoDescription
+          : categoryPromoDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryPromoDiscountRate: freezed == categoryPromoDiscountRate
+          ? _value.categoryPromoDiscountRate
+          : categoryPromoDiscountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      categoryPromoActive: freezed == categoryPromoActive
+          ? _value.categoryPromoActive
+          : categoryPromoActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      categoryPromoStartDate: freezed == categoryPromoStartDate
+          ? _value.categoryPromoStartDate
+          : categoryPromoStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      categoryPromoEndDate: freezed == categoryPromoEndDate
+          ? _value.categoryPromoEndDate
+          : categoryPromoEndDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      brandPromoId: freezed == brandPromoId
+          ? _value.brandPromoId
+          : brandPromoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      brandPromoName: freezed == brandPromoName
+          ? _value.brandPromoName
+          : brandPromoName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      brandPromoDescription: freezed == brandPromoDescription
+          ? _value.brandPromoDescription
+          : brandPromoDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      brandPromoDiscountRate: freezed == brandPromoDiscountRate
+          ? _value.brandPromoDiscountRate
+          : brandPromoDiscountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      brandPromoActive: freezed == brandPromoActive
+          ? _value.brandPromoActive
+          : brandPromoActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      brandPromoStartDate: freezed == brandPromoStartDate
+          ? _value.brandPromoStartDate
+          : brandPromoStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      brandPromoEndDate: freezed == brandPromoEndDate
+          ? _value.brandPromoEndDate
+          : brandPromoEndDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      productPromoId: freezed == productPromoId
+          ? _value.productPromoId
+          : productPromoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      productPromoName: freezed == productPromoName
+          ? _value.productPromoName
+          : productPromoName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productPromoDescription: freezed == productPromoDescription
+          ? _value.productPromoDescription
+          : productPromoDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productPromoDiscountRate: freezed == productPromoDiscountRate
+          ? _value.productPromoDiscountRate
+          : productPromoDiscountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      productPromoActive: freezed == productPromoActive
+          ? _value.productPromoActive
+          : productPromoActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      productPromoStartDate: freezed == productPromoStartDate
+          ? _value.productPromoStartDate
+          : productPromoStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      productPromoEndDate: freezed == productPromoEndDate
+          ? _value.productPromoEndDate
+          : productPromoEndDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ) as $Val);
   }
@@ -132,10 +299,33 @@ abstract class _$$WishListItemDTOImplCopyWith<$Res>
       int productItemId,
       String? name,
       String? productImage,
+      String? color,
+      String? size,
       String? price,
       bool? active,
       DateTime? createdAt,
-      DateTime? updatedAt});
+      DateTime? updatedAt,
+      int? categoryPromoId,
+      String? categoryPromoName,
+      String? categoryPromoDescription,
+      int? categoryPromoDiscountRate,
+      bool? categoryPromoActive,
+      DateTime? categoryPromoStartDate,
+      DateTime? categoryPromoEndDate,
+      int? brandPromoId,
+      String? brandPromoName,
+      String? brandPromoDescription,
+      int? brandPromoDiscountRate,
+      bool? brandPromoActive,
+      DateTime? brandPromoStartDate,
+      DateTime? brandPromoEndDate,
+      int? productPromoId,
+      String? productPromoName,
+      String? productPromoDescription,
+      int? productPromoDiscountRate,
+      bool? productPromoActive,
+      DateTime? productPromoStartDate,
+      DateTime? productPromoEndDate});
 }
 
 /// @nodoc
@@ -146,6 +336,8 @@ class __$$WishListItemDTOImplCopyWithImpl<$Res>
       _$WishListItemDTOImpl _value, $Res Function(_$WishListItemDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of WishListItemDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -154,10 +346,33 @@ class __$$WishListItemDTOImplCopyWithImpl<$Res>
     Object? productItemId = null,
     Object? name = freezed,
     Object? productImage = freezed,
+    Object? color = freezed,
+    Object? size = freezed,
     Object? price = freezed,
     Object? active = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? categoryPromoId = freezed,
+    Object? categoryPromoName = freezed,
+    Object? categoryPromoDescription = freezed,
+    Object? categoryPromoDiscountRate = freezed,
+    Object? categoryPromoActive = freezed,
+    Object? categoryPromoStartDate = freezed,
+    Object? categoryPromoEndDate = freezed,
+    Object? brandPromoId = freezed,
+    Object? brandPromoName = freezed,
+    Object? brandPromoDescription = freezed,
+    Object? brandPromoDiscountRate = freezed,
+    Object? brandPromoActive = freezed,
+    Object? brandPromoStartDate = freezed,
+    Object? brandPromoEndDate = freezed,
+    Object? productPromoId = freezed,
+    Object? productPromoName = freezed,
+    Object? productPromoDescription = freezed,
+    Object? productPromoDiscountRate = freezed,
+    Object? productPromoActive = freezed,
+    Object? productPromoStartDate = freezed,
+    Object? productPromoEndDate = freezed,
   }) {
     return _then(_$WishListItemDTOImpl(
       id: freezed == id
@@ -180,6 +395,14 @@ class __$$WishListItemDTOImplCopyWithImpl<$Res>
           ? _value.productImage
           : productImage // ignore: cast_nullable_to_non_nullable
               as String?,
+      color: freezed == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as String?,
+      size: freezed == size
+          ? _value.size
+          : size // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -196,6 +419,90 @@ class __$$WishListItemDTOImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      categoryPromoId: freezed == categoryPromoId
+          ? _value.categoryPromoId
+          : categoryPromoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      categoryPromoName: freezed == categoryPromoName
+          ? _value.categoryPromoName
+          : categoryPromoName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryPromoDescription: freezed == categoryPromoDescription
+          ? _value.categoryPromoDescription
+          : categoryPromoDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryPromoDiscountRate: freezed == categoryPromoDiscountRate
+          ? _value.categoryPromoDiscountRate
+          : categoryPromoDiscountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      categoryPromoActive: freezed == categoryPromoActive
+          ? _value.categoryPromoActive
+          : categoryPromoActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      categoryPromoStartDate: freezed == categoryPromoStartDate
+          ? _value.categoryPromoStartDate
+          : categoryPromoStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      categoryPromoEndDate: freezed == categoryPromoEndDate
+          ? _value.categoryPromoEndDate
+          : categoryPromoEndDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      brandPromoId: freezed == brandPromoId
+          ? _value.brandPromoId
+          : brandPromoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      brandPromoName: freezed == brandPromoName
+          ? _value.brandPromoName
+          : brandPromoName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      brandPromoDescription: freezed == brandPromoDescription
+          ? _value.brandPromoDescription
+          : brandPromoDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      brandPromoDiscountRate: freezed == brandPromoDiscountRate
+          ? _value.brandPromoDiscountRate
+          : brandPromoDiscountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      brandPromoActive: freezed == brandPromoActive
+          ? _value.brandPromoActive
+          : brandPromoActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      brandPromoStartDate: freezed == brandPromoStartDate
+          ? _value.brandPromoStartDate
+          : brandPromoStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      brandPromoEndDate: freezed == brandPromoEndDate
+          ? _value.brandPromoEndDate
+          : brandPromoEndDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      productPromoId: freezed == productPromoId
+          ? _value.productPromoId
+          : productPromoId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      productPromoName: freezed == productPromoName
+          ? _value.productPromoName
+          : productPromoName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productPromoDescription: freezed == productPromoDescription
+          ? _value.productPromoDescription
+          : productPromoDescription // ignore: cast_nullable_to_non_nullable
+              as String?,
+      productPromoDiscountRate: freezed == productPromoDiscountRate
+          ? _value.productPromoDiscountRate
+          : productPromoDiscountRate // ignore: cast_nullable_to_non_nullable
+              as int?,
+      productPromoActive: freezed == productPromoActive
+          ? _value.productPromoActive
+          : productPromoActive // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      productPromoStartDate: freezed == productPromoStartDate
+          ? _value.productPromoStartDate
+          : productPromoStartDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      productPromoEndDate: freezed == productPromoEndDate
+          ? _value.productPromoEndDate
+          : productPromoEndDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -209,10 +516,33 @@ class _$WishListItemDTOImpl extends _WishListItemDTO {
       required this.productItemId,
       required this.name,
       required this.productImage,
+      required this.color,
+      required this.size,
       required this.price,
       required this.active,
       required this.createdAt,
-      required this.updatedAt})
+      required this.updatedAt,
+      required this.categoryPromoId,
+      required this.categoryPromoName,
+      required this.categoryPromoDescription,
+      required this.categoryPromoDiscountRate,
+      required this.categoryPromoActive,
+      required this.categoryPromoStartDate,
+      required this.categoryPromoEndDate,
+      required this.brandPromoId,
+      required this.brandPromoName,
+      required this.brandPromoDescription,
+      required this.brandPromoDiscountRate,
+      required this.brandPromoActive,
+      required this.brandPromoStartDate,
+      required this.brandPromoEndDate,
+      required this.productPromoId,
+      required this.productPromoName,
+      required this.productPromoDescription,
+      required this.productPromoDiscountRate,
+      required this.productPromoActive,
+      required this.productPromoStartDate,
+      required this.productPromoEndDate})
       : super._();
 
   factory _$WishListItemDTOImpl.fromJson(Map<String, dynamic> json) =>
@@ -229,6 +559,10 @@ class _$WishListItemDTOImpl extends _WishListItemDTO {
   @override
   final String? productImage;
   @override
+  final String? color;
+  @override
+  final String? size;
+  @override
   final String? price;
   @override
   final bool? active;
@@ -236,10 +570,52 @@ class _$WishListItemDTOImpl extends _WishListItemDTO {
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
+  @override
+  final int? categoryPromoId;
+  @override
+  final String? categoryPromoName;
+  @override
+  final String? categoryPromoDescription;
+  @override
+  final int? categoryPromoDiscountRate;
+  @override
+  final bool? categoryPromoActive;
+  @override
+  final DateTime? categoryPromoStartDate;
+  @override
+  final DateTime? categoryPromoEndDate;
+  @override
+  final int? brandPromoId;
+  @override
+  final String? brandPromoName;
+  @override
+  final String? brandPromoDescription;
+  @override
+  final int? brandPromoDiscountRate;
+  @override
+  final bool? brandPromoActive;
+  @override
+  final DateTime? brandPromoStartDate;
+  @override
+  final DateTime? brandPromoEndDate;
+  @override
+  final int? productPromoId;
+  @override
+  final String? productPromoName;
+  @override
+  final String? productPromoDescription;
+  @override
+  final int? productPromoDiscountRate;
+  @override
+  final bool? productPromoActive;
+  @override
+  final DateTime? productPromoStartDate;
+  @override
+  final DateTime? productPromoEndDate;
 
   @override
   String toString() {
-    return 'WishListItemDTO(id: $id, wishListId: $wishListId, productItemId: $productItemId, name: $name, productImage: $productImage, price: $price, active: $active, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'WishListItemDTO(id: $id, wishListId: $wishListId, productItemId: $productItemId, name: $name, productImage: $productImage, color: $color, size: $size, price: $price, active: $active, createdAt: $createdAt, updatedAt: $updatedAt, categoryPromoId: $categoryPromoId, categoryPromoName: $categoryPromoName, categoryPromoDescription: $categoryPromoDescription, categoryPromoDiscountRate: $categoryPromoDiscountRate, categoryPromoActive: $categoryPromoActive, categoryPromoStartDate: $categoryPromoStartDate, categoryPromoEndDate: $categoryPromoEndDate, brandPromoId: $brandPromoId, brandPromoName: $brandPromoName, brandPromoDescription: $brandPromoDescription, brandPromoDiscountRate: $brandPromoDiscountRate, brandPromoActive: $brandPromoActive, brandPromoStartDate: $brandPromoStartDate, brandPromoEndDate: $brandPromoEndDate, productPromoId: $productPromoId, productPromoName: $productPromoName, productPromoDescription: $productPromoDescription, productPromoDiscountRate: $productPromoDiscountRate, productPromoActive: $productPromoActive, productPromoStartDate: $productPromoStartDate, productPromoEndDate: $productPromoEndDate)';
   }
 
   @override
@@ -255,20 +631,101 @@ class _$WishListItemDTOImpl extends _WishListItemDTO {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.productImage, productImage) ||
                 other.productImage == productImage) &&
+            (identical(other.color, color) || other.color == color) &&
+            (identical(other.size, size) || other.size == size) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.active, active) || other.active == active) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.categoryPromoId, categoryPromoId) ||
+                other.categoryPromoId == categoryPromoId) &&
+            (identical(other.categoryPromoName, categoryPromoName) ||
+                other.categoryPromoName == categoryPromoName) &&
+            (identical(
+                    other.categoryPromoDescription, categoryPromoDescription) ||
+                other.categoryPromoDescription == categoryPromoDescription) &&
+            (identical(other.categoryPromoDiscountRate, categoryPromoDiscountRate) ||
+                other.categoryPromoDiscountRate == categoryPromoDiscountRate) &&
+            (identical(other.categoryPromoActive, categoryPromoActive) ||
+                other.categoryPromoActive == categoryPromoActive) &&
+            (identical(other.categoryPromoStartDate, categoryPromoStartDate) ||
+                other.categoryPromoStartDate == categoryPromoStartDate) &&
+            (identical(other.categoryPromoEndDate, categoryPromoEndDate) ||
+                other.categoryPromoEndDate == categoryPromoEndDate) &&
+            (identical(other.brandPromoId, brandPromoId) ||
+                other.brandPromoId == brandPromoId) &&
+            (identical(other.brandPromoName, brandPromoName) ||
+                other.brandPromoName == brandPromoName) &&
+            (identical(other.brandPromoDescription, brandPromoDescription) ||
+                other.brandPromoDescription == brandPromoDescription) &&
+            (identical(other.brandPromoDiscountRate, brandPromoDiscountRate) ||
+                other.brandPromoDiscountRate == brandPromoDiscountRate) &&
+            (identical(other.brandPromoActive, brandPromoActive) ||
+                other.brandPromoActive == brandPromoActive) &&
+            (identical(other.brandPromoStartDate, brandPromoStartDate) ||
+                other.brandPromoStartDate == brandPromoStartDate) &&
+            (identical(other.brandPromoEndDate, brandPromoEndDate) ||
+                other.brandPromoEndDate == brandPromoEndDate) &&
+            (identical(other.productPromoId, productPromoId) ||
+                other.productPromoId == productPromoId) &&
+            (identical(other.productPromoName, productPromoName) ||
+                other.productPromoName == productPromoName) &&
+            (identical(other.productPromoDescription, productPromoDescription) ||
+                other.productPromoDescription == productPromoDescription) &&
+            (identical(
+                    other.productPromoDiscountRate, productPromoDiscountRate) ||
+                other.productPromoDiscountRate == productPromoDiscountRate) &&
+            (identical(other.productPromoActive, productPromoActive) ||
+                other.productPromoActive == productPromoActive) &&
+            (identical(other.productPromoStartDate, productPromoStartDate) ||
+                other.productPromoStartDate == productPromoStartDate) &&
+            (identical(other.productPromoEndDate, productPromoEndDate) ||
+                other.productPromoEndDate == productPromoEndDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, wishListId, productItemId,
-      name, productImage, price, active, createdAt, updatedAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        wishListId,
+        productItemId,
+        name,
+        productImage,
+        color,
+        size,
+        price,
+        active,
+        createdAt,
+        updatedAt,
+        categoryPromoId,
+        categoryPromoName,
+        categoryPromoDescription,
+        categoryPromoDiscountRate,
+        categoryPromoActive,
+        categoryPromoStartDate,
+        categoryPromoEndDate,
+        brandPromoId,
+        brandPromoName,
+        brandPromoDescription,
+        brandPromoDiscountRate,
+        brandPromoActive,
+        brandPromoStartDate,
+        brandPromoEndDate,
+        productPromoId,
+        productPromoName,
+        productPromoDescription,
+        productPromoDiscountRate,
+        productPromoActive,
+        productPromoStartDate,
+        productPromoEndDate
+      ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of WishListItemDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WishListItemDTOImplCopyWith<_$WishListItemDTOImpl> get copyWith =>
@@ -290,10 +747,33 @@ abstract class _WishListItemDTO extends WishListItemDTO {
       required final int productItemId,
       required final String? name,
       required final String? productImage,
+      required final String? color,
+      required final String? size,
       required final String? price,
       required final bool? active,
       required final DateTime? createdAt,
-      required final DateTime? updatedAt}) = _$WishListItemDTOImpl;
+      required final DateTime? updatedAt,
+      required final int? categoryPromoId,
+      required final String? categoryPromoName,
+      required final String? categoryPromoDescription,
+      required final int? categoryPromoDiscountRate,
+      required final bool? categoryPromoActive,
+      required final DateTime? categoryPromoStartDate,
+      required final DateTime? categoryPromoEndDate,
+      required final int? brandPromoId,
+      required final String? brandPromoName,
+      required final String? brandPromoDescription,
+      required final int? brandPromoDiscountRate,
+      required final bool? brandPromoActive,
+      required final DateTime? brandPromoStartDate,
+      required final DateTime? brandPromoEndDate,
+      required final int? productPromoId,
+      required final String? productPromoName,
+      required final String? productPromoDescription,
+      required final int? productPromoDiscountRate,
+      required final bool? productPromoActive,
+      required final DateTime? productPromoStartDate,
+      required final DateTime? productPromoEndDate}) = _$WishListItemDTOImpl;
   const _WishListItemDTO._() : super._();
 
   factory _WishListItemDTO.fromJson(Map<String, dynamic> json) =
@@ -310,6 +790,10 @@ abstract class _WishListItemDTO extends WishListItemDTO {
   @override
   String? get productImage;
   @override
+  String? get color;
+  @override
+  String? get size;
+  @override
   String? get price;
   @override
   bool? get active;
@@ -318,7 +802,52 @@ abstract class _WishListItemDTO extends WishListItemDTO {
   @override
   DateTime? get updatedAt;
   @override
-  @JsonKey(ignore: true)
+  int? get categoryPromoId;
+  @override
+  String? get categoryPromoName;
+  @override
+  String? get categoryPromoDescription;
+  @override
+  int? get categoryPromoDiscountRate;
+  @override
+  bool? get categoryPromoActive;
+  @override
+  DateTime? get categoryPromoStartDate;
+  @override
+  DateTime? get categoryPromoEndDate;
+  @override
+  int? get brandPromoId;
+  @override
+  String? get brandPromoName;
+  @override
+  String? get brandPromoDescription;
+  @override
+  int? get brandPromoDiscountRate;
+  @override
+  bool? get brandPromoActive;
+  @override
+  DateTime? get brandPromoStartDate;
+  @override
+  DateTime? get brandPromoEndDate;
+  @override
+  int? get productPromoId;
+  @override
+  String? get productPromoName;
+  @override
+  String? get productPromoDescription;
+  @override
+  int? get productPromoDiscountRate;
+  @override
+  bool? get productPromoActive;
+  @override
+  DateTime? get productPromoStartDate;
+  @override
+  DateTime? get productPromoEndDate;
+
+  /// Create a copy of WishListItemDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WishListItemDTOImplCopyWith<_$WishListItemDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

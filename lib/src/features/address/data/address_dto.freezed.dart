@@ -24,12 +24,17 @@ mixin _$AddressDTO {
   @JsonKey(name: 'address_id')
   int? get id => throw _privateConstructorUsedError;
   int? get defaultAddress => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   String get addressLine => throw _privateConstructorUsedError;
   String get region => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
 
+  /// Serializes this AddressDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AddressDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AddressDTOCopyWith<AddressDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +49,7 @@ abstract class $AddressDTOCopyWith<$Res> {
       {int userId,
       @JsonKey(name: 'address_id') int? id,
       int? defaultAddress,
+      String name,
       String addressLine,
       String region,
       String city});
@@ -59,12 +65,15 @@ class _$AddressDTOCopyWithImpl<$Res, $Val extends AddressDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AddressDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? userId = null,
     Object? id = freezed,
     Object? defaultAddress = freezed,
+    Object? name = null,
     Object? addressLine = null,
     Object? region = null,
     Object? city = null,
@@ -82,6 +91,10 @@ class _$AddressDTOCopyWithImpl<$Res, $Val extends AddressDTO>
           ? _value.defaultAddress
           : defaultAddress // ignore: cast_nullable_to_non_nullable
               as int?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       addressLine: null == addressLine
           ? _value.addressLine
           : addressLine // ignore: cast_nullable_to_non_nullable
@@ -110,6 +123,7 @@ abstract class _$$AddressDTOImplCopyWith<$Res>
       {int userId,
       @JsonKey(name: 'address_id') int? id,
       int? defaultAddress,
+      String name,
       String addressLine,
       String region,
       String city});
@@ -123,12 +137,15 @@ class __$$AddressDTOImplCopyWithImpl<$Res>
       _$AddressDTOImpl _value, $Res Function(_$AddressDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AddressDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? userId = null,
     Object? id = freezed,
     Object? defaultAddress = freezed,
+    Object? name = null,
     Object? addressLine = null,
     Object? region = null,
     Object? city = null,
@@ -146,6 +163,10 @@ class __$$AddressDTOImplCopyWithImpl<$Res>
           ? _value.defaultAddress
           : defaultAddress // ignore: cast_nullable_to_non_nullable
               as int?,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       addressLine: null == addressLine
           ? _value.addressLine
           : addressLine // ignore: cast_nullable_to_non_nullable
@@ -169,6 +190,7 @@ class _$AddressDTOImpl extends _AddressDTO {
       {required this.userId,
       @JsonKey(name: 'address_id') required this.id,
       required this.defaultAddress,
+      required this.name,
       required this.addressLine,
       required this.region,
       required this.city})
@@ -185,6 +207,8 @@ class _$AddressDTOImpl extends _AddressDTO {
   @override
   final int? defaultAddress;
   @override
+  final String name;
+  @override
   final String addressLine;
   @override
   final String region;
@@ -193,7 +217,7 @@ class _$AddressDTOImpl extends _AddressDTO {
 
   @override
   String toString() {
-    return 'AddressDTO(userId: $userId, id: $id, defaultAddress: $defaultAddress, addressLine: $addressLine, region: $region, city: $city)';
+    return 'AddressDTO(userId: $userId, id: $id, defaultAddress: $defaultAddress, name: $name, addressLine: $addressLine, region: $region, city: $city)';
   }
 
   @override
@@ -205,18 +229,21 @@ class _$AddressDTOImpl extends _AddressDTO {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.defaultAddress, defaultAddress) ||
                 other.defaultAddress == defaultAddress) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.addressLine, addressLine) ||
                 other.addressLine == addressLine) &&
             (identical(other.region, region) || other.region == region) &&
             (identical(other.city, city) || other.city == city));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, userId, id, defaultAddress, addressLine, region, city);
+      runtimeType, userId, id, defaultAddress, name, addressLine, region, city);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AddressDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AddressDTOImplCopyWith<_$AddressDTOImpl> get copyWith =>
@@ -235,6 +262,7 @@ abstract class _AddressDTO extends AddressDTO {
       {required final int userId,
       @JsonKey(name: 'address_id') required final int? id,
       required final int? defaultAddress,
+      required final String name,
       required final String addressLine,
       required final String region,
       required final String city}) = _$AddressDTOImpl;
@@ -251,13 +279,18 @@ abstract class _AddressDTO extends AddressDTO {
   @override
   int? get defaultAddress;
   @override
+  String get name;
+  @override
   String get addressLine;
   @override
   String get region;
   @override
   String get city;
+
+  /// Create a copy of AddressDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddressDTOImplCopyWith<_$AddressDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -22,6 +22,7 @@ class ShopOrderItemsRepository {
   Future<Either<ShopOrderItemsFailure, Fresh<List<ShopOrderItems>>>>
       fetchShopOrderItems({
     required int orderId,
+    required String trackNumber,
   }) async {
     try {
       final user = await _userStorage.read();
@@ -36,19 +37,27 @@ class ShopOrderItemsRepository {
           await shopOrderItems.when(
             noConnection: () async => Fresh.no(
               await _localService
-                  .fetchShopOrderItems(orderId)
+                  .fetchShopOrderItems(user.id, orderId, trackNumber)
                   .then((_) => _.toDomain()),
             ),
-            notModified: (_) async => Fresh.yes(
-              await _localService
-                  .fetchShopOrderItems(orderId)
-                  .then((_) => _.toDomain()),
-            ),
+            notModified: (_) async {
+              return Fresh.yes(
+                await _localService
+                    .fetchShopOrderItems(user.id, orderId, trackNumber)
+                    .then(
+                      (localData) => localData.toDomain(),
+                    ),
+              );
+            },
             noContent: () async {
-              await _localService.deleteAllShopOrderItems();
               return Fresh.no([], isNextPageAvailable: false);
             },
             withNewData: (data, _) async {
+              await _localService.deleteShopOrderItem(
+                user.id,
+                orderId,
+                trackNumber,
+              );
               await _localService.setShopOrderItems(data);
               return Fresh.yes(data.toDomain());
             },
@@ -56,9 +65,8 @@ class ShopOrderItemsRepository {
         );
       }
 
-      final shopOrderItems = await _localService.fetchShopOrderItems(orderId);
       return right(
-        Fresh.no(shopOrderItems.toDomain()),
+        Fresh.no([]),
       );
     } on RestApiException catch (e) {
       return left(ShopOrderItemsFailure.api(e.errorCode));

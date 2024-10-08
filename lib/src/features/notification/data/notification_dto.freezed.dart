@@ -26,8 +26,12 @@ mixin _$NotificationDTO {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this NotificationDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of NotificationDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotificationDTOCopyWith<NotificationDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -56,6 +60,8 @@ class _$NotificationDTOCopyWithImpl<$Res, $Val extends NotificationDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of NotificationDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -114,6 +120,8 @@ class __$$NotificationDTOImplCopyWithImpl<$Res>
       _$NotificationDTOImpl _value, $Res Function(_$NotificationDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of NotificationDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -194,12 +202,14 @@ class _$NotificationDTOImpl extends _NotificationDTO {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, userId, deviceId, fcmToken, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of NotificationDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotificationDTOImplCopyWith<_$NotificationDTOImpl> get copyWith =>
@@ -236,8 +246,11 @@ abstract class _NotificationDTO extends NotificationDTO {
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
+
+  /// Create a copy of NotificationDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotificationDTOImplCopyWith<_$NotificationDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

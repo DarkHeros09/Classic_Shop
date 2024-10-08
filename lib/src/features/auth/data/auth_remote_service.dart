@@ -22,34 +22,6 @@ class AuthRemoteService {
   final AuthApi _api;
   final AuthApi2 _api2;
 
-  Future<CredentialsDTO?> getSignedInCredentials() async {
-    try {
-      final storedtoken = await _credentialsStorage.read();
-      debugPrint('stored1: $storedtoken');
-
-      if (storedtoken != null &&
-          storedtoken.canRefresh &&
-          storedtoken.isExpired) {
-        debugPrint('TRRRUUUUEEEEE');
-        final failureOrCredentials = await renewAccessToken(storedtoken);
-        return failureOrCredentials.fold(
-          (l) async => null,
-          (r) => r,
-        );
-      }
-      return storedtoken;
-    } on PlatformException {
-      return null;
-    }
-  }
-
-  Future<bool> isSignedIn() => getSignedInCredentials().then((token) {
-        // debugPrint('refresh: ${token?.refreshToken}');
-        // debugPrint('access: ${token?.accessToken}');
-        // debugPrint('BOOL: ${token?.refreshToken != null}');
-        return token?.refreshToken != null;
-      });
-
   Future<Either<AuthFailure, Unit>> signUp({
     required String username,
     required String email,
@@ -107,6 +79,35 @@ class AuthRemoteService {
     }
   }
 
+  Future<CredentialsDTO?> getSignedInCredentials() async {
+    try {
+      final storedtoken = await _credentialsStorage.read();
+      debugPrint('stored1: $storedtoken');
+
+      if (storedtoken != null && storedtoken.canRefresh) {
+        if (storedtoken.isExpired) {
+          debugPrint('TRRRUUUUEEEEE');
+          final failureOrCredentials = await renewAccessToken(storedtoken);
+          return failureOrCredentials.fold(
+            (l) async => null,
+            (r) => r,
+          );
+        }
+        return storedtoken;
+      }
+      return null;
+    } on PlatformException {
+      return null;
+    }
+  }
+
+  Future<bool> isSignedIn() => getSignedInCredentials().then((token) {
+        // debugPrint('refresh: ${token?.refreshToken}');
+        // debugPrint('access: ${token?.accessToken}');
+        // debugPrint('BOOL: ${token?.refreshToken != null}');
+        return token?.refreshToken != null;
+      });
+
   Future<Either<AuthFailure, Unit>> signIn({
     required String email,
     required String password,
@@ -146,9 +147,10 @@ class AuthRemoteService {
       // debugPrint('SAVING USER: ');
       // debugPrint(user.toString());
       debugPrint('PASSWORD: $password');
-      final modifiedUser = user.copyWith(password: password);
-      await _userStorage.save(modifiedUser);
       debugPrint('READING THE SAVED CREDENTIALS: ');
+      if (credentials.user != null) {
+        await _userStorage.save(credentials.user!);
+      }
       final savedUser = await _userStorage.read();
       debugPrint(savedUser.toString());
       return right(unit);
@@ -163,21 +165,17 @@ class AuthRemoteService {
 
   Future<Either<AuthFailure, CredentialsDTO>> renewRefreshToken() async {
     try {
-      final storedUser = await _userStorage.read();
-      debugPrint('storedUser: $storedUser');
-      if (storedUser == null) {
-        return left(const AuthFailure.storage());
-      }
+      final storedtoken = await _credentialsStorage.read();
+      debugPrint('stored1: $storedtoken');
 
-      final email = storedUser.email;
-      final password = storedUser.password;
-      final response = await _api.signIn(
+      final response = await _api.renewRefreshToken(
         data: {
-          'email': email,
-          'password': password,
+          'refresh_token': storedtoken?.refreshToken,
         },
       );
 
+      debugPrint('stored1: ${response.statusCode}');
+      debugPrint('stored1: ${response.body}');
       if (!response.isSuccessful) {
         final error = response.error;
         final statusCode = response.statusCode;
@@ -192,17 +190,28 @@ class AuthRemoteService {
 
       final credentials = CredentialsDTO.fromJson(body);
       // final token = credentials.token;
-      final user = credentials.user;
+      final refreshToken = credentials.refreshToken;
 
-      if (user == null) {
+      if (refreshToken == null) {
         return left(
           const AuthFailure.server('token or user should not be null'),
         );
       }
       debugPrint('PARESED REFRESH TOKEN');
       debugPrint(credentials.toString());
-      await _credentialsStorage.save(credentials);
-      await _userStorage.save(user.copyWith(password: password));
+      final oldCredential = await _credentialsStorage.read();
+      if (oldCredential == null) {
+        await signOut();
+        return left(const AuthFailure.storage());
+      }
+      final newCredentials = oldCredential.copyWith(
+        userSessionId: credentials.userSessionId,
+        accessToken: credentials.accessToken,
+        accessExpiration: credentials.accessExpiration,
+        refreshToken: credentials.refreshToken,
+        refreshExpiration: credentials.refreshExpiration,
+      );
+      await _credentialsStorage.save(newCredentials);
       return right(credentials);
     } on FormatException {
       return left(const AuthFailure.server());
@@ -217,10 +226,9 @@ class AuthRemoteService {
     try {
       final credentials = await _credentialsStorage.read();
       final user = await _userStorage.read();
-
       if (user != null) {
         try {
-          await _api2.signOut(
+          final res = await _api2.signOut(
             accessToken: 'Bearer ${credentials?.accessToken}',
             userId: user.id.toString(),
             data: {
@@ -228,6 +236,7 @@ class AuthRemoteService {
               'refresh_token': credentials?.refreshToken,
             },
           );
+          debugPrint('SIGGG ${res.statusCode}');
         } on SocketException {
           debugPrint('Token not revoked');
         } finally {
@@ -258,7 +267,6 @@ class AuthRemoteService {
   ) async {
     try {
       final response = await _api.renewAccessToken(
-        accessToken: 'Bearer ${credentialsDTO.accessToken}',
         data: {'refresh_token': credentialsDTO.refreshToken},
       );
 
@@ -277,16 +285,17 @@ class AuthRemoteService {
       final newCredentials = CredentialsDTO.fromJson(body);
       debugPrint('PARESED ACCESS TOKEN');
       debugPrint(newCredentials.toString());
-      final modifiedCredentials = newCredentials.copyWith(
-        refreshToken: credentialsDTO.refreshToken,
-        refreshExpiration: credentialsDTO.refreshExpiration,
+      final updatedCredentials = credentialsDTO.copyWith(
+        userSessionId: newCredentials.userSessionId,
+        accessToken: newCredentials.accessToken,
+        accessExpiration: newCredentials.accessExpiration,
       );
 
       debugPrint('PARESED MODIFIED ACCESS TOKEN');
-      debugPrint(modifiedCredentials.toString());
+      debugPrint(updatedCredentials.toString());
 
-      await _credentialsStorage.save(modifiedCredentials);
-      return right(modifiedCredentials);
+      await _credentialsStorage.save(updatedCredentials);
+      return right(updatedCredentials);
     } on FormatException {
       return left(const AuthFailure.server());
     } on PlatformException {

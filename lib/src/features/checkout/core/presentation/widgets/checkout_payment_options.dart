@@ -7,18 +7,23 @@ import 'package:super_sliver_list/super_sliver_list.dart';
 class SelectedPaymentType {
   SelectedPaymentType(this.value);
 
-  String value;
+  String? value;
 }
 
-class SelectedPaymentTypeNotifier extends Notifier<SelectedPaymentType> {
+class SelectedPaymentTypeNotifier
+    extends AutoDisposeNotifier<SelectedPaymentType> {
   @override
   SelectedPaymentType build() {
-    return SelectedPaymentType('');
+    return SelectedPaymentType(null);
+  }
+
+  void set(String? value) {
+    state = SelectedPaymentType(value);
   }
 }
 
-final selectedPaymentTypeNotifierProvider =
-    NotifierProvider<SelectedPaymentTypeNotifier, SelectedPaymentType>(
+final selectedPaymentTypeNotifierProvider = AutoDisposeNotifierProvider<
+    SelectedPaymentTypeNotifier, SelectedPaymentType>(
   SelectedPaymentTypeNotifier.new,
 );
 
@@ -40,9 +45,9 @@ class CheckoutPaymentOptions extends HookConsumerWidget {
       ),
     );
     paymentTypes?.sort((a, b) => a.id.compareTo(b.id));
-
     final groupValue = useState('');
-    final selectedPaymentType = ref.watch(selectedPaymentTypeNotifierProvider);
+    final d = ref.watch(selectedPaymentTypeNotifierProvider).value;
+    debugPrint('zzxx $d');
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       sliver: SuperSliverList(
@@ -57,7 +62,9 @@ class CheckoutPaymentOptions extends HookConsumerWidget {
               groupValue: groupValue.value,
               onChanged: (value) async {
                 groupValue.value = value!;
-                selectedPaymentType.value = value;
+                ref
+                    .read(selectedPaymentTypeNotifierProvider.notifier)
+                    .set(value);
                 //! this call needs to go
                 // await ref
                 //     .read(paymentMethodNotifierProvider.notifier)

@@ -30,8 +30,11 @@ mixin _$ShopOrderItemsDTO {
   String get productName => throw _privateConstructorUsedError;
   String get productImage => throw _privateConstructorUsedError;
   bool get productActive => throw _privateConstructorUsedError;
+  String get productColor => throw _privateConstructorUsedError;
+  String get productSize => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
+  int get discount => throw _privateConstructorUsedError;
   String get paymentType => throw _privateConstructorUsedError;
   int get orderId => throw _privateConstructorUsedError;
   String get addressLine => throw _privateConstructorUsedError;
@@ -39,8 +42,12 @@ mixin _$ShopOrderItemsDTO {
   String get city => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this ShopOrderItemsDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ShopOrderItemsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShopOrderItemsDTOCopyWith<ShopOrderItemsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,8 +69,11 @@ abstract class $ShopOrderItemsDTOCopyWith<$Res> {
       String productName,
       String productImage,
       bool productActive,
+      String productColor,
+      String productSize,
       int quantity,
       String price,
+      int discount,
       String paymentType,
       int orderId,
       String addressLine,
@@ -82,6 +92,8 @@ class _$ShopOrderItemsDTOCopyWithImpl<$Res, $Val extends ShopOrderItemsDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShopOrderItemsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -95,8 +107,11 @@ class _$ShopOrderItemsDTOCopyWithImpl<$Res, $Val extends ShopOrderItemsDTO>
     Object? productName = null,
     Object? productImage = null,
     Object? productActive = null,
+    Object? productColor = null,
+    Object? productSize = null,
     Object? quantity = null,
     Object? price = null,
+    Object? discount = null,
     Object? paymentType = null,
     Object? orderId = null,
     Object? addressLine = null,
@@ -145,6 +160,14 @@ class _$ShopOrderItemsDTOCopyWithImpl<$Res, $Val extends ShopOrderItemsDTO>
           ? _value.productActive
           : productActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      productColor: null == productColor
+          ? _value.productColor
+          : productColor // ignore: cast_nullable_to_non_nullable
+              as String,
+      productSize: null == productSize
+          ? _value.productSize
+          : productSize // ignore: cast_nullable_to_non_nullable
+              as String,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -153,6 +176,10 @@ class _$ShopOrderItemsDTOCopyWithImpl<$Res, $Val extends ShopOrderItemsDTO>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
       paymentType: null == paymentType
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
@@ -200,8 +227,11 @@ abstract class _$$ShopOrderItemsDTOImplCopyWith<$Res>
       String productName,
       String productImage,
       bool productActive,
+      String productColor,
+      String productSize,
       int quantity,
       String price,
+      int discount,
       String paymentType,
       int orderId,
       String addressLine,
@@ -218,6 +248,8 @@ class __$$ShopOrderItemsDTOImplCopyWithImpl<$Res>
       $Res Function(_$ShopOrderItemsDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrderItemsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -231,8 +263,11 @@ class __$$ShopOrderItemsDTOImplCopyWithImpl<$Res>
     Object? productName = null,
     Object? productImage = null,
     Object? productActive = null,
+    Object? productColor = null,
+    Object? productSize = null,
     Object? quantity = null,
     Object? price = null,
+    Object? discount = null,
     Object? paymentType = null,
     Object? orderId = null,
     Object? addressLine = null,
@@ -281,6 +316,14 @@ class __$$ShopOrderItemsDTOImplCopyWithImpl<$Res>
           ? _value.productActive
           : productActive // ignore: cast_nullable_to_non_nullable
               as bool,
+      productColor: null == productColor
+          ? _value.productColor
+          : productColor // ignore: cast_nullable_to_non_nullable
+              as String,
+      productSize: null == productSize
+          ? _value.productSize
+          : productSize // ignore: cast_nullable_to_non_nullable
+              as String,
       quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -289,6 +332,10 @@ class __$$ShopOrderItemsDTOImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as int,
       paymentType: null == paymentType
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
@@ -331,8 +378,11 @@ class _$ShopOrderItemsDTOImpl extends _ShopOrderItemsDTO {
       required this.productName,
       required this.productImage,
       required this.productActive,
+      required this.productColor,
+      required this.productSize,
       required this.quantity,
       required this.price,
+      required this.discount,
       required this.paymentType,
       required this.orderId,
       required this.addressLine,
@@ -365,9 +415,15 @@ class _$ShopOrderItemsDTOImpl extends _ShopOrderItemsDTO {
   @override
   final bool productActive;
   @override
+  final String productColor;
+  @override
+  final String productSize;
+  @override
   final int quantity;
   @override
   final String price;
+  @override
+  final int discount;
   @override
   final String paymentType;
   @override
@@ -383,7 +439,7 @@ class _$ShopOrderItemsDTOImpl extends _ShopOrderItemsDTO {
 
   @override
   String toString() {
-    return 'ShopOrderItemsDTO(id: $id, status: $status, orderNumber: $orderNumber, trackNumber: $trackNumber, deliveryPrice: $deliveryPrice, orderTotal: $orderTotal, productItemId: $productItemId, productName: $productName, productImage: $productImage, productActive: $productActive, quantity: $quantity, price: $price, paymentType: $paymentType, orderId: $orderId, addressLine: $addressLine, region: $region, city: $city, createdAt: $createdAt)';
+    return 'ShopOrderItemsDTO(id: $id, status: $status, orderNumber: $orderNumber, trackNumber: $trackNumber, deliveryPrice: $deliveryPrice, orderTotal: $orderTotal, productItemId: $productItemId, productName: $productName, productImage: $productImage, productActive: $productActive, productColor: $productColor, productSize: $productSize, quantity: $quantity, price: $price, discount: $discount, paymentType: $paymentType, orderId: $orderId, addressLine: $addressLine, region: $region, city: $city, createdAt: $createdAt)';
   }
 
   @override
@@ -409,9 +465,15 @@ class _$ShopOrderItemsDTOImpl extends _ShopOrderItemsDTO {
                 other.productImage == productImage) &&
             (identical(other.productActive, productActive) ||
                 other.productActive == productActive) &&
+            (identical(other.productColor, productColor) ||
+                other.productColor == productColor) &&
+            (identical(other.productSize, productSize) ||
+                other.productSize == productSize) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             (identical(other.paymentType, paymentType) ||
                 other.paymentType == paymentType) &&
             (identical(other.orderId, orderId) || other.orderId == orderId) &&
@@ -423,30 +485,36 @@ class _$ShopOrderItemsDTOImpl extends _ShopOrderItemsDTO {
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      status,
-      orderNumber,
-      trackNumber,
-      deliveryPrice,
-      orderTotal,
-      productItemId,
-      productName,
-      productImage,
-      productActive,
-      quantity,
-      price,
-      paymentType,
-      orderId,
-      addressLine,
-      region,
-      city,
-      createdAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        status,
+        orderNumber,
+        trackNumber,
+        deliveryPrice,
+        orderTotal,
+        productItemId,
+        productName,
+        productImage,
+        productActive,
+        productColor,
+        productSize,
+        quantity,
+        price,
+        discount,
+        paymentType,
+        orderId,
+        addressLine,
+        region,
+        city,
+        createdAt
+      ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrderItemsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShopOrderItemsDTOImplCopyWith<_$ShopOrderItemsDTOImpl> get copyWith =>
@@ -473,8 +541,11 @@ abstract class _ShopOrderItemsDTO extends ShopOrderItemsDTO {
       required final String productName,
       required final String productImage,
       required final bool productActive,
+      required final String productColor,
+      required final String productSize,
       required final int quantity,
       required final String price,
+      required final int discount,
       required final String paymentType,
       required final int orderId,
       required final String addressLine,
@@ -507,9 +578,15 @@ abstract class _ShopOrderItemsDTO extends ShopOrderItemsDTO {
   @override
   bool get productActive;
   @override
+  String get productColor;
+  @override
+  String get productSize;
+  @override
   int get quantity;
   @override
   String get price;
+  @override
+  int get discount;
   @override
   String get paymentType;
   @override
@@ -522,8 +599,11 @@ abstract class _ShopOrderItemsDTO extends ShopOrderItemsDTO {
   String get city;
   @override
   DateTime get createdAt;
+
+  /// Create a copy of ShopOrderItemsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShopOrderItemsDTOImplCopyWith<_$ShopOrderItemsDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

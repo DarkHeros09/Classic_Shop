@@ -20,7 +20,9 @@ mixin _$PaymentType {
   String get value => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentType
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentTypeCopyWith<PaymentType> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$PaymentTypeCopyWithImpl<$Res, $Val extends PaymentType>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentType
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$PaymentTypeImplCopyWithImpl<$Res>
       _$PaymentTypeImpl _value, $Res Function(_$PaymentTypeImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentType
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -144,7 +150,9 @@ class _$PaymentTypeImpl extends _PaymentType {
   @override
   int get hashCode => Object.hash(runtimeType, id, value, isActive);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentType
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentTypeImplCopyWith<_$PaymentTypeImpl> get copyWith =>
@@ -164,8 +172,11 @@ abstract class _PaymentType extends PaymentType {
   String get value;
   @override
   bool get isActive;
+
+  /// Create a copy of PaymentType
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentTypeImplCopyWith<_$PaymentTypeImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

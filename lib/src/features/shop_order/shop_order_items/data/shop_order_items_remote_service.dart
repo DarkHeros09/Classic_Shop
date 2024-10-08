@@ -7,6 +7,7 @@ import 'package:classic_shop/src/features/core/data/response_headers.dart';
 import 'package:classic_shop/src/features/core/data/response_headers_cache.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/data/shop_order_items_api.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/data/shop_order_items_dto.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class IShopOrderItemsRemoteService {
   Future<RemoteResponse<List<ShopOrderItemsDTO?>>> fetchShopOrderItems({
@@ -40,6 +41,7 @@ class ShopOrderItemsRemoteService implements IShopOrderItemsRemoteService {
         userId: userId.toString(),
         orderId: orderId.toString(),
       );
+      debugPrint('PPPOP ${response.statusCode}');
 
       if (response.statusCode == 304) {
         return const RemoteResponse.notModified(

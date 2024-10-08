@@ -23,7 +23,9 @@ mixin _$Promotions {
   List<CategoryPromotions>? get categoryPromotions =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Promotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PromotionsCopyWith<Promotions> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$PromotionsCopyWithImpl<$Res, $Val extends Promotions>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Promotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,6 +100,8 @@ class __$$PromotionsImplCopyWithImpl<$Res>
       _$PromotionsImpl _value, $Res Function(_$PromotionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Promotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -189,7 +195,9 @@ class _$PromotionsImpl extends _Promotions {
       const DeepCollectionEquality().hash(_brandPromotions),
       const DeepCollectionEquality().hash(_categoryPromotions));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Promotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionsImplCopyWith<_$PromotionsImpl> get copyWith =>
@@ -210,8 +218,11 @@ abstract class _Promotions extends Promotions {
   List<BrandPromotions>? get brandPromotions;
   @override
   List<CategoryPromotions>? get categoryPromotions;
+
+  /// Create a copy of Promotions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PromotionsImplCopyWith<_$PromotionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

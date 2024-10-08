@@ -50,7 +50,9 @@ mixin _$CategoryFailure {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CategoryFailureCopyWith<CategoryFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -74,6 +76,8 @@ class _$CategoryFailureCopyWithImpl<$Res, $Val extends CategoryFailure>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CategoryFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -105,6 +109,8 @@ class __$$ApiImplCopyWithImpl<$Res>
   __$$ApiImplCopyWithImpl(_$ApiImpl _value, $Res Function(_$ApiImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CategoryFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -144,7 +150,9 @@ class _$ApiImpl extends _Api {
   @override
   int get hashCode => Object.hash(runtimeType, errorCode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ApiImplCopyWith<_$ApiImpl> get copyWith =>
@@ -213,8 +221,11 @@ abstract class _Api extends CategoryFailure {
 
   @override
   int? get errorCode;
+
+  /// Create a copy of CategoryFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiImplCopyWith<_$ApiImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -30,8 +30,12 @@ mixin _$CredentialsDTO {
   @JsonKey(name: 'refresh_token_expires_at')
   DateTime? get refreshExpiration => throw _privateConstructorUsedError;
 
+  /// Serializes this CredentialsDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CredentialsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CredentialsDTOCopyWith<CredentialsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +67,8 @@ class _$CredentialsDTOCopyWithImpl<$Res, $Val extends CredentialsDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CredentialsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +107,8 @@ class _$CredentialsDTOCopyWithImpl<$Res, $Val extends CredentialsDTO>
     ) as $Val);
   }
 
+  /// Create a copy of CredentialsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserDTOCopyWith<$Res>? get user {
@@ -142,6 +150,8 @@ class __$$CredentialsDTOImplCopyWithImpl<$Res>
       _$CredentialsDTOImpl _value, $Res Function(_$CredentialsDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CredentialsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -250,12 +260,14 @@ class _$CredentialsDTOImpl extends _CredentialsDTO
                 other.refreshExpiration == refreshExpiration));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, user, userSessionId, accessToken,
       accessExpiration, refreshToken, refreshExpiration);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CredentialsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CredentialsDTOImplCopyWith<_$CredentialsDTOImpl> get copyWith =>
@@ -286,8 +298,8 @@ abstract class _CredentialsDTO extends CredentialsDTO {
       _$CredentialsDTOImpl.fromJson;
 
   @override
-  UserDTO? get user;
-  @override // required final TokenDTO? token,
+  UserDTO? get user; // required final TokenDTO? token,
+  @override
   String get userSessionId;
   @override
   String get accessToken;
@@ -299,8 +311,11 @@ abstract class _CredentialsDTO extends CredentialsDTO {
   @override
   @JsonKey(name: 'refresh_token_expires_at')
   DateTime? get refreshExpiration;
+
+  /// Create a copy of CredentialsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CredentialsDTOImplCopyWith<_$CredentialsDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

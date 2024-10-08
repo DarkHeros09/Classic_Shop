@@ -84,6 +84,9 @@ class _$RemoteResponseCopyWithImpl<T, $Res, $Val extends RemoteResponse<T>>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -100,6 +103,9 @@ class __$$NoConnectionImplCopyWithImpl<T, $Res>
   __$$NoConnectionImplCopyWithImpl(
       _$NoConnectionImpl<T> _value, $Res Function(_$NoConnectionImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -215,6 +221,9 @@ class __$$NoContentImplCopyWithImpl<T, $Res>
   __$$NoContentImplCopyWithImpl(
       _$NoContentImpl<T> _value, $Res Function(_$NoContentImpl<T>) _then)
       : super(_value, _then);
+
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -333,6 +342,8 @@ class __$$NotModifiedImplCopyWithImpl<T, $Res>
       _$NotModifiedImpl<T> _value, $Res Function(_$NotModifiedImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -372,7 +383,9 @@ class _$NotModifiedImpl<T> extends _NotModified<T> {
   @override
   int get hashCode => Object.hash(runtimeType, nextAvailable);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotModifiedImplCopyWith<T, _$NotModifiedImpl<T>> get copyWith =>
@@ -460,7 +473,10 @@ abstract class _NotModified<T> extends RemoteResponse<T> {
   const _NotModified._() : super._();
 
   bool get nextAvailable;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotModifiedImplCopyWith<T, _$NotModifiedImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -482,6 +498,8 @@ class __$$WithNewDataImplCopyWithImpl<T, $Res>
       _$WithNewDataImpl<T> _value, $Res Function(_$WithNewDataImpl<T>) _then)
       : super(_value, _then);
 
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -530,7 +548,9 @@ class _$WithNewDataImpl<T> extends _WithNewData<T> {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(data), nextAvailable);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$WithNewDataImplCopyWith<T, _$WithNewDataImpl<T>> get copyWith =>
@@ -619,7 +639,10 @@ abstract class _WithNewData<T> extends RemoteResponse<T> {
 
   T get data;
   bool get nextAvailable;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RemoteResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$WithNewDataImplCopyWith<T, _$WithNewDataImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -84,7 +84,9 @@ mixin _$ShopOrdersState {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShopOrdersStateCopyWith<ShopOrdersState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -110,6 +112,8 @@ class _$ShopOrdersStateCopyWithImpl<$Res, $Val extends ShopOrdersState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -123,6 +127,8 @@ class _$ShopOrdersStateCopyWithImpl<$Res, $Val extends ShopOrdersState>
     ) as $Val);
   }
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FreshCopyWith<List<ShopOrder>, $Res> get shopOrders {
@@ -154,6 +160,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -193,7 +201,9 @@ class _$InitialImpl extends _Initial {
   @override
   int get hashCode => Object.hash(runtimeType, shopOrders);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -297,8 +307,11 @@ abstract class _Initial extends ShopOrdersState {
 
   @override
   Fresh<List<ShopOrder>> get shopOrders;
+
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -325,6 +338,8 @@ class __$$LoadInProgressImplCopyWithImpl<$Res>
       _$LoadInProgressImpl _value, $Res Function(_$LoadInProgressImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -376,7 +391,9 @@ class _$LoadInProgressImpl extends _LoadInProgress {
   @override
   int get hashCode => Object.hash(runtimeType, shopOrders, itemsPerPage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
@@ -486,8 +503,11 @@ abstract class _LoadInProgress extends ShopOrdersState {
 // Fresh<List<ShopOrder>> shopOrdersDelivered,
 // Fresh<List<ShopOrder>> shopOrdersCancelled,
   int get itemsPerPage;
+
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -514,6 +534,8 @@ class __$$LoadSuccessImplCopyWithImpl<$Res>
       _$LoadSuccessImpl _value, $Res Function(_$LoadSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -563,7 +585,9 @@ class _$LoadSuccessImpl extends _LoadSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, shopOrders, isNextPageAvailable);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
@@ -668,8 +692,11 @@ abstract class _LoadSuccess extends ShopOrdersState {
   @override
   Fresh<List<ShopOrder>> get shopOrders;
   bool get isNextPageAvailable;
+
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -697,6 +724,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
       _$LoadFailureImpl _value, $Res Function(_$LoadFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -715,6 +744,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ShopOrderFailureCopyWith<$Res> get failure {
@@ -755,7 +786,9 @@ class _$LoadFailureImpl extends _LoadFailure {
   @override
   int get hashCode => Object.hash(runtimeType, shopOrders, failure);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
@@ -863,8 +896,11 @@ abstract class _LoadFailure extends ShopOrdersState {
 // Fresh<List<ShopOrder>> shopOrdersDelivered,
 // Fresh<List<ShopOrder>> shopOrdersCancelled,
   ShopOrderFailure get failure;
+
+  /// Create a copy of ShopOrdersState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

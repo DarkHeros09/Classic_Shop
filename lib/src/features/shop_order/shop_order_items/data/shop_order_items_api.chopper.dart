@@ -24,7 +24,7 @@ final class _$ShopOrderItemsApi extends ShopOrderItemsApi {
     required String orderId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-order-items/${orderId}');
+        'http://192.168.1.105:8080/usr/v1/users/${userId}/shop-order-items/${orderId}');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };

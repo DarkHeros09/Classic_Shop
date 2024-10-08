@@ -19,7 +19,7 @@ class LoadingCartProductCard extends StatelessWidget {
             color: Color(0x24000000),
             offset: Offset(0, 2),
             blurRadius: 4,
-          )
+          ),
         ],
         borderRadius: const BorderRadius.all(
           Radius.circular(8),
@@ -63,7 +63,7 @@ class LoadingCartProductCard extends StatelessWidget {
           ),
           const Positioned(
             bottom: 12,
-            left: 4,
+            left: 16,
             child: CustomShimmer(
               height: 16,
               width: 80,
@@ -78,7 +78,7 @@ class LoadingCartProductCard extends StatelessWidget {
               width: 100,
               borderRadius: 2,
             ),
-          )
+          ),
         ],
       ),
     );

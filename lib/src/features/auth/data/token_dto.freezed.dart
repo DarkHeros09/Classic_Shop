@@ -28,8 +28,12 @@ mixin _$TokenDTO {
   @JsonKey(name: 'refresh_token_expires_at')
   DateTime? get refreshExpiration => throw _privateConstructorUsedError;
 
+  /// Serializes this TokenDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TokenDTOCopyWith<TokenDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -57,6 +61,8 @@ class _$TokenDTOCopyWithImpl<$Res, $Val extends TokenDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -115,6 +121,8 @@ class __$$TokenDTOImplCopyWithImpl<$Res>
       _$TokenDTOImpl _value, $Res Function(_$TokenDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -199,12 +207,14 @@ class _$TokenDTOImpl extends _TokenDTO {
                 other.refreshExpiration == refreshExpiration));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, userSessionId, accessToken,
       accessExpiration, refreshToken, refreshExpiration);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TokenDTOImplCopyWith<_$TokenDTOImpl> get copyWith =>
@@ -244,8 +254,11 @@ abstract class _TokenDTO extends TokenDTO {
   @override
   @JsonKey(name: 'refresh_token_expires_at')
   DateTime? get refreshExpiration;
+
+  /// Create a copy of TokenDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TokenDTOImplCopyWith<_$TokenDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

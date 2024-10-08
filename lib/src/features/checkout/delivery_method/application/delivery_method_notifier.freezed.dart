@@ -76,7 +76,9 @@ mixin _$DeliveryMethodState {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DeliveryMethodStateCopyWith<DeliveryMethodState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -100,6 +102,8 @@ class _$DeliveryMethodStateCopyWithImpl<$Res, $Val extends DeliveryMethodState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,6 +137,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -180,7 +186,9 @@ class _$InitialImpl extends _Initial {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_deliveryMethods));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -275,8 +283,11 @@ abstract class _Initial extends DeliveryMethodState {
 
   @override
   List<DeliveryMethod> get deliveryMethods;
+
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -300,6 +311,8 @@ class __$$LoadInProgressImplCopyWithImpl<$Res>
       _$LoadInProgressImpl _value, $Res Function(_$LoadInProgressImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -347,7 +360,9 @@ class _$LoadInProgressImpl extends _LoadInProgress {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_deliveryMethods));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
@@ -443,8 +458,11 @@ abstract class _LoadInProgress extends DeliveryMethodState {
 
   @override
   List<DeliveryMethod> get deliveryMethods;
+
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -468,6 +486,8 @@ class __$$LoadSuccessImplCopyWithImpl<$Res>
       _$LoadSuccessImpl _value, $Res Function(_$LoadSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -515,7 +535,9 @@ class _$LoadSuccessImpl extends _LoadSuccess {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_deliveryMethods));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
@@ -610,8 +632,11 @@ abstract class _LoadSuccess extends DeliveryMethodState {
 
   @override
   List<DeliveryMethod> get deliveryMethods;
+
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -638,6 +663,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
       _$LoadFailureImpl _value, $Res Function(_$LoadFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -656,6 +683,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $DeliveryMethodFailureCopyWith<$Res> get failure {
@@ -703,7 +732,9 @@ class _$LoadFailureImpl extends _LoadFailure {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_deliveryMethods), failure);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
@@ -799,8 +830,11 @@ abstract class _LoadFailure extends DeliveryMethodState {
   @override
   List<DeliveryMethod> get deliveryMethods;
   DeliveryMethodFailure get failure;
+
+  /// Create a copy of DeliveryMethodState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

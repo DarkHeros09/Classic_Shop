@@ -85,7 +85,9 @@ mixin _$PromotedProductsState {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PromotedProductsStateCopyWith<PromotedProductsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -112,6 +114,8 @@ class _$PromotedProductsStateCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,6 +129,8 @@ class _$PromotedProductsStateCopyWithImpl<$Res,
     ) as $Val);
   }
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $FreshCopyWith<List<Product>, $Res> get promotedProducts {
@@ -157,6 +163,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -196,7 +204,9 @@ class _$InitialImpl extends _Initial {
   @override
   int get hashCode => Object.hash(runtimeType, promotedProducts);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -300,8 +310,11 @@ abstract class _Initial extends PromotedProductsState {
 
   @override
   Fresh<List<Product>> get promotedProducts;
+
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -328,6 +341,8 @@ class __$$LoadInProgressImplCopyWithImpl<$Res>
       _$LoadInProgressImpl _value, $Res Function(_$LoadInProgressImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -377,7 +392,9 @@ class _$LoadInProgressImpl extends _LoadInProgress {
   @override
   int get hashCode => Object.hash(runtimeType, promotedProducts, itemsPerPage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
@@ -484,8 +501,11 @@ abstract class _LoadInProgress extends PromotedProductsState {
   @override
   Fresh<List<Product>> get promotedProducts;
   int get itemsPerPage;
+
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -512,6 +532,8 @@ class __$$LoadSuccessImplCopyWithImpl<$Res>
       _$LoadSuccessImpl _value, $Res Function(_$LoadSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -563,7 +585,9 @@ class _$LoadSuccessImpl extends _LoadSuccess {
   int get hashCode =>
       Object.hash(runtimeType, promotedProducts, isNextPageAvailable);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
@@ -668,8 +692,11 @@ abstract class _LoadSuccess extends PromotedProductsState {
   @override
   Fresh<List<Product>> get promotedProducts;
   bool get isNextPageAvailable;
+
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -697,6 +724,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
       _$LoadFailureImpl _value, $Res Function(_$LoadFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -715,6 +744,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProductFailureCopyWith<$Res> get failure {
@@ -752,7 +783,9 @@ class _$LoadFailureImpl extends _LoadFailure {
   @override
   int get hashCode => Object.hash(runtimeType, promotedProducts, failure);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
@@ -857,8 +890,11 @@ abstract class _LoadFailure extends PromotedProductsState {
   @override
   Fresh<List<Product>> get promotedProducts;
   ProductFailure get failure;
+
+  /// Create a copy of PromotedProductsState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

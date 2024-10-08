@@ -1,6 +1,13 @@
+import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
 import 'package:classic_shop/src/features/cart/presentation/cart/widgets/cart_items_list.dart';
+import 'package:classic_shop/src/features/cart/presentation/cart/widgets/loading_cart_image.dart';
 import 'package:classic_shop/src/features/cart/shared/providers.dart';
+import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
+import 'package:classic_shop/src/features/wish_list/domain/wish_list_item.dart';
+import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
+import 'package:classic_shop/src/shared/toasts.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -51,7 +58,7 @@ class _CartProductCard extends StatelessWidget {
             color: Color(0x24000000),
             offset: Offset(0, 2),
             blurRadius: 4,
-          )
+          ),
         ],
         borderRadius: const BorderRadius.all(
           Radius.circular(8),
@@ -59,15 +66,30 @@ class _CartProductCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          Image.network(
-            cartItems.productImage!,
-            width: 128,
+          ExtendedImage.network(
+            loadStateChanged: (state) {
+              switch (state.extendedImageLoadState) {
+                case LoadState.loading:
+                  return const LoadingCartImage();
+                case LoadState.failed:
+                case LoadState.completed:
+                  return state.completedWidget;
+              }
+            },
+            shape: BoxShape.rectangle,
             height: 128,
+            width: 128,
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(8),
+              bottomRight: Radius.circular(8),
+            ),
             fit: BoxFit.cover,
+            cartItems.productImage ?? '',
+            cacheMaxAge: const Duration(days: 30),
           ),
           _ProductName(cartItems: cartItems),
-          const _ProductColor(),
-          const _ProductSize(),
+          _ProductColor(cartItems: cartItems),
+          _ProductSize(cartItems: cartItems),
           _OptionsButton(
             cartItems,
           ),
@@ -204,7 +226,7 @@ class _CounterButton extends StatelessWidget {
             color: Color(
               0x1A000000,
             ),
-          )
+          ),
         ],
       ),
       child: InkWell(
@@ -229,21 +251,116 @@ class _ProductPrice extends StatelessWidget {
 
   final ShopCartItem cartItems;
 
+  int discount() {
+    late final promos = <Promotion>[];
+    if (cartItems.productPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: cartItems.productPromoId,
+          promoName: cartItems.productPromoName,
+          promoDescription: cartItems.productPromoDescription,
+          promoDiscountRate: cartItems.productPromoDiscountRate,
+          promoActive: cartItems.productPromoActive,
+          promoStartDate: cartItems.productPromoStartDate,
+          promoEndDate: cartItems.productPromoEndDate,
+        ),
+      );
+    }
+    if (cartItems.categoryPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: cartItems.categoryPromoId,
+          promoName: cartItems.categoryPromoName,
+          promoDescription: cartItems.categoryPromoDescription,
+          promoDiscountRate: cartItems.categoryPromoDiscountRate,
+          promoActive: cartItems.categoryPromoActive,
+          promoStartDate: cartItems.categoryPromoStartDate,
+          promoEndDate: cartItems.categoryPromoEndDate,
+        ),
+      );
+    }
+    if (cartItems.brandPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: cartItems.brandPromoId,
+          promoName: cartItems.brandPromoName,
+          promoDescription: cartItems.brandPromoDescription,
+          promoDiscountRate: cartItems.brandPromoDiscountRate,
+          promoActive: cartItems.brandPromoActive,
+          promoStartDate: cartItems.brandPromoStartDate,
+          promoEndDate: cartItems.brandPromoEndDate,
+        ),
+      );
+    }
+
+    final validPromo = promos.where(
+      (promo) =>
+          promo.promoActive != null &&
+          promo.promoActive! &&
+          DateTime.now().isAfter(promo.promoStartDate!) &&
+          DateTime.now().isBefore(promo.promoEndDate!),
+    );
+
+    if (validPromo.isEmpty) return 0;
+    final bestPromo = validPromo.reduce(
+      (currentBest, nextPromo) =>
+          nextPromo.promoDiscountRate! > currentBest.promoDiscountRate!
+              ? nextPromo
+              : currentBest,
+    );
+
+    return bestPromo.promoDiscountRate!;
+  }
+
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final discountValue = discount();
+    final originalPrice =
+        (num.parse(cartItems.price!) * cartItems.qty).toStringAsFixed(2);
+    final discountedPrice = (num.parse(cartItems.price!) *
+            cartItems.qty *
+            (1 - (discountValue / 100)))
+        .toStringAsFixed(2);
     return Positioned(
       bottom: 12,
-      left: 4,
-      child: Row(
+      left: 16,
+      child: Column(
         children: [
-          Text(
-            '${cartItems.price} د.ل',
-            style: appTheme.textTheme.bodyMedium,
+          Stack(
+            children: [
+              Text(
+                '$originalPrice د.ل',
+                style: appTheme.textTheme.bodyMedium?.copyWith(
+                  fontWeight:
+                      discountValue != 0 ? FontWeight.normal : FontWeight.w700,
+                  color: discountValue != 0 ? const Color(0xFF9B9B9B) : null,
+                ),
+              ),
+              if (discountValue != 0)
+                const Positioned.fill(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Divider(
+                      color: Color(0xFF9B9B9B),
+                      // height: 25,
+                      thickness: 1,
+                    ),
+                  ),
+                ),
+            ],
           ),
-          const Icon(
-            Icons.price_check,
-          )
+          if (discountValue != 0) ...[
+            const SizedBox(width: 8),
+            Text(
+              '$discountedPrice د.ل',
+              style: appTheme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w700,
+                // color: const Color(0xFFB71C1C),
+                color: const Color(0xFFDB3022),
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -259,6 +376,15 @@ class _OptionsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
+    final wishListItem = ref.watch(
+      wishListNotifierProvider.select(
+        (value) => value.wishListItems.entity
+            .where(
+              (element) => element.productItemId == cartItems.productItemId,
+            )
+            .firstOrNull,
+      ),
+    );
     return Positioned(
       top: 0,
       left: 0,
@@ -267,6 +393,62 @@ class _OptionsButton extends ConsumerWidget {
         elevation: 16,
         itemBuilder: (context) => [
           PopupMenuItem(
+            onTap: () async {
+              final authUser =
+                  ref.read(authNotifierProvider.notifier).currentUser;
+              if (authUser != null) {
+                if (wishListItem != null) {
+                  await showQuickToast(
+                    'تمت إضافة هذا المنتج في قائمة الأمنيات بالفعل',
+                    context,
+                  );
+                }
+                await ref
+                    .read(wishListNotifierProvider.notifier)
+                    .createWishListItem(
+                      WishListItem(
+                        id: null,
+                        wishListId: authUser.wishListId,
+                        productItemId: cartItems.productItemId,
+                        name: cartItems.name,
+                        productImage: cartItems.productImage,
+                        color: cartItems.color,
+                        size: cartItems.size,
+                        price: cartItems.price,
+                        active: cartItems.active,
+                        createdAt: cartItems.createdAt,
+                        updatedAt: cartItems.updatedAt,
+                        categoryPromoId: cartItems.categoryPromoId,
+                        categoryPromoName: cartItems.categoryPromoName,
+                        categoryPromoDescription:
+                            cartItems.categoryPromoDescription,
+                        categoryPromoDiscountRate:
+                            cartItems.categoryPromoDiscountRate,
+                        categoryPromoActive: cartItems.categoryPromoActive,
+                        categoryPromoStartDate:
+                            cartItems.categoryPromoStartDate,
+                        categoryPromoEndDate: cartItems.categoryPromoEndDate,
+                        brandPromoId: cartItems.brandPromoId,
+                        brandPromoName: cartItems.brandPromoName,
+                        brandPromoDescription: cartItems.brandPromoDescription,
+                        brandPromoDiscountRate:
+                            cartItems.brandPromoDiscountRate,
+                        brandPromoActive: cartItems.brandPromoActive,
+                        brandPromoStartDate: cartItems.brandPromoStartDate,
+                        brandPromoEndDate: cartItems.brandPromoEndDate,
+                        productPromoId: cartItems.productPromoId,
+                        productPromoName: cartItems.productPromoName,
+                        productPromoDescription:
+                            cartItems.productPromoDescription,
+                        productPromoDiscountRate:
+                            cartItems.productPromoDiscountRate,
+                        productPromoActive: cartItems.productPromoActive,
+                        productPromoStartDate: cartItems.productPromoStartDate,
+                        productPromoEndDate: cartItems.productPromoEndDate,
+                      ),
+                    );
+              }
+            },
             value: 1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -321,8 +503,11 @@ class _OptionsButton extends ConsumerWidget {
 }
 
 class _ProductSize extends StatelessWidget {
-  const _ProductSize();
+  const _ProductSize({
+    required this.cartItems,
+  });
 
+  final ShopCartItem cartItems;
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
@@ -337,7 +522,7 @@ class _ProductSize extends StatelessWidget {
                 ?.copyWith(color: const Color(0xff7D7979)),
           ),
           Text(
-            'متوسط',
+            cartItems.size ?? '',
             style: appTheme.textTheme.bodySmall,
           ),
         ],
@@ -347,7 +532,11 @@ class _ProductSize extends StatelessWidget {
 }
 
 class _ProductColor extends StatelessWidget {
-  const _ProductColor();
+  const _ProductColor({
+    required this.cartItems,
+  });
+
+  final ShopCartItem cartItems;
 
   @override
   Widget build(BuildContext context) {
@@ -363,7 +552,7 @@ class _ProductColor extends StatelessWidget {
                 ?.copyWith(color: const Color(0xff7D7979)),
           ),
           Text(
-            'الاحمر',
+            cartItems.color ?? '',
             style: appTheme.textTheme.bodySmall,
           ),
         ],

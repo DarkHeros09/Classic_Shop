@@ -24,8 +24,12 @@ mixin _$BrandDTO {
   String get brandName => throw _privateConstructorUsedError;
   String get brandImage => throw _privateConstructorUsedError;
 
+  /// Serializes this BrandDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BrandDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BrandDTOCopyWith<BrandDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$BrandDTOCopyWithImpl<$Res, $Val extends BrandDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BrandDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -91,6 +97,8 @@ class __$$BrandDTOImplCopyWithImpl<$Res>
       _$BrandDTOImpl _value, $Res Function(_$BrandDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BrandDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -149,11 +157,13 @@ class _$BrandDTOImpl extends _BrandDTO {
                 other.brandImage == brandImage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, brandName, brandImage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BrandDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BrandDTOImplCopyWith<_$BrandDTOImpl> get copyWith =>
@@ -183,8 +193,11 @@ abstract class _BrandDTO extends BrandDTO {
   String get brandName;
   @override
   String get brandImage;
+
+  /// Create a copy of BrandDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BrandDTOImplCopyWith<_$BrandDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

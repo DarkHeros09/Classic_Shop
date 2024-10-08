@@ -20,7 +20,9 @@ mixin _$TextBanner {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextBanner
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TextBannerCopyWith<TextBanner> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$TextBannerCopyWithImpl<$Res, $Val extends TextBanner>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TextBanner
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$TextBannerImplCopyWithImpl<$Res>
       _$TextBannerImpl _value, $Res Function(_$TextBannerImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TextBanner
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,7 +149,9 @@ class _$TextBannerImpl implements _TextBanner {
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextBanner
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextBannerImplCopyWith<_$TextBannerImpl> get copyWith =>
@@ -162,8 +170,11 @@ abstract class _TextBanner implements TextBanner {
   String get name;
   @override
   String get description;
+
+  /// Create a copy of TextBanner
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextBannerImplCopyWith<_$TextBannerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

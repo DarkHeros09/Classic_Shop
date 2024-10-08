@@ -38,7 +38,7 @@ class ShopOrderItemsOrderNumberAndDate extends ConsumerWidget {
               style: appTheme.textTheme.bodySmall?.copyWith(
                 color: const Color(0xff858080),
               ),
-            )
+            ),
           ],
         ),
       ),

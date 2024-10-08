@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -66,15 +63,27 @@ class DefaultFirebaseOptions {
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
     storageBucket: 'notifications-3eca3.appspot.com',
+    androidClientId: '974728477095-vct1lphh064f6il19luibvngn3jpcuee.apps.googleusercontent.com',
     iosBundleId: 'com.example.classicShop',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDiwTSDmYJW8lb0SehT3JPurHMt17QhB1E',
-    appId: '1:974728477095:ios:67cacce42a3e4c28915e82',
+    appId: '1:974728477095:ios:248f305b3c64b836915e82',
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
     storageBucket: 'notifications-3eca3.appspot.com',
-    iosBundleId: 'com.example.classicShop.RunnerTests',
+    androidClientId: '974728477095-vct1lphh064f6il19luibvngn3jpcuee.apps.googleusercontent.com',
+    iosBundleId: 'com.example.classicShop',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyClafUnB1h0y-1s0C8CPpmemyp5G0qiWyY',
+    appId: '1:974728477095:web:d6a2d9e653f2477d915e82',
+    messagingSenderId: '974728477095',
+    projectId: 'notifications-3eca3',
+    authDomain: 'notifications-3eca3.firebaseapp.com',
+    storageBucket: 'notifications-3eca3.appspot.com',
+  );
+
 }

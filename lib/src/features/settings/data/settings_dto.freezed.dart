@@ -25,8 +25,12 @@ mixin _$SettingsDTO {
   bool get getDeliveryStatusNotification => throw _privateConstructorUsedError;
   bool get isDarkMode => throw _privateConstructorUsedError;
 
+  /// Serializes this SettingsDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SettingsDTOCopyWith<SettingsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +58,8 @@ class _$SettingsDTOCopyWithImpl<$Res, $Val extends SettingsDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SettingsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,6 +112,8 @@ class __$$SettingsDTOImplCopyWithImpl<$Res>
       _$SettingsDTOImpl _value, $Res Function(_$SettingsDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -181,12 +189,14 @@ class _$SettingsDTOImpl extends _SettingsDTO {
                 other.isDarkMode == isDarkMode));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, getSalesNotification,
       getNewProductsNotification, getDeliveryStatusNotification, isDarkMode);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SettingsDTOImplCopyWith<_$SettingsDTOImpl> get copyWith =>
@@ -219,8 +229,11 @@ abstract class _SettingsDTO extends SettingsDTO {
   bool get getDeliveryStatusNotification;
   @override
   bool get isDarkMode;
+
+  /// Create a copy of SettingsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SettingsDTOImplCopyWith<_$SettingsDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

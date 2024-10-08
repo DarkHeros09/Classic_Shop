@@ -1,4 +1,7 @@
+import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
 import 'package:classic_shop/src/features/cart/shared/providers.dart';
+import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -17,23 +20,23 @@ class FirstTabBottom extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SizedBox(
-            height: 40,
-            child: Row(
-              children: [
-                DiscountOkButton(),
-                SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: DiscountTextField(),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
+          // SizedBox(
+          //   height: 40,
+          //   child: Row(
+          //     children: [
+          //       DiscountOkButton(),
+          //       SizedBox(
+          //         width: 12,
+          //       ),
+          //       Expanded(
+          //         child: DiscountTextField(),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(
+          //   height: 20,
+          // ),
           TotalBottomBar(),
           SizedBox(
             height: 20,
@@ -105,16 +108,84 @@ class TotalBottomBar extends ConsumerWidget {
     super.key,
   });
 
+  int discount(ShopCartItem cartItem) {
+    late final promos = <Promotion>[];
+    if (cartItem.productPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: cartItem.productPromoId,
+          promoName: cartItem.productPromoName,
+          promoDescription: cartItem.productPromoDescription,
+          promoDiscountRate: cartItem.productPromoDiscountRate,
+          promoActive: cartItem.productPromoActive,
+          promoStartDate: cartItem.productPromoStartDate,
+          promoEndDate: cartItem.productPromoEndDate,
+        ),
+      );
+    }
+    if (cartItem.categoryPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: cartItem.categoryPromoId,
+          promoName: cartItem.categoryPromoName,
+          promoDescription: cartItem.categoryPromoDescription,
+          promoDiscountRate: cartItem.categoryPromoDiscountRate,
+          promoActive: cartItem.categoryPromoActive,
+          promoStartDate: cartItem.categoryPromoStartDate,
+          promoEndDate: cartItem.categoryPromoEndDate,
+        ),
+      );
+    }
+    if (cartItem.brandPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: cartItem.brandPromoId,
+          promoName: cartItem.brandPromoName,
+          promoDescription: cartItem.brandPromoDescription,
+          promoDiscountRate: cartItem.brandPromoDiscountRate,
+          promoActive: cartItem.brandPromoActive,
+          promoStartDate: cartItem.brandPromoStartDate,
+          promoEndDate: cartItem.brandPromoEndDate,
+        ),
+      );
+    }
+
+    final validPromo = promos.where(
+      (promo) =>
+          promo.promoActive != null &&
+          promo.promoActive! &&
+          DateTime.now().isAfter(promo.promoStartDate!) &&
+          DateTime.now().isBefore(promo.promoEndDate!),
+    );
+
+    if (validPromo.isEmpty) return 0;
+    final bestPromo = validPromo.reduce(
+      (currentBest, nextPromo) =>
+          nextPromo.promoDiscountRate! > currentBest.promoDiscountRate!
+              ? nextPromo
+              : currentBest,
+    );
+
+    return bestPromo.promoDiscountRate!;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
     final state = ref.watch(cartNotifierProvider);
-    final cartItemsPrice = state.mapOrNull(
+    final cartItems = state.mapOrNull(
       loadSuccess: (_) => _.cartItems.entity,
     );
-    final sum = cartItemsPrice?.fold<num>(
+    final sum = cartItems?.fold<num>(
           0,
-          (previous, value) => previous + (num.parse(value.price!) * value.qty),
+          (previous, cartItem) {
+            final discountValue = discount(cartItem);
+            final discountedPrice = (num.parse(cartItem.price!) *
+                    cartItem.qty *
+                    (1 - (discountValue / 100)))
+                .toStringAsFixed(2);
+            return previous + num.parse(discountedPrice);
+          },
         ) ??
         0;
     return Row(
@@ -134,9 +205,9 @@ class TotalBottomBar extends ConsumerWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            const Icon(Icons.price_check)
+            const Icon(Icons.price_check),
           ],
-        )
+        ),
       ],
     );
   }
@@ -153,8 +224,11 @@ class FinishPurchaseButton extends ConsumerWidget {
     // final previousPath = ref.watch(previousPathProvider.notifier);
     return InkWell(
       onTap: () {
-        // previousPath.path = '/cart/checkout';
-        context.goNamed(AppRoute.checkout.name);
+        final user = ref.watch(authNotifierProvider.notifier).currentUser;
+        if (user != null) {
+          // previousPath.path = '/cart/checkout';
+          context.goNamed(AppRoute.checkout.name);
+        }
       },
       child: Container(
         height: 56,

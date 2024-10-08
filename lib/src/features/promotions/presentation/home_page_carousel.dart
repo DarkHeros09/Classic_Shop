@@ -24,8 +24,8 @@ class CarouselIndexNotifier extends Notifier<int> {
 final carouselIndexNotifierProvider =
     NotifierProvider<CarouselIndexNotifier, int>(CarouselIndexNotifier.new);
 
-final carouselControllerProvider = Provider<CarouselController>((ref) {
-  return CarouselController();
+final carouselControllerProvider = Provider<CarouselSliderController>((ref) {
+  return CarouselSliderController();
 });
 
 final carouselCardIndexProvider =

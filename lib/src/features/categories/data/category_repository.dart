@@ -21,7 +21,7 @@ class CategoryRepository {
     try {
       final requestUri = Uri.http(
         Env.httpAddress,
-        '/usr/v1/categories',
+        '/api/v1/categories',
       );
       final category = await _remoteService.fetchCategories(
         requestUri: requestUri,

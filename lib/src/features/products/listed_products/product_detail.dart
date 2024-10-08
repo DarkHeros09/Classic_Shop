@@ -307,10 +307,46 @@ class _ProductDetailBottomButtonsBar extends HookConsumerWidget {
                                   name: product.name,
                                   qty: 1,
                                   productImage: product.productImage1,
+                                  color: product.color,
+                                  size: product.size,
                                   price: product.price,
                                   active: product.active,
                                   createdAt: product.createdAt,
                                   updatedAt: product.updatedAt,
+                                  categoryPromoId: product.categoryPromoId,
+                                  categoryPromoName: product.categoryPromoName,
+                                  categoryPromoDescription:
+                                      product.categoryPromoDescription,
+                                  categoryPromoDiscountRate:
+                                      product.categoryPromoDiscountRate,
+                                  categoryPromoActive:
+                                      product.categoryPromoActive,
+                                  categoryPromoStartDate:
+                                      product.categoryPromoStartDate,
+                                  categoryPromoEndDate:
+                                      product.categoryPromoEndDate,
+                                  brandPromoId: product.brandPromoId,
+                                  brandPromoName: product.brandPromoName,
+                                  brandPromoDescription:
+                                      product.brandPromoDescription,
+                                  brandPromoDiscountRate:
+                                      product.brandPromoDiscountRate,
+                                  brandPromoActive: product.brandPromoActive,
+                                  brandPromoStartDate:
+                                      product.brandPromoStartDate,
+                                  brandPromoEndDate: product.brandPromoEndDate,
+                                  productPromoId: product.productPromoId,
+                                  productPromoName: product.productPromoName,
+                                  productPromoDescription:
+                                      product.productPromoDescription,
+                                  productPromoDiscountRate:
+                                      product.productPromoDiscountRate,
+                                  productPromoActive:
+                                      product.productPromoActive,
+                                  productPromoStartDate:
+                                      product.productPromoStartDate,
+                                  productPromoEndDate:
+                                      product.productPromoEndDate,
                                 ),
                               );
                           await Future(
@@ -502,7 +538,7 @@ class _ProductImages extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
-    final carouselController = CarouselController();
+    final carouselController = CarouselSliderController();
     // final priceTagIcon = ref.read(
     //   siAssetsProvider.select(
     //     (value) => value
@@ -776,10 +812,37 @@ class _ProductDetailAppBar extends HookConsumerWidget {
                         productItemId: product.id,
                         name: product.name,
                         productImage: product.productImage1,
+                        color: product.color,
+                        size: product.size,
                         price: product.price,
                         active: product.active,
-                        createdAt: null,
-                        updatedAt: null,
+                        createdAt: product.createdAt,
+                        updatedAt: product.updatedAt,
+                        categoryPromoId: product.categoryPromoId,
+                        categoryPromoName: product.categoryPromoName,
+                        categoryPromoDescription:
+                            product.categoryPromoDescription,
+                        categoryPromoDiscountRate:
+                            product.categoryPromoDiscountRate,
+                        categoryPromoActive: product.categoryPromoActive,
+                        categoryPromoStartDate: product.categoryPromoStartDate,
+                        categoryPromoEndDate: product.categoryPromoEndDate,
+                        brandPromoId: product.brandPromoId,
+                        brandPromoName: product.brandPromoName,
+                        brandPromoDescription: product.brandPromoDescription,
+                        brandPromoDiscountRate: product.brandPromoDiscountRate,
+                        brandPromoActive: product.brandPromoActive,
+                        brandPromoStartDate: product.brandPromoStartDate,
+                        brandPromoEndDate: product.brandPromoEndDate,
+                        productPromoId: product.productPromoId,
+                        productPromoName: product.productPromoName,
+                        productPromoDescription:
+                            product.productPromoDescription,
+                        productPromoDiscountRate:
+                            product.productPromoDiscountRate,
+                        productPromoActive: product.productPromoActive,
+                        productPromoStartDate: product.productPromoStartDate,
+                        productPromoEndDate: product.productPromoEndDate,
                       ),
                     );
               }

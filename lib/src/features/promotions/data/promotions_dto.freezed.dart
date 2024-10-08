@@ -23,7 +23,9 @@ mixin _$PromotionsDTO {
   List<CategoryPromotionsDTO>? get categoryPromotions =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PromotionsDTOCopyWith<PromotionsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +52,8 @@ class _$PromotionsDTOCopyWithImpl<$Res, $Val extends PromotionsDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -96,6 +100,8 @@ class __$$PromotionsDTOImplCopyWithImpl<$Res>
       _$PromotionsDTOImpl _value, $Res Function(_$PromotionsDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -189,7 +195,9 @@ class _$PromotionsDTOImpl extends _PromotionsDTO {
       const DeepCollectionEquality().hash(_brandPromotions),
       const DeepCollectionEquality().hash(_categoryPromotions));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionsDTOImplCopyWith<_$PromotionsDTOImpl> get copyWith =>
@@ -210,8 +218,11 @@ abstract class _PromotionsDTO extends PromotionsDTO {
   List<BrandPromotionsDTO>? get brandPromotions;
   @override
   List<CategoryPromotionsDTO>? get categoryPromotions;
+
+  /// Create a copy of PromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PromotionsDTOImplCopyWith<_$PromotionsDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

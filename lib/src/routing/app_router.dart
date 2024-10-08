@@ -40,6 +40,7 @@ enum AppRoute {
   selectedCategory,
   cart,
   checkout,
+  checkoutAddress,
   checkoutSuccess,
   profile,
   address,
@@ -286,6 +287,30 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     // },
                     routes: [
                       GoRoute(
+                        path: 'address',
+                        name: AppRoute.checkoutAddress.name,
+                        parentNavigatorKey: _rootNavigatorKey,
+                        pageBuilder: (context, state) {
+                          return CustomTransitionPage(
+                            child: const AddressPage(),
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      GoRoute(
                         path: 'successs',
                         name: AppRoute.checkoutSuccess.name,
                         parentNavigatorKey: _rootNavigatorKey,
@@ -388,6 +413,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                             child: ShopOrderItemsDetails(
                               orderId: orderId,
                               orderNumber: shopOrder?.orderNumber ?? 0,
+                              trackNumber: shopOrder?.trackNumber ?? '',
+                              itemCount: shopOrder?.itemCount ?? 0,
                             ),
                             transitionsBuilder: (
                               context,

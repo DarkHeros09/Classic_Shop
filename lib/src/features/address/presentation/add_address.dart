@@ -40,7 +40,7 @@ class AddAddress extends ConsumerWidget {
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: const Text('إلغاء'),
-                )
+                ),
               ],
             ),
             const SliverToBoxAdapter(
@@ -54,6 +54,7 @@ class AddAddress extends ConsumerWidget {
                 child: FormBuilder(
                   key: formKey,
                   initialValue: {
+                    'name': address?.name,
                     'city': address?.city,
                     'region': address?.region,
                     'deliveryAddress': address?.addressLine,
@@ -68,6 +69,13 @@ class AddAddress extends ConsumerWidget {
                       // SizedBox(height: 4),
                       // _CustomFormBuilderTextField(name: 'fullName'),
                       // SizedBox(height: 16),
+                      const _TextFieldLabel(
+                        labelName: 'الإسم',
+                        icon: Icons.location_city_rounded,
+                      ),
+                      const SizedBox(height: 4),
+                      const _CustomFormBuilderTextField(name: 'name'),
+                      const SizedBox(height: 16),
                       const _TextFieldLabel(
                         labelName: 'المدينة',
                         icon: Icons.location_city_rounded,
@@ -97,7 +105,7 @@ class AddAddress extends ConsumerWidget {
                       // ),
                       // SizedBox(height: 4),
                       // _CustomFormBuilderTextField(name: 'phoneNumber'),
-                      _AddressSaveButton(address)
+                      _AddressSaveButton(address),
                     ],
                   ),
                 ),
@@ -135,6 +143,7 @@ class _AddressSaveButton extends ConsumerWidget {
                     userId: user.id,
                     id: address?.id,
                     defaultAddress: address?.defaultAddress,
+                    name: values?['name']?.value.toString() ?? '',
                     addressLine:
                         values?['deliveryAddress']?.value.toString() ?? '',
                     region: values?['region']?.value.toString() ?? '',
@@ -149,6 +158,7 @@ class _AddressSaveButton extends ConsumerWidget {
                     userId: user.id,
                     id: null,
                     defaultAddress: address?.defaultAddress,
+                    name: values?['name']?.value.toString() ?? '',
                     addressLine:
                         values?['deliveryAddress']?.value.toString() ?? '',
                     region: values?['region']?.value.toString() ?? '',

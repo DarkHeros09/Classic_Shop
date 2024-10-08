@@ -65,14 +65,17 @@ class _AddressCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'محمد نجيب بن غزي',
+                address?.name ?? '',
                 style: appTheme.textTheme.bodySmall!
                     .copyWith(fontWeight: FontWeight.w700),
               ),
-              Text(
-                'تغيير',
-                style: appTheme.textTheme.bodyLarge!
-                    .copyWith(color: const Color(0xff9D331F)),
+              GestureDetector(
+                onTap: () => context.goNamed(AppRoute.checkoutAddress.name),
+                child: Text(
+                  'تغيير',
+                  style: appTheme.textTheme.bodyLarge!
+                      .copyWith(color: const Color(0xff9D331F)),
+                ),
               ),
             ],
           ),
@@ -100,7 +103,7 @@ class _AddAddressButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
-      onPressed: () => context.pushNamed(AppRoute.address.name),
+      onPressed: () => context.goNamed(AppRoute.checkoutAddress.name),
       icon: const Icon(Icons.add_box),
       label: const Text('إضافة عنوان'),
       // style: ElevatedButton.styleFrom(

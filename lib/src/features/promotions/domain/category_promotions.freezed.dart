@@ -23,7 +23,9 @@ mixin _$CategoryPromotions {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CategoryPromotionsCopyWith<CategoryPromotions> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$CategoryPromotionsCopyWithImpl<$Res, $Val extends CategoryPromotions>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CategoryPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,6 +121,8 @@ class __$$CategoryPromotionsImplCopyWithImpl<$Res>
       $Res Function(_$CategoryPromotionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CategoryPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -207,7 +213,9 @@ class _$CategoryPromotionsImpl extends _CategoryPromotions {
   int get hashCode => Object.hash(runtimeType, categoryId, promotionId,
       categoryPromotionImage, active, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CategoryPromotionsImplCopyWith<_$CategoryPromotionsImpl> get copyWith =>
@@ -237,8 +245,11 @@ abstract class _CategoryPromotions extends CategoryPromotions {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+
+  /// Create a copy of CategoryPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CategoryPromotionsImplCopyWith<_$CategoryPromotionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

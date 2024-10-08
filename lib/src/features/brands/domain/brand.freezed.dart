@@ -20,7 +20,9 @@ mixin _$Brand {
   String get brandName => throw _privateConstructorUsedError;
   String get brandImage => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Brand
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BrandCopyWith<Brand> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -42,6 +44,8 @@ class _$BrandCopyWithImpl<$Res, $Val extends Brand>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Brand
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -84,6 +88,8 @@ class __$$BrandImplCopyWithImpl<$Res>
       _$BrandImpl _value, $Res Function(_$BrandImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Brand
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -141,7 +147,9 @@ class _$BrandImpl implements _Brand {
   @override
   int get hashCode => Object.hash(runtimeType, id, brandName, brandImage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Brand
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BrandImplCopyWith<_$BrandImpl> get copyWith =>
@@ -160,8 +168,11 @@ abstract class _Brand implements Brand {
   String get brandName;
   @override
   String get brandImage;
+
+  /// Create a copy of Brand
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BrandImplCopyWith<_$BrandImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

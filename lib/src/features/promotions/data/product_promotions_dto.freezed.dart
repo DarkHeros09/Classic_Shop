@@ -27,8 +27,12 @@ mixin _$ProductPromotionsDTO {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
+  /// Serializes this ProductPromotionsDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ProductPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProductPromotionsDTOCopyWith<ProductPromotionsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -59,6 +63,8 @@ class _$ProductPromotionsDTOCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProductPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -123,6 +129,8 @@ class __$$ProductPromotionsDTOImplCopyWithImpl<$Res>
       $Res Function(_$ProductPromotionsDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProductPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -212,12 +220,14 @@ class _$ProductPromotionsDTOImpl extends _ProductPromotionsDTO {
             (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, productId, promotionId,
       productPromotionImage, active, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProductPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProductPromotionsDTOImplCopyWith<_$ProductPromotionsDTOImpl>
@@ -258,8 +268,11 @@ abstract class _ProductPromotionsDTO extends ProductPromotionsDTO {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+
+  /// Create a copy of ProductPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProductPromotionsDTOImplCopyWith<_$ProductPromotionsDTOImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

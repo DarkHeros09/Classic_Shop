@@ -25,7 +25,7 @@ final class _$ShopOrderApi extends ShopOrderApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-orders');
+        'http://192.168.1.105:8080/usr/v1/users/${userId}/shop-orders');
     final Map<String, dynamic> $params = <String, dynamic>{
       'page_id': pageId,
       'page_size': pageSize,
@@ -52,7 +52,7 @@ final class _$ShopOrderApi extends ShopOrderApi {
     String? orderStatus,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-orders-v2');
+        'http://192.168.1.105:8080/usr/v1/users/${userId}/shop-orders-v2');
     final Map<String, dynamic> $params = <String, dynamic>{
       'limit': pageSize,
       'order_status': orderStatus,
@@ -80,7 +80,7 @@ final class _$ShopOrderApi extends ShopOrderApi {
     String? orderStatus,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.104:8080/usr/v1/users/${userId}/shop-orders-next-page');
+        'http://192.168.1.105:8080/usr/v1/users/${userId}/shop-orders-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'cursor': lastItemId,
       'limit': pageSize,

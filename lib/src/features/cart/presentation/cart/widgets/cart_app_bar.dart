@@ -37,7 +37,7 @@ class CartAppBar extends StatelessWidget {
               text: 'قائمة الامنيات',
             ),
           ],
-        )
+        ),
       ],
     );
   }

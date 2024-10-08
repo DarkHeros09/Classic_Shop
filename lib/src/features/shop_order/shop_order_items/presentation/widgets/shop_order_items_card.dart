@@ -21,6 +21,13 @@ class ShopOrderItemsCard extends ConsumerWidget {
         ),
       ),
     );
+    debugPrint('ssddss price ${shopOrderItems?.price}');
+    debugPrint('ssddss ${shopOrderItems?.discount}');
+    debugPrint('ssddss quan ${shopOrderItems?.quantity}');
+    final discountedPrice = (num.parse(shopOrderItems?.price ?? '') *
+            (shopOrderItems?.quantity ?? 1) *
+            (1 - ((shopOrderItems?.discount ?? 0) / 100)))
+        .toStringAsFixed(2);
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
@@ -36,7 +43,7 @@ class ShopOrderItemsCard extends ConsumerWidget {
               color: Color(0x24000000),
               offset: Offset(0, 2),
               blurRadius: 4,
-            )
+            ),
           ],
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
@@ -68,7 +75,7 @@ class ShopOrderItemsCard extends ConsumerWidget {
               right: 144,
               top: 43,
               child: Text(
-                'اللون: الاحمر',
+                'اللون: ${shopOrderItems?.productColor}',
                 style: appTheme.textTheme.labelMedium,
               ),
             ),
@@ -76,24 +83,52 @@ class ShopOrderItemsCard extends ConsumerWidget {
               right: 250,
               top: 43,
               child: Text(
-                'الحجم: متوسط',
+                'الحجم: ${shopOrderItems?.productSize}',
                 style: appTheme.textTheme.labelMedium,
               ),
             ),
             Positioned(
               bottom: 12,
-              left: 4,
-              child: Row(
+              left: 16,
+              child: Column(
                 children: [
-                  Text(
-                    '${shopOrderItems?.price} د.ل',
-                    style: appTheme.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
+                  Stack(
+                    children: [
+                      Text(
+                        '${shopOrderItems?.price} د.ل',
+                        style: appTheme.textTheme.bodyMedium?.copyWith(
+                          fontWeight: shopOrderItems?.discount != 0
+                              ? FontWeight.normal
+                              : FontWeight.w700,
+                          color: shopOrderItems?.discount != 0
+                              ? const Color(0xFF9B9B9B)
+                              : null,
+                        ),
+                      ),
+                      if (shopOrderItems?.discount != 0)
+                        const Positioned.fill(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Divider(
+                              color: Color(0xFF9B9B9B),
+                              // height: 25,
+                              thickness: 1,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
-                  const Icon(
-                    Icons.price_check,
-                  )
+                  if (shopOrderItems?.discount != 0) ...[
+                    const SizedBox(width: 8),
+                    Text(
+                      '$discountedPrice د.ل',
+                      style: appTheme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        // color: const Color(0xFFB71C1C),
+                        color: const Color(0xFFDB3022),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -104,7 +139,7 @@ class ShopOrderItemsCard extends ConsumerWidget {
                 'الكمية: ${shopOrderItems?.quantity}',
                 style: appTheme.textTheme.labelMedium,
               ),
-            )
+            ),
           ],
         ),
       ),

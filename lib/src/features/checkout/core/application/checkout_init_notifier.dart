@@ -29,9 +29,9 @@ class CheckoutInitNotifier extends AutoDisposeNotifier<CheckoutInitState> {
   }
 
   Future<void> intiCheckout() async {
-    state = const CheckoutInitState.loadInProgress();
     final user = await ref.read(userStorageProvider).read();
     if (user != null) {
+      state = const CheckoutInitState.loadInProgress();
       await Future.wait([
         ref.read(paymentTypeNotifierProvider.notifier).listPaymentTypes(),
         ref.read(addressNotifierProvider.notifier).fetchAddress(user.id),

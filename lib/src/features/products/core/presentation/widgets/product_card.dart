@@ -1,4 +1,6 @@
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
+import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
+import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_image.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -14,23 +16,64 @@ class ProductCard extends HookConsumerWidget {
   final Product product;
 
   int discount() {
-    late final int discount;
-    final promo = (
-      product.productPromoActive,
-      product.categoryPromoActive,
-      product.brandPromoActive
-    );
-    switch (promo) {
-      case (true, _, _):
-        discount = product.productPromoDiscountRate ?? 0;
-      case (_, true, _):
-        discount = product.categoryPromoDiscountRate ?? 0;
-      case (_, _, true):
-        discount = product.brandPromoDiscountRate ?? 0;
-      default:
-        discount = 0;
+    late final promos = <Promotion>[];
+    if (product.productPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: product.productPromoId,
+          promoName: product.productPromoName,
+          promoDescription: product.productPromoDescription,
+          promoDiscountRate: product.productPromoDiscountRate,
+          promoActive: product.productPromoActive,
+          promoStartDate: product.productPromoStartDate,
+          promoEndDate: product.productPromoEndDate,
+        ),
+      );
     }
-    return discount;
+    if (product.categoryPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: product.categoryPromoId,
+          promoName: product.categoryPromoName,
+          promoDescription: product.categoryPromoDescription,
+          promoDiscountRate: product.categoryPromoDiscountRate,
+          promoActive: product.categoryPromoActive,
+          promoStartDate: product.categoryPromoStartDate,
+          promoEndDate: product.categoryPromoEndDate,
+        ),
+      );
+    }
+    if (product.brandPromoDiscountRate != null) {
+      promos.add(
+        Promotion(
+          promoId: product.brandPromoId,
+          promoName: product.brandPromoName,
+          promoDescription: product.brandPromoDescription,
+          promoDiscountRate: product.brandPromoDiscountRate,
+          promoActive: product.brandPromoActive,
+          promoStartDate: product.brandPromoStartDate,
+          promoEndDate: product.brandPromoEndDate,
+        ),
+      );
+    }
+
+    final validPromo = promos.where(
+      (promo) =>
+          promo.promoActive != null &&
+          promo.promoActive! &&
+          DateTime.now().isAfter(promo.promoStartDate!) &&
+          DateTime.now().isBefore(promo.promoEndDate!),
+    );
+
+    if (validPromo.isEmpty) return 0;
+    final bestPromo = validPromo.reduce(
+      (currentBest, nextPromo) =>
+          nextPromo.promoDiscountRate! > currentBest.promoDiscountRate!
+              ? nextPromo
+              : currentBest,
+    );
+
+    return bestPromo.promoDiscountRate!;
   }
 
   @override
@@ -39,9 +82,9 @@ class ProductCard extends HookConsumerWidget {
     // final controller =
     //     useAnimationController(initialValue: product.qtyInStock == 0 ? .5 : 1);
     final discountValue = discount();
-    final discountedPrice = (num.parse(product.price) -
-            num.parse(product.price) * discountValue / 100)
-        .toStringAsFixed(2);
+    final discountedPrice =
+        (num.parse(product.price) * (1 - (discountValue / 100)))
+            .toStringAsFixed(2);
     // final priceTagIcon = ref.read(
     //   siAssetsProvider.select(
     //     (value) => value
@@ -63,28 +106,37 @@ class ProductCard extends HookConsumerWidget {
           ),
           child: Stack(
             children: [
-              Container(
+              ExtendedImage.network(
+                loadStateChanged: (state) {
+                  switch (state.extendedImageLoadState) {
+                    case LoadState.loading:
+                      return const LoadingProductImage();
+                    case LoadState.failed:
+                    case LoadState.completed:
+                      return ColorFiltered(
+                        colorFilter: product.qtyInStock == 0
+                            ? const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.color,
+                              )
+                            : const ColorFilter.mode(
+                                Colors.transparent,
+                                BlendMode.color,
+                              ),
+                        child: state.completedWidget,
+                      );
+                  }
+                },
+                shape: BoxShape.rectangle,
+                opacity: product.qtyInStock == 0
+                    ? const AlwaysStoppedAnimation<double>(.5)
+                    : const AlwaysStoppedAnimation<double>(1),
                 height: 224,
                 width: 190,
-                // clipBehavior: Clip.antiAliasWithSaveLayer,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    opacity: product.qtyInStock == 0 ? .5 : 1,
-                    colorFilter: product.qtyInStock == 0
-                        ? const ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.color,
-                          )
-                        : null,
-                    image: ExtendedNetworkImageProvider(
-                      product.productImage1,
-                      cache: true,
-                      cacheMaxAge: const Duration(days: 30),
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                ),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                fit: BoxFit.cover,
+                product.productImage1,
+                cacheMaxAge: const Duration(days: 30),
               ),
               if (DateTime.now().difference(product.createdAt).inDays <= 7 &&
                   product.qtyInStock != 0)

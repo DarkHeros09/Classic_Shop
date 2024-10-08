@@ -1,4 +1,5 @@
 import 'package:classic_shop/src/features/categories/presentation/widgets/categories_list_view.dart';
+import 'package:classic_shop/src/features/categories/presentation/widgets/loading_category_image.dart';
 import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/products/core/presentation/widgets/category_chip_row.dart';
 import 'package:classic_shop/src/features/products/core/shared/providers.dart';
@@ -52,7 +53,7 @@ class CategoryCard extends HookConsumerWidget {
               color: Color(0x24000000),
               blurRadius: 4,
               offset: Offset(0, 2),
-            )
+            ),
           ],
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
@@ -67,17 +68,25 @@ class CategoryCard extends HookConsumerWidget {
                   Text(
                     category.categoryName,
                     style: appTheme.textTheme.headlineSmall,
-                  )
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: ExtendedImage.network(
-                enableLoadState: false,
+                loadStateChanged: (state) {
+                  switch (state.extendedImageLoadState) {
+                    case LoadState.loading:
+                      return const LoadingCategoryImage();
+                    case LoadState.failed:
+                    case LoadState.completed:
+                      return state.completedWidget;
+                  }
+                },
                 fit: BoxFit.cover,
                 category.categoryImage,
               ),
-            )
+            ),
           ],
         ),
       ),

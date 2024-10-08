@@ -24,8 +24,12 @@ mixin _$TextBannerDTO {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
+  /// Serializes this TextBannerDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TextBannerDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TextBannerDTOCopyWith<TextBannerDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$TextBannerDTOCopyWithImpl<$Res, $Val extends TextBannerDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TextBannerDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$TextBannerDTOImplCopyWithImpl<$Res>
       _$TextBannerDTOImpl _value, $Res Function(_$TextBannerDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TextBannerDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -149,11 +157,13 @@ class _$TextBannerDTOImpl extends _TextBannerDTO {
                 other.description == description));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, description);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TextBannerDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TextBannerDTOImplCopyWith<_$TextBannerDTOImpl> get copyWith =>
@@ -183,8 +193,11 @@ abstract class _TextBannerDTO extends TextBannerDTO {
   String get name;
   @override
   String get description;
+
+  /// Create a copy of TextBannerDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TextBannerDTOImplCopyWith<_$TextBannerDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

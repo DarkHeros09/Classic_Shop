@@ -28,8 +28,12 @@ mixin _$CategoryPromotionsDTO {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
+  /// Serializes this CategoryPromotionsDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CategoryPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CategoryPromotionsDTOCopyWith<CategoryPromotionsDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -60,6 +64,8 @@ class _$CategoryPromotionsDTOCopyWithImpl<$Res,
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CategoryPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -126,6 +132,8 @@ class __$$CategoryPromotionsDTOImplCopyWithImpl<$Res>
       $Res Function(_$CategoryPromotionsDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CategoryPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -215,12 +223,14 @@ class _$CategoryPromotionsDTOImpl extends _CategoryPromotionsDTO {
             (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, categoryId, promotionId,
       categoryPromotionImage, active, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CategoryPromotionsDTOImplCopyWith<_$CategoryPromotionsDTOImpl>
@@ -260,8 +270,11 @@ abstract class _CategoryPromotionsDTO extends CategoryPromotionsDTO {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+
+  /// Create a copy of CategoryPromotionsDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CategoryPromotionsDTOImplCopyWith<_$CategoryPromotionsDTOImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

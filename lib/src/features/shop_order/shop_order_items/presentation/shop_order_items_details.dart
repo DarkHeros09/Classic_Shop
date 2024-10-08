@@ -12,10 +12,14 @@ class ShopOrderItemsDetails extends StatefulHookConsumerWidget {
   const ShopOrderItemsDetails({
     required this.orderId,
     required this.orderNumber,
+    required this.trackNumber,
+    required this.itemCount,
     super.key,
   });
   final int orderId;
   final int orderNumber;
+  final String trackNumber;
+  final int itemCount;
   @override
   ConsumerState<ShopOrderItemsDetails> createState() =>
       _ShopOrderItemsDetailsState();
@@ -26,9 +30,10 @@ class _ShopOrderItemsDetailsState extends ConsumerState<ShopOrderItemsDetails> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((__) {
-      ref
-          .read(shopOrderItemsNotifierProvider.notifier)
-          .fetchShopOrderItems(orderId: widget.orderId);
+      ref.read(shopOrderItemsNotifierProvider.notifier).fetchShopOrderItems(
+            orderId: widget.orderId,
+            trackNumber: widget.trackNumber,
+          );
     });
   }
 
@@ -38,7 +43,7 @@ class _ShopOrderItemsDetailsState extends ConsumerState<ShopOrderItemsDetails> {
     final state =
         ref.watch(shopOrderItemsNotifierProvider.select((value) => value));
     return state.map(
-      initial: (_) => const SizedBox.shrink(),
+      initial: (_) => const Scaffold(body: SizedBox.shrink()),
       loadInProgress: (_) => const LoadingShopOrderItemsDetails(),
       loadSuccess: (_) => Scaffold(
         body: SafeArea(
@@ -62,46 +67,52 @@ class _ShopOrderItemsDetailsState extends ConsumerState<ShopOrderItemsDetails> {
                 //   icon: const Icon(Icons.close),
                 // ),
               ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-              ShopOrderItemsOrderNumberAndDate(
-                orderNumber: widget.orderNumber,
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-              const ShopOrderItemsStatusAndTrackNumber(),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-              const ShopOrderItemsNumber(),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 12),
-              ),
-              const ShopOrderItemsList(),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 24),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'معلومات الطلب',
-                    style: appTheme.textTheme.bodySmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
+              if (widget.itemCount == 0)
+                const SliverToBoxAdapter(
+                  child: SizedBox.shrink(),
+                ),
+              if (widget.itemCount != 0) ...[
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 16),
+                ),
+                ShopOrderItemsOrderNumberAndDate(
+                  orderNumber: widget.orderNumber,
+                ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 16),
+                ),
+                const ShopOrderItemsStatusAndTrackNumber(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 16),
+                ),
+                const ShopOrderItemsNumber(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 12),
+                ),
+                const ShopOrderItemsList(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 24),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverToBoxAdapter(
+                    child: Text(
+                      'معلومات الطلب',
+                      style: appTheme.textTheme.bodySmall
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-              const ShopOrderItemsInfoTable(),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: 16),
+                ),
+                const ShopOrderItemsInfoTable(),
+              ],
             ],
           ),
         ),
       ),
-      loadFailure: (_) => const SizedBox.shrink(),
+      loadFailure: (_) => const Scaffold(body: SizedBox.shrink()),
     );
   }
 }

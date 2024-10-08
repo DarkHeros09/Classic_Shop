@@ -25,8 +25,12 @@ mixin _$CategoryDTO {
   String get categoryName => throw _privateConstructorUsedError;
   String get categoryImage => throw _privateConstructorUsedError;
 
+  /// Serializes this CategoryDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CategoryDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CategoryDTOCopyWith<CategoryDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -54,6 +58,8 @@ class _$CategoryDTOCopyWithImpl<$Res, $Val extends CategoryDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CategoryDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -106,6 +112,8 @@ class __$$CategoryDTOImplCopyWithImpl<$Res>
       _$CategoryDTOImpl _value, $Res Function(_$CategoryDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CategoryDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -176,12 +184,14 @@ class _$CategoryDTOImpl extends _CategoryDTO {
                 other.categoryImage == categoryImage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, parentCategoryId, categoryName, categoryImage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CategoryDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CategoryDTOImplCopyWith<_$CategoryDTOImpl> get copyWith =>
@@ -214,8 +224,11 @@ abstract class _CategoryDTO extends CategoryDTO {
   String get categoryName;
   @override
   String get categoryImage;
+
+  /// Create a copy of CategoryDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CategoryDTOImplCopyWith<_$CategoryDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

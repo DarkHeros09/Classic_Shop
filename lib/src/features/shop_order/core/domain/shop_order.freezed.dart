@@ -29,7 +29,9 @@ mixin _$ShopOrder {
   int get itemCount => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrder
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ShopOrderCopyWith<ShopOrder> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -63,6 +65,8 @@ class _$ShopOrderCopyWithImpl<$Res, $Val extends ShopOrder>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ShopOrder
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -157,6 +161,8 @@ class __$$ShopOrderImplCopyWithImpl<$Res>
       _$ShopOrderImpl _value, $Res Function(_$ShopOrderImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ShopOrder
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -308,7 +314,9 @@ class _$ShopOrderImpl extends _ShopOrder {
       itemCount,
       createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ShopOrder
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ShopOrderImplCopyWith<_$ShopOrderImpl> get copyWith =>
@@ -337,8 +345,8 @@ abstract class _ShopOrder extends ShopOrder {
   @override
   String get trackNumber;
   @override
-  int get userId;
-  @override // required final int paymentMethodId,
+  int get userId; // required final int paymentMethodId,
+  @override
   int get shippingAddressId;
   @override
   String get orderTotal;
@@ -352,8 +360,11 @@ abstract class _ShopOrder extends ShopOrder {
   int get itemCount;
   @override
   DateTime get createdAt;
+
+  /// Create a copy of ShopOrder
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ShopOrderImplCopyWith<_$ShopOrderImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

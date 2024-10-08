@@ -23,7 +23,9 @@ mixin _$ProductPromotions {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProductPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ProductPromotionsCopyWith<ProductPromotions> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -53,6 +55,8 @@ class _$ProductPromotionsCopyWithImpl<$Res, $Val extends ProductPromotions>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ProductPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -117,6 +121,8 @@ class __$$ProductPromotionsImplCopyWithImpl<$Res>
       $Res Function(_$ProductPromotionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ProductPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -207,7 +213,9 @@ class _$ProductPromotionsImpl extends _ProductPromotions {
   int get hashCode => Object.hash(runtimeType, productId, promotionId,
       productPromotionImage, active, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ProductPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ProductPromotionsImplCopyWith<_$ProductPromotionsImpl> get copyWith =>
@@ -237,8 +245,11 @@ abstract class _ProductPromotions extends ProductPromotions {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+
+  /// Create a copy of ProductPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ProductPromotionsImplCopyWith<_$ProductPromotionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

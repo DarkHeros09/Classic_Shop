@@ -16,6 +16,7 @@ abstract class IAddressRemoteService {
 
   Future<RemoteResponse<AddressDTO>> createAddress({
     required int userId,
+    required String name,
     required String addressLine,
     required String region,
     required String city,
@@ -24,6 +25,7 @@ abstract class IAddressRemoteService {
   Future<RemoteResponse<AddressDTO>> updateAddress({
     required int userId,
     required int addressId,
+    required String name,
     required String addressLine,
     required String region,
     required String city,
@@ -86,6 +88,7 @@ class AddressRemoteService implements IAddressRemoteService {
   @override
   Future<RemoteResponse<AddressDTO>> createAddress({
     required int userId,
+    required String name,
     required String addressLine,
     required String region,
     required String city,
@@ -94,6 +97,7 @@ class AddressRemoteService implements IAddressRemoteService {
       final response = await _addressApi.createAddress(
         userId: userId.toString(),
         data: {
+          'name': name,
           'address_line': addressLine,
           'region': region,
           'city': city,
@@ -122,6 +126,7 @@ class AddressRemoteService implements IAddressRemoteService {
   Future<RemoteResponse<AddressDTO>> updateAddress({
     required int userId,
     required int addressId,
+    required String? name,
     required String? addressLine,
     required String? region,
     required String? city,
@@ -132,6 +137,7 @@ class AddressRemoteService implements IAddressRemoteService {
         userId: userId.toString(),
         addressId: addressId.toString(),
         data: {
+          'name': name,
           'address_line': addressLine,
           'region': region,
           'city': city,

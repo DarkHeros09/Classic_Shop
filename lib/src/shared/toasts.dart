@@ -11,7 +11,7 @@ Future<void> showNoConnectionToast(
     builder: (context, controller) {
       return FlashBar/*<Widget>.dialog*/(
         controller: controller,
-        backgroundColor: Colors.black.withOpacity(0.7),
+        backgroundColor: Colors.black.withOpacity(0.8),
         // borderRadius: BorderRadius.circular(8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -57,6 +57,38 @@ Future<void> showAuthErrorToast(
           padding: const EdgeInsets.all(4),
           child: Text(
             textAlign: TextAlign.justify,
+            message,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Future<void> showQuickToast(
+  String message,
+  BuildContext context,
+) async {
+  await showFlash(
+    context: context,
+    duration: const Duration(seconds: 2),
+    builder: (context, controller) {
+      return FlashBar/*<Widget>.dialog*/(
+        controller: controller,
+        backgroundColor: Colors.black.withOpacity(0.7),
+        // borderRadius: BorderRadius.circular(8),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        margin: const EdgeInsets.all(8),
+        content: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            textAlign: TextAlign.center,
             message,
             style: const TextStyle(
               color: Colors.white,

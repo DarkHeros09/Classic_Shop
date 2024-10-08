@@ -42,7 +42,7 @@ class AddressCard extends ConsumerWidget {
               color: Color(0x24000000),
               offset: Offset(0, 2),
               blurRadius: 4,
-            )
+            ),
           ],
           borderRadius: const BorderRadius.all(
             Radius.circular(8),
@@ -56,7 +56,7 @@ class AddressCard extends ConsumerWidget {
             _AddressDetails(addresses),
             const SizedBox(height: 12),
             _AddressPhoneNumber(addresses),
-            _DefaultAddress(addresses)
+            _DefaultAddress(addresses),
           ],
         ),
       ),
@@ -139,7 +139,7 @@ class _DefaultAddress extends ConsumerWidget {
               //   ),
               // );
             },
-          )
+          ),
         ],
       ),
     );
@@ -192,13 +192,12 @@ class _NameAndOptions extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
     final addressNotifier = ref.watch(addressNotifierProvider.notifier);
-    final user = ref.watch(authNotifierProvider.notifier).currentUser;
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(user?.username ?? ''),
+          Text(addresses.name),
           Theme(
             data: appTheme.copyWith(
               cardColor: const Color.fromARGB(255, 251, 249, 249),
@@ -230,13 +229,15 @@ class _NameAndOptions extends ConsumerWidget {
                       const SizedBox(
                         width: 56,
                       ),
-                      const Icon(Icons.edit)
+                      const Icon(Icons.edit),
                     ],
                   ),
                 ),
                 PopupMenuItem<void>(
                   onTap: () => addressNotifier.deleteAddress(
-                      addresses, addresses.userId),
+                    addresses,
+                    addresses.userId,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -251,13 +252,13 @@ class _NameAndOptions extends ConsumerWidget {
                       const Icon(
                         Icons.delete,
                         color: Colors.red,
-                      )
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

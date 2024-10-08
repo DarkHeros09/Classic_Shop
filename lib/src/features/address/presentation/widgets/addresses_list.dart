@@ -90,40 +90,43 @@ class _AddressesSliverList extends ConsumerWidget {
         ),
       ),
     );
-    return SuperSliverListSeparated(
-      itemCount: itemCount,
-      itemBuilder: (context, index) {
-        return ProviderScope(
-          key: UniqueKey(),
-          overrides: [addressesIndexProvider.overrideWithValue(index)],
-          child: state.map(
-            initial: (_) => const SizedBox.shrink(),
-            loadInProgress: (_) {
-              if (_.addresses.entity.isEmpty && addressLengthForLoading == 0) {
-                return const CircularProgressIndicator();
-              }
-              return const LoadingAddressCard();
+    return itemCount > 0
+        ? SuperSliverListSeparated(
+            itemCount: itemCount,
+            itemBuilder: (context, index) {
+              return ProviderScope(
+                key: UniqueKey(),
+                overrides: [addressesIndexProvider.overrideWithValue(index)],
+                child: state.map(
+                  initial: (_) => const SizedBox.shrink(),
+                  loadInProgress: (_) {
+                    if (_.addresses.entity.isEmpty &&
+                        addressLengthForLoading == 0) {
+                      return const CircularProgressIndicator();
+                    }
+                    return const LoadingAddressCard();
+                  },
+                  loadSuccess: (_) {
+                    WidgetsBinding.instance.addPostFrameCallback((__) {
+                      // ref
+                      //     .read(cartLengthForPersistentFooterProvider.notifier)
+                      //     .length = _.cartItems.entity.length;
+                      ref
+                          .read(
+                            addressPreviousLengthForLoadingProvider.notifier,
+                          )
+                          .setLength(_.addresses.entity.length);
+                    });
+                    return const AddressCard();
+                  },
+                  loadFailure: (_) => const AddressCard(),
+                ),
+              );
             },
-            loadSuccess: (_) {
-              WidgetsBinding.instance.addPostFrameCallback((__) {
-                // ref
-                //     .read(cartLengthForPersistentFooterProvider.notifier)
-                //     .length = _.cartItems.entity.length;
-                ref
-                    .read(
-                      addressPreviousLengthForLoadingProvider.notifier,
-                    )
-                    .setLength(_.addresses.entity.length);
-              });
-              return const AddressCard();
-            },
-            loadFailure: (_) => const AddressCard(),
-          ),
-        );
-      },
-      separator: (context, index) => const SizedBox(
-        height: 16,
-      ),
-    );
+            separator: (context, index) => const SizedBox(
+              height: 16,
+            ),
+          )
+        : const SliverToBoxAdapter();
   }
 }

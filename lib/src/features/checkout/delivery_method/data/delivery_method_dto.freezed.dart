@@ -24,8 +24,12 @@ mixin _$DeliveryMethodDTO {
   String get name => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
 
+  /// Serializes this DeliveryMethodDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DeliveryMethodDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DeliveryMethodDTOCopyWith<DeliveryMethodDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$DeliveryMethodDTOCopyWithImpl<$Res, $Val extends DeliveryMethodDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DeliveryMethodDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$DeliveryMethodDTOImplCopyWithImpl<$Res>
       $Res Function(_$DeliveryMethodDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryMethodDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -148,11 +156,13 @@ class _$DeliveryMethodDTOImpl extends _DeliveryMethodDTO {
             (identical(other.price, price) || other.price == price));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, price);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethodDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeliveryMethodDTOImplCopyWith<_$DeliveryMethodDTOImpl> get copyWith =>
@@ -183,8 +193,11 @@ abstract class _DeliveryMethodDTO extends DeliveryMethodDTO {
   String get name;
   @override
   String get price;
+
+  /// Create a copy of DeliveryMethodDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeliveryMethodDTOImplCopyWith<_$DeliveryMethodDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

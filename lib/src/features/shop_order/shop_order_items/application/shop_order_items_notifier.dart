@@ -38,17 +38,24 @@ class ShopOrderItemsNotifier extends AutoDisposeNotifier<ShopOrderItemsState> {
     return state = ShopOrderItemsState.initial(Fresh.yes([]));
   }
 
-  Future<void> fetchShopOrderItems({required int orderId}) async {
+  Future<void> fetchShopOrderItems({
+    required int orderId,
+    required String trackNumber,
+  }) async {
     // Maybe remove in progress
     state = ShopOrderItemsState.loadInProgress(state.shopOrderItems);
-    final shopShopOrderItemssOrFailure =
-        await _repository.fetchShopOrderItems(orderId: orderId);
+    final shopShopOrderItemssOrFailure = await _repository.fetchShopOrderItems(
+      orderId: orderId,
+      trackNumber: trackNumber,
+    );
+    debugPrint('PPPOP $state');
     state = await shopShopOrderItemssOrFailure.fold(
       (l) => ShopOrderItemsState.loadFailure(state.shopOrderItems, l),
       (r) async {
         return ShopOrderItemsState.loadSuccess(r);
       },
     );
+    debugPrint('PPPOP $state');
   }
 
   // Future<void> updateShopOrderItems(ShopOrderItems shopShopOrderItems) async {

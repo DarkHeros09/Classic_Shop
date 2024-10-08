@@ -21,7 +21,7 @@ final class _$PromotionsApi extends PromotionsApi {
   Future<Response<List<Map<String, dynamic>>>> getProductPromotions(
       {required String ifNoneMatch}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.104:8080/api/v1/product-promotions-images');
+        Uri.parse('http://192.168.1.105:8080/api/v1/product-promotions-images');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ final class _$PromotionsApi extends PromotionsApi {
   Future<Response<List<Map<String, dynamic>>>> getBrandPromotions(
       {required String ifNoneMatch}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.104:8080/api/v1/brand-promotions-images');
+        Uri.parse('http://192.168.1.105:8080/api/v1/brand-promotions-images');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
       'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ final class _$PromotionsApi extends PromotionsApi {
   Future<Response<List<Map<String, dynamic>>>> getCategoryPromotions(
       {required String ifNoneMatch}) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.104:8080/api/v1/category-promotions-images');
+        'http://192.168.1.105:8080/api/v1/category-promotions-images');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
       'Content-Type': 'application/json',

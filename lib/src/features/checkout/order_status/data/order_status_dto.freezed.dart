@@ -23,8 +23,12 @@ mixin _$OrderStatusDTO {
   int get id => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
 
+  /// Serializes this OrderStatusDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OrderStatusDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OrderStatusDTOCopyWith<OrderStatusDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +52,8 @@ class _$OrderStatusDTOCopyWithImpl<$Res, $Val extends OrderStatusDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OrderStatusDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -86,6 +92,8 @@ class __$$OrderStatusDTOImplCopyWithImpl<$Res>
       _$OrderStatusDTOImpl _value, $Res Function(_$OrderStatusDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OrderStatusDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -133,11 +141,13 @@ class _$OrderStatusDTOImpl extends _OrderStatusDTO {
             (identical(other.status, status) || other.status == status));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, status);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OrderStatusDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OrderStatusDTOImplCopyWith<_$OrderStatusDTOImpl> get copyWith =>
@@ -165,8 +175,11 @@ abstract class _OrderStatusDTO extends OrderStatusDTO {
   int get id;
   @override
   String get status;
+
+  /// Create a copy of OrderStatusDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OrderStatusDTOImplCopyWith<_$OrderStatusDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

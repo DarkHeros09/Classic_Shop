@@ -85,7 +85,7 @@ class ProductDetailsPage3 extends HookConsumerWidget {
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -164,7 +164,7 @@ class ProductDetailsPage3 extends HookConsumerWidget {
                             '${product.price} د.ل',
                             style: appTheme.textTheme.titleLarge
                                 ?.copyWith(fontWeight: FontWeight.w700),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -198,10 +198,46 @@ class ProductDetailsPage3 extends HookConsumerWidget {
                                   name: product.name,
                                   qty: 1,
                                   productImage: product.productImage1,
+                                  color: product.color,
+                                  size: product.size,
                                   price: product.price,
                                   active: product.active,
                                   createdAt: product.createdAt,
                                   updatedAt: product.updatedAt,
+                                  categoryPromoId: product.categoryPromoId,
+                                  categoryPromoName: product.categoryPromoName,
+                                  categoryPromoDescription:
+                                      product.categoryPromoDescription,
+                                  categoryPromoDiscountRate:
+                                      product.categoryPromoDiscountRate,
+                                  categoryPromoActive:
+                                      product.categoryPromoActive,
+                                  categoryPromoStartDate:
+                                      product.categoryPromoStartDate,
+                                  categoryPromoEndDate:
+                                      product.categoryPromoEndDate,
+                                  brandPromoId: product.brandPromoId,
+                                  brandPromoName: product.brandPromoName,
+                                  brandPromoDescription:
+                                      product.brandPromoDescription,
+                                  brandPromoDiscountRate:
+                                      product.brandPromoDiscountRate,
+                                  brandPromoActive: product.brandPromoActive,
+                                  brandPromoStartDate:
+                                      product.brandPromoStartDate,
+                                  brandPromoEndDate: product.brandPromoEndDate,
+                                  productPromoId: product.productPromoId,
+                                  productPromoName: product.productPromoName,
+                                  productPromoDescription:
+                                      product.productPromoDescription,
+                                  productPromoDiscountRate:
+                                      product.productPromoDiscountRate,
+                                  productPromoActive:
+                                      product.productPromoActive,
+                                  productPromoStartDate:
+                                      product.productPromoStartDate,
+                                  productPromoEndDate:
+                                      product.productPromoEndDate,
                                 ),
                               );
                           // await ref.read(cartNotifierProvider.notifier).fetchCart();
@@ -293,7 +329,7 @@ class MyCustomDelegate extends SliverPersistentHeaderDelegate {
                   paintStyle: PaintingStyle.stroke,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

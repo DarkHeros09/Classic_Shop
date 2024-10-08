@@ -52,7 +52,14 @@ abstract class AuthApi extends ChopperService {
     headers: normalheaders,
   )
   Future<Response<Map<String, dynamic>>> renewAccessToken({
-    @Header('Authorization') required String accessToken,
+    @Body() required Map<String, dynamic> data,
+  });
+
+  @Post(
+    path: '/auth/refresh-token',
+    headers: normalheaders,
+  )
+  Future<Response<Map<String, dynamic>>> renewRefreshToken({
     @Body() required Map<String, dynamic> data,
   });
 }

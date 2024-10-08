@@ -21,7 +21,7 @@ class BrandRepository {
     try {
       final requestUri = Uri.http(
         Env.httpAddress,
-        '/usr/v1/categories',
+        '/api/v1/brands',
       );
       final category = await _remoteService.fetchBrands(
         requestUri: requestUri,

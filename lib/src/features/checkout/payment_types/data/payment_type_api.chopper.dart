@@ -21,7 +21,7 @@ final class _$PaymentTypeApi extends PaymentTypeApi {
   Future<Response<List<Map<String, dynamic>>>> listPaymentTypes(
       {required String userId}) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.104:8080/usr/v1/users/${userId}/payment-types');
+        'http://192.168.1.105:8080/usr/v1/users/${userId}/payment-types');
     final Request $request = Request(
       'GET',
       $url,

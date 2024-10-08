@@ -24,7 +24,9 @@ mixin _$CombinedPromotions {
   DateTime? get startDate => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CombinedPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CombinedPromotionsCopyWith<CombinedPromotions> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -55,6 +57,8 @@ class _$CombinedPromotionsCopyWithImpl<$Res, $Val extends CombinedPromotions>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CombinedPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -125,6 +129,8 @@ class __$$CombinedPromotionsImplCopyWithImpl<$Res>
       $Res Function(_$CombinedPromotionsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CombinedPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -222,7 +228,9 @@ class _$CombinedPromotionsImpl implements _CombinedPromotions {
   int get hashCode => Object.hash(runtimeType, id, promotionId, promotionImage,
       type, active, startDate, endDate);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CombinedPromotions
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CombinedPromotionsImplCopyWith<_$CombinedPromotionsImpl> get copyWith =>
@@ -254,8 +262,11 @@ abstract class _CombinedPromotions implements CombinedPromotions {
   DateTime? get startDate;
   @override
   DateTime? get endDate;
+
+  /// Create a copy of CombinedPromotions
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CombinedPromotionsImplCopyWith<_$CombinedPromotionsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

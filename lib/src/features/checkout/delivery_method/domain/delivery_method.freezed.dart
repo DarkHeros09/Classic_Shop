@@ -20,7 +20,9 @@ mixin _$DeliveryMethod {
   String get name => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $DeliveryMethodCopyWith<DeliveryMethod> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -44,6 +46,8 @@ class _$DeliveryMethodCopyWithImpl<$Res, $Val extends DeliveryMethod>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of DeliveryMethod
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -87,6 +91,8 @@ class __$$DeliveryMethodImplCopyWithImpl<$Res>
       _$DeliveryMethodImpl _value, $Res Function(_$DeliveryMethodImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DeliveryMethod
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -143,7 +149,9 @@ class _$DeliveryMethodImpl extends _DeliveryMethod {
   @override
   int get hashCode => Object.hash(runtimeType, id, name, price);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DeliveryMethod
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeliveryMethodImplCopyWith<_$DeliveryMethodImpl> get copyWith =>
@@ -164,8 +172,11 @@ abstract class _DeliveryMethod extends DeliveryMethod {
   String get name;
   @override
   String get price;
+
+  /// Create a copy of DeliveryMethod
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeliveryMethodImplCopyWith<_$DeliveryMethodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

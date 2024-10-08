@@ -24,8 +24,12 @@ mixin _$PaymentTypeDTO {
   String get value => throw _privateConstructorUsedError;
   bool get isActive => throw _privateConstructorUsedError;
 
+  /// Serializes this PaymentTypeDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PaymentTypeDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentTypeDTOCopyWith<PaymentTypeDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$PaymentTypeDTOCopyWithImpl<$Res, $Val extends PaymentTypeDTO>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentTypeDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$PaymentTypeDTOImplCopyWithImpl<$Res>
       _$PaymentTypeDTOImpl _value, $Res Function(_$PaymentTypeDTOImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentTypeDTO
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -149,11 +157,13 @@ class _$PaymentTypeDTOImpl extends _PaymentTypeDTO {
                 other.isActive == isActive));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, value, isActive);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentTypeDTO
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentTypeDTOImplCopyWith<_$PaymentTypeDTOImpl> get copyWith =>
@@ -184,8 +194,11 @@ abstract class _PaymentTypeDTO extends PaymentTypeDTO {
   String get value;
   @override
   bool get isActive;
+
+  /// Create a copy of PaymentTypeDTO
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentTypeDTOImplCopyWith<_$PaymentTypeDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

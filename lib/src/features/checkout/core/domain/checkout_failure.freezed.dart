@@ -50,7 +50,9 @@ mixin _$CheckoutFailure {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CheckoutFailureCopyWith<CheckoutFailure> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -74,6 +76,8 @@ class _$CheckoutFailureCopyWithImpl<$Res, $Val extends CheckoutFailure>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CheckoutFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -107,6 +111,8 @@ class __$$_ServerImplCopyWithImpl<$Res>
       _$_ServerImpl _value, $Res Function(_$_ServerImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CheckoutFailure
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,7 +151,9 @@ class _$_ServerImpl extends __Server {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CheckoutFailure
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$_ServerImplCopyWith<_$_ServerImpl> get copyWith =>
@@ -214,8 +222,11 @@ abstract class __Server extends CheckoutFailure {
 
   @override
   String? get message;
+
+  /// Create a copy of CheckoutFailure
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$_ServerImplCopyWith<_$_ServerImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

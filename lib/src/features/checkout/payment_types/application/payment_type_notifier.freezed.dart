@@ -74,7 +74,9 @@ mixin _$PaymentTypeState {
   }) =>
       throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $PaymentTypeStateCopyWith<PaymentTypeState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -98,6 +100,8 @@ class _$PaymentTypeStateCopyWithImpl<$Res, $Val extends PaymentTypeState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -131,6 +135,8 @@ class __$$InitialImplCopyWithImpl<$Res>
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -186,7 +192,9 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_paymentTypes));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -279,8 +287,11 @@ abstract class _Initial extends PaymentTypeState {
 
   @override
   List<PaymentType> get paymentTypes;
+
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -304,6 +315,8 @@ class __$$LoadInProgressImplCopyWithImpl<$Res>
       _$LoadInProgressImpl _value, $Res Function(_$LoadInProgressImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -360,7 +373,9 @@ class _$LoadInProgressImpl extends _LoadInProgress
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_paymentTypes));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
@@ -455,8 +470,11 @@ abstract class _LoadInProgress extends PaymentTypeState {
 
   @override
   List<PaymentType> get paymentTypes;
+
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadInProgressImplCopyWith<_$LoadInProgressImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -480,6 +498,8 @@ class __$$LoadSuccessImplCopyWithImpl<$Res>
       _$LoadSuccessImpl _value, $Res Function(_$LoadSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -535,7 +555,9 @@ class _$LoadSuccessImpl extends _LoadSuccess with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_paymentTypes));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
@@ -629,8 +651,11 @@ abstract class _LoadSuccess extends PaymentTypeState {
 
   @override
   List<PaymentType> get paymentTypes;
+
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadSuccessImplCopyWith<_$LoadSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -656,6 +681,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
       _$LoadFailureImpl _value, $Res Function(_$LoadFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -674,6 +701,8 @@ class __$$LoadFailureImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $PaymentTypeFailureCopyWith<$Res> get failure {
@@ -729,7 +758,9 @@ class _$LoadFailureImpl extends _LoadFailure with DiagnosticableTreeMixin {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_paymentTypes), failure);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
@@ -824,8 +855,11 @@ abstract class _LoadFailure extends PaymentTypeState {
   @override
   List<PaymentType> get paymentTypes;
   PaymentTypeFailure get failure;
+
+  /// Create a copy of PaymentTypeState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LoadFailureImplCopyWith<_$LoadFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

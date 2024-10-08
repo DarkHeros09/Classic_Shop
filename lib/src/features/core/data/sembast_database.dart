@@ -11,14 +11,12 @@ class SembastDatabase {
 
   // bool _hasBeenInitialized = false;
 
-  // Future<void> init() async {
+  // Future<void> delete() async {
   //   if (_hasBeenInitialized) return;
   //   _hasBeenInitialized = true;
 
-  //   final dbDirectory = await getApplicationDocumentsDirectory();
-  //   await dbDirectory.create(recursive: true);
-  //   final dbPath = join(dbDirectory.path, 'db.sembast');
-  //   _instance = await databaseFactoryIo.openDatabase(dbPath);
+  //  await _instance.close();
+  //         await databaseFactoryIo.deleteDatabase(_instance.path);
   // }
 }
 

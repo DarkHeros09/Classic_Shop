@@ -2,9 +2,9 @@ import 'package:classic_shop/src/features/wish_list/presentation/widgets/empty_w
 import 'package:classic_shop/src/features/wish_list/presentation/widgets/loading_wish_list_product_card.dart';
 import 'package:classic_shop/src/features/wish_list/presentation/widgets/wish_list_product_card.dart';
 import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
-import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 final wishListItemsListIndexProvider =
     Provider<int>((_) => throw UnimplementedError());
@@ -15,20 +15,29 @@ class WishListLength {
   final int length;
 }
 
-class WishListPreviousLengtForLoadinghNotifier
-    extends Notifier<WishListLength> {
+class WishListPreviousLengtForLoadinghNotifier extends Notifier<int> {
+  // @override
+  // WishListLength build() {
+  //   return const WishListLength(0);
+  // }
+
+  // void setLength(int length) {
+  //   state = WishListLength(length);
+  // }
   @override
-  WishListLength build() {
-    return const WishListLength(0);
+  int build() {
+    return 0;
   }
 
-  void setLength(int length) {
-    state = WishListLength(length);
+  set length(int length) {
+    state = length;
   }
+
+  int get length => state;
 }
 
 final wishListPreviousLengthForLoadingProvider =
-    NotifierProvider<WishListPreviousLengtForLoadinghNotifier, WishListLength>(
+    NotifierProvider<WishListPreviousLengtForLoadinghNotifier, int>(
   WishListPreviousLengtForLoadinghNotifier.new,
 );
 
@@ -48,7 +57,7 @@ class WishListItemsList extends ConsumerWidget {
           initial: (_) => _.wishListItems.entity.length,
           loadInProgress: (_) => _.wishListItems.entity.isNotEmpty
               ? _.wishListItems.entity.length
-              : wishListLengthForLoading.length,
+              : wishListLengthForLoading,
           loadSuccess: (_) => _.wishListItems.entity.length,
           loadFailure: (_) => _.wishListItems.entity.length,
         ),
@@ -84,14 +93,14 @@ class _WishListItemSliverList extends HookConsumerWidget {
           initial: (_) => _.wishListItems.entity.length,
           loadInProgress: (_) => _.wishListItems.entity.isNotEmpty
               ? _.wishListItems.entity.length
-              : wishListLengthForLoading.length,
+              : wishListLengthForLoading,
           loadSuccess: (_) => _.wishListItems.entity.length,
           loadFailure: (_) => _.wishListItems.entity.length,
         ),
       ),
     );
     return itemCount > 0
-        ? SuperSliverListSeparated(
+        ? SuperSliverList.separated(
             // itemCount: n + 1,
             itemCount: itemCount,
             itemBuilder: (context, index) {
@@ -104,7 +113,7 @@ class _WishListItemSliverList extends HookConsumerWidget {
               return ProviderScope(
                 key: UniqueKey(),
                 overrides: [
-                  wishListItemsListIndexProvider.overrideWithValue(index)
+                  wishListItemsListIndexProvider.overrideWithValue(index),
                 ],
                 child: state.map(
                   initial: (_) => const SizedBox.shrink(),
@@ -116,8 +125,9 @@ class _WishListItemSliverList extends HookConsumerWidget {
                       //     .length = _.wishListItems.entity.length;
                       ref
                           .read(
-                              wishListPreviousLengthForLoadingProvider.notifier)
-                          .setLength(_.wishListItems.entity.length);
+                            wishListPreviousLengthForLoadingProvider.notifier,
+                          )
+                          .length = _.wishListItems.entity.length;
                     });
                     return const WishListProductCard();
                   },
@@ -125,7 +135,7 @@ class _WishListItemSliverList extends HookConsumerWidget {
                 ),
               );
             },
-            separator: (context, index) => const SizedBox(
+            separatorBuilder: (context, index) => const SizedBox(
               height: 16,
             ),
           )
