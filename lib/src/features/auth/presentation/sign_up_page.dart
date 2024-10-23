@@ -116,11 +116,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   name: 'userName',
                   labelText: 'إسم المستخدم',
                   errorStyle: const TextStyle(fontSize: 12),
-                  validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                    ),
-                  ]),
+                  validator: FormBuilderValidators.compose([]),
                 ),
               ),
             ),
@@ -134,9 +130,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   labelText: 'البريد الإلكتروني',
                   errorStyle: const TextStyle(fontSize: 12),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                    ),
                     FormBuilderValidators.email(
                       errorText: 'يرجى إدخال الإيميل الخاص بك بشكل صحيح',
                     ),
@@ -145,31 +138,31 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                 ),
               ),
             ),
-            SliverToBoxAdapter(child: SizedBox(height: height * .021)),
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomFormBuilderTextField(
-                  // textDirection: TextDirection.ltr,
-                  name: 'phoneNumber',
-                  labelText: 'رقم الهاتف',
-                  errorStyle: const TextStyle(fontSize: 12),
-                  validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                    ),
-                    FormBuilderValidators.minLength(
-                      9,
-                      errorText: 'كلمة المرور قصيرة جداً',
-                    ),
-                    FormBuilderValidators.numeric(
-                      errorText: 'الرجاء إدخال الرقم بالصيغة الصحيحة',
-                    ),
-                  ]),
-                  keyboardType: TextInputType.phone,
-                ),
-              ),
-            ),
+            // SliverToBoxAdapter(child: SizedBox(height: height * .021)),
+            // SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 16),
+            //     child: CustomFormBuilderTextField(
+            //       // textDirection: TextDirection.ltr,
+            //       name: 'phoneNumber',
+            //       labelText: 'رقم الهاتف',
+            //       errorStyle: const TextStyle(fontSize: 12),
+            //       validator: FormBuilderValidators.compose([
+            //         FormBuilderValidators.required(
+            //           errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
+            //         ),
+            //         FormBuilderValidators.minLength(
+            //           9,
+            //           errorText: 'كلمة المرور قصيرة جداً',
+            //         ),
+            //         FormBuilderValidators.numeric(
+            //           errorText: 'الرجاء إدخال الرقم بالصيغة الصحيحة',
+            //         ),
+            //       ]),
+            //       keyboardType: TextInputType.phone,
+            //     ),
+            //   ),
+            // ),
             SliverToBoxAdapter(child: SizedBox(height: height * .021)),
             SliverToBoxAdapter(
               child: Padding(
@@ -181,9 +174,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   labelText: 'كلمة المرور',
                   errorStyle: const TextStyle(fontSize: 12),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                    ),
                     FormBuilderValidators.minLength(
                       6,
                       errorText: 'كلمة المرور قصيرة جداً',
@@ -203,9 +193,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   labelText: 'تأكيد كلمة المرور',
                   errorStyle: const TextStyle(fontSize: 12),
                   validator: FormBuilderValidators.compose([
-                    FormBuilderValidators.required(
-                      errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                    ),
                     FormBuilderValidators.minLength(
                       6,
                       errorText: 'كلمة المرور قصيرة جداً',
@@ -242,9 +229,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                           .read(authNotifierProvider.notifier)
                           .signUp(
                             username: values!['userName']!.value.toString(),
-                            telephone: int.parse(
-                              values['phoneNumber']!.value.toString(),
-                            ),
+                            // telephone: int.parse(
+                            //   values['phoneNumber']!.value.toString(),
+                            // ),
                             email: values['email']!.value.toString(),
                             password: values['password']!.value.toString(),
                           )

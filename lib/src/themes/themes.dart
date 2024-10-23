@@ -44,7 +44,6 @@ final lightTheme = FlexThemeData.light(
     primary: Color(0xFF9D331F),
     secondary: Color(0xFFFFFFFF),
     error: Color(0xffBA1A1A),
-    background: Color(0xFFFAFAFA),
     surface: Color(0xFFFAFAFA),
   ),
   useMaterial3: true,
@@ -52,7 +51,7 @@ final lightTheme = FlexThemeData.light(
 ).copyWith(
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: MaterialStatePropertyAll(Color(0xFF000000)),
+      backgroundColor: WidgetStatePropertyAll(Color(0xFF000000)),
     ),
   ),
   dividerTheme: const DividerThemeData(
@@ -109,7 +108,6 @@ const myFlexLightColorScheme = FlexColorScheme(
     primary: Color(0xFF9D331F),
     secondary: Color(0xFFFFFFFF),
     error: Color(0xffBA1A1A),
-    background: Color(0xFFFAFAFA),
     surface: Color(0xFFFAFAFA),
   ),
   useMaterial3: true,
@@ -187,7 +185,7 @@ final darkTheme = FlexThemeData.dark(
 ).copyWith(
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
-      backgroundColor: MaterialStatePropertyAll(Color(0xFFFFFFFF)),
+      backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
     ),
   ),
   dividerTheme: const DividerThemeData(
@@ -255,7 +253,7 @@ final myFlexDarkColorScheme = const FlexColorScheme(
 ).toTheme.copyWith(
       elevatedButtonTheme: const ElevatedButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: MaterialStatePropertyAll(Color(0xFFFFFFFF)),
+          backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
         ),
       ),
       dividerTheme: const DividerThemeData(

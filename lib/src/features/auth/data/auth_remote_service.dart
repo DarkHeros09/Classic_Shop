@@ -4,6 +4,7 @@ import 'package:classic_shop/src/features/auth/data/auth_api.dart';
 import 'package:classic_shop/src/features/auth/data/credentials_dto.dart';
 import 'package:classic_shop/src/features/auth/data/token_storage/token_storage.dart';
 import 'package:classic_shop/src/features/auth/domain/auth_failure.dart';
+import 'package:classic_shop/src/features/core/data/user_dto.dart';
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
@@ -68,8 +69,137 @@ class AuthRemoteService {
       }
 
       await _credentialsStorage.save(credentials);
-      await _userStorage.save(user.copyWith(password: password));
+      await _userStorage.save(user);
       return right(unit);
+    } on FormatException {
+      return left(const AuthFailure.server());
+    } on PlatformException {
+      return left(const AuthFailure.storage());
+    } on SocketException {
+      return left(const AuthFailure.server());
+    }
+  }
+
+  Future<Either<AuthFailure, UserDTO?>> signUpV2({
+    required String username,
+    required String email,
+    required String password,
+    // required int telephone,
+    // required String? fcmToken,
+    // required String? deviceId,
+  }) async {
+    try {
+      final response = await _api.signUpV2(
+        data: {
+          'username': username,
+          'email': email,
+          'password': password,
+          // 'telephone': telephone,
+          // 'fcm_token': fcmToken,
+          // 'device_id': deviceId,
+        },
+      );
+
+      if (!response.isSuccessful) {
+        final error = response.error;
+        final statusCode = response.statusCode;
+        return left(AuthFailure.server('$statusCode: $error'));
+      }
+
+      final body = response.body;
+
+      if (body == null) {
+        return left(const AuthFailure.server('body should not be null'));
+      }
+
+      final user = UserDTO.fromJson(body);
+      // final token = credentials.token;
+      // debugPrint('TOKEEN: ${credentials.accessToken}');
+      // final user = credentials.user;
+      debugPrint('USEER: $user');
+
+      // if (token == null || user == null) {
+
+      // if ((user.isEmailVerified ?? false) && !(user.isBlocked ?? true)) {
+      //   // await _credentialsStorage.save(credentials);
+      //   await _userStorage.save(user);
+      // }
+      return right(user);
+    } on FormatException {
+      return left(const AuthFailure.server());
+    } on PlatformException {
+      return left(const AuthFailure.storage());
+    } on SocketException {
+      return left(const AuthFailure.server());
+    }
+  }
+
+  Future<Either<AuthFailure, Unit>> verifyOTP({
+    required String email,
+    required String otp,
+  }) async {
+    try {
+      final response = await _api.verifyOTP(
+        data: {
+          'email': email,
+          'otp': otp,
+        },
+      );
+
+      if (!response.isSuccessful) {
+        final error = response.error;
+        final statusCode = response.statusCode;
+        return left(AuthFailure.server('$statusCode: $error'));
+      }
+
+      final body = response.body;
+
+      if (body == null) {
+        return left(const AuthFailure.server('body should not be null'));
+      }
+
+      final credentials = CredentialsDTO.fromJson(body);
+      // final token = credentials.token;
+      debugPrint('TOKEEN: ${credentials.accessToken}');
+      final user = credentials.user;
+      debugPrint('USEER: $user');
+
+      // if (token == null || user == null) {
+      if (user == null) {
+        return left(
+          const AuthFailure.server('token or user should not be null'),
+        );
+      }
+
+      await _credentialsStorage.save(credentials);
+      await _userStorage.save(user);
+      return right(unit);
+    } on FormatException {
+      return left(const AuthFailure.server());
+    } on PlatformException {
+      return left(const AuthFailure.storage());
+    } on SocketException {
+      return left(const AuthFailure.server());
+    }
+  }
+
+  Future<Either<AuthFailure, bool>> resendOTP({
+    required String email,
+  }) async {
+    try {
+      final response = await _api.resendOTP(
+        data: {
+          'email': email,
+        },
+      );
+
+      if (!response.isSuccessful) {
+        final error = response.error;
+        final statusCode = response.statusCode;
+        return left(AuthFailure.server('$statusCode: $error'));
+      }
+
+      return right(true);
     } on FormatException {
       return left(const AuthFailure.server());
     } on PlatformException {
@@ -108,7 +238,7 @@ class AuthRemoteService {
         return token?.refreshToken != null;
       });
 
-  Future<Either<AuthFailure, Unit>> signIn({
+  Future<Either<AuthFailure, UserDTO?>> signIn({
     required String email,
     required String password,
   }) async {
@@ -120,13 +250,32 @@ class AuthRemoteService {
         },
       );
 
+      late final Map<String, dynamic>? body;
+
+      if (response.statusCode == 412) {
+        body = response.error as Map<String, dynamic>?;
+
+        if (body == null) {
+          debugPrint('USEER null');
+          return left(const AuthFailure.server('body should not be null'));
+        }
+
+        final user = UserDTO.fromJson(body);
+        debugPrint('USEER $user');
+        // final token = credentials.token;
+        // debugPrint('TOKEEN: ${credentials.accessToken}');
+        // final user = credentials.user;
+        debugPrint('USEER: $user');
+        return right(user);
+      }
+
       if (!response.isSuccessful) {
         final error = response.error;
         final statusCode = response.statusCode;
         return left(AuthFailure.server('$statusCode: $error'));
       }
 
-      final body = response.body;
+      body = response.body;
 
       if (body == null) {
         return left(const AuthFailure.server('body should not be null'));
@@ -153,7 +302,7 @@ class AuthRemoteService {
       }
       final savedUser = await _userStorage.read();
       debugPrint(savedUser.toString());
-      return right(unit);
+      return right(null);
     } on FormatException {
       return left(const AuthFailure.server());
     } on PlatformException {

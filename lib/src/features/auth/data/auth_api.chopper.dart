@@ -36,6 +36,50 @@ final class _$AuthApi extends AuthApi {
   }
 
   @override
+  Future<Response<Map<String, dynamic>>> signUpV2(
+      {required Map<String, dynamic> data}) {
+    final Uri $url = Uri.parse('http://192.168.1.105:8080/api/v1/users/signup');
+    final $body = data;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
+  }
+
+  @override
+  Future<Response<Map<String, dynamic>>> verifyOTP(
+      {required Map<String, dynamic> data}) {
+    final Uri $url =
+        Uri.parse('http://192.168.1.105:8080/api/v1/users/verify-otp');
+    final $body = data;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
+  }
+
+  @override
+  Future<Response<Map<String, dynamic>>> resendOTP(
+      {required Map<String, dynamic> data}) {
+    final Uri $url =
+        Uri.parse('http://192.168.1.105:8080/api/v1/users/resend-otp');
+    final $body = data;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<Map<String, dynamic>, Map<String, dynamic>>($request);
+  }
+
+  @override
   Future<Response<Map<String, dynamic>>> signIn(
       {required Map<String, dynamic> data}) {
     final Uri $url = Uri.parse('http://192.168.1.105:8080/api/v1/users/login');

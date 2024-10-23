@@ -17,7 +17,8 @@ class AuthState with _$AuthState {
   const AuthState._();
   const factory AuthState.initial() = _Initial;
   const factory AuthState.unauthenticated() = _Unauthenticated;
-  const factory AuthState.authenticated() = _Authenticated;
+  const factory AuthState.otpVerificationRequired() = _OtpVerificationRequired;
+  const factory AuthState.authenticated(User? user) = _Authenticated;
   const factory AuthState.loading() = _Loading;
   const factory AuthState.failure(AuthFailure failure) = _Failure;
 }
@@ -50,7 +51,7 @@ class AuthNotifier extends Notifier<AuthState> {
 
   Future<void> checkAndUpdateAuthStatus() async {
     state = (await _authRemoteService.isSignedIn())
-        ? (const AuthState.authenticated())
+        ? (AuthState.authenticated(currentUser))
         : const AuthState.unauthenticated();
   }
 
@@ -58,25 +59,62 @@ class AuthNotifier extends Notifier<AuthState> {
     required String email,
     required String username,
     required String password,
-    required int telephone,
+    // required int telephone,
     // required String? fcmTokn,
     // required String? deviceId,
   }) async {
     state = const AuthState.loading();
-    final failureOrSuccess = await _authRemoteService.signUp(
+    final failureOrSuccess = await _authRemoteService.signUpV2(
       email: email,
       username: username,
       password: password,
-      telephone: telephone,
+      // telephone: telephone,
       // fcmToken: fcmTokn,
       // deviceId: deviceId,
     );
     state = await failureOrSuccess.fold(
       AuthState.failure,
       (r) async {
+        // final userDTO = await _userStorage.read();
+        _authUser.value = r?.toDomain();
+        return const AuthState.otpVerificationRequired();
+      },
+    );
+  }
+
+  Future<void> verifyOTP({
+    // required String email,
+    required String otp,
+  }) async {
+    state = const AuthState.loading();
+    final failureOrSuccess = await _authRemoteService.verifyOTP(
+      email: currentUser?.email ?? '',
+      otp: otp,
+    );
+    state = await failureOrSuccess.fold(
+      AuthState.failure,
+      (r) async {
         final userDTO = await _userStorage.read();
         _authUser.value = userDTO?.toDomain();
-        return const AuthState.authenticated();
+        return AuthState.authenticated(userDTO?.toDomain());
+      },
+    );
+  }
+
+//own notifier
+  Future<void> resendOTP({
+    required String email,
+  }) async {
+    state = const AuthState.loading();
+    final failureOrSuccess = await _authRemoteService.resendOTP(
+      email: email,
+    );
+    state = await failureOrSuccess.fold(
+      AuthState.failure,
+      (r) async {
+        final userDTO = await _userStorage.read();
+        _authUser.value = userDTO?.toDomain();
+        return AuthState.authenticated(userDTO?.toDomain());
       },
     );
   }
@@ -88,9 +126,13 @@ class AuthNotifier extends Notifier<AuthState> {
     state = await failureOrSuccess.fold(
       AuthState.failure,
       (r) async {
+        if (r != null) {
+          _authUser.value = r.toDomain();
+          return const AuthState.otpVerificationRequired();
+        }
         final userDTO = await _userStorage.read();
         _authUser.value = userDTO?.toDomain();
-        return const AuthState.authenticated();
+        return AuthState.authenticated(userDTO?.toDomain());
       },
     );
   }

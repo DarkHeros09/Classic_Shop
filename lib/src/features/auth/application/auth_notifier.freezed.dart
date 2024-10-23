@@ -20,7 +20,8 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function() authenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
     required TResult Function() loading,
     required TResult Function(AuthFailure failure) failure,
   }) =>
@@ -29,7 +30,8 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function()? authenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
     TResult? Function()? loading,
     TResult? Function(AuthFailure failure)? failure,
   }) =>
@@ -38,7 +40,8 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function()? authenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
     TResult Function()? loading,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
@@ -48,6 +51,8 @@ mixin _$AuthState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failure value) failure,
@@ -57,6 +62,7 @@ mixin _$AuthState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult? Function(_Authenticated value)? authenticated,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failure value)? failure,
@@ -66,6 +72,7 @@ mixin _$AuthState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failure value)? failure,
@@ -143,7 +150,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function() authenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
     required TResult Function() loading,
     required TResult Function(AuthFailure failure) failure,
   }) {
@@ -155,7 +163,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function()? authenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
     TResult? Function()? loading,
     TResult? Function(AuthFailure failure)? failure,
   }) {
@@ -167,7 +176,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function()? authenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
     TResult Function()? loading,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
@@ -183,6 +193,8 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failure value) failure,
@@ -195,6 +207,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult? Function(_Authenticated value)? authenticated,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failure value)? failure,
@@ -207,6 +220,7 @@ class _$InitialImpl extends _Initial with DiagnosticableTreeMixin {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failure value)? failure,
@@ -274,7 +288,8 @@ class _$UnauthenticatedImpl extends _Unauthenticated
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function() authenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
     required TResult Function() loading,
     required TResult Function(AuthFailure failure) failure,
   }) {
@@ -286,7 +301,8 @@ class _$UnauthenticatedImpl extends _Unauthenticated
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function()? authenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
     TResult? Function()? loading,
     TResult? Function(AuthFailure failure)? failure,
   }) {
@@ -298,7 +314,8 @@ class _$UnauthenticatedImpl extends _Unauthenticated
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function()? authenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
     TResult Function()? loading,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
@@ -314,6 +331,8 @@ class _$UnauthenticatedImpl extends _Unauthenticated
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failure value) failure,
@@ -326,6 +345,7 @@ class _$UnauthenticatedImpl extends _Unauthenticated
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult? Function(_Authenticated value)? authenticated,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failure value)? failure,
@@ -338,6 +358,7 @@ class _$UnauthenticatedImpl extends _Unauthenticated
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failure value)? failure,
@@ -356,10 +377,156 @@ abstract class _Unauthenticated extends AuthState {
 }
 
 /// @nodoc
+abstract class _$$OtpVerificationRequiredImplCopyWith<$Res> {
+  factory _$$OtpVerificationRequiredImplCopyWith(
+          _$OtpVerificationRequiredImpl value,
+          $Res Function(_$OtpVerificationRequiredImpl) then) =
+      __$$OtpVerificationRequiredImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$OtpVerificationRequiredImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$OtpVerificationRequiredImpl>
+    implements _$$OtpVerificationRequiredImplCopyWith<$Res> {
+  __$$OtpVerificationRequiredImplCopyWithImpl(
+      _$OtpVerificationRequiredImpl _value,
+      $Res Function(_$OtpVerificationRequiredImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$OtpVerificationRequiredImpl extends _OtpVerificationRequired
+    with DiagnosticableTreeMixin {
+  const _$OtpVerificationRequiredImpl() : super._();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AuthState.otpVerificationRequired()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty('type', 'AuthState.otpVerificationRequired'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OtpVerificationRequiredImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() unauthenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
+    required TResult Function() loading,
+    required TResult Function(AuthFailure failure) failure,
+  }) {
+    return otpVerificationRequired();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? unauthenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
+    TResult? Function()? loading,
+    TResult? Function(AuthFailure failure)? failure,
+  }) {
+    return otpVerificationRequired?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? unauthenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
+    TResult Function()? loading,
+    TResult Function(AuthFailure failure)? failure,
+    required TResult orElse(),
+  }) {
+    if (otpVerificationRequired != null) {
+      return otpVerificationRequired();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
+    required TResult Function(_Authenticated value) authenticated,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return otpVerificationRequired(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
+    TResult? Function(_Authenticated value)? authenticated,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Failure value)? failure,
+  }) {
+    return otpVerificationRequired?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
+    TResult Function(_Authenticated value)? authenticated,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (otpVerificationRequired != null) {
+      return otpVerificationRequired(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OtpVerificationRequired extends AuthState {
+  const factory _OtpVerificationRequired() = _$OtpVerificationRequiredImpl;
+  const _OtpVerificationRequired._() : super._();
+}
+
+/// @nodoc
 abstract class _$$AuthenticatedImplCopyWith<$Res> {
   factory _$$AuthenticatedImplCopyWith(
           _$AuthenticatedImpl value, $Res Function(_$AuthenticatedImpl) then) =
       __$$AuthenticatedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({User? user});
+
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -372,43 +539,85 @@ class __$$AuthenticatedImplCopyWithImpl<$Res>
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = freezed,
+  }) {
+    return _then(_$AuthenticatedImpl(
+      freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
+    ));
+  }
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
-  const _$AuthenticatedImpl() : super._();
+  const _$AuthenticatedImpl(this.user) : super._();
+
+  @override
+  final User? user;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuthState.authenticated()';
+    return 'AuthState.authenticated(user: $user)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'AuthState.authenticated'));
+    properties
+      ..add(DiagnosticsProperty('type', 'AuthState.authenticated'))
+      ..add(DiagnosticsProperty('user', user));
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AuthenticatedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$AuthenticatedImpl &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, user);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
+      __$$AuthenticatedImplCopyWithImpl<_$AuthenticatedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function() authenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
     required TResult Function() loading,
     required TResult Function(AuthFailure failure) failure,
   }) {
-    return authenticated();
+    return authenticated(user);
   }
 
   @override
@@ -416,11 +625,12 @@ class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function()? authenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
     TResult? Function()? loading,
     TResult? Function(AuthFailure failure)? failure,
   }) {
-    return authenticated?.call();
+    return authenticated?.call(user);
   }
 
   @override
@@ -428,13 +638,14 @@ class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function()? authenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
     TResult Function()? loading,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated();
+      return authenticated(user);
     }
     return orElse();
   }
@@ -444,6 +655,8 @@ class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failure value) failure,
@@ -456,6 +669,7 @@ class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult? Function(_Authenticated value)? authenticated,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failure value)? failure,
@@ -468,6 +682,7 @@ class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failure value)? failure,
@@ -481,8 +696,16 @@ class _$AuthenticatedImpl extends _Authenticated with DiagnosticableTreeMixin {
 }
 
 abstract class _Authenticated extends AuthState {
-  const factory _Authenticated() = _$AuthenticatedImpl;
+  const factory _Authenticated(final User? user) = _$AuthenticatedImpl;
   const _Authenticated._() : super._();
+
+  User? get user;
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AuthenticatedImplCopyWith<_$AuthenticatedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -534,7 +757,8 @@ class _$LoadingImpl extends _Loading with DiagnosticableTreeMixin {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function() authenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
     required TResult Function() loading,
     required TResult Function(AuthFailure failure) failure,
   }) {
@@ -546,7 +770,8 @@ class _$LoadingImpl extends _Loading with DiagnosticableTreeMixin {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function()? authenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
     TResult? Function()? loading,
     TResult? Function(AuthFailure failure)? failure,
   }) {
@@ -558,7 +783,8 @@ class _$LoadingImpl extends _Loading with DiagnosticableTreeMixin {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function()? authenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
     TResult Function()? loading,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
@@ -574,6 +800,8 @@ class _$LoadingImpl extends _Loading with DiagnosticableTreeMixin {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failure value) failure,
@@ -586,6 +814,7 @@ class _$LoadingImpl extends _Loading with DiagnosticableTreeMixin {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult? Function(_Authenticated value)? authenticated,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failure value)? failure,
@@ -598,6 +827,7 @@ class _$LoadingImpl extends _Loading with DiagnosticableTreeMixin {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failure value)? failure,
@@ -705,7 +935,8 @@ class _$FailureImpl extends _Failure with DiagnosticableTreeMixin {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function() authenticated,
+    required TResult Function() otpVerificationRequired,
+    required TResult Function(User? user) authenticated,
     required TResult Function() loading,
     required TResult Function(AuthFailure failure) failure,
   }) {
@@ -717,7 +948,8 @@ class _$FailureImpl extends _Failure with DiagnosticableTreeMixin {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function()? authenticated,
+    TResult? Function()? otpVerificationRequired,
+    TResult? Function(User? user)? authenticated,
     TResult? Function()? loading,
     TResult? Function(AuthFailure failure)? failure,
   }) {
@@ -729,7 +961,8 @@ class _$FailureImpl extends _Failure with DiagnosticableTreeMixin {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function()? authenticated,
+    TResult Function()? otpVerificationRequired,
+    TResult Function(User? user)? authenticated,
     TResult Function()? loading,
     TResult Function(AuthFailure failure)? failure,
     required TResult orElse(),
@@ -745,6 +978,8 @@ class _$FailureImpl extends _Failure with DiagnosticableTreeMixin {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_OtpVerificationRequired value)
+        otpVerificationRequired,
     required TResult Function(_Authenticated value) authenticated,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Failure value) failure,
@@ -757,6 +992,7 @@ class _$FailureImpl extends _Failure with DiagnosticableTreeMixin {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult? Function(_Authenticated value)? authenticated,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Failure value)? failure,
@@ -769,6 +1005,7 @@ class _$FailureImpl extends _Failure with DiagnosticableTreeMixin {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_OtpVerificationRequired value)? otpVerificationRequired,
     TResult Function(_Authenticated value)? authenticated,
     TResult Function(_Loading value)? loading,
     TResult Function(_Failure value)? failure,

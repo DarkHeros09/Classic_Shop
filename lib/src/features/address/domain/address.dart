@@ -9,6 +9,7 @@ class Address with _$Address {
     required final int? id,
     required final int? defaultAddress,
     required final String name,
+    required final int telephone,
     required final String addressLine,
     required final String region,
     required final String city,

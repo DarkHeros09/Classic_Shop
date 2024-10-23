@@ -18,11 +18,12 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  int get telephone => throw _privateConstructorUsedError;
-  int get shoppingCartId => throw _privateConstructorUsedError;
-  int get wishListId => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
+  String get email =>
+      throw _privateConstructorUsedError; // required final int telephone,
+  bool? get isBlocked => throw _privateConstructorUsedError;
+  bool? get isEmailVerified => throw _privateConstructorUsedError;
+  int? get shoppingCartId => throw _privateConstructorUsedError;
+  int? get wishListId => throw _privateConstructorUsedError;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -39,10 +40,10 @@ abstract class $UserCopyWith<$Res> {
       {int id,
       String username,
       String email,
-      int telephone,
-      int shoppingCartId,
-      int wishListId,
-      String? password});
+      bool? isBlocked,
+      bool? isEmailVerified,
+      int? shoppingCartId,
+      int? wishListId});
 }
 
 /// @nodoc
@@ -63,10 +64,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = null,
     Object? username = null,
     Object? email = null,
-    Object? telephone = null,
-    Object? shoppingCartId = null,
-    Object? wishListId = null,
-    Object? password = freezed,
+    Object? isBlocked = freezed,
+    Object? isEmailVerified = freezed,
+    Object? shoppingCartId = freezed,
+    Object? wishListId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,22 +82,22 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      telephone: null == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as int,
-      shoppingCartId: null == shoppingCartId
+      isBlocked: freezed == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isEmailVerified: freezed == isEmailVerified
+          ? _value.isEmailVerified
+          : isEmailVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shoppingCartId: freezed == shoppingCartId
           ? _value.shoppingCartId
           : shoppingCartId // ignore: cast_nullable_to_non_nullable
-              as int,
-      wishListId: null == wishListId
+              as int?,
+      wishListId: freezed == wishListId
           ? _value.wishListId
           : wishListId // ignore: cast_nullable_to_non_nullable
-              as int,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ) as $Val);
   }
 }
@@ -112,10 +113,10 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       {int id,
       String username,
       String email,
-      int telephone,
-      int shoppingCartId,
-      int wishListId,
-      String? password});
+      bool? isBlocked,
+      bool? isEmailVerified,
+      int? shoppingCartId,
+      int? wishListId});
 }
 
 /// @nodoc
@@ -133,10 +134,10 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? id = null,
     Object? username = null,
     Object? email = null,
-    Object? telephone = null,
-    Object? shoppingCartId = null,
-    Object? wishListId = null,
-    Object? password = freezed,
+    Object? isBlocked = freezed,
+    Object? isEmailVerified = freezed,
+    Object? shoppingCartId = freezed,
+    Object? wishListId = freezed,
   }) {
     return _then(_$UserImpl(
       id: null == id
@@ -151,22 +152,22 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      telephone: null == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as int,
-      shoppingCartId: null == shoppingCartId
+      isBlocked: freezed == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isEmailVerified: freezed == isEmailVerified
+          ? _value.isEmailVerified
+          : isEmailVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shoppingCartId: freezed == shoppingCartId
           ? _value.shoppingCartId
           : shoppingCartId // ignore: cast_nullable_to_non_nullable
-              as int,
-      wishListId: null == wishListId
+              as int?,
+      wishListId: freezed == wishListId
           ? _value.wishListId
           : wishListId // ignore: cast_nullable_to_non_nullable
-              as int,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -178,10 +179,10 @@ class _$UserImpl extends _User {
       {required this.id,
       required this.username,
       required this.email,
-      required this.telephone,
+      required this.isBlocked,
+      required this.isEmailVerified,
       required this.shoppingCartId,
-      required this.wishListId,
-      this.password})
+      required this.wishListId})
       : super._();
 
   @override
@@ -190,18 +191,19 @@ class _$UserImpl extends _User {
   final String username;
   @override
   final String email;
+// required final int telephone,
   @override
-  final int telephone;
+  final bool? isBlocked;
   @override
-  final int shoppingCartId;
+  final bool? isEmailVerified;
   @override
-  final int wishListId;
+  final int? shoppingCartId;
   @override
-  final String? password;
+  final int? wishListId;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, telephone: $telephone, shoppingCartId: $shoppingCartId, wishListId: $wishListId, password: $password)';
+    return 'User(id: $id, username: $username, email: $email, isBlocked: $isBlocked, isEmailVerified: $isEmailVerified, shoppingCartId: $shoppingCartId, wishListId: $wishListId)';
   }
 
   @override
@@ -213,19 +215,19 @@ class _$UserImpl extends _User {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.telephone, telephone) ||
-                other.telephone == telephone) &&
+            (identical(other.isBlocked, isBlocked) ||
+                other.isBlocked == isBlocked) &&
+            (identical(other.isEmailVerified, isEmailVerified) ||
+                other.isEmailVerified == isEmailVerified) &&
             (identical(other.shoppingCartId, shoppingCartId) ||
                 other.shoppingCartId == shoppingCartId) &&
             (identical(other.wishListId, wishListId) ||
-                other.wishListId == wishListId) &&
-            (identical(other.password, password) ||
-                other.password == password));
+                other.wishListId == wishListId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, email, telephone,
-      shoppingCartId, wishListId, password);
+  int get hashCode => Object.hash(runtimeType, id, username, email, isBlocked,
+      isEmailVerified, shoppingCartId, wishListId);
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.
@@ -241,10 +243,10 @@ abstract class _User extends User {
       {required final int id,
       required final String username,
       required final String email,
-      required final int telephone,
-      required final int shoppingCartId,
-      required final int wishListId,
-      final String? password}) = _$UserImpl;
+      required final bool? isBlocked,
+      required final bool? isEmailVerified,
+      required final int? shoppingCartId,
+      required final int? wishListId}) = _$UserImpl;
   const _User._() : super._();
 
   @override
@@ -252,15 +254,15 @@ abstract class _User extends User {
   @override
   String get username;
   @override
-  String get email;
+  String get email; // required final int telephone,
   @override
-  int get telephone;
+  bool? get isBlocked;
   @override
-  int get shoppingCartId;
+  bool? get isEmailVerified;
   @override
-  int get wishListId;
+  int? get shoppingCartId;
   @override
-  String? get password;
+  int? get wishListId;
 
   /// Create a copy of User
   /// with the given fields replaced by the non-null parameter values.

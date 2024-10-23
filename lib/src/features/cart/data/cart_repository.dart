@@ -38,7 +38,7 @@ class CartRepository {
         //   if (localCart[i].id == null) {
         //     final createdCartItem = await _remoteService.createCartItem(
         //       userId: user.id,
-        //       cartId: user.shoppingCartId,
+        //       cartId: user.shoppingCartId??0,
         //       productItemId: localCart[i].productItemId,
         //       qty: localCart[i].qty,
         //     );
@@ -102,7 +102,7 @@ class CartRepository {
                 // for (var i = 0; i < itemsToRemoveFromRemote.length; i++) {
                 //   await _remoteService.deleteCartItem(
                 //     userId: user.id,
-                //     cartId: user.shoppingCartId,
+                //     cartId: user.shoppingCartId??0,
                 //     shopCartItemId: itemsToRemoveFromRemote[i].id ?? 0,
                 //   );
                 // }
@@ -151,7 +151,7 @@ class CartRepository {
       try {
         final cart = await _remoteService.createCartItem(
           userId: user.id,
-          cartId: user.shoppingCartId,
+          cartId: user.shoppingCartId ?? 0,
           productItemId: dto.productItemId,
           qty: dto.qty,
         );
@@ -195,7 +195,7 @@ class CartRepository {
       try {
         final cart = await _remoteService.updateCartItem(
           userId: user.id,
-          cartId: user.shoppingCartId,
+          cartId: user.shoppingCartId ?? 0,
           productItemId: dto.productItemId,
           shopCartItemId: dto.id!,
           qty: dto.qty,
@@ -235,7 +235,7 @@ class CartRepository {
       debugPrint('beingDeleted');
       final response = await _remoteService.deleteCartItem(
         userId: user.id,
-        cartId: user.shoppingCartId,
+        cartId: user.shoppingCartId ?? 0,
         shopCartItemId: dto.id ?? 0,
       );
       return response.maybeWhen(
@@ -258,7 +258,7 @@ class CartRepository {
     if (user != null) {
       await _remoteService.deleteAllCartItems(
         userId: user.id,
-        cartId: user.shoppingCartId,
+        cartId: user.shoppingCartId ?? 0,
       );
     }
     // await _localService.deleteAllCartItems();
@@ -285,7 +285,7 @@ class CartRepository {
   //         await _remoteService.setCart(
   //           cartItemDTO: data,
   //           userId: user.id,
-  //           cartId: user.shoppingCartId,
+  //           cartId: user.shoppingCartId??0,
   //         );
 
   //         final itemsToRemove =

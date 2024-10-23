@@ -34,8 +34,10 @@ class _ProfileState extends ConsumerState<Profile> {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final controller = useScrollController();
-    final userName =
-        ref.watch(authNotifierProvider.notifier).currentUser?.username ?? '';
+    final userName = ref.watch(authNotifierProvider).maybeMap(
+          orElse: () => '',
+          authenticated: (value) => value.user?.username ?? '',
+        );
     final email =
         ref.watch(authNotifierProvider.notifier).currentUser?.email ?? '';
     final pinIcon = isDarkMode
@@ -299,12 +301,7 @@ class _ProfileState extends ConsumerState<Profile> {
                         ProfileItems(
                           title: 'سياسة التطبيق',
                           icon: folderOpenIcon,
-                          onTap: () async {
-                            await ref
-                                .read(authRemoteServiceProvider)
-                                .renewRefreshToken();
-                            // debugPrint('CAN REFRESH:  ${a?.canRefresh}');
-                          },
+                          onTap: () => context.pushNamed(AppRoute.policy.name),
                         ),
                         const Divider(
                           height: 0,

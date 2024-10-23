@@ -11,10 +11,11 @@ class UserDTO with _$UserDTO {
     required final int id,
     required final String username,
     required final String email,
-    required final int telephone,
-    @JsonKey(name: 'cart_id') required final int shoppingCartId,
-    @JsonKey(name: 'wish_id') required final int wishListId,
-    final String? password,
+    // required final int telephone,
+    required final bool? isBlocked,
+    required final bool? isEmailVerified,
+    @JsonKey(name: 'cart_id') required final int? shoppingCartId,
+    @JsonKey(name: 'wish_id') required final int? wishListId,
   }) = _UserDTO;
   const UserDTO._();
 
@@ -26,10 +27,11 @@ class UserDTO with _$UserDTO {
       id: _.id,
       username: _.username,
       email: _.email,
-      password: _.password,
-      telephone: _.telephone,
+      // telephone: _.telephone,
       shoppingCartId: _.shoppingCartId,
       wishListId: _.wishListId,
+      isBlocked: _.isBlocked,
+      isEmailVerified: _.isEmailVerified,
     );
   }
 
@@ -38,10 +40,11 @@ class UserDTO with _$UserDTO {
       id: id,
       username: username,
       email: email,
-      password: password,
-      telephone: telephone,
+      // telephone: telephone,
       shoppingCartId: shoppingCartId,
       wishListId: wishListId,
+      isBlocked: isBlocked,
+      isEmailVerified: isEmailVerified,
     );
   }
 }

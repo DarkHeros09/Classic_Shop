@@ -20,6 +20,7 @@ mixin _$Address {
   int? get id => throw _privateConstructorUsedError;
   int? get defaultAddress => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  int get telephone => throw _privateConstructorUsedError;
   String get addressLine => throw _privateConstructorUsedError;
   String get region => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
@@ -40,6 +41,7 @@ abstract class $AddressCopyWith<$Res> {
       int? id,
       int? defaultAddress,
       String name,
+      int telephone,
       String addressLine,
       String region,
       String city});
@@ -64,6 +66,7 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
     Object? id = freezed,
     Object? defaultAddress = freezed,
     Object? name = null,
+    Object? telephone = null,
     Object? addressLine = null,
     Object? region = null,
     Object? city = null,
@@ -85,6 +88,10 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      telephone: null == telephone
+          ? _value.telephone
+          : telephone // ignore: cast_nullable_to_non_nullable
+              as int,
       addressLine: null == addressLine
           ? _value.addressLine
           : addressLine // ignore: cast_nullable_to_non_nullable
@@ -113,6 +120,7 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
       int? id,
       int? defaultAddress,
       String name,
+      int telephone,
       String addressLine,
       String region,
       String city});
@@ -135,6 +143,7 @@ class __$$AddressImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? defaultAddress = freezed,
     Object? name = null,
+    Object? telephone = null,
     Object? addressLine = null,
     Object? region = null,
     Object? city = null,
@@ -156,6 +165,10 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      telephone: null == telephone
+          ? _value.telephone
+          : telephone // ignore: cast_nullable_to_non_nullable
+              as int,
       addressLine: null == addressLine
           ? _value.addressLine
           : addressLine // ignore: cast_nullable_to_non_nullable
@@ -180,6 +193,7 @@ class _$AddressImpl extends _Address {
       required this.id,
       required this.defaultAddress,
       required this.name,
+      required this.telephone,
       required this.addressLine,
       required this.region,
       required this.city})
@@ -194,6 +208,8 @@ class _$AddressImpl extends _Address {
   @override
   final String name;
   @override
+  final int telephone;
+  @override
   final String addressLine;
   @override
   final String region;
@@ -202,7 +218,7 @@ class _$AddressImpl extends _Address {
 
   @override
   String toString() {
-    return 'Address(userId: $userId, id: $id, defaultAddress: $defaultAddress, name: $name, addressLine: $addressLine, region: $region, city: $city)';
+    return 'Address(userId: $userId, id: $id, defaultAddress: $defaultAddress, name: $name, telephone: $telephone, addressLine: $addressLine, region: $region, city: $city)';
   }
 
   @override
@@ -215,6 +231,8 @@ class _$AddressImpl extends _Address {
             (identical(other.defaultAddress, defaultAddress) ||
                 other.defaultAddress == defaultAddress) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.telephone, telephone) ||
+                other.telephone == telephone) &&
             (identical(other.addressLine, addressLine) ||
                 other.addressLine == addressLine) &&
             (identical(other.region, region) || other.region == region) &&
@@ -222,8 +240,8 @@ class _$AddressImpl extends _Address {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, userId, id, defaultAddress, name, addressLine, region, city);
+  int get hashCode => Object.hash(runtimeType, userId, id, defaultAddress, name,
+      telephone, addressLine, region, city);
 
   /// Create a copy of Address
   /// with the given fields replaced by the non-null parameter values.
@@ -240,6 +258,7 @@ abstract class _Address extends Address {
       required final int? id,
       required final int? defaultAddress,
       required final String name,
+      required final int telephone,
       required final String addressLine,
       required final String region,
       required final String city}) = _$AddressImpl;
@@ -253,6 +272,8 @@ abstract class _Address extends Address {
   int? get defaultAddress;
   @override
   String get name;
+  @override
+  int get telephone;
   @override
   String get addressLine;
   @override

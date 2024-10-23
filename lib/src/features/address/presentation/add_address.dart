@@ -1,7 +1,9 @@
 import 'package:classic_shop/src/features/address/domain/address.dart';
 import 'package:classic_shop/src/features/address/shared/provider.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/helpers/custom_form_builder_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,35 +69,62 @@ class AddAddress extends ConsumerWidget {
                       //   icon: Icons.person,
                       // ),
                       // SizedBox(height: 4),
-                      // _CustomFormBuilderTextField(name: 'fullName'),
+                      // CustomFormBuilderTextField(name: 'fullName'),
                       // SizedBox(height: 16),
                       const _TextFieldLabel(
                         labelName: 'الإسم',
                         icon: Icons.location_city_rounded,
                       ),
                       const SizedBox(height: 4),
-                      const _CustomFormBuilderTextField(name: 'name'),
+                      CustomFormBuilderTextField(
+                        name: 'name',
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.username(),
+                        ]),
+                      ),
+                      const SizedBox(height: 16),
+                      const _TextFieldLabel(
+                        labelName: 'رقم الهاتف',
+                        icon: Icons.call,
+                      ),
+                      const SizedBox(height: 4),
+                      CustomFormBuilderTextField(
+                        name: 'telephone',
+                        inputType: TextInputType.phone,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validator: FormBuilderValidators.compose([
+                          // FormBuilderValidators.numeric(
+                          //   errorText: 'الرجاء إدخال الرقم بالصيغة الصحيحة',
+                          // ),
+                          FormBuilderValidators.phoneNumber(
+                            errorText: 'الرجاء إدخال الرقم بالصيغة الصحيحة',
+                          ),
+                        ]),
+                      ),
                       const SizedBox(height: 16),
                       const _TextFieldLabel(
                         labelName: 'المدينة',
                         icon: Icons.location_city_rounded,
                       ),
                       const SizedBox(height: 4),
-                      const _CustomFormBuilderTextField(name: 'city'),
+                      const CustomFormBuilderTextField(name: 'city'),
                       const SizedBox(height: 16),
                       const _TextFieldLabel(
                         labelName: 'المنطقة',
                         icon: Icons.location_searching,
                       ),
                       const SizedBox(height: 4),
-                      const _CustomFormBuilderTextField(name: 'region'),
+                      const CustomFormBuilderTextField(name: 'region'),
                       const SizedBox(height: 16),
                       const _TextFieldLabel(
                         labelName: 'عنوان التسليم',
                         icon: Icons.location_on,
                       ),
                       const SizedBox(height: 4),
-                      const _CustomFormBuilderTextField(
+                      const CustomFormBuilderTextField(
                         name: 'deliveryAddress',
                       ),
                       const SizedBox(height: 16),
@@ -104,7 +133,7 @@ class AddAddress extends ConsumerWidget {
                       //   icon: Icons.phone,
                       // ),
                       // SizedBox(height: 4),
-                      // _CustomFormBuilderTextField(name: 'phoneNumber'),
+                      // CustomFormBuilderTextField(name: 'phoneNumber'),
                       _AddressSaveButton(address),
                     ],
                   ),
@@ -144,6 +173,9 @@ class _AddressSaveButton extends ConsumerWidget {
                     id: address?.id,
                     defaultAddress: address?.defaultAddress,
                     name: values?['name']?.value.toString() ?? '',
+                    telephone: int.parse(
+                      values?['phoneNumber']!.value.toString() ?? '0',
+                    ),
                     addressLine:
                         values?['deliveryAddress']?.value.toString() ?? '',
                     region: values?['region']?.value.toString() ?? '',
@@ -159,6 +191,9 @@ class _AddressSaveButton extends ConsumerWidget {
                     id: null,
                     defaultAddress: address?.defaultAddress,
                     name: values?['name']?.value.toString() ?? '',
+                    telephone: int.parse(
+                      values?['phoneNumber']!.value.toString() ?? '0',
+                    ),
                     addressLine:
                         values?['deliveryAddress']?.value.toString() ?? '',
                     region: values?['region']?.value.toString() ?? '',
@@ -216,29 +251,44 @@ class _TextFieldLabel extends StatelessWidget {
   }
 }
 
-class _CustomFormBuilderTextField extends StatelessWidget {
-  const _CustomFormBuilderTextField({
-    required this.name,
-  });
+// class CustomFormBuilderTextField1 extends StatelessWidget {
+//   const CustomFormBuilderTextField1({
+//     required this.name,
+//     this.inputType,
+//     this.optionalValidator1,
+//     this.optionalValidator2,
+//   });
 
-  final String name;
+//   final String name;
+//   final TextInputType? inputType;
+//   final FormFieldValidator<String>? optionalValidator1;
+//   final FormFieldValidator<String>? optionalValidator2;
 
-  @override
-  Widget build(BuildContext context) {
-    return FormBuilderTextField(
-      decoration: const InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xffD9D9D9),
-          ),
-        ),
-        fillColor: Color(0xffFAFAFA),
-        border: OutlineInputBorder(),
-      ),
-      name: name,
-      validator: FormBuilderValidators.required(
-        errorText: 'هذا الحقل لا يمكن ان يكون فارغاً.',
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return FormBuilderTextField(
+//       decoration: const InputDecoration(
+//         enabledBorder: OutlineInputBorder(
+//           borderSide: BorderSide(
+//             color: Color(0xffD9D9D9),
+//           ),
+//         ),
+//         fillColor: Color(0xffFAFAFA),
+//         border: OutlineInputBorder(),
+//       ),
+//       name: name,
+//       validator: FormBuilderValidators.compose([
+//         FormBuilderValidators.required(
+//           errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
+//         ),
+//         if (optionalValidator1 != null) ...[
+//           optionalValidator1!,
+//         ],
+//         if (optionalValidator2 != null) ...[
+//           optionalValidator2!,
+//         ],
+//       ]),
+//       keyboardType: inputType,
+//     );
+//   }
+// }

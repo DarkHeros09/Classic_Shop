@@ -8,10 +8,13 @@ class User with _$User {
     required final int id,
     required final String username,
     required final String email,
-    required final int telephone,
-    required final int shoppingCartId,
-    required final int wishListId,
-    final String? password,
+    // required final int telephone,
+    required final bool? isBlocked,
+    required final bool? isEmailVerified,
+    required final int? shoppingCartId,
+    required final int? wishListId,
   }) = _User;
   const User._();
+
+  bool get isValid => (isEmailVerified ?? false) && !(isBlocked ?? true);
 }

@@ -64,8 +64,19 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             child: CircularProgressIndicator(),
           ),
         ),
-        authenticated: (_) => context.pop(),
+        authenticated: (_) {
+          context.pop();
+          Future.wait([
+            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                ),
+            ref.read(cartNotifierProvider.notifier).fetchCart(),
+            ref.read(wishListNotifierProvider.notifier).fetchWishList(),
+          ]);
+        },
+        otpVerificationRequired: (_) => context.pop(),
         failure: (value) {
+          context.pop();
           value.failure.mapOrNull(
             server: (serverErr) {
               if (serverErr.message != null) {
@@ -124,9 +135,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 labelText: 'البريد الإلكتروني',
                 errorStyle: const TextStyle(fontSize: 12),
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(
-                    errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                  ),
                   FormBuilderValidators.email(
                     errorText: 'يرجى إدخال الإيميل الخاص بك بشكل صحيح',
                   ),
@@ -146,9 +154,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                 labelText: 'كلمة المرور',
                 errorStyle: const TextStyle(fontSize: 12),
                 validator: FormBuilderValidators.compose([
-                  FormBuilderValidators.required(
-                    errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
-                  ),
                   FormBuilderValidators.minLength(
                     6,
                     errorText: 'كلمة المرور قصيرة جداً',
@@ -171,16 +176,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                           password: values['password']!.value.toString(),
                         );
                     formKey.currentState?.reset();
-                    Future.wait([
-                      ref
-                          .read(listProductsNotifierProvider.notifier)
-                          .getProductsPage(
-                              productsFunction: ProductsFunction.getProducts),
-                      ref.read(cartNotifierProvider.notifier).fetchCart(),
-                      ref
-                          .read(wishListNotifierProvider.notifier)
-                          .fetchWishList(),
-                    ]);
                   }
                 },
                 style: ElevatedButton.styleFrom(

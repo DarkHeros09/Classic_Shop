@@ -78,7 +78,7 @@ class WishListRepository {
                 // for (var i = 0; i < itemsToRemoveFromRemote.length; i++) {
                 //   await _remoteService.deleteWishListItem(
                 //     userId: user.id,
-                //     wishListId: user.wishListId,
+                //     wishListId: user.wishListId??0,
                 //     wishListItemId: itemsToRemoveFromRemote[i].id ?? 0,
                 //   );
                 // }
@@ -123,7 +123,7 @@ class WishListRepository {
       try {
         final wishList = await _remoteService.createWishListItem(
           userId: user.id,
-          wishListId: user.wishListId,
+          wishListId: user.wishListId ?? 0,
           productItemId: dto.productItemId,
         );
 
@@ -160,7 +160,7 @@ class WishListRepository {
       try {
         final wishList = await _remoteService.updateWishListItem(
           userId: user.id,
-          wishListId: user.wishListId,
+          wishListId: user.wishListId ?? 0,
           productItemId: dto.productItemId,
           wishListItemId: dto.id!,
         );
@@ -197,7 +197,7 @@ class WishListRepository {
       debugPrint('beingDeleted');
       final response = await _remoteService.deleteWishListItem(
         userId: user.id,
-        wishListId: user.wishListId,
+        wishListId: user.wishListId ?? 0,
         wishListItemId: dto.id ?? 0,
       );
       return response.maybeWhen(
@@ -220,7 +220,7 @@ class WishListRepository {
     if (user != null) {
       await _remoteService.deleteAllWishListItems(
         userId: user.id,
-        wishListId: user.wishListId,
+        wishListId: user.wishListId ?? 0,
       );
     }
     await _localService.deleteAllWishListItems();

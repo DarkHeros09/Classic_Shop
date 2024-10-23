@@ -119,6 +119,7 @@ class AddressRepository {
       final address = await _remoteService.createAddress(
         userId: userId,
         name: dto.name,
+        telephone: dto.telephone,
         addressLine: dto.addressLine,
         region: dto.region,
         city: dto.city,
@@ -164,6 +165,7 @@ class AddressRepository {
         addressId: dto.id ?? 0,
         defaultAddress: dto.defaultAddress.toString(),
         name: dto.name,
+        telephone: dto.telephone,
         city: dto.city,
         region: dto.region,
         addressLine: dto.addressLine,

@@ -40,6 +40,26 @@ abstract class AuthApi extends ChopperService {
   });
 
   @Post(
+    path: '/users/signup',
+  )
+  Future<Response<Map<String, dynamic>>> signUpV2({
+    @Body() required Map<String, dynamic> data,
+  });
+
+  @Post(
+    path: '/users/verify-otp',
+  )
+  Future<Response<Map<String, dynamic>>> verifyOTP({
+    @Body() required Map<String, dynamic> data,
+  });
+  @Post(
+    path: '/users/resend-otp',
+  )
+  Future<Response<Map<String, dynamic>>> resendOTP({
+    @Body() required Map<String, dynamic> data,
+  });
+
+  @Post(
     path: '/users/login',
     headers: normalheaders,
   )

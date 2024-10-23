@@ -22,13 +22,14 @@ UserDTO _$UserDTOFromJson(Map<String, dynamic> json) {
 mixin _$UserDTO {
   int get id => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
-  int get telephone => throw _privateConstructorUsedError;
+  String get email =>
+      throw _privateConstructorUsedError; // required final int telephone,
+  bool? get isBlocked => throw _privateConstructorUsedError;
+  bool? get isEmailVerified => throw _privateConstructorUsedError;
   @JsonKey(name: 'cart_id')
-  int get shoppingCartId => throw _privateConstructorUsedError;
+  int? get shoppingCartId => throw _privateConstructorUsedError;
   @JsonKey(name: 'wish_id')
-  int get wishListId => throw _privateConstructorUsedError;
-  String? get password => throw _privateConstructorUsedError;
+  int? get wishListId => throw _privateConstructorUsedError;
 
   /// Serializes this UserDTO to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,10 +49,10 @@ abstract class $UserDTOCopyWith<$Res> {
       {int id,
       String username,
       String email,
-      int telephone,
-      @JsonKey(name: 'cart_id') int shoppingCartId,
-      @JsonKey(name: 'wish_id') int wishListId,
-      String? password});
+      bool? isBlocked,
+      bool? isEmailVerified,
+      @JsonKey(name: 'cart_id') int? shoppingCartId,
+      @JsonKey(name: 'wish_id') int? wishListId});
 }
 
 /// @nodoc
@@ -72,10 +73,10 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
     Object? id = null,
     Object? username = null,
     Object? email = null,
-    Object? telephone = null,
-    Object? shoppingCartId = null,
-    Object? wishListId = null,
-    Object? password = freezed,
+    Object? isBlocked = freezed,
+    Object? isEmailVerified = freezed,
+    Object? shoppingCartId = freezed,
+    Object? wishListId = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -90,22 +91,22 @@ class _$UserDTOCopyWithImpl<$Res, $Val extends UserDTO>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      telephone: null == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as int,
-      shoppingCartId: null == shoppingCartId
+      isBlocked: freezed == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isEmailVerified: freezed == isEmailVerified
+          ? _value.isEmailVerified
+          : isEmailVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shoppingCartId: freezed == shoppingCartId
           ? _value.shoppingCartId
           : shoppingCartId // ignore: cast_nullable_to_non_nullable
-              as int,
-      wishListId: null == wishListId
+              as int?,
+      wishListId: freezed == wishListId
           ? _value.wishListId
           : wishListId // ignore: cast_nullable_to_non_nullable
-              as int,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ) as $Val);
   }
 }
@@ -121,10 +122,10 @@ abstract class _$$UserDTOImplCopyWith<$Res> implements $UserDTOCopyWith<$Res> {
       {int id,
       String username,
       String email,
-      int telephone,
-      @JsonKey(name: 'cart_id') int shoppingCartId,
-      @JsonKey(name: 'wish_id') int wishListId,
-      String? password});
+      bool? isBlocked,
+      bool? isEmailVerified,
+      @JsonKey(name: 'cart_id') int? shoppingCartId,
+      @JsonKey(name: 'wish_id') int? wishListId});
 }
 
 /// @nodoc
@@ -143,10 +144,10 @@ class __$$UserDTOImplCopyWithImpl<$Res>
     Object? id = null,
     Object? username = null,
     Object? email = null,
-    Object? telephone = null,
-    Object? shoppingCartId = null,
-    Object? wishListId = null,
-    Object? password = freezed,
+    Object? isBlocked = freezed,
+    Object? isEmailVerified = freezed,
+    Object? shoppingCartId = freezed,
+    Object? wishListId = freezed,
   }) {
     return _then(_$UserDTOImpl(
       id: null == id
@@ -161,22 +162,22 @@ class __$$UserDTOImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      telephone: null == telephone
-          ? _value.telephone
-          : telephone // ignore: cast_nullable_to_non_nullable
-              as int,
-      shoppingCartId: null == shoppingCartId
+      isBlocked: freezed == isBlocked
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      isEmailVerified: freezed == isEmailVerified
+          ? _value.isEmailVerified
+          : isEmailVerified // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      shoppingCartId: freezed == shoppingCartId
           ? _value.shoppingCartId
           : shoppingCartId // ignore: cast_nullable_to_non_nullable
-              as int,
-      wishListId: null == wishListId
+              as int?,
+      wishListId: freezed == wishListId
           ? _value.wishListId
           : wishListId // ignore: cast_nullable_to_non_nullable
-              as int,
-      password: freezed == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
     ));
   }
 }
@@ -188,10 +189,10 @@ class _$UserDTOImpl extends _UserDTO with DiagnosticableTreeMixin {
       {required this.id,
       required this.username,
       required this.email,
-      required this.telephone,
+      required this.isBlocked,
+      required this.isEmailVerified,
       @JsonKey(name: 'cart_id') required this.shoppingCartId,
-      @JsonKey(name: 'wish_id') required this.wishListId,
-      this.password})
+      @JsonKey(name: 'wish_id') required this.wishListId})
       : super._();
 
   factory _$UserDTOImpl.fromJson(Map<String, dynamic> json) =>
@@ -203,20 +204,21 @@ class _$UserDTOImpl extends _UserDTO with DiagnosticableTreeMixin {
   final String username;
   @override
   final String email;
+// required final int telephone,
   @override
-  final int telephone;
+  final bool? isBlocked;
+  @override
+  final bool? isEmailVerified;
   @override
   @JsonKey(name: 'cart_id')
-  final int shoppingCartId;
+  final int? shoppingCartId;
   @override
   @JsonKey(name: 'wish_id')
-  final int wishListId;
-  @override
-  final String? password;
+  final int? wishListId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserDTO(id: $id, username: $username, email: $email, telephone: $telephone, shoppingCartId: $shoppingCartId, wishListId: $wishListId, password: $password)';
+    return 'UserDTO(id: $id, username: $username, email: $email, isBlocked: $isBlocked, isEmailVerified: $isEmailVerified, shoppingCartId: $shoppingCartId, wishListId: $wishListId)';
   }
 
   @override
@@ -227,10 +229,10 @@ class _$UserDTOImpl extends _UserDTO with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('email', email))
-      ..add(DiagnosticsProperty('telephone', telephone))
+      ..add(DiagnosticsProperty('isBlocked', isBlocked))
+      ..add(DiagnosticsProperty('isEmailVerified', isEmailVerified))
       ..add(DiagnosticsProperty('shoppingCartId', shoppingCartId))
-      ..add(DiagnosticsProperty('wishListId', wishListId))
-      ..add(DiagnosticsProperty('password', password));
+      ..add(DiagnosticsProperty('wishListId', wishListId));
   }
 
   @override
@@ -242,20 +244,20 @@ class _$UserDTOImpl extends _UserDTO with DiagnosticableTreeMixin {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.telephone, telephone) ||
-                other.telephone == telephone) &&
+            (identical(other.isBlocked, isBlocked) ||
+                other.isBlocked == isBlocked) &&
+            (identical(other.isEmailVerified, isEmailVerified) ||
+                other.isEmailVerified == isEmailVerified) &&
             (identical(other.shoppingCartId, shoppingCartId) ||
                 other.shoppingCartId == shoppingCartId) &&
             (identical(other.wishListId, wishListId) ||
-                other.wishListId == wishListId) &&
-            (identical(other.password, password) ||
-                other.password == password));
+                other.wishListId == wishListId));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, email, telephone,
-      shoppingCartId, wishListId, password);
+  int get hashCode => Object.hash(runtimeType, id, username, email, isBlocked,
+      isEmailVerified, shoppingCartId, wishListId);
 
   /// Create a copy of UserDTO
   /// with the given fields replaced by the non-null parameter values.
@@ -275,13 +277,14 @@ class _$UserDTOImpl extends _UserDTO with DiagnosticableTreeMixin {
 
 abstract class _UserDTO extends UserDTO {
   const factory _UserDTO(
-      {required final int id,
-      required final String username,
-      required final String email,
-      required final int telephone,
-      @JsonKey(name: 'cart_id') required final int shoppingCartId,
-      @JsonKey(name: 'wish_id') required final int wishListId,
-      final String? password}) = _$UserDTOImpl;
+          {required final int id,
+          required final String username,
+          required final String email,
+          required final bool? isBlocked,
+          required final bool? isEmailVerified,
+          @JsonKey(name: 'cart_id') required final int? shoppingCartId,
+          @JsonKey(name: 'wish_id') required final int? wishListId}) =
+      _$UserDTOImpl;
   const _UserDTO._() : super._();
 
   factory _UserDTO.fromJson(Map<String, dynamic> json) = _$UserDTOImpl.fromJson;
@@ -291,17 +294,17 @@ abstract class _UserDTO extends UserDTO {
   @override
   String get username;
   @override
-  String get email;
+  String get email; // required final int telephone,
   @override
-  int get telephone;
+  bool? get isBlocked;
+  @override
+  bool? get isEmailVerified;
   @override
   @JsonKey(name: 'cart_id')
-  int get shoppingCartId;
+  int? get shoppingCartId;
   @override
   @JsonKey(name: 'wish_id')
-  int get wishListId;
-  @override
-  String? get password;
+  int? get wishListId;
 
   /// Create a copy of UserDTO
   /// with the given fields replaced by the non-null parameter values.

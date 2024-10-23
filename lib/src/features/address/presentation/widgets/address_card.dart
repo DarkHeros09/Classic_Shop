@@ -2,7 +2,6 @@ import 'package:classic_shop/src/features/address/domain/address.dart';
 import 'package:classic_shop/src/features/address/presentation/add_address.dart';
 import 'package:classic_shop/src/features/address/presentation/widgets/addresses_list.dart';
 import 'package:classic_shop/src/features/address/shared/provider.dart';
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -154,11 +153,10 @@ class _AddressPhoneNumber extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
-    final user = ref.watch(authNotifierProvider.notifier).currentUser;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Text(
-        'رقم الهاتف: ${user?.telephone}',
+        'رقم الهاتف: ${addresses.telephone}',
         style: appTheme.textTheme.bodySmall,
       ),
     );
@@ -243,8 +241,8 @@ class _NameAndOptions extends ConsumerWidget {
                     children: [
                       Text(
                         'حذف',
-                        style: appTheme.textTheme.labelLarge!
-                            .copyWith(color: Colors.red),
+                        style: appTheme.textTheme.labelLarge
+                            ?.copyWith(color: Colors.red),
                       ),
                       const SizedBox(
                         width: 56,

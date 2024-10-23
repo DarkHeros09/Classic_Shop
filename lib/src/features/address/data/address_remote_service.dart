@@ -17,6 +17,7 @@ abstract class IAddressRemoteService {
   Future<RemoteResponse<AddressDTO>> createAddress({
     required int userId,
     required String name,
+    required int telephone,
     required String addressLine,
     required String region,
     required String city,
@@ -26,6 +27,7 @@ abstract class IAddressRemoteService {
     required int userId,
     required int addressId,
     required String name,
+    required int telephone,
     required String addressLine,
     required String region,
     required String city,
@@ -89,6 +91,7 @@ class AddressRemoteService implements IAddressRemoteService {
   Future<RemoteResponse<AddressDTO>> createAddress({
     required int userId,
     required String name,
+    required int telephone,
     required String addressLine,
     required String region,
     required String city,
@@ -127,6 +130,7 @@ class AddressRemoteService implements IAddressRemoteService {
     required int userId,
     required int addressId,
     required String? name,
+    required int? telephone,
     required String? addressLine,
     required String? region,
     required String? city,

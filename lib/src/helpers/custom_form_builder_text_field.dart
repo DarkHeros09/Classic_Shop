@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class CustomFormBuilderTextField extends StatefulWidget {
   const CustomFormBuilderTextField({
     required this.name,
-    required this.validator,
+    this.validator,
     super.key,
     this.textDirection,
     this.keyboardType,
@@ -14,6 +16,8 @@ class CustomFormBuilderTextField extends StatefulWidget {
     this.labelText,
     this.hintTextDirection,
     this.errorStyle,
+    this.inputType,
+    this.inputFormatters,
   });
 
   final String name;
@@ -26,6 +30,8 @@ class CustomFormBuilderTextField extends StatefulWidget {
   final String? labelText;
   final TextDirection? hintTextDirection;
   final TextStyle? errorStyle;
+  final TextInputType? inputType;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<CustomFormBuilderTextField> createState() =>
@@ -73,7 +79,15 @@ class _CustomFormBuilderTextFieldState
         border: const OutlineInputBorder(),
       ),
       name: widget.name,
-      validator: widget.validator,
+      inputFormatters: widget.inputFormatters,
+      validator: FormBuilderValidators.compose([
+        FormBuilderValidators.required(
+          errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
+        ),
+        if (widget.validator != null) ...[
+          widget.validator!,
+        ],
+      ]),
     );
   }
 }

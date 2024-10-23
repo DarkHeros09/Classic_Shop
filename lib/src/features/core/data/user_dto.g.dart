@@ -11,10 +11,10 @@ _$UserDTOImpl _$$UserDTOImplFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       username: json['username'] as String,
       email: json['email'] as String,
-      telephone: (json['telephone'] as num).toInt(),
-      shoppingCartId: (json['cart_id'] as num).toInt(),
-      wishListId: (json['wish_id'] as num).toInt(),
-      password: json['password'] as String?,
+      isBlocked: json['is_blocked'] as bool?,
+      isEmailVerified: json['is_email_verified'] as bool?,
+      shoppingCartId: (json['cart_id'] as num?)?.toInt(),
+      wishListId: (json['wish_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
@@ -22,8 +22,8 @@ Map<String, dynamic> _$$UserDTOImplToJson(_$UserDTOImpl instance) =>
       'id': instance.id,
       'username': instance.username,
       'email': instance.email,
-      'telephone': instance.telephone,
+      'is_blocked': instance.isBlocked,
+      'is_email_verified': instance.isEmailVerified,
       'cart_id': instance.shoppingCartId,
       'wish_id': instance.wishListId,
-      'password': instance.password,
     };

@@ -52,7 +52,7 @@ class CheckoutNotifier extends AutoDisposeNotifier<CheckoutState> {
     if (user != null) {
       final remoteResponse = await _remoteService.checkout(
         userId: user.id,
-        cartId: user.shoppingCartId,
+        cartId: user.shoppingCartId ?? 0,
         userAddressId: userAddressId,
         paymentTypeId: paymentTypeId,
         shippingMethodId: shippingMethodId,

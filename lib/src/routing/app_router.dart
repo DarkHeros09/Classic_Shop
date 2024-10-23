@@ -1,4 +1,5 @@
 import 'package:classic_shop/src/features/address/presentation/address_page.dart';
+import 'package:classic_shop/src/features/app_policy/presentation/app_policy_page.dart';
 import 'package:classic_shop/src/features/auth/presentation/sign_in_page.dart';
 import 'package:classic_shop/src/features/auth/presentation/sign_up_page.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
@@ -9,6 +10,7 @@ import 'package:classic_shop/src/features/checkout/core/presentation/checkkout_s
 import 'package:classic_shop/src/features/checkout/core/presentation/checkout_page.dart';
 import 'package:classic_shop/src/features/on_boarding/presentation/onboarding.dart';
 import 'package:classic_shop/src/features/on_boarding/shared/providers.dart';
+import 'package:classic_shop/src/features/otp/presentation/otp_page.dart';
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/home_page.dart';
 import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/selected_category.dart';
@@ -32,6 +34,8 @@ enum AppRoute {
   splash,
   signIn,
   signUp,
+  otp,
+  signInOTP,
   home,
   search,
   product,
@@ -111,6 +115,26 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
+        path: '/appPolicy',
+        name: AppRoute.policy.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            child: const AppPolicyPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          );
+        },
+      ),
+      GoRoute(
         path: '/search',
         name: AppRoute.search.name,
         parentNavigatorKey: _rootNavigatorKey,
@@ -124,6 +148,21 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
           return const NoTransitionPage(child: SignUpPage());
+        },
+        // redirect: (context, state) {
+        //   final previousPath = ref.watch(previousPathProvider);
+        //   final isLoggedIn = auth.currentUser != null;
+        //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+
+        //   return isLoggedIn ? previousPath ?? '/home' : null;
+        // },
+      ),
+      GoRoute(
+        path: '/otp',
+        name: AppRoute.otp.name,
+        parentNavigatorKey: _rootNavigatorKey,
+        pageBuilder: (context, state) {
+          return const NoTransitionPage(child: OTPPage());
         },
         // redirect: (context, state) {
         //   final previousPath = ref.watch(previousPathProvider);
@@ -243,19 +282,17 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 },
                 redirect: (context, state) {
                   final isLoggedIn = auth.currentUser != null;
-                  debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+                  final isEmailVerified =
+                      auth.currentUser?.isEmailVerified ?? false;
+                  final isBlocked = auth.currentUser?.isBlocked ?? true;
+                  debugPrint('APPROUTER IS2 LOGGEDIN: $isLoggedIn');
                   debugPrint('USER IS ${auth.currentUser}');
 
-                  if (isLoggedIn) {
-                    if (state.uri.path == '/sign-in') {
-                      return isLoggedIn ? null : '/cart';
-                    }
+                  if (isLoggedIn && isEmailVerified && !isBlocked) {
+                    return null;
                   } else {
-                    if (state.uri.path == '/cart') {
-                      return isLoggedIn ? null : '/sign-in';
-                    }
+                    return '/sign-in';
                   }
-                  return null;
                 },
                 routes: [
                   GoRoute(
@@ -350,10 +387,55 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 redirect: (context, state) {
                   // final previousPath = ref.watch(previousPathProvider);
                   final isLoggedIn = auth.currentUser != null;
-                  debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+                  final isValid = auth.currentUser?.isValid ?? false;
 
-                  return isLoggedIn ? /*previousPath ??*/ '/home' : null;
+                  debugPrint('APPROUTER IS1 LOGGEDIN: $isLoggedIn');
+                  debugPrint('APPROUTER IS1 VERIFIED: $isValid');
+
+                  // return isLoggedIn ? /*previousPath ??*/ '/cart' : null;
+                  if (isLoggedIn) {
+                    if (isValid) {
+                      return '/cart';
+                    }
+                    if (!isValid) {
+                      return '/sign-in/otp';
+                    }
+                  }
+                  return null;
                 },
+                routes: [
+                  GoRoute(
+                    path: 'otp',
+                    name: AppRoute.signInOTP.name,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) {
+                      return const NoTransitionPage(child: OTPPage());
+                    },
+                    redirect: (context, state) {
+                      // final previousPath = ref.watch(previousPathProvider);
+                      final isLoggedIn = auth.currentUser != null;
+                      final isValid = auth.currentUser?.isValid ?? false;
+
+                      debugPrint('APPROUTER IS1 LOGGEDIN: $isLoggedIn');
+                      debugPrint('APPROUTER IS1 VERIFIED: $isValid');
+
+                      // return isLoggedIn ? /*previousPath ??*/ '/cart' : null;
+                      if (isLoggedIn) {
+                        if (!isValid) {
+                          return '/sign-in/otp';
+                        }
+                      }
+                      return null;
+                    },
+                    // redirect: (context, state) {
+                    //   final previousPath = ref.watch(previousPathProvider);
+                    //   final isLoggedIn = auth.currentUser != null;
+                    //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+
+                    //   return isLoggedIn ? previousPath ?? '/home' : null;
+                    // },
+                  ),
+                ],
               ),
             ],
           ),
