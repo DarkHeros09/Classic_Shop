@@ -270,9 +270,9 @@ class AuthRemoteService {
       }
 
       if (!response.isSuccessful) {
-        final error = response.error;
+        // final error = response.error;
         final statusCode = response.statusCode;
-        return left(AuthFailure.server('$statusCode: $error'));
+        return left(AuthFailure.server('$statusCode'));
       }
 
       body = response.body;

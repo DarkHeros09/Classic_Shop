@@ -42,7 +42,7 @@ class ListProductsLocalService {
       // ),
     );
 
-    return records.map((e) => ProductDTO.fromJson(e.value)).toList();
+    return records.map((e) => ProductDTOMapper.fromJson(e.value)).toList();
   }
 
   Future<int> getLocalPageCount(String uri) async {

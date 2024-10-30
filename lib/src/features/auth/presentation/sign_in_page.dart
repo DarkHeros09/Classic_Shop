@@ -81,7 +81,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
             server: (serverErr) {
               if (serverErr.message != null) {
                 return showAuthErrorToast(
-                  'حدث خطأ ما.',
+                  serverErr.message!,
                   context,
                 );
               }

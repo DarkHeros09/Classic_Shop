@@ -6,3 +6,19 @@ targets:
           field_rename: snake
           explicit_to_json: true
           include_if_null: true
+
+global_options:
+  dart_mappable_builder:
+    runs_before:
+      # list the generator packages you depend on, e.g.
+      # - retrofit_generator
+      - chopper_generator
+    options:
+      caseStyle: snakeCase
+      # ignoreNull: true
+      # ... other dart_mappable options
+      renameMethods:
+        fromJson: fromJsonString
+        toJson: toJsonString
+        fromMap: fromJson
+        toMap: toJson

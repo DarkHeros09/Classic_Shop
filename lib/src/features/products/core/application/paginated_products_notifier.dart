@@ -72,6 +72,7 @@ class PaginatedProductsNotifier
       switch (productFunction) {
         ProductsFunction.getProducts => _page = 1,
         ProductsFunction.getProductsNextPage => _page,
+        ProductsFunction.getBestSellers => 1,
         ProductsFunction.searchProducts => _pageSearch = 1,
         ProductsFunction.searchProductsNextPage => _pageSearch,
         ProductsFunction.getProductsWithPromotions => _pagePromotion = 1,
@@ -88,6 +89,7 @@ class PaginatedProductsNotifier
       switch (productFunction) {
         ProductsFunction.getProducts => _lastItemId = 0,
         ProductsFunction.getProductsNextPage => _lastItemId,
+        ProductsFunction.getBestSellers => 0,
         ProductsFunction.searchProducts => _lastItemIdSearch = 0,
         ProductsFunction.searchProductsNextPage => _lastItemIdSearch,
         ProductsFunction.getProductsWithPromotions => _lastItemIdPromotion = 0,
@@ -105,6 +107,7 @@ class PaginatedProductsNotifier
       switch (productFunction) {
         ProductsFunction.getProducts => _lastProductId = 0,
         ProductsFunction.getProductsNextPage => _lastProductId,
+        ProductsFunction.getBestSellers => 0,
         ProductsFunction.searchProducts => _lastProductIdSearch = 0,
         ProductsFunction.searchProductsNextPage => _lastProductIdSearch,
         ProductsFunction.getProductsWithPromotions => _lastProductIdPromotion =
@@ -127,6 +130,7 @@ class PaginatedProductsNotifier
         switch (productFunction) {
           case ProductsFunction.getProducts:
           case ProductsFunction.getProductsNextPage:
+          case ProductsFunction.getBestSellers:
             _page++;
             debugPrint(r.toString());
             _lastItemId = r.entity.isEmpty ? 0 : r.entity.last.id;

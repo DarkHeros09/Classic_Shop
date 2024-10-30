@@ -7,9 +7,10 @@ import 'package:classic_shop/src/features/products/helper/enums.dart';
 import 'package:classic_shop/src/features/products/listed_products/data/list_products_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_page_notifier.freezed.dart';
+part 'home_page_notifier.g.dart';
 
 typedef RepositoryGetter = Future<Either<ProductFailure, Fresh<List<Product>>>>
     Function(int page, int lastItemId);
@@ -34,10 +35,11 @@ class HomePageState with _$HomePageState {
   ) = _LoadFailure;
 }
 
-class HomePageNotifier extends AutoDisposeNotifier<HomePageState> {
+@riverpod
+class HomePageNotifier extends _$HomePageNotifier {
   late final ListProductsRepository _repository;
   @override
-  HomePageState build() {
+  HomePageState build(ProductType? type) {
     _repository = ref.watch(listProductsRepositoryProvider);
     return state = HomePageState.initial(Fresh.yes([]));
   }
@@ -50,6 +52,7 @@ class HomePageNotifier extends AutoDisposeNotifier<HomePageState> {
     int? pageSize,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
   }) async {
     // state = HomePageState.loadFailure(
     //   state.products,
@@ -69,6 +72,7 @@ class HomePageNotifier extends AutoDisposeNotifier<HomePageState> {
       pageSize: pageSize,
       isNew: isNew,
       isPromoted: isPromoted,
+      isFeatured: isFeatured,
     );
     state = failureOrProducts.fold(
       (l) => HomePageState.loadFailure(state.products, l),
@@ -86,4 +90,44 @@ class HomePageNotifier extends AutoDisposeNotifier<HomePageState> {
       },
     );
   }
+
+  Future<void> getBestSellers({
+    int? pageSize,
+  }) async {
+    // state = HomePageState.loadFailure(
+    //   state.products,
+    //   const ProductFailure.api(404),
+    // );
+    state = HomePageState.loadInProgress(
+      state.products,
+      PaginationConfig.itemsPerPage,
+    );
+    final failureOrProducts = await _repository.getProducts(
+      1,
+      productsFunction: ProductsFunction.getBestSellers,
+      pageSize: pageSize,
+    );
+    state = failureOrProducts.fold(
+      (l) => HomePageState.loadFailure(state.products, l),
+      (r) {
+        return HomePageState.loadSuccess(
+          r,
+          // r.copyWith(
+          //   entity: [
+          //     ...state.products.entity,
+          //     ...r.entity,
+          //   ],
+          // ),
+          isNextPageAvailable: r.isNextPageAvailable ?? false,
+        );
+      },
+    );
+  }
+}
+
+enum ProductType {
+  isNew,
+  isPromoted,
+  isFeatured,
+  isBestSellers,
 }

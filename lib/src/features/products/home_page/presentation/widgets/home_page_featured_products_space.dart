@@ -2,15 +2,15 @@ import 'package:classic_shop/src/features/products/home_page/application/home_pa
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePageNewProductsSpace extends HookConsumerWidget {
-  const HomePageNewProductsSpace({required this.height, super.key});
+class HomePageFeaturedProductsSpace extends HookConsumerWidget {
+  const HomePageFeaturedProductsSpace({required this.height, super.key});
 
   final double height;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemCount = ref.watch(
-      homePageNotifierProvider(ProductType.isNew).select(
+      homePageNotifierProvider(ProductType.isFeatured).select(
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,

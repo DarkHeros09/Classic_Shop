@@ -274,7 +274,7 @@ class _ProductDetailBottomButtonsBar extends HookConsumerWidget {
               flex: 2,
               child: ElevatedButton.icon(
                 onPressed: product.qtyInStock == 0
-                    ? () {}
+                    ? null
                     : () async {
                         // final authUser = await ref.read(userStorageProvider).read();
                         final authUser =

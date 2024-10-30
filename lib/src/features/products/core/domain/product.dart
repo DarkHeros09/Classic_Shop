@@ -1,50 +1,89 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'product.freezed.dart';
+part 'product.mapper.dart';
 
-@freezed
-class Product with _$Product {
-  const factory Product({
-    required int id,
-    required String name,
-    required int productId,
-    required int categoryId,
-    required int brandId,
-    required String brandName,
-    required int productSku,
-    required int qtyInStock,
-    required String productImage1,
-    required String productImage2,
-    required String productImage3,
-    required String size,
-    required String color,
-    required String price,
-    required bool active,
-    required bool parentProductActive,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-    required int? categoryPromoId,
-    required String? categoryPromoName,
-    required String? categoryPromoDescription,
-    required int? categoryPromoDiscountRate,
-    required bool? categoryPromoActive,
-    required DateTime? categoryPromoStartDate,
-    required DateTime? categoryPromoEndDate,
-    required int? brandPromoId,
-    required String? brandPromoName,
-    required String? brandPromoDescription,
-    required int? brandPromoDiscountRate,
-    required bool? brandPromoActive,
-    required DateTime? brandPromoStartDate,
-    required DateTime? brandPromoEndDate,
-    required int? productPromoId,
-    required String? productPromoName,
-    required String? productPromoDescription,
-    required int? productPromoDiscountRate,
-    required bool? productPromoActive,
-    required DateTime? productPromoStartDate,
-    required DateTime? productPromoEndDate,
-    required bool nextAvailable,
-  }) = _Product;
-  const Product._();
+@MappableClass()
+class Product with ProductMappable {
+  const Product({
+    required this.id,
+    required this.name,
+    required this.productId,
+    required this.categoryId,
+    required this.brandId,
+    required this.brandName,
+    required this.productSku,
+    required this.qtyInStock,
+    required this.productImage1,
+    required this.productImage2,
+    required this.productImage3,
+    required this.size,
+    required this.color,
+    required this.price,
+    required this.active,
+    required this.parentProductActive,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.categoryPromoId,
+    required this.categoryPromoName,
+    required this.categoryPromoDescription,
+    required this.categoryPromoDiscountRate,
+    required this.categoryPromoActive,
+    required this.categoryPromoStartDate,
+    required this.categoryPromoEndDate,
+    required this.brandPromoId,
+    required this.brandPromoName,
+    required this.brandPromoDescription,
+    required this.brandPromoDiscountRate,
+    required this.brandPromoActive,
+    required this.brandPromoStartDate,
+    required this.brandPromoEndDate,
+    required this.productPromoId,
+    required this.productPromoName,
+    required this.productPromoDescription,
+    required this.productPromoDiscountRate,
+    required this.productPromoActive,
+    required this.productPromoStartDate,
+    required this.productPromoEndDate,
+    required this.nextAvailable,
+  });
+  final int id;
+  final String name;
+  final int productId;
+  final int categoryId;
+  final int brandId;
+  final String brandName;
+  final int productSku;
+  final int qtyInStock;
+  final String productImage1;
+  final String productImage2;
+  final String productImage3;
+  final String size;
+  final String color;
+  final String price;
+  final bool active;
+  final bool parentProductActive;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int? categoryPromoId;
+  final String? categoryPromoName;
+  final String? categoryPromoDescription;
+  final int? categoryPromoDiscountRate;
+  final bool? categoryPromoActive;
+  final DateTime? categoryPromoStartDate;
+  final DateTime? categoryPromoEndDate;
+  final int? brandPromoId;
+  final String? brandPromoName;
+  final String? brandPromoDescription;
+  final int? brandPromoDiscountRate;
+  final bool? brandPromoActive;
+  final DateTime? brandPromoStartDate;
+  final DateTime? brandPromoEndDate;
+  final int? productPromoId;
+  final String? productPromoName;
+  final String? productPromoDescription;
+  final int? productPromoDiscountRate;
+  final bool? productPromoActive;
+  final DateTime? productPromoStartDate;
+  final DateTime? productPromoEndDate;
+  final bool? nextAvailable;
 }

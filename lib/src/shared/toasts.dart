@@ -1,3 +1,4 @@
+import 'package:classic_shop/src/helpers/locale_extension.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 
@@ -34,13 +35,22 @@ Future<void> showNoConnectionToast(
 }
 
 Future<void> showAuthErrorToast(
-  String message,
+  String error,
   BuildContext context,
 ) async {
   await showFlash(
     context: context,
     duration: const Duration(seconds: 4),
     builder: (context, controller) {
+      final message = error == '401'
+          ? context.loc.invalid_credentials
+          : error == '403'
+              ? context.loc.account_blocked
+              : error == '404'
+                  ? context.loc.user_not_found
+                  : error == '409'
+                      ? context.loc.email_already_in_use
+                      : 'حدث خطأ ما.';
       return FlashBar/*<Widget>.dialog*/(
         dismissDirections: const [
           FlashDismissDirection.endToStart,

@@ -21,6 +21,7 @@ class ListProductsRemoteService extends ProductRemoteService {
     int? pageSize,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -36,6 +37,7 @@ class ListProductsRemoteService extends ProductRemoteService {
           pageSize: pageSize ?? PaginationConfig.itemsPerPage,
           isNew: isNew,
           isPromoted: isPromoted,
+          isFeatured: isFeatured,
           orderByLowPrice: orderByLowPrice,
           orderByHighPrice: orderByHighPrice,
         );
@@ -53,8 +55,16 @@ class ListProductsRemoteService extends ProductRemoteService {
           pageSize: pageSize ?? PaginationConfig.itemsPerPage,
           isNew: isNew,
           isPromoted: isPromoted,
+          isFeatured: isFeatured,
           orderByLowPrice: orderByLowPrice,
           orderByHighPrice: orderByHighPrice,
+        );
+
+      case ProductsFunction.getBestSellers:
+        return super.fetchProducts(
+          productsFunction: productsFunction,
+          requestUri: requestUri,
+          pageSize: pageSize ?? PaginationConfig.itemsPerPage,
         );
 
       case ProductsFunction.searchProducts:

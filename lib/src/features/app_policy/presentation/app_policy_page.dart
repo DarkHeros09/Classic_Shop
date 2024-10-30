@@ -35,8 +35,12 @@ class _AppPolicyPageState extends ConsumerState<AppPolicyPage> {
         child: state.maybeWhen(
           loadSuccess: (_) => Markdown(
             padding: const EdgeInsets.symmetric(horizontal: 16),
+            styleSheet: MarkdownStyleSheet(
+              textScaler: const TextScaler.linear(.85),
+            ),
             controller: controller,
             data: _.entity.policy ?? '',
+            selectable: true,
           ),
           orElse: () => const Center(
             child: CircularProgressIndicator(),

@@ -1,4 +1,5 @@
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/localization/locale_notifier.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
 import 'package:classic_shop/src/themes/themes.dart';
@@ -24,6 +25,7 @@ class AppWidget extends HookConsumerWidget {
     late final themeMode =
         ref.watch(themeModeProvider.select((value) => value));
     late final goRouter = ref.watch(goRouterProvider);
+    late final locale = ref.watch(selectedLocaleProvider);
     if (themeMode != ThemeMode.dark) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
@@ -46,7 +48,7 @@ class AppWidget extends HookConsumerWidget {
       // theme: myFlexLightColorScheme,
       theme: lightTheme,
       darkTheme: darkTheme,
-      locale: const Locale('ar'),
+      locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: goRouter,

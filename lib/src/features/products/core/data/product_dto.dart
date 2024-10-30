@@ -1,64 +1,52 @@
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'product_dto.freezed.dart';
-part 'product_dto.g.dart';
-// part 'product_dto.worker.g.dart';
+part 'product_dto.mapper.dart';
 
-// @SquadronService(web: false, pool: false)
-// class ProductDTOService {
-//   @SquadronMethod()
-//   Future<ProductDTO> doSomething(Map<String, dynamic> json) async =>
-//       ProductDTO.fromJson(json);
-// }
-
-@freezed
-class ProductDTO with _$ProductDTO {
-  const factory ProductDTO({
-    required int id,
-    required String name,
-    required int productId,
-    required int categoryId,
-    required int brandId,
-    required String brandName,
-    required int productSku,
-    required int qtyInStock,
-    required String productImage_1,
-    required String productImage_2,
-    required String productImage_3,
-    required String sizeValue,
-    required String colorValue,
-    required String price,
-    required bool parentProductActive,
-    required bool active,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-    required int? categoryPromoId,
-    required String? categoryPromoName,
-    required String? categoryPromoDescription,
-    required int? categoryPromoDiscountRate,
-    required bool? categoryPromoActive,
-    required DateTime? categoryPromoStartDate,
-    required DateTime? categoryPromoEndDate,
-    required int? brandPromoId,
-    required String? brandPromoName,
-    required String? brandPromoDescription,
-    required int? brandPromoDiscountRate,
-    required bool? brandPromoActive,
-    required DateTime? brandPromoStartDate,
-    required DateTime? brandPromoEndDate,
-    required int? productPromoId,
-    required String? productPromoName,
-    required String? productPromoDescription,
-    required int? productPromoDiscountRate,
-    required bool? productPromoActive,
-    required DateTime? productPromoStartDate,
-    required DateTime? productPromoEndDate,
-    required bool nextAvailable,
-  }) = _ProductDTO;
-  const ProductDTO._();
-  factory ProductDTO.fromJson(Map<String, dynamic> json) =>
-      _$ProductDTOFromJson(json);
+@MappableClass()
+class ProductDTO with ProductDTOMappable {
+  const ProductDTO({
+    required this.id,
+    required this.name,
+    required this.productId,
+    required this.categoryId,
+    required this.brandId,
+    required this.brandName,
+    required this.productSku,
+    required this.qtyInStock,
+    required this.productImage_1,
+    required this.productImage_2,
+    required this.productImage_3,
+    required this.sizeValue,
+    required this.colorValue,
+    required this.price,
+    required this.parentProductActive,
+    required this.active,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.categoryPromoId,
+    required this.categoryPromoName,
+    required this.categoryPromoDescription,
+    required this.categoryPromoDiscountRate,
+    required this.categoryPromoActive,
+    required this.categoryPromoStartDate,
+    required this.categoryPromoEndDate,
+    required this.brandPromoId,
+    required this.brandPromoName,
+    required this.brandPromoDescription,
+    required this.brandPromoDiscountRate,
+    required this.brandPromoActive,
+    required this.brandPromoStartDate,
+    required this.brandPromoEndDate,
+    required this.productPromoId,
+    required this.productPromoName,
+    required this.productPromoDescription,
+    required this.productPromoDiscountRate,
+    required this.productPromoActive,
+    required this.productPromoStartDate,
+    required this.productPromoEndDate,
+    required this.nextAvailable,
+  });
 
   factory ProductDTO.fromDomain(Product _) {
     return ProductDTO(
@@ -104,6 +92,47 @@ class ProductDTO with _$ProductDTO {
       nextAvailable: _.nextAvailable,
     );
   }
+
+  final int id;
+  final String name;
+  final int productId;
+  final int categoryId;
+  final int brandId;
+  final String brandName;
+  final int productSku;
+  final int qtyInStock;
+  final String productImage_1;
+  final String productImage_2;
+  final String productImage_3;
+  final String sizeValue;
+  final String colorValue;
+  final String price;
+  final bool parentProductActive;
+  final bool active;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int? categoryPromoId;
+  final String? categoryPromoName;
+  final String? categoryPromoDescription;
+  final int? categoryPromoDiscountRate;
+  final bool? categoryPromoActive;
+  final DateTime? categoryPromoStartDate;
+  final DateTime? categoryPromoEndDate;
+  final int? brandPromoId;
+  final String? brandPromoName;
+  final String? brandPromoDescription;
+  final int? brandPromoDiscountRate;
+  final bool? brandPromoActive;
+  final DateTime? brandPromoStartDate;
+  final DateTime? brandPromoEndDate;
+  final int? productPromoId;
+  final String? productPromoName;
+  final String? productPromoDescription;
+  final int? productPromoDiscountRate;
+  final bool? productPromoActive;
+  final DateTime? productPromoStartDate;
+  final DateTime? productPromoEndDate;
+  final bool? nextAvailable;
 
   Product toDomain() {
     return Product(

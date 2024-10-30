@@ -48,6 +48,7 @@ abstract class ProductApi extends ChopperService {
     @Query('color_id') int? colorId,
     @Query('is_new') bool? isNew,
     @Query('is_promoted') bool? isPromoted,
+    @Query('is_featured') bool? isFeatured,
     @Query('order_by_low_price') bool? orderByLowPrice,
     @Query('order_by_high_price') bool? orderByHighPrice,
   });
@@ -67,8 +68,17 @@ abstract class ProductApi extends ChopperService {
     @Query('color_id') int? colorId,
     @Query('is_new') bool? isNew,
     @Query('is_promoted') bool? isPromoted,
+    @Query('is_featured') bool? isFeatured,
     @Query('order_by_low_price') bool? orderByLowPrice,
     @Query('order_by_high_price') bool? orderByHighPrice,
+  });
+
+  @Get(
+    path: '/products-best-sellers',
+  )
+  Future<Response<List<Map<String, dynamic>>>> getBestSellers({
+    @Header('If-None-Match') required String ifNoneMatch,
+    @Query('limit') required int pageSize,
   });
 
   @Get(

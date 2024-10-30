@@ -36,6 +36,7 @@ class ListProductsRepository {
     int? pageSize,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) {
@@ -75,6 +76,9 @@ class ListProductsRepository {
     if (isPromoted != null) {
       queryParams['is_promoted'] = isPromoted.toString();
     }
+    if (isFeatured != null) {
+      queryParams['is_featured'] = isFeatured.toString();
+    }
     if (orderByLowPrice != null) {
       queryParams['order_by_low_price'] = orderByLowPrice.toString();
     }
@@ -98,6 +102,7 @@ class ListProductsRepository {
     int? pageSize,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -115,6 +120,7 @@ class ListProductsRepository {
         sizeId: sizeId,
         isNew: isNew,
         isPromoted: isPromoted,
+        isFeatured: isFeatured,
         orderByLowPrice: orderByLowPrice,
         orderByHighPrice: orderByHighPrice,
       );
@@ -135,6 +141,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -157,8 +164,21 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+          );
+
+        case ProductsFunction.getBestSellers:
+          requestUri = Uri.http(
+            Env.httpAddress,
+            '/api/v1/products-best-sellers',
+            queryParams,
+          );
+          remotePageProducts = await _remoteService.getProducts(
+            productsFunction: productsFunction,
+            requestUri: requestUri,
+            pageSize: pageSize,
           );
 
         case ProductsFunction.searchProducts:
@@ -206,6 +226,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -228,6 +249,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -248,6 +270,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -270,6 +293,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -290,6 +314,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -312,6 +337,7 @@ class ListProductsRepository {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );

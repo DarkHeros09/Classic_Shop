@@ -1,4 +1,21 @@
 {
-    "new_products": "New Products",
-    "all": "All"
+  "account_blocked": "Your account has been blocked. Please contact support.",
+  "account_locked": "Your account has been locked due to multiple failed login attempts. Please try again later.",
+  "all": "All",
+  "best_sellers": "Best Sellers",
+  "email_already_in_use": "This email address is already in use. Please try another one.",
+  "email_not_verified": "Your email has not been verified. Please check your inbox.",
+  "featured_products": "Featured Products",
+  "invalid_credentials": "The credentials you provided are incorrect. Please try again.",
+  "invalid_token": "The token provided is invalid. Please request a new one.",
+  "missing_token": "Authentication token is missing. Please provide a valid token.",
+  "new_products": "New Products",
+  "otp_expired": "The OTP has expired. Please request a new one.",
+  "otp_invalid": "The OTP you entered is invalid. Please try again.",
+  "password_expired": "Your password has expired. Please reset your password.",
+  "password_mismatch": "Passwords do not match. Please try again.",
+  "session_expired": "Your session has expired. Please log in again.",
+  "too_many_attempts": "Too many login attempts. Please try again after some time.",
+  "unauthorized": "You are not authorized to access this resource.",
+  "user_not_found": "No account found with this email address."
 }

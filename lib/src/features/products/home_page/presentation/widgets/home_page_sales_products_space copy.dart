@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/products/home_page/shared/providers.dart';
+import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,14 +10,13 @@ class HomePageSalesProductsSpace extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemCount = ref.watch(
-      promotedProductsNotifierProvider.select(
+      homePageNotifierProvider(ProductType.isPromoted).select(
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) => _.promotedProducts.entity.length > 6
-              ? 6
-              : _.promotedProducts.entity.length,
-          loadFailure: (_) => _.promotedProducts.entity.length + 1,
+          loadSuccess: (_) =>
+              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
     );

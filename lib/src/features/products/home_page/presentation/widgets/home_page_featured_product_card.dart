@@ -1,19 +1,19 @@
 import 'package:classic_shop/src/features/products/core/presentation/widgets/product_card.dart';
-import 'package:classic_shop/src/features/products/home_page/shared/providers.dart';
-import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/widgets/list_products_grid_view.dart';
+import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_featured_products_h_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePageProductCard extends ConsumerWidget {
-  const HomePageProductCard({
+class FeaturedProductCard extends ConsumerWidget {
+  const FeaturedProductCard({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.watch(productCardIndexProvider);
+    final index = ref.watch(homepageFeaturedProductsIndexProvider);
     final product = ref.watch(
-      homePageNotifierProvider.select(
+      homePageNotifierProvider(ProductType.isFeatured).select(
         (state) => state.map(
           initial: (_) => _.products.entity[index],
           loadInProgress: (_) => _.products.entity[index],

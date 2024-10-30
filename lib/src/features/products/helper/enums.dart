@@ -1,6 +1,7 @@
 enum ProductsFunction {
   getProducts,
   getProductsNextPage,
+  getBestSellers,
   searchProducts,
   searchProductsNextPage,
   getProductsWithPromotions,

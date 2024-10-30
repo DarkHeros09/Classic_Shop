@@ -11,7 +11,8 @@
         "**/*.g.dart": true,
         "**/*.gr.dart": true,
         "**/*.chopper.dart": true,
-        "**/*.mocks.dart": true
+        "**/*.mocks.dart": true,
+        "**/*.mapper.dart": true
     },
     "explorerExclude.backup": {}
 }

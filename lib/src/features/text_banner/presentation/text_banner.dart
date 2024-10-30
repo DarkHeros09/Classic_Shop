@@ -65,7 +65,7 @@ class _TextBanner extends HookConsumerWidget {
                   return ProviderScope(
                     key: UniqueKey(),
                     overrides: [
-                      textBannerCardIndexProvider.overrideWithValue(index)
+                      textBannerCardIndexProvider.overrideWithValue(index),
                     ],
                     child: const TextBannerCard(),
                   );
@@ -76,7 +76,7 @@ class _TextBanner extends HookConsumerWidget {
                   autoPlay: true,
                   scrollPhysics: const NeverScrollableScrollPhysics(),
                   height: 16,
-                  autoPlayCurve: accelerateEasing,
+                  autoPlayCurve: Easing.legacyAccelerate,
                   viewportFraction: 1,
                 ),
               ),

@@ -32,6 +32,7 @@ abstract class ProductRemoteService {
     int? pageSize,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -53,6 +54,7 @@ abstract class ProductRemoteService {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -71,11 +73,18 @@ abstract class ProductRemoteService {
             sizeId: sizeId,
             isNew: isNew,
             isPromoted: isPromoted,
+            isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
           debugPrint('response Next: ');
           debugPrint(response.toString());
+
+        case ProductsFunction.getBestSellers:
+          response = await _productApi.getBestSellers(
+            ifNoneMatch: previousHeaders?.etag ?? '',
+            pageSize: pageSize ?? PaginationConfig.itemsPerPage,
+          );
 
         case ProductsFunction.searchProducts:
           response = await _productApi.searchProducts(
@@ -165,7 +174,8 @@ abstract class ProductRemoteService {
         final headers = ResponseHeaders.parse(response);
         await _headersCache.saveHeaders(requestUri, headers);
         // response as Response<List<Map<String, dynamic>>>;
-        final convertedBody = response.body!.map(ProductDTO.fromJson).toList();
+        final convertedBody =
+            response.body!.map(ProductDTOMapper.fromJson).toList();
         log('HEADDDD${headers.nextAvailable}');
         return RemoteResponse.withNewData(
           convertedBody,

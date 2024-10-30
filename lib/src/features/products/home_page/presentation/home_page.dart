@@ -1,14 +1,18 @@
 import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_card.dart';
+import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_best_sellers_products_h_list_view.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_best_sellers_products_space.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_featured_products_h_list_view.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_featured_products_space.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_new_products_space.dart';
-import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_sales_products_space.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_product_card.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_sales_products_space%20copy.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/loading_h_list_name.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/promoted_product_card.dart';
-import 'package:classic_shop/src/features/products/home_page/shared/providers.dart';
 import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/widgets/list_products_grid_view.dart';
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel.dart';
-import 'package:classic_shop/src/features/promotions/presentation/widgets/home_page_product_card.dart';
 import 'package:classic_shop/src/features/promotions/shared/provider.dart';
 import 'package:classic_shop/src/features/text_banner/presentation/text_banner.dart';
 import 'package:classic_shop/src/features/text_banner/shared/providers.dart';
@@ -36,21 +40,57 @@ class HomePage extends ConsumerWidget {
             //   ..invalidate(productCardIndexProvider)
             //   ..invalidate(paginatedProductsNotifierProvider);
             ref.read(textBannerNotifierProvider).textBanners.entity.clear();
-            ref.read(homePageNotifierProvider).products.entity.clear();
             ref
-                .read(promotedProductsNotifierProvider)
-                .promotedProducts
+                .read(homePageNotifierProvider(ProductType.isNew))
+                .products
                 .entity
                 .clear();
+            ref
+                .read(homePageNotifierProvider(ProductType.isPromoted))
+                .products
+                .entity
+                .clear();
+            ref
+                .read(homePageNotifierProvider(ProductType.isFeatured))
+                .products
+                .entity
+                .clear();
+            // ref
+            //     .read(homePageNotifierProvider(ProductType.isPromoted))
+            //     .promotedProducts
+            //     .entity
+            //     .clear();
             await Future.wait([
               ref.read(textBannerNotifierProvider.notifier).fetchTextBanner(),
-              ref.read(homePageNotifierProvider.notifier).getPage(
+              ref
+                  .read(homePageNotifierProvider(ProductType.isNew).notifier)
+                  .getPage(
                     pageSize: 6,
                     isNew: true,
                   ),
-              ref.read(promotedProductsNotifierProvider.notifier).getPage(
+              ref
+                  .read(
+                    homePageNotifierProvider(ProductType.isPromoted).notifier,
+                  )
+                  .getPage(
                     pageSize: 6,
                     isPromoted: true,
+                  ),
+              ref
+                  .read(
+                    homePageNotifierProvider(ProductType.isFeatured).notifier,
+                  )
+                  .getPage(
+                    pageSize: 6,
+                    isFeatured: true,
+                  ),
+              ref
+                  .read(
+                    homePageNotifierProvider(ProductType.isBestSellers)
+                        .notifier,
+                  )
+                  .getBestSellers(
+                    pageSize: 6,
                   ),
               ref.read(promotionsNotifierProvider.notifier).getPromotions(),
             ]);
@@ -101,10 +141,119 @@ class HomePage extends ConsumerWidget {
               HomePageSalesProductsSpace(height: 8),
               HomePagePromotedProductsHListView(),
               HomePageSalesProductsSpace(height: 16),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                sliver: HomePageFeaturedHListName(),
+              ),
+              HomePageFeaturedProductsSpace(height: 8),
+              HomePageFeaturedProductsHListView(),
+              HomePageFeaturedProductsSpace(height: 16),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                sliver: HomePageBestSellersHListName(),
+              ),
+              HomePageBestSellersProductsSpace(height: 8),
+              HomePageBestSellersProductsHListView(),
+              HomePageBestSellersProductsSpace(height: 16),
               // HomePageNewProductsHListView(key: ValueKey('ProductList2')),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class HomePageBestSellersHListName extends HookConsumerWidget {
+  const HomePageBestSellersHListName({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state =
+        ref.watch(homePageNotifierProvider(ProductType.isBestSellers));
+    final appTheme = Theme.of(context);
+    final itemCount = ref.watch(
+      homePageNotifierProvider(ProductType.isBestSellers).select(
+        (value) => value.map(
+          initial: (_) => 0,
+          loadInProgress: (_) => 6,
+          loadSuccess: (_) =>
+              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadFailure: (_) => _.products.entity.length + 1,
+        ),
+      ),
+    );
+    return SliverToBoxAdapter(
+      child: state.map(
+        initial: (_) => const SizedBox.shrink(),
+        loadInProgress: (_) => const LoadingHListName(),
+        loadSuccess: (_) => itemCount > 0
+            ? Row(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.loc.best_sellers,
+                    style: appTheme.textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    context.loc.all,
+                    style: appTheme.textTheme.labelMedium,
+                  ),
+                ],
+              )
+            : const SizedBox.shrink(),
+        loadFailure: (_) => const SizedBox.shrink(),
+      ),
+    );
+  }
+}
+
+class HomePageFeaturedHListName extends HookConsumerWidget {
+  const HomePageFeaturedHListName({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(homePageNotifierProvider(ProductType.isFeatured));
+    final appTheme = Theme.of(context);
+    final itemCount = ref.watch(
+      homePageNotifierProvider(ProductType.isFeatured).select(
+        (value) => value.map(
+          initial: (_) => 0,
+          loadInProgress: (_) => 6,
+          loadSuccess: (_) =>
+              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadFailure: (_) => _.products.entity.length + 1,
+        ),
+      ),
+    );
+    return SliverToBoxAdapter(
+      child: state.map(
+        initial: (_) => const SizedBox.shrink(),
+        loadInProgress: (_) => const LoadingHListName(),
+        loadSuccess: (_) => itemCount > 0
+            ? Row(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.loc.featured_products,
+                    style: appTheme.textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    context.loc.all,
+                    style: appTheme.textTheme.labelMedium,
+                  ),
+                ],
+              )
+            : const SizedBox.shrink(),
+        loadFailure: (_) => const SizedBox.shrink(),
       ),
     );
   }
@@ -117,17 +266,16 @@ class HomePageSalesHListName extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(promotedProductsNotifierProvider);
+    final state = ref.watch(homePageNotifierProvider(ProductType.isPromoted));
     final appTheme = Theme.of(context);
     final itemCount = ref.watch(
-      promotedProductsNotifierProvider.select(
+      homePageNotifierProvider(ProductType.isPromoted).select(
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) => _.promotedProducts.entity.length > 6
-              ? 6
-              : _.promotedProducts.entity.length,
-          loadFailure: (_) => _.promotedProducts.entity.length + 1,
+          loadSuccess: (_) =>
+              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
     );
@@ -165,9 +313,9 @@ class HomePageHListName extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(homePageNotifierProvider);
+    final state = ref.watch(homePageNotifierProvider(ProductType.isNew));
     final itemCount = ref.watch(
-      homePageNotifierProvider.select(
+      homePageNotifierProvider(ProductType.isNew).select(
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
@@ -223,7 +371,7 @@ class _HomePageNewProductsHListViewState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.wait([
-        ref.read(homePageNotifierProvider.notifier).getPage(
+        ref.read(homePageNotifierProvider(ProductType.isNew).notifier).getPage(
               pageSize: 6,
               isNew: true,
             ),
@@ -235,9 +383,9 @@ class _HomePageNewProductsHListViewState
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(homePageNotifierProvider);
+    final state = ref.watch(homePageNotifierProvider(ProductType.isNew));
     final itemCount = ref.watch(
-      homePageNotifierProvider.select(
+      homePageNotifierProvider(ProductType.isNew).select(
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
@@ -303,7 +451,9 @@ class _HomePagePromotedProductsHListViewState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       Future.wait([
-        ref.read(promotedProductsNotifierProvider.notifier).getPage(
+        ref
+            .read(homePageNotifierProvider(ProductType.isPromoted).notifier)
+            .getPage(
               pageSize: 6,
               isPromoted: true,
             ),
@@ -313,16 +463,15 @@ class _HomePagePromotedProductsHListViewState
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(promotedProductsNotifierProvider);
+    final state = ref.watch(homePageNotifierProvider(ProductType.isPromoted));
     final itemCount = ref.watch(
-      promotedProductsNotifierProvider.select(
+      homePageNotifierProvider(ProductType.isPromoted).select(
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) => _.promotedProducts.entity.length > 6
-              ? 6
-              : _.promotedProducts.entity.length,
-          loadFailure: (_) => _.promotedProducts.entity.length + 1,
+          loadSuccess: (_) =>
+              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
     );
@@ -340,7 +489,7 @@ class _HomePagePromotedProductsHListViewState
             child: state.map(
               initial: (_) => const SizedBox.shrink(),
               loadInProgress: (_) {
-                if (index < _.promotedProducts.entity.length) {
+                if (index < _.products.entity.length) {
                   return const PromotedProductCard();
                 } else {
                   return const LoadingProductCard();
@@ -348,7 +497,7 @@ class _HomePagePromotedProductsHListViewState
               },
               loadSuccess: (_) => const PromotedProductCard(),
               loadFailure: (_) {
-                if (index < _.promotedProducts.entity.length) {
+                if (index < _.products.entity.length) {
                   return const PromotedProductCard();
                 } else {
                   return const SizedBox.shrink();

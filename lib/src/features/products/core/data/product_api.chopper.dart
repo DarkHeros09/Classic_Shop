@@ -27,6 +27,7 @@ final class _$ProductApi extends ProductApi {
     int? colorId,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) {
@@ -40,6 +41,7 @@ final class _$ProductApi extends ProductApi {
       'color_id': colorId,
       'is_new': isNew,
       'is_promoted': isPromoted,
+      'is_featured': isFeatured,
       'order_by_low_price': orderByLowPrice,
       'order_by_high_price': orderByHighPrice,
     };
@@ -70,6 +72,7 @@ final class _$ProductApi extends ProductApi {
     int? colorId,
     bool? isNew,
     bool? isPromoted,
+    bool? isFeatured,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) {
@@ -85,12 +88,35 @@ final class _$ProductApi extends ProductApi {
       'color_id': colorId,
       'is_new': isNew,
       'is_promoted': isPromoted,
+      'is_featured': isFeatured,
       'order_by_low_price': orderByLowPrice,
       'order_by_high_price': orderByHighPrice,
     };
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
       'Content-Type': 'application/json',
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+      headers: $headers,
+    );
+    return client
+        .send<List<Map<String, dynamic>>, Map<String, dynamic>>($request);
+  }
+
+  @override
+  Future<Response<List<Map<String, dynamic>>>> getBestSellers({
+    required String ifNoneMatch,
+    required int pageSize,
+  }) {
+    final Uri $url =
+        Uri.parse('http://192.168.1.105:8080/api/v1/products-best-sellers');
+    final Map<String, dynamic> $params = <String, dynamic>{'limit': pageSize};
+    final Map<String, String> $headers = {
+      'If-None-Match': ifNoneMatch,
     };
     final Request $request = Request(
       'GET',
