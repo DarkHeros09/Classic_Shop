@@ -22,6 +22,7 @@ class ListProductsRemoteService extends ProductRemoteService {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -38,6 +39,7 @@ class ListProductsRemoteService extends ProductRemoteService {
           isNew: isNew,
           isPromoted: isPromoted,
           isFeatured: isFeatured,
+          isLimited: isLimited,
           orderByLowPrice: orderByLowPrice,
           orderByHighPrice: orderByHighPrice,
         );
@@ -56,6 +58,7 @@ class ListProductsRemoteService extends ProductRemoteService {
           isNew: isNew,
           isPromoted: isPromoted,
           isFeatured: isFeatured,
+          isLimited: isLimited,
           orderByLowPrice: orderByLowPrice,
           orderByHighPrice: orderByHighPrice,
         );

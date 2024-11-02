@@ -6,7 +6,7 @@ part of 'home_page_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homePageNotifierHash() => r'99822582e783a717a2fca9dd23c444748d4b0724';
+String _$homePageNotifierHash() => r'a1bc221bd2f2e058203f3a9c2ef0ee8df1112d7d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -157,6 +157,8 @@ class HomePageNotifierProvider
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin HomePageNotifierRef on AutoDisposeNotifierProviderRef<HomePageState> {
   /// The parameter `type` of this provider.
   ProductType? get type;
@@ -171,4 +173,4 @@ class _HomePageNotifierProviderElement
   ProductType? get type => (origin as HomePageNotifierProvider).type;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

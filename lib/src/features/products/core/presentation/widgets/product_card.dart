@@ -138,7 +138,7 @@ class ProductCard extends HookConsumerWidget {
                 product.productImage1,
                 cacheMaxAge: const Duration(days: 30),
               ),
-              if (DateTime.now().difference(product.createdAt).inDays <= 7 &&
+              if (DateTime.now().difference(product.createdAt).inDays <= 10 &&
                   product.qtyInStock != 0)
                 Positioned.fill(
                   child: Align(

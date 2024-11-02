@@ -25,6 +25,7 @@ class ListProductsNotifier extends PaginatedProductsNotifier {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -44,6 +45,7 @@ class ListProductsNotifier extends PaginatedProductsNotifier {
         isNew: isNew,
         isPromoted: isPromoted,
         isFeatured: isFeatured,
+        isLimited: isLimited,
         orderByLowPrice: orderByLowPrice,
         orderByHighPrice: orderByHighPrice,
       ),

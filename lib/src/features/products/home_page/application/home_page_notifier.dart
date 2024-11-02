@@ -53,6 +53,7 @@ class HomePageNotifier extends _$HomePageNotifier {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
   }) async {
     // state = HomePageState.loadFailure(
     //   state.products,
@@ -73,6 +74,7 @@ class HomePageNotifier extends _$HomePageNotifier {
       isNew: isNew,
       isPromoted: isPromoted,
       isFeatured: isFeatured,
+      isLimited: isLimited,
     );
     state = failureOrProducts.fold(
       (l) => HomePageState.loadFailure(state.products, l),
@@ -129,5 +131,6 @@ enum ProductType {
   isNew,
   isPromoted,
   isFeatured,
+  isLimited,
   isBestSellers,
 }

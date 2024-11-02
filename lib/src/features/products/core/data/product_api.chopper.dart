@@ -28,6 +28,7 @@ final class _$ProductApi extends ProductApi {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) {
@@ -42,6 +43,7 @@ final class _$ProductApi extends ProductApi {
       'is_new': isNew,
       'is_promoted': isPromoted,
       'is_featured': isFeatured,
+      'is_qty_limited': isLimited,
       'order_by_low_price': orderByLowPrice,
       'order_by_high_price': orderByHighPrice,
     };

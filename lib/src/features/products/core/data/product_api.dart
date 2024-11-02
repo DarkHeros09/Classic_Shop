@@ -49,6 +49,7 @@ abstract class ProductApi extends ChopperService {
     @Query('is_new') bool? isNew,
     @Query('is_promoted') bool? isPromoted,
     @Query('is_featured') bool? isFeatured,
+    @Query('is_qty_limited') bool? isLimited,
     @Query('order_by_low_price') bool? orderByLowPrice,
     @Query('order_by_high_price') bool? orderByHighPrice,
   });

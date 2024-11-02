@@ -33,6 +33,7 @@ abstract class ProductRemoteService {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -55,6 +56,7 @@ abstract class ProductRemoteService {
             isNew: isNew,
             isPromoted: isPromoted,
             isFeatured: isFeatured,
+            isLimited: isLimited,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );

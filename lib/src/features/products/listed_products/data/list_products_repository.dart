@@ -37,6 +37,7 @@ class ListProductsRepository {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) {
@@ -79,6 +80,9 @@ class ListProductsRepository {
     if (isFeatured != null) {
       queryParams['is_featured'] = isFeatured.toString();
     }
+    if (isFeatured != null) {
+      queryParams['is_qty_limited'] = isLimited.toString();
+    }
     if (orderByLowPrice != null) {
       queryParams['order_by_low_price'] = orderByLowPrice.toString();
     }
@@ -103,6 +107,7 @@ class ListProductsRepository {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
   }) async {
@@ -121,6 +126,7 @@ class ListProductsRepository {
         isNew: isNew,
         isPromoted: isPromoted,
         isFeatured: isFeatured,
+        isLimited: isLimited,
         orderByLowPrice: orderByLowPrice,
         orderByHighPrice: orderByHighPrice,
       );
@@ -142,6 +148,7 @@ class ListProductsRepository {
             isNew: isNew,
             isPromoted: isPromoted,
             isFeatured: isFeatured,
+            isLimited: isLimited,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );
@@ -165,6 +172,7 @@ class ListProductsRepository {
             isNew: isNew,
             isPromoted: isPromoted,
             isFeatured: isFeatured,
+            isLimited: isLimited,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
           );

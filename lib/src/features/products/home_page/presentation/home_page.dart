@@ -6,6 +6,8 @@ import 'package:classic_shop/src/features/products/home_page/presentation/widget
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_best_sellers_products_space.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_featured_products_h_list_view.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_featured_products_space.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_limited_products_h_list_view.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_limited_products_space.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_new_products_space.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_product_card.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_sales_products_space%20copy.dart';
@@ -92,6 +94,14 @@ class HomePage extends ConsumerWidget {
                   .getBestSellers(
                     pageSize: 6,
                   ),
+              ref
+                  .read(
+                    homePageNotifierProvider(ProductType.isLimited).notifier,
+                  )
+                  .getPage(
+                    pageSize: 6,
+                    isLimited: true,
+                  ),
               ref.read(promotionsNotifierProvider.notifier).getPromotions(),
             ]);
           },
@@ -133,14 +143,14 @@ class HomePage extends ConsumerWidget {
               // if (itemCount > 0)
               HomePageNewProductsSpace(height: 8),
               HomePageNewProductsHListView(),
-              HomePageNewProductsSpace(height: 16),
+              HomePageNewProductsSpace(height: 20),
               SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 sliver: HomePageSalesHListName(),
               ),
               HomePageSalesProductsSpace(height: 8),
               HomePagePromotedProductsHListView(),
-              HomePageSalesProductsSpace(height: 16),
+              HomePageSalesProductsSpace(height: 20),
               SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 sliver: HomePageFeaturedHListName(),
@@ -149,16 +159,70 @@ class HomePage extends ConsumerWidget {
               HomePageFeaturedProductsHListView(),
               HomePageFeaturedProductsSpace(height: 16),
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 sliver: HomePageBestSellersHListName(),
               ),
               HomePageBestSellersProductsSpace(height: 8),
               HomePageBestSellersProductsHListView(),
               HomePageBestSellersProductsSpace(height: 16),
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                sliver: HomePageLimitedHListName(),
+              ),
+              HomePageLimitedProductsSpace(height: 8),
+              HomePageLimitedProductsHListView(),
+              HomePageLimitedProductsSpace(height: 20),
               // HomePageNewProductsHListView(key: ValueKey('ProductList2')),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class HomePageLimitedHListName extends HookConsumerWidget {
+  const HomePageLimitedHListName({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(homePageNotifierProvider(ProductType.isLimited));
+    final appTheme = Theme.of(context);
+    final itemCount = ref.watch(
+      homePageNotifierProvider(ProductType.isLimited).select(
+        (value) => value.map(
+          initial: (_) => 0,
+          loadInProgress: (_) => 6,
+          loadSuccess: (_) =>
+              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadFailure: (_) => _.products.entity.length + 1,
+        ),
+      ),
+    );
+    return SliverToBoxAdapter(
+      child: state.map(
+        initial: (_) => const SizedBox.shrink(),
+        loadInProgress: (_) => const LoadingHListName(),
+        loadSuccess: (_) => itemCount > 0
+            ? Row(
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    context.loc.limited_quantity,
+                    style: appTheme.textTheme.bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    context.loc.all,
+                    style: appTheme.textTheme.labelMedium,
+                  ),
+                ],
+              )
+            : const SizedBox.shrink(),
+        loadFailure: (_) => const SizedBox.shrink(),
       ),
     );
   }
@@ -289,7 +353,7 @@ class HomePageSalesHListName extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'التخفيضات',
+                    context.loc.sales,
                     style: appTheme.textTheme.bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
