@@ -14,8 +14,9 @@ class HomePageNewProductsSpace extends HookConsumerWidget {
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),

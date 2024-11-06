@@ -1,8 +1,11 @@
 import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_card.dart';
 import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_featured_product_card.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/products_show_all_card.dart';
+import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final homepageFeaturedProductsIndexProvider =
@@ -41,8 +44,9 @@ class _HomePageFeaturedProductsHListViewState
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -67,7 +71,17 @@ class _HomePageFeaturedProductsHListViewState
                   return const LoadingProductCard();
                 }
               },
-              loadSuccess: (_) => const FeaturedProductCard(),
+              loadSuccess: (_) {
+                if (index < _.products.entity.length) {
+                  return const FeaturedProductCard();
+                }
+                return ProductsShowAllCard(
+                  onTap: () => context.goNamed(
+                    AppRoute.selectedProducts.name,
+                    extra: ProductType.isFeatured,
+                  ),
+                );
+              },
               loadFailure: (_) {
                 if (index < _.products.entity.length) {
                   return const FeaturedProductCard();

@@ -252,113 +252,122 @@ class _ProfileState extends ConsumerState<Profile> {
                   const SizedBox(
                     height: 28,
                   ),
-                  Padding(
-                    // padding: const EdgeInsets.symmetric(horizontal: 16),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        ProfileItems(
-                          title: 'عنوان التسليم',
-                          icon: pinIcon,
-                          onTap: () => context.goNamed(AppRoute.address.name),
-                        ),
-                        const Divider(
+                  Column(
+                    children: [
+                      ProfileItems(
+                        title: 'عنوان التسليم',
+                        icon: pinIcon,
+                        onTap: () => context.goNamed(AppRoute.address.name),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(
                           height: 0,
                           thickness: .79,
                           color: Color(0xFFe5e5e5),
                         ),
-                        ProfileItems(
-                          title: 'الطلبات',
-                          icon: fileTextIcon,
-                          onTap: () => context.goNamed(AppRoute.orders.name),
-                        ),
-                        const Divider(
+                      ),
+                      ProfileItems(
+                        title: 'الطلبات',
+                        icon: fileTextIcon,
+                        onTap: () => context.goNamed(AppRoute.orders.name),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(
                           height: 0,
                           thickness: .79,
                           color: Color(0xFFe5e5e5),
                         ),
-                        ProfileItems(
-                          title: 'الإعدادات',
-                          icon: gearIcon,
-                          onTap: () => context.goNamed(AppRoute.settings.name),
-                        ),
-                        const Divider(
+                      ),
+                      ProfileItems(
+                        title: 'الإعدادات',
+                        icon: gearIcon,
+                        onTap: () => context.goNamed(AppRoute.settings.name),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(
                           height: 0,
                           thickness: .79,
                           color: Color(0xFFe5e5e5),
                         ),
-                        ProfileItems(
-                          title: 'رسالة الترحيب',
-                          icon: activityIcon,
-                          onTap: () =>
-                              context.pushNamed(AppRoute.onBoarding.name),
-                        ),
-                        const Divider(
+                      ),
+                      ProfileItems(
+                        title: 'رسالة الترحيب',
+                        icon: activityIcon,
+                        onTap: () =>
+                            context.pushNamed(AppRoute.onBoarding.name),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(
                           height: 0,
                           thickness: .79,
                           color: Color(0xFFe5e5e5),
                         ),
-                        ProfileItems(
-                          title: 'سياسة التطبيق',
-                          icon: folderOpenIcon,
-                          onTap: () => context.pushNamed(AppRoute.policy.name),
-                        ),
-                        const Divider(
+                      ),
+                      ProfileItems(
+                        title: 'سياسة التطبيق',
+                        icon: folderOpenIcon,
+                        onTap: () => context.pushNamed(AppRoute.policy.name),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Divider(
                           height: 0,
                           thickness: .79,
                           color: Color(0xFFe5e5e5),
                         ),
-                        ProfileItems(
-                          title: 'تسجيل الخروج',
-                          icon: logoutIcon,
-                          onTap: () async {
-                            final user =
-                                await ref.read(userStorageProvider).read();
-                            await ref
-                                .read(authNotifierProvider.notifier)
-                                .signOut();
-                            if (user != null) {
+                      ),
+                      ProfileItems(
+                        title: 'تسجيل الخروج',
+                        icon: logoutIcon,
+                        onTap: () async {
+                          final user =
+                              await ref.read(userStorageProvider).read();
+                          await ref
+                              .read(authNotifierProvider.notifier)
+                              .signOut();
+                          if (user != null) {
+                            ref
+                                .read(cartNotifierProvider)
+                                .cartItems
+                                .entity
+                                .clear();
+                            await Future.wait([
                               ref
-                                  .read(cartNotifierProvider)
-                                  .cartItems
-                                  .entity
-                                  .clear();
-                              await Future.wait([
-                                ref
-                                    .read(categoryLocalServiceProvider)
-                                    .deleteAllCategories(),
-                                ref
-                                    .read(authNotifierProvider.notifier)
-                                    .signOut(),
-                                ref
-                                    .read(responseHeaderCacheProvider)
-                                    .deleteAllHeaders(),
-                                ref
-                                    .read(cartLocalServiceProvider)
-                                    .deleteAllCartItems(user.id),
-                                ref
-                                    .read(wishListLocalServiceProvider)
-                                    .deleteAllWishListItems(),
-                                ref
-                                    .read(productPromotionsLocalServiceProvider)
-                                    .deleteAllProductPromotions(),
-                                ref
-                                    .read(brandPromotionsLocalServiceProvider)
-                                    .deleteAllBrandPromotions(),
-                                ref
-                                    .read(
-                                      categoryPromotionsLocalServiceProvider,
-                                    )
-                                    .deleteAllCategoryPromotions(),
-                                // ref
-                                //     .read(shopOrderLocalServiceProvider)
-                                //     .deleteAllShopOrders()
-                              ]);
-                            }
-                          },
-                        ),
-                      ],
-                    ),
+                                  .read(categoryLocalServiceProvider)
+                                  .deleteAllCategories(),
+                              ref.read(authNotifierProvider.notifier).signOut(),
+                              ref
+                                  .read(responseHeaderCacheProvider)
+                                  .deleteAllHeaders(),
+                              ref
+                                  .read(cartLocalServiceProvider)
+                                  .deleteAllCartItems(user.id),
+                              ref
+                                  .read(wishListLocalServiceProvider)
+                                  .deleteAllWishListItems(),
+                              ref
+                                  .read(productPromotionsLocalServiceProvider)
+                                  .deleteAllProductPromotions(),
+                              ref
+                                  .read(brandPromotionsLocalServiceProvider)
+                                  .deleteAllBrandPromotions(),
+                              ref
+                                  .read(
+                                    categoryPromotionsLocalServiceProvider,
+                                  )
+                                  .deleteAllCategoryPromotions(),
+                              // ref
+                              //     .read(shopOrderLocalServiceProvider)
+                              //     .deleteAllShopOrders()
+                            ]);
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -394,6 +403,7 @@ class ProfileItems extends StatelessWidget {
           ),
           Row(
             children: [
+              const SizedBox(width: 16),
               ScalableImageWidget(
                 si: icon,
                 scale: .75,

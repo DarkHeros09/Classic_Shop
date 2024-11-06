@@ -55,15 +55,6 @@ class _HomePageCarouselDetailsState
 
   @override
   Widget build(BuildContext context) {
-    final itemCount = ref.watch(listProductsNotifierProvider).map(
-          initial: (_) => 0,
-          loadInProgress: (_) => _.products.entity.isEmpty
-              ? 0
-              : _.products.entity.length + _.itemsPerPage,
-          loadSuccess: (_) => _.products.entity.length,
-          loadFailure: (_) => _.products.entity.length + 1,
-        );
-    debugPrint('SDFDF ${widget.promotionType}');
     return SafeArea(
       child: CarouselGridView(
         id: widget.id,

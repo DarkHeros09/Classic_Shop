@@ -12,7 +12,9 @@ import 'package:classic_shop/src/features/on_boarding/presentation/onboarding.da
 import 'package:classic_shop/src/features/on_boarding/shared/providers.dart';
 import 'package:classic_shop/src/features/otp/presentation/otp_page.dart';
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
+import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/home_page.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/selected_products.dart/presentation/selected_products_page.dart';
 import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/selected_category.dart';
 import 'package:classic_shop/src/features/products/listed_products/product_detail.dart';
 import 'package:classic_shop/src/features/products/listed_products/profile.dart';
@@ -40,6 +42,7 @@ enum AppRoute {
   search,
   product,
   productDetails,
+  selectedProducts,
   categories,
   selectedCategory,
   cart,
@@ -228,6 +231,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         child: HomePageCarouselDetails(
                           id: id,
                           promotionType: promotionType,
+                        ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'selected-products',
+                    name: AppRoute.selectedProducts.name,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) {
+                      final productType = state.extra! as ProductType;
+                      return NoTransitionPage(
+                        child: SelectedProductsPage(
+                          productType: productType,
                         ),
                       );
                     },

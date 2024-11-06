@@ -12,6 +12,7 @@ import 'package:classic_shop/src/features/products/home_page/presentation/widget
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_product_card.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_sales_products_space%20copy.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/loading_h_list_name.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/products_show_all_card.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/promoted_product_card.dart';
 import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/widgets/list_products_grid_view.dart';
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel.dart';
@@ -20,10 +21,12 @@ import 'package:classic_shop/src/features/text_banner/presentation/text_banner.d
 import 'package:classic_shop/src/features/text_banner/shared/providers.dart';
 import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:classic_shop/src/helpers/locale_extension.dart';
+import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/assets.dart';
 import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 
@@ -195,8 +198,9 @@ class HomePageLimitedHListName extends HookConsumerWidget {
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -215,10 +219,10 @@ class HomePageLimitedHListName extends HookConsumerWidget {
                     style: appTheme.textTheme.bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    context.loc.all,
-                    style: appTheme.textTheme.labelMedium,
-                  ),
+                  // Text(
+                  //   context.loc.all,
+                  //   style: appTheme.textTheme.labelMedium,
+                  // ),
                 ],
               )
             : const SizedBox.shrink(),
@@ -243,8 +247,9 @@ class HomePageBestSellersHListName extends HookConsumerWidget {
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -263,10 +268,10 @@ class HomePageBestSellersHListName extends HookConsumerWidget {
                     style: appTheme.textTheme.bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    context.loc.all,
-                    style: appTheme.textTheme.labelMedium,
-                  ),
+                  // Text(
+                  //   context.loc.all,
+                  //   style: appTheme.textTheme.labelMedium,
+                  // ),
                 ],
               )
             : const SizedBox.shrink(),
@@ -290,8 +295,9 @@ class HomePageFeaturedHListName extends HookConsumerWidget {
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -310,10 +316,10 @@ class HomePageFeaturedHListName extends HookConsumerWidget {
                     style: appTheme.textTheme.bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    context.loc.all,
-                    style: appTheme.textTheme.labelMedium,
-                  ),
+                  // Text(
+                  //   context.loc.all,
+                  //   style: appTheme.textTheme.labelMedium,
+                  // ),
                 ],
               )
             : const SizedBox.shrink(),
@@ -337,8 +343,9 @@ class HomePageSalesHListName extends HookConsumerWidget {
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -357,10 +364,10 @@ class HomePageSalesHListName extends HookConsumerWidget {
                     style: appTheme.textTheme.bodyLarge
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    context.loc.all,
-                    style: appTheme.textTheme.labelMedium,
-                  ),
+                  // Text(
+                  //   context.loc.all,
+                  //   style: appTheme.textTheme.labelMedium,
+                  // ),
                 ],
               )
             : const SizedBox.shrink(),
@@ -383,8 +390,9 @@ class HomePageHListName extends HookConsumerWidget {
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -404,10 +412,10 @@ class HomePageHListName extends HookConsumerWidget {
                     style: appTheme.textTheme.bodyLarge!
                         .copyWith(fontWeight: FontWeight.w700),
                   ),
-                  Text(
-                    context.loc.all,
-                    style: appTheme.textTheme.labelMedium,
-                  ),
+                  // Text(
+                  //   context.loc.all,
+                  //   style: appTheme.textTheme.labelMedium,
+                  // ),
                 ],
               )
             : const SizedBox.shrink(),
@@ -453,12 +461,14 @@ class _HomePageNewProductsHListViewState
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
     );
+
     return SliverToBoxAdapter(
       child: SizedBox(
         height: itemCount > 0 ? 300 : 0,
@@ -477,7 +487,17 @@ class _HomePageNewProductsHListViewState
                   return const LoadingProductCard();
                 }
               },
-              loadSuccess: (_) => const HomePageProductCard(),
+              loadSuccess: (_) {
+                if (index < _.products.entity.length) {
+                  return const HomePageProductCard();
+                }
+                return ProductsShowAllCard(
+                  onTap: () async => context.goNamed(
+                    AppRoute.selectedProducts.name,
+                    extra: ProductType.isNew,
+                  ),
+                );
+              },
               loadFailure: (_) {
                 if (index < _.products.entity.length) {
                   return const HomePageProductCard();
@@ -533,8 +553,9 @@ class _HomePagePromotedProductsHListViewState
         (value) => value.map(
           initial: (_) => 0,
           loadInProgress: (_) => 6,
-          loadSuccess: (_) =>
-              _.products.entity.length > 6 ? 6 : _.products.entity.length,
+          loadSuccess: (_) => _.isNextPageAvailable
+              ? _.products.entity.length + 1
+              : _.products.entity.length,
           loadFailure: (_) => _.products.entity.length + 1,
         ),
       ),
@@ -559,7 +580,17 @@ class _HomePagePromotedProductsHListViewState
                   return const LoadingProductCard();
                 }
               },
-              loadSuccess: (_) => const PromotedProductCard(),
+              loadSuccess: (_) {
+                if (index < _.products.entity.length) {
+                  return const PromotedProductCard();
+                }
+                return ProductsShowAllCard(
+                  onTap: () => context.goNamed(
+                    AppRoute.selectedProducts.name,
+                    extra: ProductType.isPromoted,
+                  ),
+                );
+              },
               loadFailure: (_) {
                 if (index < _.products.entity.length) {
                   return const PromotedProductCard();
