@@ -1,27 +1,7 @@
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/ship_status_chip.dart';
+import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-class ChipGroupValue {
-  const ChipGroupValue(this.groupValue);
-  final int groupValue;
-}
-
-class ChipNotifier extends AutoDisposeNotifier<ChipGroupValue> {
-  @override
-  ChipGroupValue build() {
-    return const ChipGroupValue(1);
-  }
-
-  void groupValue(int value) {
-    state = ChipGroupValue(value);
-  }
-}
-
-final chipNotifierProvider =
-    NotifierProvider.autoDispose<ChipNotifier, ChipGroupValue>(
-  ChipNotifier.new,
-);
 
 class ShipStatusChipRow extends HookConsumerWidget {
   const ShipStatusChipRow({

@@ -1,3 +1,4 @@
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/presentation/cart/widgets/cart_product_card.dart';
 import 'package:classic_shop/src/features/cart/presentation/cart/widgets/empty_cart_page.dart';
 import 'package:classic_shop/src/features/cart/presentation/cart/widgets/loading_cart_product_card.dart';
@@ -5,9 +6,6 @@ import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final cartItemsListIndexProvider =
-    Provider<int>((_) => throw UnimplementedError());
 
 // class CartLengthForPersistentFooterNotifier extends AutoDisposeNotifier<int> {
 //   @override
@@ -117,7 +115,7 @@ class _CartItemsListSliverList extends HookConsumerWidget {
               return ProviderScope(
                 key: UniqueKey(),
                 overrides: [
-                  cartItemsListIndexProvider.overrideWithValue(index)
+                  cartItemsListIndexProvider.overrideWithValue(index),
                 ],
                 child: state.map(
                   initial: (_) => const SizedBox.shrink(),

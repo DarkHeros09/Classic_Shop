@@ -1,17 +1,13 @@
+import 'package:classic_shop/src/features/categories/application/category_notifier.dart';
 import 'package:classic_shop/src/features/categories/presentation/widgets/categories_list_view.dart';
 import 'package:classic_shop/src/features/categories/presentation/widgets/loading_category_image.dart';
 import 'package:classic_shop/src/features/categories/shared/provider.dart';
-import 'package:classic_shop/src/features/products/core/presentation/widgets/category_chip_row.dart';
-import 'package:classic_shop/src/features/products/core/shared/providers.dart';
+import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final selectedCategoryIdProvider = StateProvider<int>((ref) {
-  return 0;
-});
 
 class CategoryCard extends HookConsumerWidget {
   const CategoryCard({
@@ -35,7 +31,7 @@ class CategoryCard extends HookConsumerWidget {
     );
     return InkWell(
       onTap: () {
-        ref.read(selectedCategoryIdProvider.notifier).state = category.id;
+        ref.read(selectedCategoryIdProvider.notifier).setId(category.id);
         ref.read(categoryChipNotifierProvider.notifier).groupValue(index);
         ref.read(listProductsNotifierProvider).products.entity.clear();
         context.pushNamed(AppRoute.selectedCategory.name);
@@ -77,8 +73,8 @@ class CategoryCard extends HookConsumerWidget {
                 loadStateChanged: (state) {
                   switch (state.extendedImageLoadState) {
                     case LoadState.loading:
-                      return const LoadingCategoryImage();
                     case LoadState.failed:
+                      return const LoadingCategoryImage();
                     case LoadState.completed:
                       return state.completedWidget;
                   }

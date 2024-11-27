@@ -6,46 +6,51 @@ import 'package:classic_shop/src/features/core/data/user_storage/secure_user_sto
 import 'package:classic_shop/src/features/core/domain/user.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final flutterSecureStorageProvider = Provider<FlutterSecureStorage>((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+FlutterSecureStorage flutterSecureStorage(Ref ref) {
   return const FlutterSecureStorage(
     aOptions: AndroidOptions(
       encryptedSharedPreferences: true,
     ),
   );
-});
+}
 
-final credentialsStorageProvider = Provider(
-  (ref) {
-    return SecureCredentialsStorage(ref.watch(flutterSecureStorageProvider));
-  },
-);
+@Riverpod(keepAlive: true)
+SecureCredentialsStorage credentialsStorage(Ref ref) {
+  return SecureCredentialsStorage(ref.watch(flutterSecureStorageProvider));
+}
 
-final userStorageProvider = Provider(
-  (ref) {
-    return SecureUserStorage(ref.watch(flutterSecureStorageProvider));
-  },
-);
+@Riverpod(keepAlive: true)
+SecureUserStorage userStorage(Ref ref) {
+  return SecureUserStorage(ref.watch(flutterSecureStorageProvider));
+}
 
-final authApiProvider = Provider<AuthApi>((ref) {
+@Riverpod(keepAlive: true)
+AuthApi authApi(Ref ref) {
   return AuthApi.create();
-});
+}
 
-final authApi2Provider = Provider<AuthApi2>(AuthApi2.create);
+@Riverpod(keepAlive: true)
+AuthApi2 authApi2(Ref ref) {
+  return AuthApi2.create(ref);
+}
 
-final authRemoteServiceProvider = Provider<AuthRemoteService>((ref) {
+@Riverpod(keepAlive: true)
+AuthRemoteService authRemoteService(Ref ref) {
   return AuthRemoteService(
     ref.watch(credentialsStorageProvider),
     ref.watch(userStorageProvider),
     ref.watch(authApiProvider),
     ref.watch(authApi2Provider),
   );
-});
+}
 
-final authNotifierProvider =
-    NotifierProvider<AuthNotifier, AuthState>(AuthNotifier.new);
-
-final authStateChangesProvider = StreamProvider.autoDispose<User?>((ref) {
+@riverpod
+Stream<User?> authStateChanges(Ref ref) {
   final authNotifier = ref.watch(authNotifierProvider.notifier);
   return authNotifier.authStateChanges();
-});
+}

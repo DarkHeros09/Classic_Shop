@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:classic_shop/src/features/text_banner/application/text_banner_notifier.dart';
 import 'package:classic_shop/src/features/text_banner/presentation/loading_text_banner_card.dart';
 import 'package:classic_shop/src/features/text_banner/presentation/text_banner_card.dart';
-import 'package:classic_shop/src/features/text_banner/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

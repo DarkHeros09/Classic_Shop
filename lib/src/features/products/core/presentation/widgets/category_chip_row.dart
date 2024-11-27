@@ -1,35 +1,13 @@
-import 'package:classic_shop/src/features/brands/presentation/widgets/brand_chip_row.dart';
-import 'package:classic_shop/src/features/categories/presentation/widgets/category_card.dart';
+import 'package:classic_shop/src/features/brands/shared/provider.dart';
+import 'package:classic_shop/src/features/categories/application/category_notifier.dart';
 import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/products/core/presentation/widgets/category_chip.dart';
 import 'package:classic_shop/src/features/products/core/shared/providers.dart';
 import 'package:classic_shop/src/features/products/helper/enums.dart';
+import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-class CategoryChipGroupValue {
-  const CategoryChipGroupValue(
-    this.groupValue,
-  );
-  final int groupValue;
-}
-
-class CategoryChipNotifier extends Notifier<CategoryChipGroupValue> {
-  @override
-  CategoryChipGroupValue build() {
-    return const CategoryChipGroupValue(0);
-  }
-
-  void groupValue(int value) {
-    state = CategoryChipGroupValue(value);
-  }
-}
-
-final categoryChipNotifierProvider =
-    NotifierProvider<CategoryChipNotifier, CategoryChipGroupValue>(
-  CategoryChipNotifier.new,
-);
 
 class CategoryChipRow extends ConsumerStatefulWidget {
   const CategoryChipRow({super.key});
@@ -94,23 +72,58 @@ class _CategoryChipRowState extends ConsumerState<CategoryChipRow> {
       scrollDirection: Axis.horizontal,
       itemCount: categories.length,
       itemBuilder: (context, index) {
-        final brandId = ref.watch(selectedBrandIdProvider);
+        // final categoryId = ref.watch(selectedCategoryIdProvider);
         return CategoryChip(
           categoryText: categories[index].categoryName,
           categoryValue: index,
           onPressed: () {
-            final categoryId = ref
+            final brandId = ref.read(selectedBrandIdProvider);
+            ref
                 .read(selectedCategoryIdProvider.notifier)
-                .state = categories[index].id;
-            // final brandId = ref.read(selectedBrandIdProvider);
-            debugPrint('NNNN$brandId');
+                .setId(categories[index].id);
             ref.read(categoryChipNotifierProvider.notifier).groupValue(index);
             ref.read(listProductsNotifierProvider).products.entity.clear();
-            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                  productsFunction: ProductsFunction.getProducts,
-                  categoryId: categoryId,
-                  brandId: brandId,
-                );
+            final selectedSortOption = ref.watch(
+              sortOptionsNotifierProvider.select(
+                (value) => value.groupValue,
+              ),
+            );
+            switch (selectedSortOption) {
+              case 'recommended':
+                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                      productsFunction: ProductsFunction.getProducts,
+                      categoryId: categories[index].id,
+                      brandId: brandId,
+                    );
+              case 'new':
+                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                      productsFunction: ProductsFunction.getProducts,
+                      categoryId: categories[index].id,
+                      brandId: brandId,
+                      orderByNew: true,
+                    );
+              case 'old':
+                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                      productsFunction: ProductsFunction.getProducts,
+                      categoryId: categories[index].id,
+                      brandId: brandId,
+                      orderByOld: true,
+                    );
+              case 'priceDesc':
+                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                      productsFunction: ProductsFunction.getProducts,
+                      categoryId: categories[index].id,
+                      brandId: brandId,
+                      orderByHighPrice: true,
+                    );
+              case 'priceAsc':
+                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                      productsFunction: ProductsFunction.getProducts,
+                      categoryId: categories[index].id,
+                      brandId: brandId,
+                      orderByLowPrice: true,
+                    );
+            }
           },
         );
       },

@@ -1,11 +1,10 @@
 import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_card.dart';
-import 'package:classic_shop/src/features/products/core/shared/providers.dart';
+import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:classic_shop/src/features/promotions/presentation/widgets/carouselProductCard.dart';
+import 'package:classic_shop/src/features/promotions/shared/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final carouselProductCardIndexProvider = Provider<int>((_) => 0);
 
 class SelectedCarouselGridView extends ConsumerWidget {
   const SelectedCarouselGridView({super.key});

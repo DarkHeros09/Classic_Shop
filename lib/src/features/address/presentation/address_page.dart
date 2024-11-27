@@ -1,6 +1,6 @@
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
 import 'package:classic_shop/src/features/address/presentation/add_address.dart';
 import 'package:classic_shop/src/features/address/presentation/widgets/addresses_list.dart';
-import 'package:classic_shop/src/features/address/shared/provider.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -75,7 +75,7 @@ class _AddressPageState extends ConsumerState<AddressPage> {
               child: SizedBox(
                 height: 16,
               ),
-            )
+            ),
           ],
         ),
       ),

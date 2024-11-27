@@ -6,8 +6,10 @@ import 'package:classic_shop/src/features/wish_list/domain/wish_list_item_failur
 import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'wish_list_notifier.freezed.dart';
+part 'wish_list_notifier.g.dart';
 
 @freezed
 class WishListState with _$WishListState {
@@ -27,7 +29,8 @@ class WishListState with _$WishListState {
   ) = _LoadFailure;
 }
 
-class WishListNotifier extends Notifier<WishListState> {
+@Riverpod(keepAlive: true)
+class WishListNotifier extends _$WishListNotifier {
   late final WishListRepository _repository;
   @override
   WishListState build() {

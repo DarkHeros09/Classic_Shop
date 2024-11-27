@@ -1,9 +1,9 @@
+import 'package:classic_shop/src/features/categories/application/category_notifier.dart';
 import 'package:classic_shop/src/features/categories/presentation/widgets/list_category_card.dart';
 import 'package:classic_shop/src/features/categories/presentation/widgets/loading_category_card.dart';
-import 'package:classic_shop/src/features/categories/shared/provider.dart';
-import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 final categoryCardIndexProvider = Provider<int>((_) => 0);
 
@@ -25,7 +25,7 @@ class CategoriesListView extends ConsumerWidget {
         ),
       ),
     );
-    return SuperSliverListSeparated(
+    return SuperSliverList.separated(
       itemCount: itemCount,
       itemBuilder: (context, index) {
         return ProviderScope(
@@ -51,7 +51,7 @@ class CategoriesListView extends ConsumerWidget {
           ),
         );
       },
-      separator: (context, index) {
+      separatorBuilder: (context, index) {
         return const SizedBox(
           height: 16,
         );

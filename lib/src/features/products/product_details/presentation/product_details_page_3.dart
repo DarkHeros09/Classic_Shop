@@ -1,6 +1,6 @@
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -296,7 +296,7 @@ class MyCustomDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final windowHeight = MediaQuery.sizeOf(context).height - kToolbarHeight;
+    // final windowHeight = MediaQuery.sizeOf(context).height - kToolbarHeight;
     return Scaffold(
       body: FractionallySizedBox(
         heightFactor: 1,

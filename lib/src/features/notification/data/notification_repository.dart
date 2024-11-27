@@ -4,7 +4,6 @@ import 'package:classic_shop/src/features/core/data/response_headers_cache.dart'
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:classic_shop/src/features/notification/data/notification_dto.dart';
-import 'package:classic_shop/src/features/notification/data/notification_local_service.dart';
 import 'package:classic_shop/src/features/notification/data/notification_remote_service.dart';
 import 'package:classic_shop/src/features/notification/data/notification_storage.dart';
 import 'package:classic_shop/src/features/notification/domain/notification.dart';
@@ -14,7 +13,7 @@ import 'package:flutter/foundation.dart';
 
 class NotificationRepository {
   const NotificationRepository(
-    this._localService,
+    // this._localService,
     this._remoteService,
     this._userStorage,
     this._headersCache,
@@ -23,7 +22,7 @@ class NotificationRepository {
   );
 
   final SecureNotificationStorage _secureNotificationStorage;
-  final NotificationLocalService _localService;
+  // final NotificationLocalService _localService;
   final NotificationRemoteService _remoteService;
   final ResponseHeadersCache _headersCache;
   final UserStorage _userStorage;

@@ -1,6 +1,6 @@
+import 'package:classic_shop/src/features/shop_order/core/application/shop_order_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/ship_status_chip_row.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/shop_order_list.dart';
-import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,7 +16,7 @@ class _ShopOrderPageState extends ConsumerState<ShopOrderPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(shopOrderNotifierProvider.notifier).getShopOrders();
+      ref.read(shopOrdersNotifierProvider.notifier).getShopOrders();
     });
   }
 

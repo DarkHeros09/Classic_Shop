@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/shop_order/shop_order_items/shared/providers.dart';
+import 'package:classic_shop/src/features/shop_order/shop_order_items/application/shop_order_items_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,7 +23,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
         child: Table(
           columnWidths: const {
             0: FractionColumnWidth(.31),
-            1: FractionColumnWidth(.69)
+            1: FractionColumnWidth(.69),
           },
           border: TableBorder.all(
             style: BorderStyle.none,
@@ -41,7 +41,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                   style: appTheme.textTheme.bodySmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                )
+                ),
               ],
             ),
             const TableRow(
@@ -51,7 +51,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 ),
                 SizedBox(
                   height: 16,
-                )
+                ),
               ],
             ),
             TableRow(
@@ -64,7 +64,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 Text(
                   shopOrderItems?.paymentType ?? '',
                   style: appTheme.textTheme.bodySmall,
-                )
+                ),
               ],
             ),
             const TableRow(
@@ -74,7 +74,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 ),
                 SizedBox(
                   height: 16,
-                )
+                ),
               ],
             ),
             TableRow(
@@ -87,7 +87,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 Text(
                   '10 د.ل',
                   style: appTheme.textTheme.bodySmall,
-                )
+                ),
               ],
             ),
             const TableRow(
@@ -97,7 +97,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 ),
                 SizedBox(
                   height: 16,
-                )
+                ),
               ],
             ),
             TableRow(
@@ -110,7 +110,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 Text(
                   '${shopOrderItems?.deliveryPrice} د.ل',
                   style: appTheme.textTheme.bodySmall,
-                )
+                ),
               ],
             ),
             const TableRow(
@@ -120,7 +120,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 ),
                 SizedBox(
                   height: 16,
-                )
+                ),
               ],
             ),
             TableRow(
@@ -138,9 +138,9 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                     ),
                     const Icon(
                       Icons.price_check,
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
             const TableRow(
@@ -150,7 +150,7 @@ class ShopOrderItemsInfoTable extends ConsumerWidget {
                 ),
                 SizedBox(
                   height: 16,
-                )
+                ),
               ],
             ),
           ],

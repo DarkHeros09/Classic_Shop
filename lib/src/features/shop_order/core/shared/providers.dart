@@ -1,46 +1,55 @@
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/shop_order/core/application/shop_order_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/core/data/shop_order_api.dart';
 import 'package:classic_shop/src/features/shop_order/core/data/shop_order_local_service.dart';
 import 'package:classic_shop/src/features/shop_order/core/data/shop_order_remote_service.dart';
 import 'package:classic_shop/src/features/shop_order/core/data/shop_order_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final shopOrderLocalServiceProvider = Provider((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+ShopOrderLocalService shopOrderLocalService(Ref ref) {
   return ShopOrderLocalService(ref.watch(sembastProvider));
-});
+}
 
-final shopOrderApiProvider = Provider(ShopOrderApi.create);
+@Riverpod(keepAlive: true)
+ShopOrderApi shopOrderApi(Ref ref) {
+  return ShopOrderApi.create(ref);
+}
 
-final shopOrderRemoteServiceProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+ShopOrderRemoteService shopOrderRemoteService(Ref ref) {
   return ShopOrderRemoteService(
     ref.watch(shopOrderApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final shopOrderRepositoryProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+ShopOrderRepository shopOrderRepository(Ref ref) {
   return ShopOrderRepository(
     ref.watch(shopOrderRemoteServiceProvider),
     ref.watch(shopOrderLocalServiceProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final shopOrderNotifierProvider =
-    NotifierProvider.autoDispose<ShopOrdersNotifier, ShopOrdersState>(
-  ShopOrdersNotifier.new,
-);
+////////////////* Presentation //////////////////////////
 
-final shopOrderProcessingNotifierProvider =
-    NotifierProvider.autoDispose<ShopOrdersProcessingNotifier, ShopOrdersState>(
-  ShopOrdersProcessingNotifier.new,
-);
-final shopOrderDeliveredNotifierProvider =
-    NotifierProvider.autoDispose<ShopOrdersDeliveredNotifier, ShopOrdersState>(
-  ShopOrdersDeliveredNotifier.new,
-);
-final shopOrderCancelledNotifierProvider =
-    NotifierProvider.autoDispose<ShopOrdersCancelledNotifier, ShopOrdersState>(
-  ShopOrdersCancelledNotifier.new,
-);
+class ChipGroupValue {
+  const ChipGroupValue(this.groupValue);
+  final int groupValue;
+}
+
+@riverpod
+class ChipNotifier extends _$ChipNotifier {
+  @override
+  ChipGroupValue build() {
+    return const ChipGroupValue(1);
+  }
+
+  void groupValue(int value) {
+    state = ChipGroupValue(value);
+  }
+}

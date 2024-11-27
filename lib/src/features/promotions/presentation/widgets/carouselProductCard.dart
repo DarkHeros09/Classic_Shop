@@ -1,6 +1,6 @@
 import 'package:classic_shop/src/features/products/core/presentation/widgets/product_card.dart';
-import 'package:classic_shop/src/features/products/core/shared/providers.dart';
-import 'package:classic_shop/src/features/promotions/presentation/widgets/selected_carousel_grid_view.dart';
+import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
+import 'package:classic_shop/src/features/promotions/shared/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

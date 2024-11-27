@@ -1,11 +1,11 @@
-import 'package:classic_shop/src/features/address/shared/provider.dart';
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/core/presentation/widgets/checkout_payment_options.dart';
+import 'package:classic_shop/src/features/checkout/core/application/checkout_notifier.dart';
 import 'package:classic_shop/src/features/checkout/core/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/delivery_method/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/order_status/shared/providers.dart';
-import 'package:classic_shop/src/features/notification/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/delivery_method/application/delivery_method_notifier.dart';
+import 'package:classic_shop/src/features/checkout/order_status/application/order_status_notifier.dart';
+import 'package:classic_shop/src/features/notification/application/notification_notifier.dart';
 import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

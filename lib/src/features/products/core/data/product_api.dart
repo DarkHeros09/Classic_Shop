@@ -52,6 +52,8 @@ abstract class ProductApi extends ChopperService {
     @Query('is_qty_limited') bool? isLimited,
     @Query('order_by_low_price') bool? orderByLowPrice,
     @Query('order_by_high_price') bool? orderByHighPrice,
+    @Query('order_by_new') bool? orderByNew,
+    @Query('order_by_old') bool? orderByOld,
   });
 
   @Get(
@@ -70,12 +72,16 @@ abstract class ProductApi extends ChopperService {
     @Query('is_new') bool? isNew,
     @Query('is_promoted') bool? isPromoted,
     @Query('is_featured') bool? isFeatured,
+    @Query('price_cursor') String? lastPrice,
     @Query('order_by_low_price') bool? orderByLowPrice,
     @Query('order_by_high_price') bool? orderByHighPrice,
+    @Query('created_at_cursor') String? lastCreatedAt,
+    @Query('order_by_new') bool? orderByNew,
+    @Query('order_by_old') bool? orderByOld,
   });
 
   @Get(
-    path: '/products-best-sellers',
+    path: '/product-items-best-sellers',
   )
   Future<Response<List<Map<String, dynamic>>>> getBestSellers({
     @Header('If-None-Match') required String ifNoneMatch,

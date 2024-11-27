@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/shop_order/shop_order_items/shared/providers.dart';
+import 'package:classic_shop/src/features/shop_order/shop_order_items/application/shop_order_items_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';

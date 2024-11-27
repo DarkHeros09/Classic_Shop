@@ -1,6 +1,6 @@
 import 'package:classic_shop/src/features/products/core/presentation/widgets/product_card.dart';
 import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
-import 'package:classic_shop/src/features/products/home_page/presentation/home_page.dart';
+import 'package:classic_shop/src/features/products/home_page/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,7 +11,8 @@ class PromotedProductCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final index = ref.watch(homepagePromotedProductsIndexProvider);
+    final index =
+        ref.watch(homepageProductsIndexProvider(ProductType.isPromoted));
     final product = ref.watch(
       homePageNotifierProvider(ProductType.isPromoted).select(
         (state) => state.map(

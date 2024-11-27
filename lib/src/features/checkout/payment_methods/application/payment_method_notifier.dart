@@ -5,9 +5,10 @@ import 'package:classic_shop/src/features/checkout/payment_methods/domain/paymen
 import 'package:classic_shop/src/features/checkout/payment_methods/shared/providers.dart';
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'payment_method_notifier.freezed.dart';
+part 'payment_method_notifier.g.dart';
 
 @freezed
 class PaymentMethodState with _$PaymentMethodState {
@@ -21,7 +22,8 @@ class PaymentMethodState with _$PaymentMethodState {
   ) = _LoadFailure;
 }
 
-class PaymentMethodNotifier extends AutoDisposeNotifier<PaymentMethodState> {
+@riverpod
+class PaymentMethodNotifier extends _$PaymentMethodNotifier {
   late final PaymentMethodRemoteService _remoteService;
   late final UserStorage _userStorage;
 

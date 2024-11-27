@@ -34,8 +34,12 @@ abstract class ProductRemoteService {
     bool? isPromoted,
     bool? isFeatured,
     bool? isLimited,
+    String? lastPrice,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    String? lastCreatedAt,
+    bool? orderByNew,
+    bool? orderByOld,
   }) async {
     final previousHeaders = await _headersCache.getHeaders(requestUri);
     debugPrint(_productApi.client.baseUrl.authority); //!
@@ -59,6 +63,8 @@ abstract class ProductRemoteService {
             isLimited: isLimited,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
           debugPrint('response: ');
           debugPrint(response.toString());
@@ -76,8 +82,12 @@ abstract class ProductRemoteService {
             isNew: isNew,
             isPromoted: isPromoted,
             isFeatured: isFeatured,
+            lastPrice: lastPrice,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            lastCreatedAt: lastCreatedAt,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
           debugPrint('response Next: ');
           debugPrint(response.toString());

@@ -1,62 +1,80 @@
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/products/core/application/paginated_products_notifier.dart';
 import 'package:classic_shop/src/features/products/core/data/product_api.dart';
 import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:classic_shop/src/features/products/listed_products/data/list_products_local_service.dart';
 import 'package:classic_shop/src/features/products/listed_products/data/list_products_remote_service.dart';
 import 'package:classic_shop/src/features/products/listed_products/data/list_products_repository.dart';
-import 'package:classic_shop/src/features/products/searched_products/application/searched_products_notifier.dart';
 import 'package:classic_shop/src/features/products/searched_products/data/searched_products_remote_service.dart';
 import 'package:classic_shop/src/features/products/searched_products/data/searched_products_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final listProductsLocalServiceProvider = Provider((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+ListProductsLocalService listProductsLocalService(Ref ref) {
   return ListProductsLocalService(ref.watch(sembastProvider));
-});
+}
 
-final productApiProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+ProductApi productApi(Ref ref) {
   return ProductApi.create();
-});
+}
 
-final listProductsRemoteServiceProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+ListProductsRemoteService listProductsRemoteService(Ref ref) {
   return ListProductsRemoteService(
     ref.watch(productApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final listProductsRepositoryProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+ListProductsRepository listProductsRepository(Ref ref) {
   return ListProductsRepository(
     ref.watch(listProductsRemoteServiceProvider),
     ref.watch(listProductsLocalServiceProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final searchedProductsRemoteServiceProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+SearchedProductsRemoteService searchedProductsRemoteService(Ref ref) {
   return SearchedProductsRemoteService(
     ref.watch(productApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final searchedProductsRepositoryProvider = Provider((ref) {
+@Riverpod(keepAlive: true)
+SearchedProductsRepository searchedProductsRepository(Ref ref) {
   return SearchedProductsRepository(
     ref.watch(searchedProductsRemoteServiceProvider),
   );
-});
+}
 
-final paginatedProductsNotifierProvider = NotifierProvider.autoDispose<
-    PaginatedProductsNotifier, PaginatedProductsState>(
-  PaginatedProductsNotifier.new,
-);
+//////////////* Presentation //////////////////////
 
-final listProductsNotifierProvider =
-    NotifierProvider.autoDispose<ListProductsNotifier, PaginatedProductsState>(
-  ListProductsNotifier.new,
-);
+@riverpod
+bool isProductEmpty(Ref ref) {
+  return ref.watch(listProductsNotifierProvider).products.entity.isEmpty;
+}
 
-final searchedProductsNotifierProvider = NotifierProvider.autoDispose<
-    SearchedProductsNotifier, PaginatedProductsState>(
-  SearchedProductsNotifier.new,
-);
+class SortOptionsGroupValue {
+  const SortOptionsGroupValue(
+    this.groupValue,
+  );
+  final String groupValue;
+}
+
+@riverpod
+class SortOptionsNotifier extends _$SortOptionsNotifier {
+  @override
+  SortOptionsGroupValue build() {
+    return const SortOptionsGroupValue('recommended');
+  }
+
+  void groupValue(String value) {
+    state = SortOptionsGroupValue(value);
+  }
+}

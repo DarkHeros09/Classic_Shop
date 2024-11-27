@@ -1,12 +1,13 @@
 import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
+import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_image.dart';
+import 'package:classic_shop/src/features/wish_list/application/wish_list_notifier.dart';
 import 'package:classic_shop/src/features/wish_list/domain/wish_list_item.dart';
-import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/assets.dart';
 import 'package:extended_image/extended_image.dart';
@@ -15,11 +16,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smoothIndicator;
+    as smooth_indicator;
 
 // class CartItemsLength {
 //   const CartItemsLength(this.length);
@@ -253,10 +253,9 @@ class _ProductDetailBottomButtonsBar extends HookConsumerWidget {
                   children: [
                     Text(
                       'إختر القياس',
-                      style: GoogleFonts.notoKufiArabic(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
+                      style: appTheme.textTheme.bodySmall?.copyWith(
                         color: Colors.black,
+                        fontSize: 12,
                       ),
                     ),
                     const Icon(
@@ -509,11 +508,11 @@ class _ImageCarouselIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Center(
-        child: smoothIndicator.AnimatedSmoothIndicator(
+        child: smooth_indicator.AnimatedSmoothIndicator(
           count: 3,
           // textDirection: TextDirection.rtl,
           activeIndex: carouselIndex.value,
-          effect: const smoothIndicator.SlideEffect(
+          effect: const smooth_indicator.SlideEffect(
             dotHeight: 8,
             dotWidth: 8,
             activeDotColor: Color(0xFF9D331F),
@@ -562,31 +561,36 @@ class _ProductImages extends HookConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Stack(
               children: [
-                Container(
-                  // height: 500,
-                  // width: 465,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    image: DecorationImage(
-                      opacity: product.qtyInStock == 0 ? .5 : 1,
-                      colorFilter: product.qtyInStock == 0
-                          ? const ColorFilter.mode(
-                              Colors.white,
-                              BlendMode.color,
-                            )
-                          : null,
-                      image: ExtendedNetworkImageProvider(
-                        imageList[index],
-                        cache: true,
-                        cacheMaxAge: const Duration(days: 30),
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                    // border: Border.all(
-                    //   color: Colors.grey,
-                    //   width: .2,
-                    // ),
-                  ),
+                ExtendedImage.network(
+                  height: 500,
+                  loadStateChanged: (state) {
+                    switch (state.extendedImageLoadState) {
+                      case LoadState.loading:
+                      case LoadState.failed:
+                        return const LoadingProductDetailImage();
+                      case LoadState.completed:
+                        return ColorFiltered(
+                          colorFilter: product.qtyInStock == 0
+                              ? const ColorFilter.mode(
+                                  Colors.white,
+                                  BlendMode.color,
+                                )
+                              : const ColorFilter.mode(
+                                  Colors.transparent,
+                                  BlendMode.color,
+                                ),
+                          child: state.completedWidget,
+                        );
+                    }
+                  },
+                  shape: BoxShape.rectangle,
+                  opacity: product.qtyInStock == 0
+                      ? const AlwaysStoppedAnimation<double>(.5)
+                      : const AlwaysStoppedAnimation<double>(1),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  fit: BoxFit.cover,
+                  imageList[index],
+                  cacheMaxAge: const Duration(days: 30),
                 ),
                 if (product.qtyInStock == 0)
                   Positioned.fill(

@@ -21,6 +21,14 @@ class LoadingProductCard extends StatelessWidget {
         ),
         CustomShimmer(
           height: 16,
+          width: 50,
+          borderRadius: 2,
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        CustomShimmer(
+          height: 16,
           width: 126,
           borderRadius: 2,
         ),

@@ -1,13 +1,16 @@
 import 'package:classic_shop/src/shared/providers.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'theme_mode_notifier.g.dart';
 
 const spkIsDarkMode = 'isDarkMode';
 
-class ThemeModeNotifier extends Notifier<ThemeMode> {
+@Riverpod(keepAlive: true)
+class ThemeModeNotifier extends _$ThemeModeNotifier {
   @override
   ThemeMode build() {
-    final preferences = ref.watch(sharedPreferencesProvider);
+    final preferences = ref.watch(sharedPreferencesProvider).requireValue;
     final isDarkMode = preferences.getBool(spkIsDarkMode) ?? false;
     // final isDarkMode = ref.watch(
     //   settingsNotifierProvider.select((value) => value.settings.isDarkMode),
@@ -19,6 +22,3 @@ class ThemeModeNotifier extends Notifier<ThemeMode> {
     state = isDarkMode ? ThemeMode.dark : ThemeMode.light;
   }
 }
-
-final themeModeProvider =
-    NotifierProvider<ThemeModeNotifier, ThemeMode>(ThemeModeNotifier.new);

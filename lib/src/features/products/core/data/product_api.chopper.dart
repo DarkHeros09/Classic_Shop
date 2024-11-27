@@ -31,6 +31,8 @@ final class _$ProductApi extends ProductApi {
     bool? isLimited,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    bool? orderByNew,
+    bool? orderByOld,
   }) {
     final Uri $url =
         Uri.parse('http://192.168.1.105:8080/api/v1/product-items-v2');
@@ -46,6 +48,8 @@ final class _$ProductApi extends ProductApi {
       'is_qty_limited': isLimited,
       'order_by_low_price': orderByLowPrice,
       'order_by_high_price': orderByHighPrice,
+      'order_by_new': orderByNew,
+      'order_by_old': orderByOld,
     };
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
@@ -75,8 +79,12 @@ final class _$ProductApi extends ProductApi {
     bool? isNew,
     bool? isPromoted,
     bool? isFeatured,
+    String? lastPrice,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    String? lastCreatedAt,
+    bool? orderByNew,
+    bool? orderByOld,
   }) {
     final Uri $url =
         Uri.parse('http://192.168.1.105:8080/api/v1/product-items-next-page');
@@ -91,8 +99,12 @@ final class _$ProductApi extends ProductApi {
       'is_new': isNew,
       'is_promoted': isPromoted,
       'is_featured': isFeatured,
+      'price_cursor': lastPrice,
       'order_by_low_price': orderByLowPrice,
       'order_by_high_price': orderByHighPrice,
+      'created_at_cursor': lastCreatedAt,
+      'order_by_new': orderByNew,
+      'order_by_old': orderByOld,
     };
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
@@ -114,8 +126,8 @@ final class _$ProductApi extends ProductApi {
     required String ifNoneMatch,
     required int pageSize,
   }) {
-    final Uri $url =
-        Uri.parse('http://192.168.1.105:8080/api/v1/products-best-sellers');
+    final Uri $url = Uri.parse(
+        'http://192.168.1.105:8080/api/v1/product-items-best-sellers');
     final Map<String, dynamic> $params = <String, dynamic>{'limit': pageSize};
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,

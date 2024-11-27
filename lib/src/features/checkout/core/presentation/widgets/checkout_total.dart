@@ -1,7 +1,7 @@
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/delivery_method/application/delivery_method_notifier.dart';
 import 'package:classic_shop/src/features/checkout/delivery_method/domain/delivery_method.dart';
-import 'package:classic_shop/src/features/checkout/delivery_method/shared/providers.dart';
 import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

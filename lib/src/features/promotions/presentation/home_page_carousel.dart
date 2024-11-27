@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:classic_shop/src/features/promotions/application/promotions_notifier.dart';
 import 'package:classic_shop/src/features/promotions/presentation/widgets/loading_carousel_card.dart';
 import 'package:classic_shop/src/features/promotions/shared/provider.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
@@ -7,29 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-class CarouselIndexNotifier extends Notifier<int> {
-  @override
-  int build() {
-    return 0;
-  }
-
-  set index(int index) {
-    state = index;
-  }
-
-  int get index => state;
-}
-
-final carouselIndexNotifierProvider =
-    NotifierProvider<CarouselIndexNotifier, int>(CarouselIndexNotifier.new);
-
-final carouselControllerProvider = Provider<CarouselSliderController>((ref) {
-  return CarouselSliderController();
-});
-
-final carouselCardIndexProvider =
-    Provider<int>((_) => throw UnimplementedError());
 
 class HomePageCarousel extends StatefulHookConsumerWidget {
   const HomePageCarousel({super.key});
@@ -70,8 +48,14 @@ class _HomePageCarouselState extends ConsumerState<HomePageCarousel> {
               carouselCardIndexProvider.overrideWithValue(index),
             ],
             child: state.map(
-              initial: (_) => const LoadingCarouselCard(),
-              loadInProgress: (_) => const LoadingCarouselCard(),
+              initial: (_) => const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: LoadingCarouselCard(),
+              ),
+              loadInProgress: (_) => const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: LoadingCarouselCard(),
+              ),
               loadSuccess: (_) => itemCount > 0
                   ? const CarouselCard()
                   : const SizedBox.shrink(),
@@ -84,8 +68,10 @@ class _HomePageCarouselState extends ConsumerState<HomePageCarousel> {
         options: CarouselOptions(
           autoPlayInterval: const Duration(seconds: 5),
           autoPlay: true,
-          onPageChanged: (index, reason) =>
-              ref.read(carouselIndexNotifierProvider.notifier).index = index,
+          onPageChanged: (index, reason) {
+            ref.read(carouselIndexNotifierProvider.notifier).setIndex(index);
+            return index;
+          },
           height: 136,
           viewportFraction: 1,
         ),
@@ -122,22 +108,31 @@ class CarouselCard extends HookConsumerWidget {
             },
             extra: promotions.type,
           );
+          ref.read(carouselIndexNotifierProvider.notifier).setIndex(0);
         },
-        child: Container(
+        child: ExtendedImage.network(
           height: 136,
           width: double.infinity,
-          decoration: BoxDecoration(
-            // color: Colors.grey,
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExtendedNetworkImageProvider(
-                promotions.promotionImage ?? '',
-                cache: true,
-                cacheMaxAge: const Duration(days: 30),
-              ),
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-          ),
+          loadStateChanged: (state) {
+            switch (state.extendedImageLoadState) {
+              case LoadState.loading:
+              case LoadState.failed:
+                return const LoadingCarouselCard();
+              case LoadState.completed:
+                return ColorFiltered(
+                  colorFilter: const ColorFilter.mode(
+                    Colors.transparent,
+                    BlendMode.color,
+                  ),
+                  child: state.completedWidget,
+                );
+            }
+          },
+          shape: BoxShape.rectangle,
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+          fit: BoxFit.cover,
+          promotions.promotionImage ?? '',
+          cacheMaxAge: const Duration(days: 30),
         ),
       ),
     );

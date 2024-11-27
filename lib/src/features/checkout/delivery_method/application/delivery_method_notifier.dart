@@ -7,8 +7,10 @@ import 'package:classic_shop/src/features/checkout/delivery_method/shared/provid
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'delivery_method_notifier.freezed.dart';
+part 'delivery_method_notifier.g.dart';
 
 @freezed
 class DeliveryMethodState with _$DeliveryMethodState {
@@ -28,7 +30,8 @@ class DeliveryMethodState with _$DeliveryMethodState {
   ) = _LoadFailure;
 }
 
-class DeliveryMethodNotifier extends AutoDisposeNotifier<DeliveryMethodState> {
+@riverpod
+class DeliveryMethodNotifier extends _$DeliveryMethodNotifier {
   late final DeliveryMethodRemoteService _remoteService;
   late final UserStorage _userStorage;
   @override

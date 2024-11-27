@@ -4,9 +4,10 @@ import 'package:classic_shop/src/features/brands/domain/brand_failure.dart';
 import 'package:classic_shop/src/features/brands/shared/provider.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'brand_notifier.freezed.dart';
+part 'brand_notifier.g.dart';
 
 @freezed
 class BrandState with _$BrandState {
@@ -26,7 +27,8 @@ class BrandState with _$BrandState {
   ) = _LoadFailure;
 }
 
-class BrandNotifier extends AutoDisposeNotifier<BrandState> {
+@riverpod
+class BrandNotifier extends _$BrandNotifier {
   late final BrandRepository _repository;
   @override
   BrandState build() {

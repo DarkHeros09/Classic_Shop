@@ -1,10 +1,10 @@
+import 'package:classic_shop/src/features/shop_order/shop_order_items/application/shop_order_items_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/loading_shop_order_items_info_table.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/shop_order_items_info_table.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/shop_order_items_list.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/shop_order_items_number.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/shop_order_items_order_number_and_date.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/shop_order_items_status_ans_track_number.dart';
-import 'package:classic_shop/src/features/shop_order/shop_order_items/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

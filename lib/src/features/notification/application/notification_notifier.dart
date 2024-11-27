@@ -7,8 +7,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notification_notifier.freezed.dart';
+part 'notification_notifier.g.dart';
 
 @freezed
 class NotificationState with _$NotificationState {
@@ -28,7 +30,8 @@ class NotificationState with _$NotificationState {
   ) = _LoadFailure;
 }
 
-class NotificationNotifier extends Notifier<NotificationState> {
+@Riverpod(keepAlive: true)
+class NotificationNotifier extends _$NotificationNotifier {
   late final NotificationRepository _repository;
   late final FirebaseMessaging _firebaseMessaging;
   @override

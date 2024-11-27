@@ -5,9 +5,10 @@ import 'package:classic_shop/src/features/app_policy/shared/providers.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_policy_notifier.freezed.dart';
+part 'app_policy_notifier.g.dart';
 
 @freezed
 class AppPolicyState with _$AppPolicyState {
@@ -27,7 +28,8 @@ class AppPolicyState with _$AppPolicyState {
   ) = _LoadFailure;
 }
 
-class AppPolicyNotifier extends Notifier<AppPolicyState> {
+@Riverpod()
+class AppPolicyNotifier extends _$AppPolicyNotifier {
   late final AppPolicyRepository _repository;
   @override
   AppPolicyState build() {

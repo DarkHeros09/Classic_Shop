@@ -1,5 +1,5 @@
+import 'package:classic_shop/src/features/shop_order/core/application/shop_order_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/loading_shop_order_card.dart';
-import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +21,9 @@ class ShopOrderListCancelledState
     extends ConsumerState<ShopOrderListCancelled> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(shopOrderCancelledNotifierProvider);
+    final state = ref.watch(shopOrdersCancelledNotifierProvider);
     final itemCount = ref.watch(
-      shopOrderCancelledNotifierProvider.select(
+      shopOrdersCancelledNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity.length,
           loadInProgress: (_) => _.shopOrders.entity.length + _.itemsPerPage,
@@ -38,7 +38,7 @@ class ShopOrderListCancelledState
       itemBuilder: (context, index) => ProviderScope(
         key: UniqueKey(),
         overrides: [
-          shopOrderCardCancelledIndexProvider.overrideWithValue(index)
+          shopOrderCardCancelledIndexProvider.overrideWithValue(index),
         ],
         child: state.map(
           initial: (_) => const SizedBox.shrink(),
@@ -85,7 +85,7 @@ class _ShopOrderCard extends StatelessWidget {
             color: Color(0x24000000),
             blurRadius: 3,
             offset: Offset(1, 0),
-          )
+          ),
         ],
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
@@ -109,7 +109,7 @@ class _ShopOrderCard extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            OrderDetailsAndStatus()
+            OrderDetailsAndStatus(),
           ],
         ),
       ),
@@ -128,7 +128,7 @@ class OrderDetailsAndStatus extends ConsumerWidget {
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final index = ref.watch(shopOrderCardCancelledIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderCancelledNotifierProvider.select(
+      shopOrdersCancelledNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -197,7 +197,7 @@ class OrderTotalAndQTY extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final index = ref.watch(shopOrderCardCancelledIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderCancelledNotifierProvider.select(
+      shopOrdersCancelledNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -224,7 +224,7 @@ class OrderTotalAndQTY extends ConsumerWidget {
             Text(
               shopOrders.itemCount.toString(),
               style: appTheme.textTheme.bodySmall,
-            )
+            ),
           ],
         ),
         Row(
@@ -247,11 +247,11 @@ class OrderTotalAndQTY extends ConsumerWidget {
                 ),
                 const Icon(
                   Icons.price_check,
-                )
+                ),
               ],
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -267,7 +267,7 @@ class OrderTrackNumber extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final index = ref.watch(shopOrderCardCancelledIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderCancelledNotifierProvider.select(
+      shopOrdersCancelledNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -291,7 +291,7 @@ class OrderTrackNumber extends ConsumerWidget {
           shopOrders.trackNumber,
           style: appTheme.textTheme.bodySmall
               ?.copyWith(fontWeight: FontWeight.w700),
-        )
+        ),
       ],
     );
   }
@@ -307,7 +307,7 @@ class OrderNumberAndDate extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final index = ref.watch(shopOrderCardCancelledIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderCancelledNotifierProvider.select(
+      shopOrdersCancelledNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -329,7 +329,7 @@ class OrderNumberAndDate extends ConsumerWidget {
           style: appTheme.textTheme.bodySmall?.copyWith(
             color: const Color(0xff858080),
           ),
-        )
+        ),
       ],
     );
   }

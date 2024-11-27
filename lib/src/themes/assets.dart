@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final siAssetsProvider = Provider<List<(String, ScalableImage)>>(
-    (ref) => throw UnimplementedError());
+part 'assets.g.dart';
 
-final darkSiAssetsProvider = Provider<List<(String, ScalableImage)>>((ref) {
-  throw UnimplementedError();
-});
+@Riverpod(keepAlive: true, dependencies: [])
+List<(String, ScalableImage)> siAssets(Ref ref) {
+  return ref.watch(initAssetsProvider()).requireValue;
+}
+
+@Riverpod(keepAlive: true, dependencies: [])
+List<(String, ScalableImage)> darkSiAssets(Ref ref) {
+  return ref.watch(initAssetsProvider(isDarkMode: true)).requireValue;
+}
 
 enum SvgAssets {
   logo,
@@ -42,9 +48,12 @@ enum SvgAssets {
   addToCart,
   addToWishList,
   searching,
+  noData,
 }
 
-Future<List<(String, ScalableImage)>> initAssets({
+@Riverpod(keepAlive: true)
+FutureOr<List<(String, ScalableImage)>> initAssets(
+  Ref ref, {
   bool isDarkMode = false,
 }) async {
   final siAssets = [
@@ -190,6 +199,10 @@ Future<List<(String, ScalableImage)>> initAssets({
       rootBundle,
       Assets.undrawSearchingRe3ra9CroppedSi,
     ),
+    ScalableImage.fromSIAsset(
+      rootBundle,
+      Assets.noDataSi,
+    ),
   ];
 
   final assetsPath = [
@@ -223,6 +236,7 @@ Future<List<(String, ScalableImage)>> initAssets({
     SvgAssets.addToCart.name,
     SvgAssets.addToWishList.name,
     SvgAssets.searching.name,
+    SvgAssets.noData.name,
   ];
 
   final initializedSiAssets = await Future.wait(siAssets);

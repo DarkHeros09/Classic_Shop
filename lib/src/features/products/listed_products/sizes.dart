@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
 
 class Sizes extends StatelessWidget {
@@ -100,11 +99,7 @@ class Sizes extends StatelessWidget {
                       children: [
                         Text(
                           'حفظ العنوان',
-                          style: GoogleFonts.notoKufiArabic(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                          ),
+                          style: appTheme.textTheme.bodySmall,
                         ),
                       ],
                     ),

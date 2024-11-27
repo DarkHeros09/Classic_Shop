@@ -1,21 +1,23 @@
 import 'package:classic_shop/src/features/address/presentation/address_page.dart';
 import 'package:classic_shop/src/features/app_policy/presentation/app_policy_page.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/auth/presentation/sign_in_page.dart';
 import 'package:classic_shop/src/features/auth/presentation/sign_up_page.dart';
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:classic_shop/src/features/bottom_nav_bar/presentation/bottom_nav_bar.dart';
 import 'package:classic_shop/src/features/cart/presentation/cart/cart_page.dart';
 import 'package:classic_shop/src/features/categories/presentation/categories.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkkout_success.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkout_page.dart';
+import 'package:classic_shop/src/features/core/shared/providers.dart';
+import 'package:classic_shop/src/features/notification/presentation/notifications_page.dart';
+import 'package:classic_shop/src/features/on_boarding/application/on_boarding_notifier.dart';
 import 'package:classic_shop/src/features/on_boarding/presentation/onboarding.dart';
-import 'package:classic_shop/src/features/on_boarding/shared/providers.dart';
 import 'package:classic_shop/src/features/otp/presentation/otp_page.dart';
 import 'package:classic_shop/src/features/products/core/domain/product.dart';
 import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/home_page.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/selected_products.dart/presentation/selected_products_page.dart';
-import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/selected_category.dart';
+import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category.dart';
 import 'package:classic_shop/src/features/products/listed_products/product_detail.dart';
 import 'package:classic_shop/src/features/products/listed_products/profile.dart';
 import 'package:classic_shop/src/features/products/searched_products/presentation/search_page.dart';
@@ -25,12 +27,17 @@ import 'package:classic_shop/src/features/settings/presentation/settings_page.da
 import 'package:classic_shop/src/features/shop_order/core/domain/shop_order.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_2.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/shop_order_items_details.dart';
+import 'package:classic_shop/src/features/splash/application/splash_notifier.dart';
 import 'package:classic_shop/src/features/splash/presentation/splash_page.dart';
 import 'package:classic_shop/src/routing/go_router_refresh_stream.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'app_router.g.dart';
 
 enum AppRoute {
   splash,
@@ -57,6 +64,7 @@ enum AppRoute {
   onBoarding,
   policy,
   promotedCarouselCard,
+  notifications,
 }
 
 // private navigators
@@ -68,21 +76,20 @@ final _shellNavigatorCartKey = GlobalKey<NavigatorState>(debugLabel: 'cart');
 final _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'profile');
 
-final widgetProvider = Provider<StatefulNavigationShell>((ref) {
-  throw UnimplementedError();
-});
-
-final goRouterProvider = Provider<GoRouter>((ref) {
+@Riverpod(keepAlive: true, dependencies: [])
+GoRouter goRouter(Ref ref) {
   final auth = ref.watch(authNotifierProvider.notifier);
+  final splash = ref.watch(splashNotifierProvider.notifier);
   final onBoarding = ref.watch(onBoardingNotifierProvider.notifier);
   return GoRouter(
-    initialLocation: '/home',
-    // initialLocation: '/splash',
+    // initialLocation: '/home',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
     refreshListenable: GoRouterRefreshStream(
       [
         auth.authStateChanges(),
+        splash.splashShownStateChanges(),
         onBoarding.onBoardingShownStateChanges(),
       ],
     ),
@@ -96,6 +103,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoute.splash.name,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const SplashPage(),
+        redirect: (context, state) {
+          final isSplashShown = splash.isSplashShown;
+          debugPrint('isSplashShown: $isSplashShown');
+          if (isSplashShown != null && isSplashShown) {
+            late final themeMode = ref.read(themeModeNotifierProvider);
+            if (themeMode != ThemeMode.dark) {
+              SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(
+                  statusBarColor: Colors.black.withOpacity(0),
+                  statusBarIconBrightness: Brightness.dark,
+                ),
+              );
+            } else {
+              SystemChrome.setSystemUIOverlayStyle(
+                SystemUiOverlayStyle(
+                  statusBarColor: Colors.black.withOpacity(0),
+                  statusBarIconBrightness: Brightness.light,
+                ),
+              );
+            }
+            return '/home';
+          } else {
+            return '/splash';
+          }
+        },
       ),
       GoRoute(
         path: '/onBoarding',
@@ -118,22 +150,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
-        path: '/appPolicy',
+        path: '/app-policy',
         name: AppRoute.policy.name,
         parentNavigatorKey: _rootNavigatorKey,
         pageBuilder: (context, state) {
-          return CustomTransitionPage(
-            child: const AppPolicyPage(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(1, 0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              );
-            },
+          return const NoTransitionPage(
+            child: AppPolicyPage(),
           );
         },
       ),
@@ -180,7 +202,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state, child) {
           return ProviderScope(
             key: GlobalObjectKey(child),
-            overrides: [widgetProvider.overrideWithValue(child)],
+            overrides: [widgetChildProvider.overrideWithValue(child)],
             child: const ScaffoldWithBottomNavBar(),
           );
         },
@@ -223,7 +245,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'promoted/:id',
                     name: AppRoute.promotedCarouselCard.name,
-                    // parentNavigatorKey: _rootNavigatorKey,
+                    parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
                       final promotionType = state.extra as PromotionType?;
                       final id = int.parse(state.pathParameters['id'] ?? '');
@@ -245,6 +267,16 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                         child: SelectedProductsPage(
                           productType: productType,
                         ),
+                      );
+                    },
+                  ),
+                  GoRoute(
+                    path: 'notifications',
+                    name: AppRoute.notifications.name,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) {
+                      return const NoTransitionPage(
+                        child: NotificationsPage(),
                       );
                     },
                   ),
@@ -549,4 +581,4 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
     ],
   );
-});
+}

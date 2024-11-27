@@ -8,9 +8,11 @@ import 'package:classic_shop/src/shared/providers.dart';
 import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'settings_notifier.freezed.dart';
+part 'settings_notifier.g.dart';
 
 @freezed
 class SettingsState with _$SettingsState {
@@ -30,12 +32,14 @@ class SettingsState with _$SettingsState {
   ) = _LoadFailure;
 }
 
-class SettingsNotifier extends Notifier<SettingsState> {
+@Riverpod(keepAlive: true)
+class SettingsNotifier extends _$SettingsNotifier {
   late final SettingsRepository _repository;
+  late final SharedPreferences _sharedPreferences;
   @override
   SettingsState build() {
     _repository = ref.watch(settingsRepositoryProvider);
-
+    _sharedPreferences = ref.watch(sharedPreferencesProvider).requireValue;
     return state = const SettingsState.initial(
       Settings(
         getSalesNotification: false,
@@ -51,7 +55,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
     state = SettingsState.loadInProgress(state.settings);
     final user = await ref.read(userStorageProvider).read();
     final settings = await _repository.fetchSettings(user?.id ?? 0);
-    ref.read(themeModeProvider.notifier).changeTheme(
+    ref.read(themeModeNotifierProvider.notifier).changeTheme(
           isDarkMode: settings.isDarkMode,
         );
     debugPrint('settingss: $settings');
@@ -63,12 +67,11 @@ class SettingsNotifier extends Notifier<SettingsState> {
     final dto = SettingsDTO.fromDomain(settings);
     final user = await ref.read(userStorageProvider).read();
     await _repository.updateSettings(dto, user?.id ?? 0);
-    ref.watch(themeModeProvider.notifier).changeTheme(
+    ref.watch(themeModeNotifierProvider.notifier).changeTheme(
           isDarkMode: settings.isDarkMode,
         );
     debugPrint('settingss: $settings');
     state = SettingsState.loadSuccess(settings);
-    final sharedPreferences = ref.watch(sharedPreferencesProvider);
-    await sharedPreferences.setBool(spkIsDarkMode, settings.isDarkMode);
+    await _sharedPreferences.setBool(spkIsDarkMode, settings.isDarkMode);
   }
 }

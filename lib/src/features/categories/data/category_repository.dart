@@ -40,6 +40,7 @@ class CategoryRepository {
             await _localService.fetchCategory().then((_) => _.toDomain()),
           ),
           withNewData: (data, _) async {
+            await _localService.deleteAllCategories();
             await _localService.setCategory(data);
             return Fresh.yes(data.toDomain());
           },

@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/ship_status_chip_row.dart';
+import 'package:classic_shop/src/features/shop_order/core/application/shop_order_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/shop_order_list.dart';
 import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
@@ -26,7 +26,7 @@ class ShopOrderCard extends StatelessWidget {
             color: Color(0x24000000),
             blurRadius: 3,
             offset: Offset(1, 0),
-          )
+          ),
         ],
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
@@ -50,7 +50,7 @@ class ShopOrderCard extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            OrderDetailsAndStatus()
+            OrderDetailsAndStatus(),
           ],
         ),
       ),
@@ -71,7 +71,7 @@ class OrderDetailsAndStatus extends ConsumerWidget {
         ref.watch(chipNotifierProvider.select((value) => value.groupValue));
     final index = ref.watch(shopOrderCardIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => switch (chipGroupValue) {
             1 => _.shopOrders.entity[index],
@@ -190,7 +190,7 @@ class OrderTotalAndQTY extends ConsumerWidget {
     final chipGroupValue =
         ref.watch(chipNotifierProvider.select((value) => value.groupValue));
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => switch (chipGroupValue) {
             1 => _.shopOrders.entity[index],
@@ -265,7 +265,7 @@ class OrderTotalAndQTY extends ConsumerWidget {
             Text(
               shopOrders.itemCount.toString(),
               style: appTheme.textTheme.bodySmall,
-            )
+            ),
           ],
         ),
         Row(
@@ -288,11 +288,11 @@ class OrderTotalAndQTY extends ConsumerWidget {
                 ),
                 const Icon(
                   Icons.price_check,
-                )
+                ),
               ],
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -310,7 +310,7 @@ class OrderTrackNumber extends ConsumerWidget {
     final chipGroupValue =
         ref.watch(chipNotifierProvider.select((value) => value.groupValue));
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => switch (chipGroupValue) {
             1 => _.shopOrders.entity[index],
@@ -382,7 +382,7 @@ class OrderTrackNumber extends ConsumerWidget {
           shopOrders.trackNumber,
           style: appTheme.textTheme.bodySmall
               ?.copyWith(fontWeight: FontWeight.w700),
-        )
+        ),
       ],
     );
   }
@@ -400,7 +400,7 @@ class OrderNumberAndDate extends ConsumerWidget {
     final chipGroupValue =
         ref.watch(chipNotifierProvider.select((value) => value.groupValue));
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => switch (chipGroupValue) {
             1 => _.shopOrders.entity[index],
@@ -470,7 +470,7 @@ class OrderNumberAndDate extends ConsumerWidget {
           style: appTheme.textTheme.bodySmall?.copyWith(
             color: const Color(0xff858080),
           ),
-        )
+        ),
       ],
     );
   }

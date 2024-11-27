@@ -1,31 +1,9 @@
-import 'package:classic_shop/src/features/checkout/payment_types/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/core/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/payment_types/application/payment_type_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:super_sliver_list/super_sliver_list.dart';
-
-class SelectedPaymentType {
-  SelectedPaymentType(this.value);
-
-  String? value;
-}
-
-class SelectedPaymentTypeNotifier
-    extends AutoDisposeNotifier<SelectedPaymentType> {
-  @override
-  SelectedPaymentType build() {
-    return SelectedPaymentType(null);
-  }
-
-  void set(String? value) {
-    state = SelectedPaymentType(value);
-  }
-}
-
-final selectedPaymentTypeNotifierProvider = AutoDisposeNotifierProvider<
-    SelectedPaymentTypeNotifier, SelectedPaymentType>(
-  SelectedPaymentTypeNotifier.new,
-);
 
 class CheckoutPaymentOptions extends HookConsumerWidget {
   const CheckoutPaymentOptions({

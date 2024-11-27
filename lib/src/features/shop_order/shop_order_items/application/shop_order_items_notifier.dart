@@ -7,8 +7,10 @@ import 'package:classic_shop/src/features/shop_order/shop_order_items/shared/pro
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shop_order_items_notifier.freezed.dart';
+part 'shop_order_items_notifier.g.dart';
 
 @freezed
 class ShopOrderItemsState with _$ShopOrderItemsState {
@@ -28,7 +30,8 @@ class ShopOrderItemsState with _$ShopOrderItemsState {
   ) = _LoadFailure;
 }
 
-class ShopOrderItemsNotifier extends AutoDisposeNotifier<ShopOrderItemsState> {
+@riverpod
+class ShopOrderItemsNotifier extends _$ShopOrderItemsNotifier {
   late final ShopOrderItemsRepository _repository;
   late final ShopOrderItemsLocalService _local;
   @override

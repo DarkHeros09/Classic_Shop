@@ -6,9 +6,10 @@ import 'package:classic_shop/src/features/checkout/order_status/shared/providers
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'order_status_notifier.freezed.dart';
+part 'order_status_notifier.g.dart';
 
 @freezed
 class OrderStatusState with _$OrderStatusState {
@@ -22,7 +23,8 @@ class OrderStatusState with _$OrderStatusState {
   ) = _LoadFailure;
 }
 
-class OrderStatusNotifier extends AutoDisposeNotifier<OrderStatusState> {
+@riverpod
+class OrderStatusNotifier extends _$OrderStatusNotifier {
   late final OrderStatusRemoteService _remoteService;
   late final UserStorage _userStorage;
 

@@ -38,8 +38,12 @@ class ListProductsRepository {
     bool? isPromoted,
     bool? isFeatured,
     bool? isLimited,
+    String? lastPrice,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    String? lastCreatedAt,
+    bool? orderByNew,
+    bool? orderByOld,
   }) {
     final pageSizeString = pageSize == null
         ? PaginationConfig.itemsPerPage.toString()
@@ -48,10 +52,10 @@ class ListProductsRepository {
       'limit': pageSizeString,
     };
     if (lastItemId != null) {
-      queryParams['last_item_id'] = lastItemId.toString();
+      queryParams['product_item_cursor'] = lastItemId.toString();
     }
     if (lastProductId != null) {
-      queryParams['last_product_id'] = lastProductId.toString();
+      queryParams['product_cursor'] = lastProductId.toString();
     }
     if (query != null) {
       queryParams['query'] = query;
@@ -83,11 +87,23 @@ class ListProductsRepository {
     if (isFeatured != null) {
       queryParams['is_qty_limited'] = isLimited.toString();
     }
+    if (lastPrice != null) {
+      queryParams['price_cursor'] = lastPrice;
+    }
     if (orderByLowPrice != null) {
       queryParams['order_by_low_price'] = orderByLowPrice.toString();
     }
     if (orderByHighPrice != null) {
       queryParams['order_by_high_price'] = orderByHighPrice.toString();
+    }
+    if (lastCreatedAt != null) {
+      queryParams['created_at_cursor'] = lastCreatedAt;
+    }
+    if (orderByNew != null) {
+      queryParams['order_by_new'] = orderByNew.toString();
+    }
+    if (orderByOld != null) {
+      queryParams['order_by_old'] = orderByOld.toString();
     }
     return queryParams;
   }
@@ -108,8 +124,12 @@ class ListProductsRepository {
     bool? isPromoted,
     bool? isFeatured,
     bool? isLimited,
+    String? lastPrice,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    String? lastCreatedAt,
+    bool? orderByNew,
+    bool? orderByOld,
   }) async {
     try {
       late final RemoteResponse<List<ProductDTO>> remotePageProducts;
@@ -127,8 +147,12 @@ class ListProductsRepository {
         isPromoted: isPromoted,
         isFeatured: isFeatured,
         isLimited: isLimited,
+        lastPrice: lastPrice,
         orderByLowPrice: orderByLowPrice,
         orderByHighPrice: orderByHighPrice,
+        lastCreatedAt: lastCreatedAt,
+        orderByNew: orderByNew,
+        orderByOld: orderByOld,
       );
       switch (productsFunction) {
         case ProductsFunction.getProducts:
@@ -151,6 +175,8 @@ class ListProductsRepository {
             isLimited: isLimited,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getProductsNextPage:
@@ -173,14 +199,18 @@ class ListProductsRepository {
             isPromoted: isPromoted,
             isFeatured: isFeatured,
             isLimited: isLimited,
+            lastPrice: lastPrice,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            lastCreatedAt: lastCreatedAt,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getBestSellers:
           requestUri = Uri.http(
             Env.httpAddress,
-            '/api/v1/products-best-sellers',
+            '/api/v1/product-items-best-sellers',
             queryParams,
           );
           remotePageProducts = await _remoteService.getProducts(
@@ -237,6 +267,8 @@ class ListProductsRepository {
             isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getProductsWithPromotionsNextPage:
@@ -260,6 +292,8 @@ class ListProductsRepository {
             isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getProductsWithBrandPromotions:
@@ -281,6 +315,8 @@ class ListProductsRepository {
             isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getProductsWithBrandPromotionsNextPage:
@@ -304,6 +340,8 @@ class ListProductsRepository {
             isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getProductsWithCategoryPromotions:
@@ -325,6 +363,8 @@ class ListProductsRepository {
             isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
 
         case ProductsFunction.getProductsWithCategoryPromotionsNextPage:
@@ -348,6 +388,8 @@ class ListProductsRepository {
             isFeatured: isFeatured,
             orderByLowPrice: orderByLowPrice,
             orderByHighPrice: orderByHighPrice,
+            orderByNew: orderByNew,
+            orderByOld: orderByOld,
           );
       }
       return await _rightRemotePageProducts(

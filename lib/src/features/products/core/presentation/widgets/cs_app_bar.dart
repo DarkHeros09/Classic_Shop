@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final isProductEmptyProvider = AutoDisposeProvider((ref) {
-  return ref.watch(listProductsNotifierProvider).products.entity.isEmpty;
-});
-
 class CSAppBar extends ConsumerStatefulWidget {
   const CSAppBar({
     super.key,

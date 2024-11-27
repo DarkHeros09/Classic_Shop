@@ -28,9 +28,9 @@ class CSPersistanceHeader extends ConsumerWidget {
               height: 8,
             ),
             SizedBox(
-              height: 91,
+              height: 64,
               child: BrandChipRow(),
-            )
+            ),
           ],
         ),
       ),

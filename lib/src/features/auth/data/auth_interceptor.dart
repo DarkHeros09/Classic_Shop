@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

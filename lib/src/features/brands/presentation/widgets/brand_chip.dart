@@ -1,9 +1,10 @@
-import 'package:classic_shop/src/features/brands/presentation/widgets/brand_chip_row.dart';
+import 'package:classic_shop/src/features/brands/application/brand_notifier.dart';
 import 'package:classic_shop/src/features/brands/presentation/widgets/loading_brand_chip.dart';
 import 'package:classic_shop/src/features/brands/shared/provider.dart';
-import 'package:classic_shop/src/features/categories/presentation/widgets/category_card.dart';
+import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/products/core/shared/providers.dart';
 import 'package:classic_shop/src/features/products/helper/enums.dart';
+import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -34,19 +35,55 @@ class BrandChip extends HookConsumerWidget {
     return InkWell(
       onTap: () {
         final categoryId = ref.read(selectedCategoryIdProvider);
-        final brandId =
-            ref.read(selectedBrandIdProvider.notifier).state = brand.id;
+        ref.read(selectedBrandIdProvider.notifier).setId(brand.id);
+        // final brandId = ref.read(selectedBrandIdProvider);
         ref.read(brandChipNotifierProvider.notifier).groupValue(index);
         ref.read(listProductsNotifierProvider).products.entity.clear();
-        ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-              productsFunction: ProductsFunction.getProducts,
-              categoryId: categoryId,
-              brandId: brandId,
-            );
+        final selectedSortOption = ref.read(
+          sortOptionsNotifierProvider.select(
+            (value) => value.groupValue,
+          ),
+        );
+        switch (selectedSortOption) {
+          case 'recommended':
+            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brand.id,
+                );
+          case 'new':
+            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brand.id,
+                  orderByNew: true,
+                );
+          case 'old':
+            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brand.id,
+                  orderByOld: true,
+                );
+          case 'priceDesc':
+            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brand.id,
+                  orderByHighPrice: true,
+                );
+          case 'priceAsc':
+            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brand.id,
+                  orderByLowPrice: true,
+                );
+        }
       },
       child: Container(
-        height: 89,
-        width: 89,
+        height: 81,
+        width: 81,
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: isDarkMode ? const Color(0xFF3D2622) : const Color(0xFFE6D5D2),

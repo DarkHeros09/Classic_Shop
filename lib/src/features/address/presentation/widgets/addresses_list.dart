@@ -1,34 +1,10 @@
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
 import 'package:classic_shop/src/features/address/presentation/widgets/address_card.dart';
 import 'package:classic_shop/src/features/address/presentation/widgets/loading_address_card.dart';
 import 'package:classic_shop/src/features/address/shared/provider.dart';
 import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final addressesIndexProvider = Provider<int>((_) => throw UnimplementedError());
-
-class AddressesLength {
-  const AddressesLength(this.length);
-
-  final int length;
-}
-
-class AddressPreviousLengtForLoadinghNotifier
-    extends Notifier<AddressesLength> {
-  @override
-  AddressesLength build() {
-    return const AddressesLength(0);
-  }
-
-  void setLength(int length) {
-    state = AddressesLength(length);
-  }
-}
-
-final addressPreviousLengthForLoadingProvider =
-    NotifierProvider<AddressPreviousLengtForLoadinghNotifier, AddressesLength>(
-  AddressPreviousLengtForLoadinghNotifier.new,
-);
 
 class AddressesList extends ConsumerWidget {
   const AddressesList({
@@ -39,7 +15,8 @@ class AddressesList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(addressNotifierProvider);
     final addressLengthForLoading = ref.watch(
-      addressPreviousLengthForLoadingProvider.select((value) => value.length),
+      addressPreviousLengthForLoadingNotifierProvider
+          .select((value) => value.length),
     );
     final itemCount = ref.watch(
       addressNotifierProvider.select(
@@ -76,7 +53,8 @@ class _AddressesSliverList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(addressNotifierProvider);
     final addressLengthForLoading = ref.watch(
-      addressPreviousLengthForLoadingProvider.select((value) => value.length),
+      addressPreviousLengthForLoadingNotifierProvider
+          .select((value) => value.length),
     );
     final itemCount = ref.watch(
       addressNotifierProvider.select(
@@ -113,7 +91,8 @@ class _AddressesSliverList extends ConsumerWidget {
                       //     .length = _.cartItems.entity.length;
                       ref
                           .read(
-                            addressPreviousLengthForLoadingProvider.notifier,
+                            addressPreviousLengthForLoadingNotifierProvider
+                                .notifier,
                           )
                           .setLength(_.addresses.entity.length);
                     });

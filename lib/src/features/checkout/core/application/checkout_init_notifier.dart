@@ -1,12 +1,13 @@
-import 'package:classic_shop/src/features/address/shared/provider.dart';
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/delivery_method/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/order_status/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/payment_types/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/delivery_method/application/delivery_method_notifier.dart';
+import 'package:classic_shop/src/features/checkout/order_status/application/order_status_notifier.dart';
+import 'package:classic_shop/src/features/checkout/payment_types/application/payment_type_notifier.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'checkout_init_notifier.freezed.dart';
+part 'checkout_init_notifier.g.dart';
 
 @freezed
 class CheckoutInitState with _$CheckoutInitState {
@@ -22,7 +23,8 @@ class CheckoutInitState with _$CheckoutInitState {
       ) = _LoadSuccess;
 }
 
-class CheckoutInitNotifier extends AutoDisposeNotifier<CheckoutInitState> {
+@riverpod
+class CheckoutInitNotifier extends _$CheckoutInitNotifier {
   @override
   CheckoutInitState build() {
     return const CheckoutInitState.initial();

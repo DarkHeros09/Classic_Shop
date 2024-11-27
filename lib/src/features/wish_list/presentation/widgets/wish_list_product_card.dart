@@ -1,11 +1,11 @@
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
+import 'package:classic_shop/src/features/wish_list/application/wish_list_notifier.dart';
 import 'package:classic_shop/src/features/wish_list/domain/wish_list_item.dart';
 import 'package:classic_shop/src/features/wish_list/presentation/widgets/loading_wish_list_image.dart';
 import 'package:classic_shop/src/features/wish_list/presentation/widgets/wish_list_item_list.dart';
-import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:classic_shop/src/shared/toasts.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +67,8 @@ class _WishListProductCard extends StatelessWidget {
             loadStateChanged: (state) {
               switch (state.extendedImageLoadState) {
                 case LoadState.loading:
-                  return const LoadingWishListImage();
                 case LoadState.failed:
+                  return const LoadingWishListImage();
                 case LoadState.completed:
                   return state.completedWidget;
               }

@@ -1,6 +1,6 @@
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/domain/shop_cart_item.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/products/core/domain/promotion.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,4 @@
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
 import 'package:classic_shop/src/features/address/domain/address.dart';
 import 'package:classic_shop/src/features/address/shared/provider.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
@@ -7,10 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final formKeyProvider = Provider((ref) {
-  return GlobalKey<FormBuilderState>();
-});
 
 class AddAddress extends ConsumerWidget {
   const AddAddress({this.address, super.key});

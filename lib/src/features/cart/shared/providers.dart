@@ -1,35 +1,47 @@
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
-import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/data/cart_api.dart';
 import 'package:classic_shop/src/features/cart/data/cart_local_service.dart';
 import 'package:classic_shop/src/features/cart/data/cart_remote_service.dart';
 import 'package:classic_shop/src/features/cart/data/cart_repository.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final cartLocalServiceProvider = Provider<CartLocalService>((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+CartLocalService cartLocalService(Ref ref) {
   return CartLocalService(
     ref.watch(sembastProvider),
   );
-});
+}
 
-final cartApiProvider = Provider<CartApi>(CartApi.create);
+@Riverpod(keepAlive: true)
+CartApi cartApi(Ref ref) {
+  return CartApi.create(ref);
+}
 
-final cartRemoteServiceProvider = Provider<CartRemoteService>((ref) {
+@Riverpod(keepAlive: true)
+CartRemoteService cartRemoteService(Ref ref) {
   return CartRemoteService(
     ref.watch(cartApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final cartRepositoryProvider = Provider<CartRepository>((ref) {
+@Riverpod(keepAlive: true)
+CartRepository cartRepository(Ref ref) {
   return CartRepository(
     ref.watch(cartLocalServiceProvider),
     ref.watch(cartRemoteServiceProvider),
     ref.watch(userStorageProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final cartNotifierProvider =
-    NotifierProvider<CartNotifier, CartState>(CartNotifier.new);
+//////////////* Presentation ///////////////////
+
+@Riverpod(keepAlive: true, dependencies: [])
+int cartItemsListIndex(Ref ref) {
+  throw UnimplementedError();
+}

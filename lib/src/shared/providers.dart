@@ -1,8 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final sharedPreferencesProvider =
-    Provider<SharedPreferences>((ref) => throw UnimplementedError());
+part 'providers.g.dart';
 
-// final sharedPreferencesProvider =
-//     FutureProvider<SharedPreferences>((ref) => SharedPreferences.getInstance());
+@Riverpod(keepAlive: true)
+Future<SharedPreferences> sharedPreferences(Ref ref) {
+  return SharedPreferences.getInstance();
+}

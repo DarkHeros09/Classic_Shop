@@ -46,15 +46,15 @@ class DefaultFirebaseOptions {
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
     authDomain: 'notifications-3eca3.firebaseapp.com',
-    storageBucket: 'notifications-3eca3.appspot.com',
+    storageBucket: 'notifications-3eca3.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDznGPvynuuTHCrCiMf-nm9O3bCQEMbSIA',
-    appId: '1:974728477095:android:bfa0d3668d12143f915e82',
+    apiKey: 'AIzaSyCGA5sMEYILrYlTBavu9m_wTS1l3mq5mdU',
+    appId: '1:974728477095:android:87d99f8a173cc10d915e82',
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
-    storageBucket: 'notifications-3eca3.appspot.com',
+    storageBucket: 'notifications-3eca3.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,7 +62,7 @@ class DefaultFirebaseOptions {
     appId: '1:974728477095:ios:248f305b3c64b836915e82',
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
-    storageBucket: 'notifications-3eca3.appspot.com',
+    storageBucket: 'notifications-3eca3.firebasestorage.app',
     androidClientId: '974728477095-vct1lphh064f6il19luibvngn3jpcuee.apps.googleusercontent.com',
     iosBundleId: 'com.example.classicShop',
   );
@@ -72,7 +72,7 @@ class DefaultFirebaseOptions {
     appId: '1:974728477095:ios:248f305b3c64b836915e82',
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
-    storageBucket: 'notifications-3eca3.appspot.com',
+    storageBucket: 'notifications-3eca3.firebasestorage.app',
     androidClientId: '974728477095-vct1lphh064f6il19luibvngn3jpcuee.apps.googleusercontent.com',
     iosBundleId: 'com.example.classicShop',
   );
@@ -83,7 +83,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '974728477095',
     projectId: 'notifications-3eca3',
     authDomain: 'notifications-3eca3.firebaseapp.com',
-    storageBucket: 'notifications-3eca3.appspot.com',
+    storageBucket: 'notifications-3eca3.firebasestorage.app',
   );
 
 }

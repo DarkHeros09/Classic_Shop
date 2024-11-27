@@ -1,5 +1,5 @@
+import 'package:classic_shop/src/features/shop_order/core/application/shop_order_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/loading_shop_order_card.dart';
-import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/ship_status_chip_row.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/shop_order_card.dart';
 import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
@@ -18,9 +18,9 @@ class ShopOrderList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final chipGroupValue =
         ref.watch(chipNotifierProvider.select((value) => value.groupValue));
-    final state = ref.watch(shopOrderNotifierProvider);
+    final state = ref.watch(shopOrdersNotifierProvider);
     final itemCount = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => switch (chipGroupValue) {
             1 => _.shopOrders.entity.length,

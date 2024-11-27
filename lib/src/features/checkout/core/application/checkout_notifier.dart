@@ -1,5 +1,5 @@
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/checkout/core/data/checkout_remote_service.dart';
 import 'package:classic_shop/src/features/checkout/core/shared/providers.dart';
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
@@ -7,9 +7,10 @@ import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'checkout_notifier.freezed.dart';
+part 'checkout_notifier.g.dart';
 
 @freezed
 class CheckoutState with _$CheckoutState {
@@ -29,7 +30,8 @@ class CheckoutState with _$CheckoutState {
       ) = _LoadFailure;
 }
 
-class CheckoutNotifier extends AutoDisposeNotifier<CheckoutState> {
+@riverpod
+class CheckoutNotifier extends _$CheckoutNotifier {
   late final CheckoutRemoteService _remoteService;
   late final UserStorage _userStorage;
   @override

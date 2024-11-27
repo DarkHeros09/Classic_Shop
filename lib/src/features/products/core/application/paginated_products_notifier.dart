@@ -11,7 +11,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 part 'paginated_products_notifier.freezed.dart';
 
 typedef RepositoryGetter = Future<Either<ProductFailure, Fresh<List<Product>>>>
-    Function(int page, int lastItemId, int lastProductId);
+    Function(
+  int page,
+  int lastItemId,
+  int lastProductId,
+  String? lastPrice,
+  String? lastCreatedAt,
+);
 
 @freezed
 class PaginatedProductsState with _$PaginatedProductsState {
@@ -33,14 +39,15 @@ class PaginatedProductsState with _$PaginatedProductsState {
   ) = _LoadFailure;
 }
 
-class PaginatedProductsNotifier
-    extends AutoDisposeNotifier<PaginatedProductsState> {
+mixin PaginatedProductsNotifier on AutoDisposeNotifier<PaginatedProductsState> {
   @override
   PaginatedProductsState build() {
     return state = PaginatedProductsState.initial(Fresh.yes([]));
   }
 
   int _page = 1;
+  String? _lastPrice;
+  String? _lastCreatedAt;
   int _lastItemId = 0;
   int _lastProductId = 0;
   int _pageSearch = 1;
@@ -123,6 +130,39 @@ class PaginatedProductsNotifier
         ProductsFunction.getProductsWithCategoryPromotionsNextPage =>
           _lastProductIdCategoryPromotion,
       },
+      switch (productFunction) {
+        ProductsFunction.getProducts => _lastPrice = null,
+        ProductsFunction.getProductsNextPage => _lastPrice,
+        ProductsFunction.getBestSellers => _lastPrice = null,
+        ProductsFunction.searchProducts => _lastPrice = null,
+        ProductsFunction.searchProductsNextPage => _lastPrice = null,
+        ProductsFunction.getProductsWithPromotions => _lastPrice = null,
+        ProductsFunction.getProductsWithPromotionsNextPage => _lastPrice = null,
+        ProductsFunction.getProductsWithBrandPromotions => _lastPrice = null,
+        ProductsFunction.getProductsWithBrandPromotionsNextPage => _lastPrice =
+            null,
+        ProductsFunction.getProductsWithCategoryPromotions => _lastPrice = null,
+        ProductsFunction.getProductsWithCategoryPromotionsNextPage =>
+          _lastPrice = null,
+      },
+      switch (productFunction) {
+        ProductsFunction.getProducts => _lastCreatedAt = null,
+        ProductsFunction.getProductsNextPage => _lastCreatedAt,
+        ProductsFunction.getBestSellers => _lastCreatedAt = null,
+        ProductsFunction.searchProducts => _lastCreatedAt = null,
+        ProductsFunction.searchProductsNextPage => _lastCreatedAt = null,
+        ProductsFunction.getProductsWithPromotions => _lastCreatedAt = null,
+        ProductsFunction.getProductsWithPromotionsNextPage => _lastCreatedAt =
+            null,
+        ProductsFunction.getProductsWithBrandPromotions => _lastCreatedAt =
+            null,
+        ProductsFunction.getProductsWithBrandPromotionsNextPage =>
+          _lastCreatedAt = null,
+        ProductsFunction.getProductsWithCategoryPromotions => _lastCreatedAt =
+            null,
+        ProductsFunction.getProductsWithCategoryPromotionsNextPage =>
+          _lastCreatedAt = null,
+      },
     );
     state = failureOrProducts.fold(
       (l) => PaginatedProductsState.loadFailure(state.products, l),
@@ -135,6 +175,10 @@ class PaginatedProductsNotifier
             debugPrint(r.toString());
             _lastItemId = r.entity.isEmpty ? 0 : r.entity.last.id;
             _lastProductId = r.entity.isEmpty ? 0 : r.entity.last.productId;
+            _lastPrice = r.entity.isEmpty ? null : r.entity.last.price;
+            _lastCreatedAt = r.entity.isEmpty
+                ? null
+                : r.entity.last.createdAt.toIso8601String();
 
           case ProductsFunction.searchProducts:
           case ProductsFunction.searchProductsNextPage:

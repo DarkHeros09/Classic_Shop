@@ -1,5 +1,5 @@
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
 import 'package:classic_shop/src/features/address/domain/address.dart';
-import 'package:classic_shop/src/features/address/shared/provider.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

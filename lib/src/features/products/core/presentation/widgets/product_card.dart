@@ -110,8 +110,8 @@ class ProductCard extends HookConsumerWidget {
                 loadStateChanged: (state) {
                   switch (state.extendedImageLoadState) {
                     case LoadState.loading:
-                      return const LoadingProductImage();
                     case LoadState.failed:
+                      return const LoadingProductImage();
                     case LoadState.completed:
                       return ColorFiltered(
                         colorFilter: product.qtyInStock == 0

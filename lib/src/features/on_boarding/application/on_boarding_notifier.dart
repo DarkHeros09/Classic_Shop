@@ -1,9 +1,12 @@
 import 'package:classic_shop/src/features/on_boarding/data/on_boarding_local_service.dart';
 import 'package:classic_shop/src/features/on_boarding/shared/providers.dart';
 import 'package:classic_shop/src/helpers/in_memory_store.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class OnBoardingNotifier extends Notifier<bool?> {
+part 'on_boarding_notifier.g.dart';
+
+@Riverpod(keepAlive: true)
+class OnBoardingNotifier extends _$OnBoardingNotifier {
   late final OnBoardingLocalService _localService;
   final _isOnBoardingShown = InMemoryStore<bool?>(null);
 

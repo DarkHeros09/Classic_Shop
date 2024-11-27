@@ -1,69 +1,82 @@
-import 'package:classic_shop/src/themes/assets.dart';
-import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
+import 'package:classic_shop/gen/assets.gen.dart';
+import 'package:classic_shop/src/features/splash/application/splash_notifier.dart';
 import 'package:classic_shop/src/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:jovial_svg/jovial_svg.dart';
 
-class SplashPage extends HookConsumerWidget {
+class SplashPage extends StatefulHookConsumerWidget {
   const SplashPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final appTheme = Theme.of(context);
-    late final themeMode =
-        ref.watch(themeModeProvider.select((value) => value));
-    if (themeMode != ThemeMode.dark) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarColor: Colors.black.withOpacity(0),
-          statusBarIconBrightness: Brightness.dark,
-        ),
-      );
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarColor: Colors.black.withOpacity(0),
-          statusBarIconBrightness: Brightness.light,
-        ),
-      );
-    }
-    final isDarkMode = appTheme.brightness == Brightness.dark;
-    final logo = isDarkMode
-        ? ref.watch(
-            darkSiAssetsProvider.select(
-              (value) => value
-                  .singleWhere((element) => element.$1 == SvgAssets.logo.name)
-                  .$2,
-            ),
-          )
-        : ref.watch(
-            siAssetsProvider.select(
-              (value) => value
-                  .singleWhere((element) => element.$1 == SvgAssets.logo.name)
-                  .$2,
-            ),
-          );
-    // Timer(const Duration(seconds: 3), () {
-    //   context.goNamed(AppRoute.home.name);
-    // });
+  ConsumerState<ConsumerStatefulWidget> createState() => _State();
+}
+
+class _State extends ConsumerState<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        RendererBinding.instance.allowFirstFrame();
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.black.withOpacity(0),
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [
+        SystemUiOverlay.top,
+      ],
+    );
+
+    final controller = useAnimationController();
+    controller.addListener(
+      () {
+        if (controller.isCompleted) {
+          ref
+              .read(splashNotifierProvider.notifier)
+              .setIsSplashShown(isSplashShown: true);
+        }
+      },
+    );
     return MaterialApp(
-      themeMode: themeMode,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      theme: lightTheme,
       darkTheme: darkTheme,
-      locale: const Locale('ar'),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: SafeArea(
+      // locale: locale,
+      home: MediaQuery.removeViewPadding(
+        context: context,
+        removeTop: true,
+        removeBottom: true,
+        removeLeft: true,
+        removeRight: true,
         child: Scaffold(
           body: Center(
-            child: ScalableImageWidget(si: logo, scale: 2)
-                .animate()
-                .fadeIn(duration: const Duration(seconds: 2)),
+            child: Image.asset(
+              // bundle: rootBundle,
+              Assets.android12splash.path,
+              // scale: .89,
+              filterQuality: FilterQuality.high,
+            )
+                .animate(
+                  controller: controller,
+                )
+                .fadeOut(
+                  delay: const Duration(milliseconds: 250),
+                  duration: const Duration(milliseconds: 300),
+                ),
           ),
         ),
       ),

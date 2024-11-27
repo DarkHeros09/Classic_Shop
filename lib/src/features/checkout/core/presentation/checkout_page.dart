@@ -1,9 +1,9 @@
-import 'package:classic_shop/src/features/address/shared/provider.dart';
+import 'package:classic_shop/src/features/address/application/address_notifier.dart';
+import 'package:classic_shop/src/features/checkout/core/application/checkout_init_notifier.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/widgets/checkout_page_content.dart';
-import 'package:classic_shop/src/features/checkout/core/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/delivery_method/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/order_status/shared/providers.dart';
-import 'package:classic_shop/src/features/checkout/payment_types/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/delivery_method/application/delivery_method_notifier.dart';
+import 'package:classic_shop/src/features/checkout/order_status/application/order_status_notifier.dart';
+import 'package:classic_shop/src/features/checkout/payment_types/application/payment_type_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,35 +1,38 @@
-import 'package:classic_shop/src/features/app_policy/application/app_policy_notifier.dart';
 import 'package:classic_shop/src/features/app_policy/data/app_policy_api.dart';
 import 'package:classic_shop/src/features/app_policy/data/app_policy_local_service.dart';
 import 'package:classic_shop/src/features/app_policy/data/app_policy_remote_service.dart';
 import 'package:classic_shop/src/features/app_policy/data/app_policy_repository.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final appPolicyLocalServiceProvider = Provider<AppPolicyLocalService>((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+AppPolicyLocalService appPolicyLocalService(Ref ref) {
   return AppPolicyLocalService(
     ref.watch(sembastProvider),
   );
-});
+}
 
-final appPolicyApiProvider = Provider<AppPolicyApi>(AppPolicyApi.create);
+@Riverpod(keepAlive: true)
+AppPolicyApi appPolicyApi(Ref ref) {
+  return AppPolicyApi.create(ref);
+}
 
-final appPolicyRemoteServiceProvider = Provider<AppPolicyRemoteService>((ref) {
+@Riverpod(keepAlive: true)
+AppPolicyRemoteService appPolicyRemoteService(Ref ref) {
   return AppPolicyRemoteService(
     ref.watch(appPolicyApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final appPolicyRepositoryProvider = Provider<AppPolicyRepository>((ref) {
+@Riverpod(keepAlive: true)
+AppPolicyRepository appPolicyRepository(Ref ref) {
   return AppPolicyRepository(
     ref.watch(appPolicyLocalServiceProvider),
     ref.watch(appPolicyRemoteServiceProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
-
-final appPolicyNotifierProvider =
-    NotifierProvider<AppPolicyNotifier, AppPolicyState>(
-  AppPolicyNotifier.new,
-);
+}

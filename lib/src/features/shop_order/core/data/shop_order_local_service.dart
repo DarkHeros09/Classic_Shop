@@ -35,7 +35,7 @@ class ShopOrderLocalService {
     debugPrint('_locallPage $page');
     debugPrint('_locallUri $uri');
     final store = intMapStoreFactory.store(uri);
-    final sembastPage = page - 1;
+    // final sembastPage = page - 1;
 
     final records = await store.find(
       _sembastDatabase.instance,

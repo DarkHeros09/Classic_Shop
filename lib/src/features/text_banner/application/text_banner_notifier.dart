@@ -5,8 +5,10 @@ import 'package:classic_shop/src/features/text_banner/domain/text_banner_failure
 import 'package:classic_shop/src/features/text_banner/shared/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'text_banner_notifier.freezed.dart';
+part 'text_banner_notifier.g.dart';
 
 @freezed
 class TextBannerState with _$TextBannerState {
@@ -26,7 +28,8 @@ class TextBannerState with _$TextBannerState {
   ) = _LoadFailure;
 }
 
-class TextBannerNotifier extends Notifier<TextBannerState> {
+@Riverpod(keepAlive: true)
+class TextBannerNotifier extends _$TextBannerNotifier {
   late final TextBannerRepository _repository;
   @override
   TextBannerState build() {

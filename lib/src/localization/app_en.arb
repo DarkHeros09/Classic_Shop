@@ -11,6 +11,7 @@
   "limited_quantity": "Limited Quantity ⏳⚠️",
   "missing_token": "Authentication token is missing. Please provide a valid token.",
   "new_products": "New Products ✨🆕",
+  "notifications": "notifications",
   "otp_expired": "The OTP has expired. Please request a new one.",
   "otp_invalid": "The OTP you entered is invalid. Please try again.",
   "password_expired": "Your password has expired. Please reset your password.",
@@ -19,5 +20,6 @@
   "session_expired": "Your session has expired. Please log in again.",
   "too_many_attempts": "Too many login attempts. Please try again after some time.",
   "unauthorized": "You are not authorized to access this resource.",
-  "user_not_found": "No account found with this email address."
+  "user_not_found": "No account found with this email address.",
+  "no_notification": "No new notifications at the moment."
 }

@@ -23,8 +23,12 @@ class ListProductsRemoteService extends ProductRemoteService {
     bool? isPromoted,
     bool? isFeatured,
     bool? isLimited,
+    String? lastPrice,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    String? lastCreatedAt,
+    bool? orderByNew,
+    bool? orderByOld,
   }) async {
     switch (productsFunction) {
       case ProductsFunction.getProducts:
@@ -42,6 +46,8 @@ class ListProductsRemoteService extends ProductRemoteService {
           isLimited: isLimited,
           orderByLowPrice: orderByLowPrice,
           orderByHighPrice: orderByHighPrice,
+          orderByNew: orderByNew,
+          orderByOld: orderByOld,
         );
 
       case ProductsFunction.getProductsNextPage:
@@ -59,8 +65,12 @@ class ListProductsRemoteService extends ProductRemoteService {
           isPromoted: isPromoted,
           isFeatured: isFeatured,
           isLimited: isLimited,
+          lastPrice: lastPrice,
           orderByLowPrice: orderByLowPrice,
           orderByHighPrice: orderByHighPrice,
+          lastCreatedAt: lastCreatedAt,
+          orderByNew: orderByNew,
+          orderByOld: orderByOld,
         );
 
       case ProductsFunction.getBestSellers:

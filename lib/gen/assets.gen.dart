@@ -7,9 +7,12 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
+import 'package:flutter/widgets.dart';
+
 class Assets {
   Assets._();
 
+  static const String classicLogo = 'assets/ClassicLogo.svg';
   static const String eCommerceCropped1 = 'assets/E-Commerce-cropped 1.svg';
   static const String eCommerceCropped = 'assets/E-Commerce-cropped.si';
   static const String loginPana = 'assets/Login-pana.svg';
@@ -25,6 +28,8 @@ class Assets {
   static const String storefrontCropped1 = 'assets/Storefront-cropped 1.svg';
   static const String storefrontCropped = 'assets/Storefront-cropped.si';
   static const String activity = 'assets/activity.si';
+  static const AssetGenImage android12splash =
+      AssetGenImage('assets/android12splash.png');
   static const String bellSelected = 'assets/bellSelected.si';
   static const String cart = 'assets/cart.si';
   static const String cartSelected = 'assets/cartSelected.si';
@@ -39,11 +44,16 @@ class Assets {
   static const String homeSelected = 'assets/homeSelected.si';
   static const String loginCropped = 'assets/login-cropped.svg';
   static const String logoCopy = 'assets/logo - Copy.svg';
+  static const AssetGenImage logoPng = AssetGenImage('assets/logo.png');
   static const String logoSi = 'assets/logo.si';
   static const String logoSvg = 'assets/logo.svg';
+  static const String logoWhite = 'assets/logoWhite.svg';
   static const String logout = 'assets/logout.si';
+  static const String noDataSi = 'assets/no_data.si';
+  static const String noDataSvg = 'assets/no_data.svg';
   static const String pin = 'assets/pin.si';
   static const String priceTag = 'assets/priceTag.si';
+  static const AssetGenImage splash = AssetGenImage('assets/splash.png');
   static const String successSi = 'assets/success.si';
   static const String successSvg = 'assets/success.svg';
   static const String undrawAddToCartReWrdoCroppedSi =
@@ -66,7 +76,8 @@ class Assets {
   static const String userCircleSelected = 'assets/userCircleSelected.si';
 
   /// List of all assets
-  static List<String> get values => [
+  static List<dynamic> get values => [
+        classicLogo,
         eCommerceCropped1,
         eCommerceCropped,
         loginPana,
@@ -78,6 +89,7 @@ class Assets {
         storefrontCropped1,
         storefrontCropped,
         activity,
+        android12splash,
         bellSelected,
         cart,
         cartSelected,
@@ -92,11 +104,16 @@ class Assets {
         homeSelected,
         loginCropped,
         logoCopy,
+        logoPng,
         logoSi,
         logoSvg,
+        logoWhite,
         logout,
+        noDataSi,
+        noDataSvg,
         pin,
         priceTag,
+        splash,
         successSi,
         successSvg,
         undrawAddToCartReWrdoCroppedSi,
@@ -110,4 +127,85 @@ class Assets {
         userCircle,
         userCircleSelected
       ];
+}
+
+class AssetGenImage {
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
+
+  final String _assetName;
+
+  final Size? size;
+  final Set<String> flavors;
+
+  Image image({
+    Key? key,
+    AssetBundle? bundle,
+    ImageFrameBuilder? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    String? semanticLabel,
+    bool excludeFromSemantics = false,
+    double? scale,
+    double? width,
+    double? height,
+    Color? color,
+    Animation<double>? opacity,
+    BlendMode? colorBlendMode,
+    BoxFit? fit,
+    AlignmentGeometry alignment = Alignment.center,
+    ImageRepeat repeat = ImageRepeat.noRepeat,
+    Rect? centerSlice,
+    bool matchTextDirection = false,
+    bool gaplessPlayback = true,
+    bool isAntiAlias = false,
+    String? package,
+    FilterQuality filterQuality = FilterQuality.low,
+    int? cacheWidth,
+    int? cacheHeight,
+  }) {
+    return Image.asset(
+      _assetName,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      semanticLabel: semanticLabel,
+      excludeFromSemantics: excludeFromSemantics,
+      scale: scale,
+      width: width,
+      height: height,
+      color: color,
+      opacity: opacity,
+      colorBlendMode: colorBlendMode,
+      fit: fit,
+      alignment: alignment,
+      repeat: repeat,
+      centerSlice: centerSlice,
+      matchTextDirection: matchTextDirection,
+      gaplessPlayback: gaplessPlayback,
+      isAntiAlias: isAntiAlias,
+      package: package,
+      filterQuality: filterQuality,
+      cacheWidth: cacheWidth,
+      cacheHeight: cacheHeight,
+    );
+  }
+
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
+  }
+
+  String get path => _assetName;
+
+  String get keyName => _assetName;
 }

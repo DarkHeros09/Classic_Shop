@@ -3,8 +3,13 @@ import 'package:classic_shop/src/features/products/core/application/paginated_pr
 import 'package:classic_shop/src/features/products/core/shared/providers.dart';
 import 'package:classic_shop/src/features/products/helper/enums.dart';
 import 'package:classic_shop/src/features/products/listed_products/data/list_products_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class SearchedProductsNotifier extends PaginatedProductsNotifier {
+part 'searched_products_notifier.g.dart';
+
+@riverpod
+class SearchedProductsNotifier extends _$SearchedProductsNotifier
+    with PaginatedProductsNotifier {
   late final ListProductsRepository _repository;
   @override
   PaginatedProductsState build() {
@@ -14,7 +19,8 @@ class SearchedProductsNotifier extends PaginatedProductsNotifier {
 
   Future<void> searchProductsPage(String query) async {
     await super.getPage(
-      (page, lastItemId, lastProductId) => _repository.getProducts(
+      (page, lastItemId, lastProductId, lastPrice, lastCratedAt) =>
+          _repository.getProducts(
         page,
         query: query,
         productsFunction: ProductsFunction.searchProducts,
@@ -25,7 +31,8 @@ class SearchedProductsNotifier extends PaginatedProductsNotifier {
 
   Future<void> searchProductsNextPage(String query) async {
     await super.getPage(
-      (page, lastItemId, lastProductId) => _repository.getProducts(
+      (page, lastItemId, lastProductId, lastPrice, lastCratedAt) =>
+          _repository.getProducts(
         page,
         productsFunction: ProductsFunction.searchProductsNextPage,
         query: query,

@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/products/core/presentation/widgets/category_chip_row.dart';
+import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

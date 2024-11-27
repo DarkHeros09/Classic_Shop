@@ -3,8 +3,13 @@ import 'package:classic_shop/src/features/products/core/application/paginated_pr
 import 'package:classic_shop/src/features/products/core/shared/providers.dart';
 import 'package:classic_shop/src/features/products/helper/enums.dart';
 import 'package:classic_shop/src/features/products/listed_products/data/list_products_repository.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class ListProductsNotifier extends PaginatedProductsNotifier {
+part 'list_products_notifier.g.dart';
+
+@riverpod
+class ListProductsNotifier extends _$ListProductsNotifier
+    with PaginatedProductsNotifier {
   late final ListProductsRepository _repository;
   @override
   PaginatedProductsState build() {
@@ -26,11 +31,16 @@ class ListProductsNotifier extends PaginatedProductsNotifier {
     bool? isPromoted,
     bool? isFeatured,
     bool? isLimited,
+    String? lastPrice,
     bool? orderByLowPrice,
     bool? orderByHighPrice,
+    String? lastCreatedAt,
+    bool? orderByNew,
+    bool? orderByOld,
   }) async {
     await super.getPage(
-      (page, lastItemId, lastProductId) => _repository.getProducts(
+      (page, lastItemId, lastProductId, lastPrice, lastCreatedAt) =>
+          _repository.getProducts(
         page,
         lastItemId: lastItemId,
         lastProductId: lastProductId,
@@ -46,8 +56,12 @@ class ListProductsNotifier extends PaginatedProductsNotifier {
         isPromoted: isPromoted,
         isFeatured: isFeatured,
         isLimited: isLimited,
+        lastPrice: lastPrice,
         orderByLowPrice: orderByLowPrice,
         orderByHighPrice: orderByHighPrice,
+        lastCreatedAt: lastCreatedAt,
+        orderByNew: orderByNew,
+        orderByOld: orderByOld,
       ),
       productsFunction,
     );

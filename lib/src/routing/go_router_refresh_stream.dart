@@ -4,23 +4,23 @@ import 'package:flutter/foundation.dart';
 
 /// This class was imported from the migration guide for GoRouter 5.0
 class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(List<Stream<dynamic>> stream) {
+  GoRouterRefreshStream(List<Stream<dynamic>> streams) {
     notifyListeners();
-    _subscription1 = stream[0].asBroadcastStream().listen(
-          (dynamic _) => notifyListeners(),
-        );
-    _subscription2 = stream[1].asBroadcastStream().listen(
-          (dynamic _) => notifyListeners(),
-        );
+    _subscriptions = streams
+        .map(
+          (stream) => stream.asBroadcastStream().listen(
+                (dynamic _) => notifyListeners(),
+              ),
+        )
+        .toList();
   }
-
-  late final StreamSubscription<dynamic> _subscription1;
-  late final StreamSubscription<dynamic> _subscription2;
+  late final List<StreamSubscription<dynamic>> _subscriptions;
 
   @override
   void dispose() {
-    _subscription1.cancel();
-    _subscription2.cancel();
+    for (final subscription in _subscriptions) {
+      subscription.cancel();
+    }
     super.dispose();
   }
 }

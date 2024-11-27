@@ -1,7 +1,6 @@
 import 'package:app_set_id/app_set_id.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/notification/application/notification_notifier.dart';
 import 'package:classic_shop/src/features/notification/data/notification_api.dart';
 import 'package:classic_shop/src/features/notification/data/notification_local_service.dart';
 import 'package:classic_shop/src/features/notification/data/notification_remote_service.dart';
@@ -9,48 +8,53 @@ import 'package:classic_shop/src/features/notification/data/notification_reposit
 import 'package:classic_shop/src/features/notification/data/notification_storage.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final secureNotificationStorageProvider =
-    Provider<SecureNotificationStorage>((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+SecureNotificationStorage secureNotificationStorage(Ref ref) {
   return SecureNotificationStorage(ref.watch(flutterSecureStorageProvider));
-});
+}
 
-final notificationLocalServiceProvider =
-    Provider<NotificationLocalService>((ref) {
+@Riverpod(keepAlive: true)
+NotificationLocalService notificationLocalService(Ref ref) {
   return NotificationLocalService(
     ref.watch(sembastProvider),
   );
-});
+}
 
-final notificationApiProvider =
-    Provider<NotificationApi>(NotificationApi.create);
+@Riverpod(keepAlive: true)
+NotificationApi notificationApi(Ref ref) {
+  return NotificationApi.create(ref);
+}
 
-final notificationRemoteServiceProvider =
-    Provider<NotificationRemoteService>((ref) {
+@Riverpod(keepAlive: true)
+NotificationRemoteService notificationRemoteService(Ref ref) {
   return NotificationRemoteService(
     ref.watch(notificationApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final deviceInfoProvider =
-    FutureProvider<String?>((ref) => AppSetId().getIdentifier());
+@Riverpod(keepAlive: true)
+FutureOr<String?> deviceInfo(Ref ref) {
+  return AppSetId().getIdentifier();
+}
 
-final notificationRepositoryProvider = Provider<NotificationRepository>((ref) {
+@Riverpod(keepAlive: true)
+NotificationRepository notificationRepository(Ref ref) {
   return NotificationRepository(
-    ref.watch(notificationLocalServiceProvider),
+    // ref.watch(notificationLocalServiceProvider),
     ref.watch(notificationRemoteServiceProvider),
     ref.watch(userStorageProvider),
     ref.watch(responseHeaderCacheProvider),
     ref.watch(deviceInfoProvider).requireValue,
     ref.watch(secureNotificationStorageProvider),
   );
-});
+}
 
-final notificationNotifierProvider =
-    NotifierProvider<NotificationNotifier, NotificationState>(
-  NotificationNotifier.new,
-);
-
-final firebaseMessagingProvider =
-    Provider<FirebaseMessaging>((ref) => FirebaseMessaging.instance);
+@Riverpod(keepAlive: true)
+FirebaseMessaging firebaseMessaging(Ref ref) {
+  return FirebaseMessaging.instance;
+}

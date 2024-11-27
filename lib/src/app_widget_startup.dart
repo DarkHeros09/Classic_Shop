@@ -3,6 +3,7 @@ import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/features/notification/shared/providers.dart';
 import 'package:classic_shop/src/features/splash/presentation/splash_page.dart';
 import 'package:classic_shop/src/shared/providers.dart';
+import 'package:classic_shop/src/themes/assets.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,13 +11,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_widget_startup.g.dart';
 
+/// list of providers to be warmed up
 @Riverpod(keepAlive: true)
-Future<void> appStartup(AppStartupRef ref) async {
+Future<void> appStartup(Ref ref) async {
   // await for all initialization code to be complete before returning
   await Future.wait([
     // App assets
-    // ref.watch(siAssetsProvider.future),
-    // ref.watch(darkSiAssetsProvider.future),
+    ref.watch(initAssetsProvider().future),
+    ref.watch(initAssetsProvider(isDarkMode: true).future),
     // Firebase init
     Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -25,19 +27,19 @@ Future<void> appStartup(AppStartupRef ref) async {
     ref.watch(deviceInfoProvider.future),
     //SembestDB init
     ref.watch(dbProvider.future),
-    // list of providers to be warmed up
-    // ref.watch(sharedPreferencesProvider.future),
+    // sharedPrefrences int
+    ref.watch(sharedPreferencesProvider.future),
   ]);
+  // ref.watch(sharedPreferencesProvider).requireValue;
   final fcm = ref.watch(firebaseMessagingProvider);
   await fcm.requestPermission(provisional: true);
-  // .whenComplete(
-  //   () => // FirebaseMessaging init
-  //       ref.watch(firebaseMessagingProvider),
-  // );
 }
 
 class AppWidgetStartup extends ConsumerWidget {
-  const AppWidgetStartup({required this.onLoaded, super.key});
+  const AppWidgetStartup({
+    required this.onLoaded,
+    super.key,
+  });
   final WidgetBuilder onLoaded;
 
   @override
@@ -45,7 +47,7 @@ class AppWidgetStartup extends ConsumerWidget {
     final appStartupState = ref.watch(appStartupProvider);
     return appStartupState.when(
       data: (_) => onLoaded(context),
-      loading: () => const SplashPage(),
+      loading: SplashPage.new,
       error: (e, st) => AppStartupErrorWidget(
         message: e.toString(),
         onRetry: () {

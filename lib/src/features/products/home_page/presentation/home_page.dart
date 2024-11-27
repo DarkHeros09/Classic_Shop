@@ -1,5 +1,4 @@
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
-import 'package:classic_shop/src/features/core/shared/providers.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_card.dart';
 import 'package:classic_shop/src/features/products/home_page/application/home_page_notifier.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_best_sellers_products_h_list_view.dart';
@@ -10,20 +9,19 @@ import 'package:classic_shop/src/features/products/home_page/presentation/widget
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_limited_products_space.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_new_products_space.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_product_card.dart';
+import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_promoted_products_h_list_view.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/home_page_sales_products_space%20copy.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/loading_h_list_name.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/widgets/products_show_all_card.dart';
-import 'package:classic_shop/src/features/products/home_page/presentation/widgets/promoted_product_card.dart';
-import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category/widgets/list_products_grid_view.dart';
+import 'package:classic_shop/src/features/products/home_page/shared/providers.dart';
+import 'package:classic_shop/src/features/promotions/application/promotions_notifier.dart';
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel.dart';
-import 'package:classic_shop/src/features/promotions/shared/provider.dart';
+import 'package:classic_shop/src/features/text_banner/application/text_banner_notifier.dart';
 import 'package:classic_shop/src/features/text_banner/presentation/text_banner.dart';
-import 'package:classic_shop/src/features/text_banner/shared/providers.dart';
-import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
+import 'package:classic_shop/src/features/wish_list/application/wish_list_notifier.dart';
 import 'package:classic_shop/src/helpers/locale_extension.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/assets.dart';
-import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:go_router/go_router.dart';
@@ -425,9 +423,6 @@ class HomePageHListName extends HookConsumerWidget {
   }
 }
 
-// final homeProductCardIndexProvider =
-//     Provider<int>((_) => throw UnimplementedError());
-
 class HomePageNewProductsHListView extends ConsumerStatefulWidget {
   const HomePageNewProductsHListView({super.key});
 
@@ -442,14 +437,18 @@ class _HomePageNewProductsHListViewState
   void initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      Future.wait([
-        ref.read(homePageNotifierProvider(ProductType.isNew).notifier).getPage(
-              pageSize: 6,
-              isNew: true,
-            ),
-        ref.read(cartNotifierProvider.notifier).fetchCart(),
-        ref.read(wishListNotifierProvider.notifier).fetchWishList(),
-      ]);
+      Future.wait(
+        [
+          ref
+              .read(homePageNotifierProvider(ProductType.isNew).notifier)
+              .getPage(
+                pageSize: 6,
+                isNew: true,
+              ),
+          ref.read(cartNotifierProvider.notifier).fetchCart(),
+          ref.read(wishListNotifierProvider.notifier).fetchWishList(),
+        ] as Iterable<Future>,
+      );
     });
   }
 
@@ -477,7 +476,10 @@ class _HomePageNewProductsHListViewState
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => ProviderScope(
             key: UniqueKey(),
-            overrides: [productCardIndexProvider.overrideWithValue(index)],
+            overrides: [
+              homepageProductsIndexProvider(ProductType.isNew)
+                  .overrideWithValue(index),
+            ],
             child: state.map(
               initial: (_) => const SizedBox.shrink(),
               loadInProgress: (_) {
@@ -501,99 +503,6 @@ class _HomePageNewProductsHListViewState
               loadFailure: (_) {
                 if (index < _.products.entity.length) {
                   return const HomePageProductCard();
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
-          ),
-          separatorBuilder: (context, index) => const SizedBox(
-            width: 16,
-          ),
-          itemCount: itemCount,
-        ),
-      ),
-    );
-  }
-}
-
-final homepagePromotedProductsIndexProvider =
-    Provider<int>((_) => throw UnimplementedError());
-
-class HomePagePromotedProductsHListView extends ConsumerStatefulWidget {
-  const HomePagePromotedProductsHListView({super.key});
-
-  @override
-  ConsumerState<HomePagePromotedProductsHListView> createState() =>
-      _HomePagePromotedProductsHListViewState();
-}
-
-class _HomePagePromotedProductsHListViewState
-    extends ConsumerState<HomePagePromotedProductsHListView> {
-  @override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Future.wait([
-        ref
-            .read(homePageNotifierProvider(ProductType.isPromoted).notifier)
-            .getPage(
-              pageSize: 6,
-              isPromoted: true,
-            ),
-      ]);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final state = ref.watch(homePageNotifierProvider(ProductType.isPromoted));
-    final itemCount = ref.watch(
-      homePageNotifierProvider(ProductType.isPromoted).select(
-        (value) => value.map(
-          initial: (_) => 0,
-          loadInProgress: (_) => 6,
-          loadSuccess: (_) => _.isNextPageAvailable
-              ? _.products.entity.length + 1
-              : _.products.entity.length,
-          loadFailure: (_) => _.products.entity.length + 1,
-        ),
-      ),
-    );
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: itemCount > 0 ? 300 : 0,
-        child: ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => ProviderScope(
-            key: UniqueKey(),
-            overrides: [
-              homepagePromotedProductsIndexProvider.overrideWithValue(index),
-            ],
-            child: state.map(
-              initial: (_) => const SizedBox.shrink(),
-              loadInProgress: (_) {
-                if (index < _.products.entity.length) {
-                  return const PromotedProductCard();
-                } else {
-                  return const LoadingProductCard();
-                }
-              },
-              loadSuccess: (_) {
-                if (index < _.products.entity.length) {
-                  return const PromotedProductCard();
-                }
-                return ProductsShowAllCard(
-                  onTap: () => context.goNamed(
-                    AppRoute.selectedProducts.name,
-                    extra: ProductType.isPromoted,
-                  ),
-                );
-              },
-              loadFailure: (_) {
-                if (index < _.products.entity.length) {
-                  return const PromotedProductCard();
                 } else {
                   return const SizedBox.shrink();
                 }
@@ -634,25 +543,25 @@ class HomePageHeader extends ConsumerWidget {
                   .$2,
             ),
           );
-    final bell = isDarkMode
-        ? ref.watch(
-            darkSiAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => element.$1 == SvgAssets.bell.name,
-                  )
-                  .$2,
-            ),
-          )
-        : ref.watch(
-            siAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => element.$1 == SvgAssets.bell.name,
-                  )
-                  .$2,
-            ),
-          );
+    // final bell = isDarkMode
+    //     ? ref.watch(
+    //         darkSiAssetsProvider.select(
+    //           (value) => value
+    //               .singleWhere(
+    //                 (element) => element.$1 == SvgAssets.bell.name,
+    //               )
+    //               .$2,
+    //         ),
+    //       )
+    //     : ref.watch(
+    //         siAssetsProvider.select(
+    //           (value) => value
+    //               .singleWhere(
+    //                 (element) => element.$1 == SvgAssets.bell.name,
+    //               )
+    //               .$2,
+    //         ),
+    //       );
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       sliver: SliverToBoxAdapter(
@@ -663,32 +572,39 @@ class HomePageHeader extends ConsumerWidget {
             Stack(
               alignment: Alignment.center,
               children: [
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: IconButton(
+                //     onPressed: () => context.pushNamed(AppRoute.search.name),
+                //     icon: const Icon(Icons.search),
+                //   ),
+                // ),
                 Align(
-                  child: InkWell(
-                    onTap: ref.read(themeModeProvider.notifier).changeTheme,
-                    child: ScalableImageWidget(si: logo),
+                  child: ScalableImageWidget(
+                    si: logo,
+                    // scale: .8,
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: ElevatedButton(
-                    onPressed: () => ref
-                        .read(responseHeaderCacheProvider)
-                        .deleteAllHeaders(),
-                    style: ElevatedButton.styleFrom(
-                      // fixedSize: const Size(48, 48),
-                      minimumSize: const Size(56, 56),
-                      // maximumSize: const Size(48, 48),
-                      // backgroundColor: const Color(0xFF000000),
-                      elevation: 0,
-                      padding: EdgeInsets.zero,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                    ),
-                    child: ScalableImageWidget(si: bell),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.centerLeft,
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       context.pushNamed(AppRoute.notifications.name);
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       // fixedSize: const Size(48, 48),
+                //       minimumSize: const Size(56, 56),
+                //       // maximumSize: const Size(48, 48),
+                //       // backgroundColor: const Color(0xFF000000),
+                //       elevation: 0,
+                //       padding: EdgeInsets.zero,
+                //       shape: const RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.all(Radius.circular(8)),
+                //       ),
+                //     ),
+                //     child: ScalableImageWidget(si: bell),
+                //   ),
+                // ),
               ],
             ),
           ],

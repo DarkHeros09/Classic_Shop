@@ -8,8 +8,10 @@ import 'package:classic_shop/src/features/core/data/user_storage/user_storage.da
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'payment_type_notifier.freezed.dart';
+part 'payment_type_notifier.g.dart';
 
 @freezed
 class PaymentTypeState with _$PaymentTypeState {
@@ -29,7 +31,8 @@ class PaymentTypeState with _$PaymentTypeState {
   ) = _LoadFailure;
 }
 
-class PaymentTypeNotifier extends AutoDisposeNotifier<PaymentTypeState> {
+@riverpod
+class PaymentTypeNotifier extends _$PaymentTypeNotifier {
   late final PaymentTypeRemoteService _remoteService;
   late final UserStorage _userStorage;
   @override

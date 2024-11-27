@@ -5,8 +5,10 @@ import 'package:classic_shop/src/features/promotions/domain/promotions_failure.d
 import 'package:classic_shop/src/features/promotions/shared/provider.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'promotions_notifier.freezed.dart';
+part 'promotions_notifier.g.dart';
 
 @freezed
 class PromotionsState with _$PromotionsState {
@@ -26,7 +28,8 @@ class PromotionsState with _$PromotionsState {
   ) = _LoadFailure;
 }
 
-class PromotionsNotifier extends AutoDisposeNotifier<PromotionsState> {
+@riverpod
+class PromotionsNotifier extends _$PromotionsNotifier {
   late final PromotionsRepository _repository;
   @override
   PromotionsState build() {

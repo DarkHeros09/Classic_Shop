@@ -1,8 +1,8 @@
+import 'package:classic_shop/src/features/shop_order/core/application/shop_order_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_list_cancelled.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_list_delivered.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_list_processing.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/widgets/loading_shop_order_card.dart';
-import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
@@ -24,15 +24,15 @@ class _ShopOrder2PageState extends ConsumerState<ShopOrder2Page> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.wait([
-        ref.read(shopOrderNotifierProvider.notifier).getShopOrders(),
+        ref.read(shopOrdersNotifierProvider.notifier).getShopOrders(),
         ref
-            .read(shopOrderProcessingNotifierProvider.notifier)
+            .read(shopOrdersProcessingNotifierProvider.notifier)
             .getShopOrdersProcessing(),
         ref
-            .read(shopOrderDeliveredNotifierProvider.notifier)
+            .read(shopOrdersDeliveredNotifierProvider.notifier)
             .getShopOrdersDelivered(),
         ref
-            .read(shopOrderCancelledNotifierProvider.notifier)
+            .read(shopOrdersCancelledNotifierProvider.notifier)
             .getShopOrdersCancelled(),
       ]);
     });
@@ -135,10 +135,10 @@ class _FirstTabBarViewState extends ConsumerState<_FirstTabBarView> {
   Widget build(BuildContext context) {
     final controller = useScrollController();
     ref
-      ..listen(shopOrderProcessingNotifierProvider, (previous, next) {})
-      ..listen(shopOrderDeliveredNotifierProvider, (previous, next) {})
-      ..listen(shopOrderCancelledNotifierProvider, (previous, next) {})
-      // ref.listen(shopOrderNotifierProvider, (previous, next) {
+      ..listen(shopOrdersProcessingNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersDeliveredNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersCancelledNotifierProvider, (previous, next) {})
+      // ref.listen(shopOrdersNotifierProvider, (previous, next) {
       //   debugPrint('qwe_.isNextPageAvailable');
       //   next.map(
       //     initial: (_) => canLoadNextPage = true,
@@ -158,7 +158,7 @@ class _FirstTabBarViewState extends ConsumerState<_FirstTabBarView> {
       //   );
       // });
       ..watch(
-        shopOrderNotifierProvider.select(
+        shopOrdersNotifierProvider.select(
           (state) => state.map(
             initial: (_) => canLoadNextPage = true,
             loadInProgress: (_) => canLoadNextPage = false,
@@ -179,7 +179,7 @@ class _FirstTabBarViewState extends ConsumerState<_FirstTabBarView> {
         debugPrint('qwe_isVertical $isVertical');
         if (canLoadNextPage && metrics.pixels >= limit && isVertical) {
           canLoadNextPage = false;
-          ref.read(shopOrderNotifierProvider.notifier).getShopOrdersNextPage();
+          ref.read(shopOrdersNotifierProvider.notifier).getShopOrdersNextPage();
         }
         return false;
       },
@@ -187,8 +187,8 @@ class _FirstTabBarViewState extends ConsumerState<_FirstTabBarView> {
         displacement: 50,
         edgeOffset: 55,
         onRefresh: () async {
-          ref.read(shopOrderNotifierProvider).shopOrders.entity.clear();
-          await ref.read(shopOrderNotifierProvider.notifier).getShopOrders();
+          ref.read(shopOrdersNotifierProvider).shopOrders.entity.clear();
+          await ref.read(shopOrdersNotifierProvider.notifier).getShopOrders();
         },
         child: CustomScrollView(
           key: const PageStorageKey('shopOrdersAllTab'),
@@ -233,11 +233,11 @@ class _SecondTabBarViewState extends ConsumerState<_SecondTabBarView> {
   Widget build(BuildContext context) {
     final controller = useScrollController();
     ref
-      ..listen(shopOrderNotifierProvider, (previous, next) {})
-      ..listen(shopOrderDeliveredNotifierProvider, (previous, next) {})
-      ..listen(shopOrderCancelledNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersDeliveredNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersCancelledNotifierProvider, (previous, next) {})
       ..watch(
-        shopOrderProcessingNotifierProvider.select(
+        shopOrdersProcessingNotifierProvider.select(
           (state) => state.map(
             initial: (_) => canLoadNextPage = true,
             loadInProgress: (_) => canLoadNextPage = false,
@@ -258,7 +258,7 @@ class _SecondTabBarViewState extends ConsumerState<_SecondTabBarView> {
         if (canLoadNextPage && metrics.pixels >= limit && isVertical) {
           canLoadNextPage = false;
           ref
-              .read(shopOrderProcessingNotifierProvider.notifier)
+              .read(shopOrdersProcessingNotifierProvider.notifier)
               .getShopOrdersProcessingNextPage();
         }
         return false;
@@ -268,12 +268,12 @@ class _SecondTabBarViewState extends ConsumerState<_SecondTabBarView> {
         edgeOffset: 55,
         onRefresh: () async {
           ref
-              .read(shopOrderProcessingNotifierProvider)
+              .read(shopOrdersProcessingNotifierProvider)
               .shopOrders
               .entity
               .clear();
           await ref
-              .read(shopOrderProcessingNotifierProvider.notifier)
+              .read(shopOrdersProcessingNotifierProvider.notifier)
               .getShopOrdersProcessing();
         },
         child: CustomScrollView(
@@ -319,11 +319,11 @@ class _ThirdTabBarViewState extends ConsumerState<_ThirdTabBarView> {
   Widget build(BuildContext context) {
     final controller = useScrollController();
     ref
-      ..listen(shopOrderNotifierProvider, (previous, next) {})
-      ..listen(shopOrderProcessingNotifierProvider, (previous, next) {})
-      ..listen(shopOrderCancelledNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersProcessingNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersCancelledNotifierProvider, (previous, next) {})
       ..watch(
-        shopOrderDeliveredNotifierProvider.select(
+        shopOrdersDeliveredNotifierProvider.select(
           (state) => state.map(
             initial: (_) => canLoadNextPage = true,
             loadInProgress: (_) => canLoadNextPage = false,
@@ -344,7 +344,7 @@ class _ThirdTabBarViewState extends ConsumerState<_ThirdTabBarView> {
         if (canLoadNextPage && metrics.pixels >= limit && isVertical) {
           canLoadNextPage = false;
           ref
-              .read(shopOrderDeliveredNotifierProvider.notifier)
+              .read(shopOrdersDeliveredNotifierProvider.notifier)
               .getShopOrdersDeliveredNextPage();
         }
         return false;
@@ -354,12 +354,12 @@ class _ThirdTabBarViewState extends ConsumerState<_ThirdTabBarView> {
         edgeOffset: 55,
         onRefresh: () async {
           ref
-              .read(shopOrderDeliveredNotifierProvider)
+              .read(shopOrdersDeliveredNotifierProvider)
               .shopOrders
               .entity
               .clear();
           await ref
-              .read(shopOrderDeliveredNotifierProvider.notifier)
+              .read(shopOrdersDeliveredNotifierProvider.notifier)
               .getShopOrdersDelivered();
         },
         child: CustomScrollView(
@@ -405,11 +405,11 @@ class _FourthTabBarViewState extends ConsumerState<_FourthTabBarView> {
   Widget build(BuildContext context) {
     final controller = useScrollController();
     ref
-      ..listen(shopOrderNotifierProvider, (previous, next) {})
-      ..listen(shopOrderProcessingNotifierProvider, (previous, next) {})
-      ..listen(shopOrderDeliveredNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersProcessingNotifierProvider, (previous, next) {})
+      ..listen(shopOrdersDeliveredNotifierProvider, (previous, next) {})
       ..watch(
-        shopOrderCancelledNotifierProvider.select(
+        shopOrdersCancelledNotifierProvider.select(
           (state) => state.map(
             initial: (_) => canLoadNextPage = true,
             loadInProgress: (_) => canLoadNextPage = false,
@@ -430,7 +430,7 @@ class _FourthTabBarViewState extends ConsumerState<_FourthTabBarView> {
         if (canLoadNextPage && metrics.pixels >= limit && isVertical) {
           canLoadNextPage = false;
           ref
-              .read(shopOrderCancelledNotifierProvider.notifier)
+              .read(shopOrdersCancelledNotifierProvider.notifier)
               .getShopOrdersCancelledNextPage();
         }
         return false;
@@ -440,12 +440,12 @@ class _FourthTabBarViewState extends ConsumerState<_FourthTabBarView> {
         edgeOffset: 55,
         onRefresh: () async {
           ref
-              .read(shopOrderCancelledNotifierProvider)
+              .read(shopOrdersCancelledNotifierProvider)
               .shopOrders
               .entity
               .clear();
           await ref
-              .read(shopOrderCancelledNotifierProvider.notifier)
+              .read(shopOrdersCancelledNotifierProvider.notifier)
               .getShopOrdersCancelled();
         },
         child: CustomScrollView(
@@ -489,9 +489,9 @@ class _ShopOrderList extends StatefulHookConsumerWidget {
 class _ShopOrderListState extends ConsumerState<_ShopOrderList> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(shopOrderNotifierProvider);
+    final state = ref.watch(shopOrdersNotifierProvider);
     final itemCount = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity.length,
           loadInProgress: (_) => _.shopOrders.entity.length + _.itemsPerPage,
@@ -594,7 +594,7 @@ class OrderDetailsAndStatus extends ConsumerWidget {
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final index = ref.watch(shopOrderCardIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -663,7 +663,7 @@ class OrderTotalAndQTY extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final index = ref.watch(shopOrderCardIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -733,7 +733,7 @@ class OrderTrackNumber extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final index = ref.watch(shopOrderCardIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],
@@ -773,7 +773,7 @@ class OrderNumberAndDate extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final index = ref.watch(shopOrderCardIndexProvider);
     final shopOrders = ref.watch(
-      shopOrderNotifierProvider.select(
+      shopOrdersNotifierProvider.select(
         (state) => state.map(
           initial: (_) => _.shopOrders.entity[index],
           loadInProgress: (_) => _.shopOrders.entity[index],

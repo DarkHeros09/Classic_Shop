@@ -1,5 +1,4 @@
-import 'package:classic_shop/src/features/address/presentation/add_address.dart';
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -13,7 +12,7 @@ class OTPPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final formKey = ref.watch(formKeyProvider);
+    // final formKey = ref.watch(formKeyProvider);
     final controller = useTextEditingController();
     final appTheme = Theme.of(context);
     return Scaffold(

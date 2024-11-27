@@ -6,9 +6,10 @@ import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_notifier.freezed.dart';
+part 'cart_notifier.g.dart';
 
 @freezed
 class CartState with _$CartState {
@@ -28,7 +29,8 @@ class CartState with _$CartState {
   ) = _LoadFailure;
 }
 
-class CartNotifier extends Notifier<CartState> {
+@Riverpod(keepAlive: true)
+class CartNotifier extends _$CartNotifier {
   late final CartRepository _repository;
   @override
   CartState build() {
@@ -72,7 +74,9 @@ class CartNotifier extends Notifier<CartState> {
         final i = state.cartItems.entity.indexWhere(
           (element) => element.productItemId == shopCartItem.productItemId,
         );
-        state.cartItems.entity[i] = r!;
+
+        if (r != null) state.cartItems.entity[i] = r;
+
         state = CartState.loadSuccess(state.cartItems);
       },
     );

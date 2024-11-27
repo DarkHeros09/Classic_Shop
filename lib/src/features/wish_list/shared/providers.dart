@@ -1,43 +1,36 @@
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/wish_list/application/wish_list_notifier.dart';
 import 'package:classic_shop/src/features/wish_list/data/wish_list_api.dart';
 import 'package:classic_shop/src/features/wish_list/data/wish_list_local_service.dart';
 import 'package:classic_shop/src/features/wish_list/data/wish_list_remote_service.dart';
 import 'package:classic_shop/src/features/wish_list/data/wish_list_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:isar/isar.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-// final isarDBProvider = Provider<Isar>((ref) {
-//   throw UnimplementedError();
-// });
+part 'providers.g.dart';
 
-// final isarProvider = Provider((ref) {
-//   return IsarDatabase(ref.watch(isarDBProvider));
-// });
-
-// final wishListIsarServiceProvider = Provider<WishListIsarService>((ref) {
-//   return WishListIsarService(
-//     ref.watch(isarProvider),
-//   );
-// });
-
-final wishListLocalServiceProvider = Provider<WishListLocalService>((ref) {
+@Riverpod(keepAlive: true)
+WishListLocalService wishListLocalService(Ref ref) {
   return WishListLocalService(
     ref.watch(sembastProvider),
   );
-});
+}
 
-final wishListApiProvider = Provider<WishListApi>(WishListApi.create);
+@Riverpod(keepAlive: true)
+WishListApi wishListApi(Ref ref) {
+  return WishListApi.create(ref);
+}
 
-final wishListRemoteServiceProvider = Provider<WishListRemoteService>((ref) {
+@Riverpod(keepAlive: true)
+WishListRemoteService wishListRemoteService(Ref ref) {
   return WishListRemoteService(
     ref.watch(wishListApiProvider),
     ref.watch(responseHeaderCacheProvider),
   );
-});
+}
 
-final wishListRepositoryProvider = Provider<WishListRepository>((ref) {
+@Riverpod(keepAlive: true)
+WishListRepository wishListRepository(Ref ref) {
   return WishListRepository(
     ref.watch(wishListLocalServiceProvider),
     ref.watch(wishListRemoteServiceProvider),
@@ -45,7 +38,4 @@ final wishListRepositoryProvider = Provider<WishListRepository>((ref) {
     ref.watch(responseHeaderCacheProvider),
     // ref.watch(wishListIsarServiceProvider),
   );
-});
-
-final wishListNotifierProvider =
-    NotifierProvider<WishListNotifier, WishListState>(WishListNotifier.new);
+}

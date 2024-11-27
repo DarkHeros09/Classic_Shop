@@ -1,8 +1,7 @@
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
-import 'package:classic_shop/src/routing/app_router.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
+import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/themes/assets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 
@@ -14,7 +13,7 @@ class BottomNavBar extends ConsumerWidget {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
     // final bottomNavBarIndex = ref.watch(bottomNavBarNotifierProvider);
-    final child = ref.watch(widgetProvider);
+    final child = ref.watch(widgetChildProvider);
     final homeIcon = isDarkMode
         ? ref.watch(
             darkSiAssetsProvider.select(
@@ -123,7 +122,8 @@ class BottomNavBar extends ConsumerWidget {
         ],
       ),
       child: SizedBox(
-        height: 70,
+        height: 56,
+        // height: 70,
         child: BottomNavigationBar(
           onTap: (value) {
             switch (value) {
@@ -140,15 +140,10 @@ class BottomNavBar extends ConsumerWidget {
             );
           },
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: GoogleFonts.notoKufiArabic(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Colors.black,
-          ),
-          unselectedLabelStyle: GoogleFonts.notoKufiArabic(
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-          ),
+          selectedLabelStyle:
+              appTheme.textTheme.bodyLarge?.copyWith(fontSize: 12),
+          unselectedLabelStyle:
+              appTheme.textTheme.bodyLarge?.copyWith(fontSize: 12),
           showUnselectedLabels: true,
           selectedIconTheme: appTheme.iconTheme,
           selectedItemColor: isDarkMode ? Colors.white : Colors.black,
@@ -190,7 +185,7 @@ class ScaffoldWithBottomNavBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final child = ref.watch(widgetProvider);
+    final child = ref.watch(widgetChildProvider);
     return Scaffold(
       body: child,
       bottomNavigationBar: const BottomNavBar(),

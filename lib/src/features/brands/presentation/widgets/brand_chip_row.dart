@@ -1,38 +1,10 @@
+import 'package:classic_shop/src/features/brands/application/brand_notifier.dart';
 import 'package:classic_shop/src/features/brands/presentation/widgets/brand_chip.dart';
 import 'package:classic_shop/src/features/brands/presentation/widgets/loading_brand_chip.dart';
 import 'package:classic_shop/src/features/brands/shared/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-class BrandChipGroupValue {
-  const BrandChipGroupValue(
-    this.groupValue,
-  );
-  final int? groupValue;
-}
-
-class BrandChipNotifier extends AutoDisposeNotifier<BrandChipGroupValue> {
-  @override
-  BrandChipGroupValue build() {
-    return const BrandChipGroupValue(null);
-  }
-
-  void groupValue(int value) {
-    state = BrandChipGroupValue(value);
-  }
-}
-
-final brandChipNotifierProvider =
-    NotifierProvider.autoDispose<BrandChipNotifier, BrandChipGroupValue>(
-  BrandChipNotifier.new,
-);
-
-final selectedBrandIdProvider = StateProvider.autoDispose<int?>((ref) {
-  return null;
-});
-
-final brandChipIndexProvider = Provider<int>((_) => 0);
 
 class BrandChipRow extends StatefulHookConsumerWidget {
   const BrandChipRow({
@@ -60,7 +32,7 @@ class _BrandChipRowState extends ConsumerState<BrandChipRow> {
     );
     return ListView.separated(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return ProviderScope(
@@ -76,7 +48,7 @@ class _BrandChipRowState extends ConsumerState<BrandChipRow> {
       },
       separatorBuilder: (context, index) {
         return const SizedBox(
-          width: 8,
+          width: 0,
         );
       },
       itemCount: state.map(
@@ -112,10 +84,10 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 136 + 39 + 8 + 8 + 8;
+  double get maxExtent => 136 + 39;
 
   @override
-  double get minExtent => 136 + 39 + 8 + 8 + 8;
+  double get minExtent => 136 + 39;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {

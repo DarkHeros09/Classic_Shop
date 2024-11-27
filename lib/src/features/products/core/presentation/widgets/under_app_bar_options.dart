@@ -1,7 +1,8 @@
-import 'package:classic_shop/src/features/brands/presentation/widgets/brand_chip_row.dart';
-import 'package:classic_shop/src/features/categories/presentation/widgets/category_card.dart';
+import 'package:classic_shop/src/features/brands/shared/provider.dart';
+import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/products/core/shared/providers.dart';
 import 'package:classic_shop/src/features/products/helper/enums.dart';
+import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -44,29 +45,6 @@ class UnderAppBarOptions extends HookConsumerWidget {
     );
   }
 }
-
-class SortOptionsGroupValue {
-  const SortOptionsGroupValue(
-    this.groupValue,
-  );
-  final String groupValue;
-}
-
-class SortOptionsNotifier extends Notifier<SortOptionsGroupValue> {
-  @override
-  SortOptionsGroupValue build() {
-    return const SortOptionsGroupValue('new');
-  }
-
-  void groupValue(String value) {
-    state = SortOptionsGroupValue(value);
-  }
-}
-
-final sortOptionsNotifierProvider =
-    NotifierProvider<SortOptionsNotifier, SortOptionsGroupValue>(
-  SortOptionsNotifier.new,
-);
 
 class _SortOption extends StatelessWidget {
   const _SortOption();
@@ -131,12 +109,17 @@ class _SortOptionsBottomSheet extends StatelessWidget {
           height: 1,
           thickness: .3,
         ),
-        const _SortOptionTab(radioText: 'الموصى به', radioValue: 'recommende'),
+        const _SortOptionTab(radioText: 'الموصى به', radioValue: 'recommended'),
         const Divider(
           height: 1,
           thickness: .3,
         ),
         const _SortOptionTab(radioText: 'جديد', radioValue: 'new'),
+        const Divider(
+          height: 1,
+          thickness: .3,
+        ),
+        const _SortOptionTab(radioText: 'قديم', radioValue: 'old'),
         const Divider(
           height: 1,
           thickness: .3,
@@ -153,11 +136,11 @@ class _SortOptionsBottomSheet extends StatelessWidget {
           radioText: 'السعر (من الأقل إلى الأعلى)',
           radioValue: 'priceAsc',
         ),
-        const Divider(
-          height: 1,
-          thickness: .3,
-        ),
-        const _SortOptionTab(radioText: 'تخفيضات', radioValue: 'discounts'),
+        // const Divider(
+        //   height: 1,
+        //   thickness: .3,
+        // ),
+        // const _SortOptionTab(radioText: 'تخفيضات', radioValue: 'discounts'),
       ],
     );
   }
@@ -178,33 +161,65 @@ class _SortOptionTab extends HookConsumerWidget {
         (value) => value.groupValue,
       ),
     );
-    final categoryId =
-        ref.watch(selectedCategoryIdProvider.select((value) => value));
-    final brandId = ref.watch(selectedBrandIdProvider.select((value) => value));
+    // final categoryId =
+    //     ref.watch(selectedCategoryIdProvider.select((value) => value));
+    // final brandId = ref.watch(selectedBrandIdProvider.select((value) => value));
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () {
+      onTap: () async {
+        final categoryId = ref.read(selectedCategoryIdProvider);
+        final brandId = ref.read(selectedBrandIdProvider);
         ref.read(sortOptionsNotifierProvider.notifier).groupValue(radioValue);
-        switch (selectedSortOption) {
+        ref.read(listProductsNotifierProvider).products.entity.clear();
+        switch (radioValue) {
+          case 'recommended':
+            await ref
+                .read(listProductsNotifierProvider.notifier)
+                .getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brandId,
+                );
+          case 'new':
+            await ref
+                .read(listProductsNotifierProvider.notifier)
+                .getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brandId,
+                  orderByNew: true,
+                );
+          case 'old':
+            await ref
+                .read(listProductsNotifierProvider.notifier)
+                .getProductsPage(
+                  productsFunction: ProductsFunction.getProducts,
+                  categoryId: categoryId,
+                  brandId: brandId,
+                  orderByOld: true,
+                );
           case 'priceAsc':
-            ref.read(listProductsNotifierProvider).products.entity.clear();
-
-            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+            await ref
+                .read(listProductsNotifierProvider.notifier)
+                .getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   brandId: brandId,
                   categoryId: categoryId,
                   orderByLowPrice: true,
                 );
           case 'priceDesc':
-            ref.read(listProductsNotifierProvider).products.entity.clear();
-            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+            await ref
+                .read(listProductsNotifierProvider.notifier)
+                .getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   brandId: brandId,
                   categoryId: categoryId,
                   orderByHighPrice: true,
                 );
-          default:
+        }
+        if (context.mounted) {
+          Navigator.pop(context);
         }
       },
       child: Column(
@@ -227,16 +242,46 @@ class _SortOptionTab extends HookConsumerWidget {
               Radio(
                 value: radioValue,
                 groupValue: selectedSortOption,
-                onChanged: (value) {
+                onChanged: (value) async {
+                  final categoryId = ref.read(selectedCategoryIdProvider);
+                  final brandId = ref.read(selectedBrandIdProvider);
+                  ref
+                      .read(sortOptionsNotifierProvider.notifier)
+                      .groupValue(value!);
+                  ref
+                      .read(listProductsNotifierProvider)
+                      .products
+                      .entity
+                      .clear();
                   switch (value) {
+                    case 'recommended':
+                      await ref
+                          .read(listProductsNotifierProvider.notifier)
+                          .getProductsPage(
+                            productsFunction: ProductsFunction.getProducts,
+                            categoryId: categoryId,
+                            brandId: brandId,
+                          );
+                    case 'new':
+                      await ref
+                          .read(listProductsNotifierProvider.notifier)
+                          .getProductsPage(
+                            productsFunction: ProductsFunction.getProducts,
+                            categoryId: categoryId,
+                            brandId: brandId,
+                            orderByNew: true,
+                          );
+                    case 'old':
+                      await ref
+                          .read(listProductsNotifierProvider.notifier)
+                          .getProductsPage(
+                            productsFunction: ProductsFunction.getProducts,
+                            categoryId: categoryId,
+                            brandId: brandId,
+                            orderByOld: true,
+                          );
                     case 'priceAsc':
-                      ref
-                          .read(listProductsNotifierProvider)
-                          .products
-                          .entity
-                          .clear();
-
-                      ref
+                      await ref
                           .read(listProductsNotifierProvider.notifier)
                           .getProductsPage(
                             productsFunction: ProductsFunction.getProducts,
@@ -245,12 +290,7 @@ class _SortOptionTab extends HookConsumerWidget {
                             orderByLowPrice: true,
                           );
                     case 'priceDesc':
-                      ref
-                          .read(listProductsNotifierProvider)
-                          .products
-                          .entity
-                          .clear();
-                      ref
+                      await ref
                           .read(listProductsNotifierProvider.notifier)
                           .getProductsPage(
                             productsFunction: ProductsFunction.getProducts,
@@ -258,11 +298,7 @@ class _SortOptionTab extends HookConsumerWidget {
                             categoryId: categoryId,
                             orderByHighPrice: true,
                           );
-                    default:
                   }
-                  ref
-                      .read(sortOptionsNotifierProvider.notifier)
-                      .groupValue(value ?? selectedSortOption);
                 },
               ),
             ],

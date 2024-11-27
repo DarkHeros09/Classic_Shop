@@ -1,3 +1,4 @@
+import 'package:classic_shop/src/features/on_boarding/application/on_boarding_notifier.dart';
 import 'package:classic_shop/src/features/on_boarding/shared/providers.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/assets.dart';
@@ -7,24 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-class OnBoardingIndexNotifier extends AutoDisposeNotifier<int> {
-  @override
-  int build() {
-    return 0;
-  }
-
-  set index(int index) {
-    state = index;
-  }
-
-  int get index => state;
-}
-
-final onBoardingIndexNotifierProvider =
-    NotifierProvider.autoDispose<OnBoardingIndexNotifier, int>(
-  OnBoardingIndexNotifier.new,
-);
 
 class OnBoarding extends HookConsumerWidget {
   const OnBoarding({
@@ -168,7 +151,7 @@ class OnBoarding extends HookConsumerWidget {
       body: PageView.builder(
         itemCount: 3,
         onPageChanged: (value) {
-          ref.read(onBoardingIndexNotifierProvider.notifier).index = value;
+          ref.read(onBoardingIndexNotifierProvider.notifier).index(value);
         },
         controller: pageController,
         itemBuilder: (context, index) {

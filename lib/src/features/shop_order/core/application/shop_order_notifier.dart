@@ -1,5 +1,4 @@
 import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:classic_shop/src/features/core/data/pagination_config.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:classic_shop/src/features/shop_order/core/data/shop_order_repository.dart';
@@ -7,9 +6,10 @@ import 'package:classic_shop/src/features/shop_order/core/domain/shop_order.dart
 import 'package:classic_shop/src/features/shop_order/core/domain/shop_order_failure.dart';
 import 'package:classic_shop/src/features/shop_order/core/shared/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'shop_order_notifier.freezed.dart';
+part 'shop_order_notifier.g.dart';
 
 @freezed
 class ShopOrdersState with _$ShopOrdersState {
@@ -47,303 +47,8 @@ class ShopOrdersState with _$ShopOrdersState {
   ) = _LoadFailure;
 }
 
-// class ShopOrdersNotifier extends AutoDisposeNotifier<ShopOrdersState> {
-//   late final ShopOrderRepository _repository;
-//   late final AuthNotifier _authNotifier;
-
-//   @override
-//   ShopOrdersState build() {
-//     _authNotifier = ref.watch(authNotifierProvider.notifier);
-//     _repository = ref.watch(shopOrderRepositoryProvider);
-//     return state = ShopOrdersState.initial(
-//       Fresh.yes([]),
-//       Fresh.yes([]),
-//       Fresh.yes([]),
-//       Fresh.yes([]),
-//     );
-//   }
-
-//   int _page = 1;
-//   int _lastItemId = 0;
-
-//   int _pageProcessing = 1;
-//   int _lastItemIdProcessing = 0;
-
-//   int _pageDelivered = 1;
-//   int _lastItemIdDelivered = 0;
-
-//   int _pageCancelled = 1;
-//   int _lastItemIdCancelled = 0;
-
-//   Future<void> getShopOrders({
-//     String? orderStatus,
-//     int? pageSize,
-//   }) async {
-//     // state = ShopOrdersState.loadFailure(
-//     //   state.shopOrders,
-//     //   const ProductFailure.api(404),
-//     // );
-//     state = ShopOrdersState.loadInProgress(
-//       state.shopOrders,
-//       state.shopOrdersProcessing,
-//       state.shopOrdersDelivered,
-//       state.shopOrdersCancelled,
-//       PaginationConfig.itemsPerPage,
-//     );
-//     final user = _authNotifier.currentUser;
-//     if (user != null) {
-//       switch (orderStatus) {
-//         case null:
-//           _page = 1;
-//           _lastItemId = 0;
-//         case 'تحت الإجراء':
-//           _pageProcessing = 1;
-//           _lastItemIdProcessing = 0;
-//         case 'تم التسليم':
-//           _pageDelivered = 1;
-//           _lastItemIdDelivered = 0;
-//         case 'ملغي':
-//           _pageCancelled = 1;
-//           _lastItemIdCancelled = 0;
-//       }
-//       final failureOrProducts = switch (orderStatus) {
-//         null => await _repository.getShopOrders(
-//             _page,
-//             userId: user.id,
-//             orderStatus: orderStatus,
-//             pageSize: pageSize,
-//           ),
-//         'تحت الإجراء' => await _repository.getShopOrders(
-//             _pageProcessing,
-//             userId: user.id,
-//             orderStatus: orderStatus,
-//             pageSize: pageSize,
-//           ),
-//         'تم التسليم' => await _repository.getShopOrders(
-//             _page,
-//             userId: user.id,
-//             orderStatus: orderStatus,
-//             pageSize: pageSize,
-//           ),
-//         'ملغي' => await _repository.getShopOrders(
-//             _page,
-//             userId: user.id,
-//             orderStatus: orderStatus,
-//             pageSize: pageSize,
-//           ),
-//         _ => await _repository.getShopOrders(
-//             _page,
-//             userId: user.id,
-//             orderStatus: orderStatus,
-//             pageSize: pageSize,
-//           ),
-//       };
-//       state = failureOrProducts.fold(
-//         (l) => ShopOrdersState.loadFailure(
-//           state.shopOrders,
-//           state.shopOrdersProcessing,
-//           state.shopOrdersDelivered,
-//           state.shopOrdersCancelled,
-//           l,
-//         ),
-//         (r) {
-//           late final ShopOrdersState stateResult;
-//           switch (orderStatus) {
-//             case null:
-//               _page++;
-//               _lastItemId = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrders.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 state.shopOrdersProcessing,
-//                 state.shopOrdersDelivered,
-//                 state.shopOrdersCancelled,
-//                 isNextPageAvailable: r.isNextPageAvailable ?? false,
-//               );
-//             case 'تحت الإجراء':
-//               _pageProcessing++;
-//               _lastItemIdProcessing = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 state.shopOrders,
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrdersProcessing.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 state.shopOrdersDelivered,
-//                 state.shopOrdersCancelled,
-//                 isNextPageAvailableProcessing: r.isNextPageAvailable ?? false,
-//               );
-//             case 'تم التسليم':
-//               _pageDelivered++;
-//               _lastItemIdDelivered = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 state.shopOrders,
-//                 state.shopOrdersProcessing,
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrdersDelivered.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 state.shopOrdersCancelled,
-//                 isNextPageAvailableDelivered: r.isNextPageAvailable ?? false,
-//               );
-//             case 'ملغي':
-//               _pageCancelled++;
-//               _lastItemIdCancelled = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 state.shopOrders,
-//                 state.shopOrdersProcessing,
-//                 state.shopOrdersDelivered,
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrdersCancelled.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 isNextPageAvailableCancelled: r.isNextPageAvailable ?? false,
-//               );
-//           }
-
-//           return stateResult;
-//         },
-//       );
-//     }
-//   }
-
-//   Future<void> getShopOrdersNextPage({
-//     String? orderStatus,
-//     int? pageSize,
-//   }) async {
-//     // state = ShopOrdersState.loadFailure(
-//     //   state.shopOrders,
-//     //   const ProductFailure.api(404),
-//     // );
-//     state = ShopOrdersState.loadInProgress(
-//       state.shopOrders,
-//       state.shopOrdersProcessing,
-//       state.shopOrdersDelivered,
-//       state.shopOrdersCancelled,
-//       PaginationConfig.itemsPerPage,
-//     );
-//     debugPrint('_lastItemId: $_lastItemId');
-//     debugPrint('_lastItemIdPage: $_page');
-//     final user = _authNotifier.currentUser;
-//     if (user != null) {
-//       final failureOrProducts = switch (orderStatus) {
-//         null => await _repository.getShopOrdersNextPage(
-//             _lastItemId,
-//             _page,
-//             userId: user.id,
-//           ),
-//         'تحت الإجراء' => await _repository.getShopOrdersNextPage(
-//             _lastItemIdProcessing,
-//             _pageProcessing,
-//             userId: user.id,
-//           ),
-//         'تم التسليم' => await _repository.getShopOrdersNextPage(
-//             _lastItemIdDelivered,
-//             _pageDelivered,
-//             userId: user.id,
-//           ),
-//         'ملغي' => await _repository.getShopOrdersNextPage(
-//             _lastItemIdCancelled,
-//             _pageCancelled,
-//             userId: user.id,
-//           ),
-//         _ => await _repository.getShopOrdersNextPage(
-//             _lastItemId,
-//             _page,
-//             userId: user.id,
-//           ),
-//       };
-//       state = failureOrProducts.fold(
-//         (l) => ShopOrdersState.loadFailure(
-//           state.shopOrders,
-//           state.shopOrdersProcessing,
-//           state.shopOrdersDelivered,
-//           state.shopOrdersCancelled,
-//           l,
-//         ),
-//         (r) {
-//           late final ShopOrdersState stateResult;
-//           switch (orderStatus) {
-//             case null:
-//               _page++;
-//               _lastItemId = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrders.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 state.shopOrdersProcessing,
-//                 state.shopOrdersDelivered,
-//                 state.shopOrdersCancelled,
-//                 isNextPageAvailable: r.isNextPageAvailable ?? false,
-//               );
-//             case 'تحت الإجراء':
-//               _pageProcessing++;
-//               _lastItemIdProcessing = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 state.shopOrders,
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrdersProcessing.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 state.shopOrdersDelivered,
-//                 state.shopOrdersCancelled,
-//                 isNextPageAvailable: r.isNextPageAvailable ?? false,
-//               );
-//             case 'تم التسليم':
-//               _pageDelivered++;
-//               _lastItemIdDelivered = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 state.shopOrders,
-//                 state.shopOrdersProcessing,
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrdersDelivered.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 state.shopOrdersCancelled,
-//                 isNextPageAvailable: r.isNextPageAvailable ?? false,
-//               );
-//             case 'ملغي':
-//               _pageCancelled++;
-//               _lastItemIdCancelled = r.entity.isEmpty ? 0 : r.entity.last.id;
-//               stateResult = ShopOrdersState.loadSuccess(
-//                 state.shopOrders,
-//                 state.shopOrdersProcessing,
-//                 state.shopOrdersDelivered,
-//                 r.copyWith(
-//                   entity: [
-//                     ...state.shopOrdersCancelled.entity,
-//                     ...r.entity,
-//                   ],
-//                 ),
-//                 isNextPageAvailable: r.isNextPageAvailable ?? false,
-//               );
-//           }
-
-//           return stateResult;
-//         },
-//       );
-//     }
-//   }
-// }
-
-class ShopOrdersNotifier extends AutoDisposeNotifier<ShopOrdersState> {
+@riverpod
+class ShopOrdersNotifier extends _$ShopOrdersNotifier {
   late final ShopOrderRepository _repository;
   late final AuthNotifier _authNotifier;
 
@@ -434,8 +139,8 @@ class ShopOrdersNotifier extends AutoDisposeNotifier<ShopOrdersState> {
   }
 }
 
-class ShopOrdersProcessingNotifier
-    extends AutoDisposeNotifier<ShopOrdersState> {
+@riverpod
+class ShopOrdersProcessingNotifier extends _$ShopOrdersProcessingNotifier {
   late final ShopOrderRepository _repository;
   late final AuthNotifier _authNotifier;
 
@@ -527,7 +232,8 @@ class ShopOrdersProcessingNotifier
   }
 }
 
-class ShopOrdersDeliveredNotifier extends AutoDisposeNotifier<ShopOrdersState> {
+@riverpod
+class ShopOrdersDeliveredNotifier extends _$ShopOrdersDeliveredNotifier {
   late final ShopOrderRepository _repository;
   late final AuthNotifier _authNotifier;
 
@@ -619,7 +325,8 @@ class ShopOrdersDeliveredNotifier extends AutoDisposeNotifier<ShopOrdersState> {
   }
 }
 
-class ShopOrdersCancelledNotifier extends AutoDisposeNotifier<ShopOrdersState> {
+@riverpod
+class ShopOrdersCancelledNotifier extends _$ShopOrdersCancelledNotifier {
   late final ShopOrderRepository _repository;
   late final AuthNotifier _authNotifier;
 

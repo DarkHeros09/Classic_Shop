@@ -5,8 +5,10 @@ import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'category_notifier.freezed.dart';
+part 'category_notifier.g.dart';
 
 @freezed
 class CategoryState with _$CategoryState {
@@ -26,7 +28,8 @@ class CategoryState with _$CategoryState {
   ) = _LoadFailure;
 }
 
-class CategoryNotifier extends AutoDisposeNotifier<CategoryState> {
+@riverpod
+class CategoryNotifier extends _$CategoryNotifier {
   late final CategoryRepository _repository;
   @override
   CategoryState build() {

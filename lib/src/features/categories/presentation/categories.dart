@@ -1,9 +1,11 @@
+import 'package:classic_shop/src/features/categories/application/category_notifier.dart';
 import 'package:classic_shop/src/features/categories/presentation/widgets/categories_list_view.dart';
-import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/products/core/presentation/widgets/failure_product_tile.dart';
 import 'package:classic_shop/src/features/products/searched_products/search_bar/presentation/widgets/search_bar.dart';
+import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Categories extends ConsumerStatefulWidget {
@@ -47,12 +49,15 @@ class _CategoriesState extends ConsumerState<Categories> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 56,
                       // width: double.infinity,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: CustomSearchBar(),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: CustomSearchBar(
+                          readOnly: true,
+                          onTap: () => context.pushNamed(AppRoute.search.name),
+                        ),
                       ),
                     ),
                   ],

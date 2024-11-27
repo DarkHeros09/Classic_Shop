@@ -1,9 +1,11 @@
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
+import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/cart/shared/providers.dart';
 import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/features/promotions/shared/provider.dart';
-import 'package:classic_shop/src/features/settings/shared/providers.dart';
+import 'package:classic_shop/src/features/settings/application/settings_notifier.dart';
 import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/assets.dart';
@@ -191,7 +193,7 @@ class _ProfileState extends ConsumerState<Profile> {
                     ],
                   ),
                   const SizedBox(
-                    height: 16,
+                    height: 40,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -204,21 +206,25 @@ class _ProfileState extends ConsumerState<Profile> {
                               Align(
                                 child: CircleAvatar(
                                   radius: 56,
-                                ),
-                              ),
-                              Align(
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.black,
-                                  radius: 16.1,
-                                  child: CircleAvatar(
-                                    radius: 16,
-                                    backgroundColor: Colors.white,
-                                    child: Icon(
-                                      Icons.edit,
-                                    ),
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 56,
                                   ),
                                 ),
                               ),
+                              // Align(
+                              //   child: CircleAvatar(
+                              //     backgroundColor: Colors.black,
+                              //     radius: 16.1,
+                              //     child: CircleAvatar(
+                              //       radius: 16,
+                              //       backgroundColor: Colors.white,
+                              //       child: Icon(
+                              //         Icons.edit,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           const SizedBox(
@@ -250,7 +256,8 @@ class _ProfileState extends ConsumerState<Profile> {
                     ],
                   ),
                   const SizedBox(
-                    height: 28,
+                    height: 16,
+                    // height: 28,
                   ),
                   Column(
                     children: [
@@ -312,61 +319,65 @@ class _ProfileState extends ConsumerState<Profile> {
                         icon: folderOpenIcon,
                         onTap: () => context.pushNamed(AppRoute.policy.name),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(
-                          height: 0,
-                          thickness: .79,
-                          color: Color(0xFFe5e5e5),
+                      if (userName.isNotEmpty) ...[
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Divider(
+                            height: 0,
+                            thickness: .79,
+                            color: Color(0xFFe5e5e5),
+                          ),
                         ),
-                      ),
-                      ProfileItems(
-                        title: 'تسجيل الخروج',
-                        icon: logoutIcon,
-                        onTap: () async {
-                          final user =
-                              await ref.read(userStorageProvider).read();
-                          await ref
-                              .read(authNotifierProvider.notifier)
-                              .signOut();
-                          if (user != null) {
-                            ref
-                                .read(cartNotifierProvider)
-                                .cartItems
-                                .entity
-                                .clear();
-                            await Future.wait([
+                        ProfileItems(
+                          title: 'تسجيل الخروج',
+                          icon: logoutIcon,
+                          onTap: () async {
+                            final user =
+                                await ref.read(userStorageProvider).read();
+                            await ref
+                                .read(authNotifierProvider.notifier)
+                                .signOut();
+                            if (user != null) {
                               ref
-                                  .read(categoryLocalServiceProvider)
-                                  .deleteAllCategories(),
-                              ref.read(authNotifierProvider.notifier).signOut(),
-                              ref
-                                  .read(responseHeaderCacheProvider)
-                                  .deleteAllHeaders(),
-                              ref
-                                  .read(cartLocalServiceProvider)
-                                  .deleteAllCartItems(user.id),
-                              ref
-                                  .read(wishListLocalServiceProvider)
-                                  .deleteAllWishListItems(),
-                              ref
-                                  .read(productPromotionsLocalServiceProvider)
-                                  .deleteAllProductPromotions(),
-                              ref
-                                  .read(brandPromotionsLocalServiceProvider)
-                                  .deleteAllBrandPromotions(),
-                              ref
-                                  .read(
-                                    categoryPromotionsLocalServiceProvider,
-                                  )
-                                  .deleteAllCategoryPromotions(),
-                              // ref
-                              //     .read(shopOrderLocalServiceProvider)
-                              //     .deleteAllShopOrders()
-                            ]);
-                          }
-                        },
-                      ),
+                                  .read(cartNotifierProvider)
+                                  .cartItems
+                                  .entity
+                                  .clear();
+                              await Future.wait([
+                                ref
+                                    .read(categoryLocalServiceProvider)
+                                    .deleteAllCategories(),
+                                ref
+                                    .read(authNotifierProvider.notifier)
+                                    .signOut(),
+                                ref
+                                    .read(responseHeaderCacheProvider)
+                                    .deleteAllHeaders(),
+                                ref
+                                    .read(cartLocalServiceProvider)
+                                    .deleteAllCartItems(user.id),
+                                ref
+                                    .read(wishListLocalServiceProvider)
+                                    .deleteAllWishListItems(),
+                                ref
+                                    .read(productPromotionsLocalServiceProvider)
+                                    .deleteAllProductPromotions(),
+                                ref
+                                    .read(brandPromotionsLocalServiceProvider)
+                                    .deleteAllBrandPromotions(),
+                                ref
+                                    .read(
+                                      categoryPromotionsLocalServiceProvider,
+                                    )
+                                    .deleteAllCategoryPromotions(),
+                                // ref
+                                //     .read(shopOrderLocalServiceProvider)
+                                //     .deleteAllShopOrders()
+                              ]);
+                            }
+                          },
+                        ),
+                      ],
                     ],
                   ),
                 ],

@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/settings/shared/providers.dart';
+import 'package:classic_shop/src/features/settings/application/settings_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -119,7 +119,7 @@ class SettingsPage extends HookConsumerWidget {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -8,9 +8,10 @@ import 'package:classic_shop/src/features/core/domain/user.dart';
 import 'package:classic_shop/src/helpers/in_memory_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.freezed.dart';
+part 'auth_notifier.g.dart';
 
 @freezed
 class AuthState with _$AuthState {
@@ -23,7 +24,8 @@ class AuthState with _$AuthState {
   const factory AuthState.failure(AuthFailure failure) = _Failure;
 }
 
-class AuthNotifier extends Notifier<AuthState> {
+@Riverpod(keepAlive: true)
+class AuthNotifier extends _$AuthNotifier {
   late final AuthRemoteService _authRemoteService;
   late final SecureUserStorage _userStorage;
   final _authUser = InMemoryStore<User?>(null);

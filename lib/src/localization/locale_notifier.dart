@@ -11,7 +11,7 @@ const spkLocale = 'locale';
 class SelectedLocale extends _$SelectedLocale {
   @override
   Locale build() {
-    final preferences = ref.watch(sharedPreferencesProvider);
+    final preferences = ref.watch(sharedPreferencesProvider).requireValue;
     final localeString = preferences.getString(spkLocale) ?? 'ar';
     // final isDarkMode = ref.watch(
     //   settingsNotifierProvider.select((value) => value.settings.isDarkMode),

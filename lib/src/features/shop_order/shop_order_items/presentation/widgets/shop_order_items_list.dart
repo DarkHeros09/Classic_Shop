@@ -1,5 +1,5 @@
+import 'package:classic_shop/src/features/shop_order/shop_order_items/application/shop_order_items_notifier.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/widgets/shop_order_items_card.dart';
-import 'package:classic_shop/src/features/shop_order/shop_order_items/shared/providers.dart';
 import 'package:classic_shop/src/helpers/super_sliver_list_separated.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

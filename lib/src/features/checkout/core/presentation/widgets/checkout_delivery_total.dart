@@ -1,4 +1,4 @@
-import 'package:classic_shop/src/features/checkout/delivery_method/shared/providers.dart';
+import 'package:classic_shop/src/features/checkout/delivery_method/application/delivery_method_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -35,9 +35,9 @@ class CheckoutDeliveryTotal extends ConsumerWidget {
                   style: appTheme.textTheme.bodyLarge!
                       .copyWith(fontWeight: FontWeight.w700),
                 ),
-                const Icon(Icons.price_check)
+                const Icon(Icons.price_check),
               ],
-            )
+            ),
           ],
         ),
       ),

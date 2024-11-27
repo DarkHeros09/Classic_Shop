@@ -1,12 +1,10 @@
 import 'package:classic_shop/src/features/products/core/presentation/widgets/loading_product_card.dart';
-import 'package:classic_shop/src/features/products/core/shared/providers.dart';
-import 'package:classic_shop/src/features/products/searched_products/presentation/widgets/searched_product_card.dart';
+import 'package:classic_shop/src/features/products/core/presentation/widgets/product_card.dart';
+import 'package:classic_shop/src/features/products/searched_products/application/searched_products_notifier.dart';
+import 'package:classic_shop/src/features/products/searched_products/shared/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-final searchedProductCardIndexProvider =
-    Provider<int>((_) => throw UnimplementedError());
 
 class SearchedProductsGridView extends ConsumerWidget {
   const SearchedProductsGridView({super.key});
@@ -31,7 +29,7 @@ class SearchedProductsGridView extends ConsumerWidget {
             initial: (_) => const SizedBox.shrink(),
             loadInProgress: (_) {
               if (index < _.products.entity.length) {
-                return SearchedProductCard(
+                return ProductCard(
                   product: _.products.entity[index],
                 );
               } else {
@@ -42,13 +40,13 @@ class SearchedProductsGridView extends ConsumerWidget {
               if (_.products.entity.isEmpty) {
                 return const SizedBox.shrink();
               }
-              return SearchedProductCard(
+              return ProductCard(
                 product: _.products.entity[index],
               );
             },
             loadFailure: (_) {
               if (index < _.products.entity.length) {
-                return SearchedProductCard(
+                return ProductCard(
                   product: _.products.entity[index],
                 );
               } else {

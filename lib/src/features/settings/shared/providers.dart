@@ -1,20 +1,21 @@
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/settings/application/settings_notifier.dart';
 import 'package:classic_shop/src/features/settings/data/settings_local_service.dart';
 import 'package:classic_shop/src/features/settings/data/settings_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final settingsLocalServiceProvider = Provider<SettingsLocalService>((ref) {
+part 'providers.g.dart';
+
+@Riverpod(keepAlive: true)
+SettingsLocalService settingsLocalService(Ref ref) {
   return SettingsLocalService(
     ref.watch(sembastProvider),
   );
-});
+}
 
-final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
+@Riverpod(keepAlive: true)
+SettingsRepository settingsRepository(Ref ref) {
   return SettingsRepository(
     ref.watch(settingsLocalServiceProvider),
   );
-});
-
-final settingsNotifierProvider =
-    NotifierProvider<SettingsNotifier, SettingsState>(SettingsNotifier.new);
+}

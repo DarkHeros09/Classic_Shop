@@ -6,8 +6,10 @@ import 'package:classic_shop/src/features/address/shared/provider.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'address_notifier.freezed.dart';
+part 'address_notifier.g.dart';
 
 @freezed
 class AddressState with _$AddressState {
@@ -27,7 +29,8 @@ class AddressState with _$AddressState {
   ) = _LoadFailure;
 }
 
-class AddressNotifier extends AutoDisposeNotifier<AddressState> {
+@riverpod
+class AddressNotifier extends _$AddressNotifier {
   late final AddressRepository _repository;
   @override
   AddressState build() {

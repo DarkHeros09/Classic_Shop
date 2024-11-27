@@ -33,7 +33,7 @@ class _ProductDetailsPage2State extends ConsumerState<ProductDetailsPage2> {
   Widget build(BuildContext context) {
     final pageController = usePageController();
     final windowHeight = MediaQuery.sizeOf(context).height - kToolbarHeight;
-    final fabHeight = useState<double>(0);
+    // final fabHeight = useState<double>(0);
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: windowHeight * .8,
@@ -86,7 +86,7 @@ class _ProductDetailsPage2State extends ConsumerState<ProductDetailsPage2> {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
