@@ -56,28 +56,21 @@ class _State extends ConsumerState<SplashPage> {
       debugShowCheckedModeBanner: false,
       darkTheme: darkTheme,
       // locale: locale,
-      home: MediaQuery.removeViewPadding(
-        context: context,
-        removeTop: true,
-        removeBottom: true,
-        removeLeft: true,
-        removeRight: true,
-        child: Scaffold(
-          body: Center(
-            child: Image.asset(
-              // bundle: rootBundle,
-              Assets.android12splash.path,
-              // scale: .89,
-              filterQuality: FilterQuality.high,
-            )
-                .animate(
-                  controller: controller,
-                )
-                .fadeOut(
-                  delay: const Duration(milliseconds: 250),
-                  duration: const Duration(milliseconds: 300),
-                ),
-          ),
+      home: Scaffold(
+        body: Center(
+          child: Image.asset(
+            // bundle: rootBundle,
+            Assets.android12splash.path,
+            // scale: .89,
+            filterQuality: FilterQuality.high,
+          )
+              .animate(
+                controller: controller,
+              )
+              .fadeOut(
+                delay: const Duration(milliseconds: 250),
+                duration: const Duration(milliseconds: 300),
+              ),
         ),
       ),
     );

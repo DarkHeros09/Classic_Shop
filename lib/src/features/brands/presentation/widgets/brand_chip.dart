@@ -35,9 +35,13 @@ class BrandChip extends HookConsumerWidget {
     return InkWell(
       onTap: () {
         final categoryId = ref.read(selectedCategoryIdProvider);
-        ref.read(selectedBrandIdProvider.notifier).setId(brand.id);
+        ref
+            .read(selectedBrandIdProvider.notifier)
+            .setId(groupValue != index ? brand.id : null);
         // final brandId = ref.read(selectedBrandIdProvider);
-        ref.read(brandChipNotifierProvider.notifier).groupValue(index);
+        ref
+            .read(brandChipNotifierProvider.notifier)
+            .groupValue(groupValue != index ? index : null);
         ref.read(listProductsNotifierProvider).products.entity.clear();
         final selectedSortOption = ref.read(
           sortOptionsNotifierProvider.select(
@@ -49,34 +53,34 @@ class BrandChip extends HookConsumerWidget {
             ref.read(listProductsNotifierProvider.notifier).getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   categoryId: categoryId,
-                  brandId: brand.id,
+                  brandId: groupValue != index ? brand.id : null,
                 );
           case 'new':
             ref.read(listProductsNotifierProvider.notifier).getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   categoryId: categoryId,
-                  brandId: brand.id,
+                  brandId: groupValue != index ? brand.id : null,
                   orderByNew: true,
                 );
           case 'old':
             ref.read(listProductsNotifierProvider.notifier).getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   categoryId: categoryId,
-                  brandId: brand.id,
+                  brandId: groupValue != index ? brand.id : null,
                   orderByOld: true,
                 );
           case 'priceDesc':
             ref.read(listProductsNotifierProvider.notifier).getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   categoryId: categoryId,
-                  brandId: brand.id,
+                  brandId: groupValue != index ? brand.id : null,
                   orderByHighPrice: true,
                 );
           case 'priceAsc':
             ref.read(listProductsNotifierProvider.notifier).getProductsPage(
                   productsFunction: ProductsFunction.getProducts,
                   categoryId: categoryId,
-                  brandId: brand.id,
+                  brandId: groupValue != index ? brand.id : null,
                   orderByLowPrice: true,
                 );
         }

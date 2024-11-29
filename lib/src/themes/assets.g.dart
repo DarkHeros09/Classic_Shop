@@ -38,7 +38,7 @@ final darkSiAssetsProvider = Provider<List<(String, ScalableImage)>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef DarkSiAssetsRef = ProviderRef<List<(String, ScalableImage)>>;
-String _$initAssetsHash() => r'e5031722e95faecdb1c383fe226cd769831fa2aa';
+String _$initAssetsHash() => r'93478ee375e972a5432d308ecbd7fc9d0f6962b6';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -59,7 +59,7 @@ class _SortOption extends StatelessWidget {
           showDragHandle: true,
           isScrollControlled: true,
           builder: (context) {
-            return const _SortOptionsBottomSheet();
+            return const SortOptionsBottomSheet();
           },
         ),
         child: Row(
@@ -80,11 +80,12 @@ class _SortOption extends StatelessWidget {
   }
 }
 
-class _SortOptionsBottomSheet extends StatelessWidget {
-  const _SortOptionsBottomSheet();
+class SortOptionsBottomSheet extends StatelessWidget {
+  const SortOptionsBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
     return ListView(
       shrinkWrap: true,
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -93,7 +94,11 @@ class _SortOptionsBottomSheet extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('ترتيب'),
+            Text(
+              'ترتيب',
+              style: appTheme.textTheme.bodyLarge
+                  ?.copyWith(fontWeight: FontWeight.w600),
+            ),
             IconButton(
               onPressed: () => Navigator.pop(
                 context,
@@ -231,6 +236,7 @@ class _SortOptionTab extends HookConsumerWidget {
               Row(
                 children: [
                   const Icon(
+                    size: 8,
                     Icons.circle,
                   ),
                   const SizedBox(

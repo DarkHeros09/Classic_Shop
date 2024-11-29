@@ -28,6 +28,12 @@ class Assets {
   static const String storefrontCropped1 = 'assets/Storefront-cropped 1.svg';
   static const String storefrontCropped = 'assets/Storefront-cropped.si';
   static const String activity = 'assets/activity.si';
+  static const AssetGenImage androidAppIconBackground =
+      AssetGenImage('assets/android-app-icon-background.png');
+  static const AssetGenImage androidAppIconForeground =
+      AssetGenImage('assets/android-app-icon-foreground.png');
+  static const AssetGenImage androidAppIcon =
+      AssetGenImage('assets/android-app-icon.png');
   static const AssetGenImage android12splash =
       AssetGenImage('assets/android12splash.png');
   static const String bellSelected = 'assets/bellSelected.si';
@@ -42,9 +48,10 @@ class Assets {
   static const String heartSelected = 'assets/heartSelected.si';
   static const String home = 'assets/home.si';
   static const String homeSelected = 'assets/homeSelected.si';
+  static const AssetGenImage iosAppIcon =
+      AssetGenImage('assets/ios-app-icon.png');
   static const String loginCropped = 'assets/login-cropped.svg';
   static const String logoCopy = 'assets/logo - Copy.svg';
-  static const AssetGenImage logoPng = AssetGenImage('assets/logo.png');
   static const String logoSi = 'assets/logo.si';
   static const String logoSvg = 'assets/logo.svg';
   static const String logoWhite = 'assets/logoWhite.svg';
@@ -53,6 +60,8 @@ class Assets {
   static const String noDataSvg = 'assets/no_data.svg';
   static const String pin = 'assets/pin.si';
   static const String priceTag = 'assets/priceTag.si';
+  static const String slidersHorizSi = 'assets/sliders_horiz.si';
+  static const String slidersHorizSvg = 'assets/sliders_horiz.svg';
   static const AssetGenImage splash = AssetGenImage('assets/splash.png');
   static const String successSi = 'assets/success.si';
   static const String successSvg = 'assets/success.svg';
@@ -89,6 +98,9 @@ class Assets {
         storefrontCropped1,
         storefrontCropped,
         activity,
+        androidAppIconBackground,
+        androidAppIconForeground,
+        androidAppIcon,
         android12splash,
         bellSelected,
         cart,
@@ -102,9 +114,9 @@ class Assets {
         heartSelected,
         home,
         homeSelected,
+        iosAppIcon,
         loginCropped,
         logoCopy,
-        logoPng,
         logoSi,
         logoSvg,
         logoWhite,
@@ -113,6 +125,8 @@ class Assets {
         noDataSvg,
         pin,
         priceTag,
+        slidersHorizSi,
+        slidersHorizSvg,
         splash,
         successSi,
         successSvg,

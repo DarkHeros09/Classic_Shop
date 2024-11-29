@@ -204,25 +204,15 @@ class _ProductDetailBottomButtonsBar extends HookConsumerWidget {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final buyButtonIsPressed = useValueNotifier(false);
-    final cartButtonIcon = isDarkMode
-        ? ref.read(
-            darkSiAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => element.$1 == SvgAssets.cartButtonIcon.name,
-                  )
-                  .$2,
-            ),
-          )
-        : ref.read(
-            siAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => element.$1 == SvgAssets.cartButtonIcon.name,
-                  )
-                  .$2,
-            ),
-          );
+    final cartButtonIcon = ref.read(
+      siAssetsProvider.select(
+        (value) => value
+            .singleWhere(
+              (element) => element.$1 == SvgAssets.cartButtonIcon.name,
+            )
+            .$2,
+      ),
+    );
     final cartNotifierState = ref.watch(cartNotifierProvider);
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -241,28 +231,27 @@ class _ProductDetailBottomButtonsBar extends HookConsumerWidget {
         child: Row(
           children: [
             Expanded(
-              child: Container(
-                height: 56,
-                width: 132,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.black,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'إختر القياس',
-                      style: appTheme.textTheme.bodySmall?.copyWith(
-                        color: Colors.black,
-                        fontSize: 12,
-                      ),
-                    ),
-                    const Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.black,
-                    ),
-                  ],
+                label: Text(
+                  'إختر القياس',
+                  style: appTheme.textTheme.bodySmall?.copyWith(
+                    color: Colors.black,
+                    fontSize: 12,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  backgroundColor: Colors.grey[300],
+                  disabledBackgroundColor: Colors.grey,
+                  fixedSize: const Size(132, 56),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
                 ),
               ),
             ),
@@ -644,29 +633,20 @@ class _ProductDetailAppBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
+    final user = ref.watch(authNotifierProvider.notifier).currentUser;
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final cartItemState = ref.watch(
       cartNotifierProvider.select((value) => value.cartItems.entity.length),
     );
-    final cartAppBarIcon = isDarkMode
-        ? ref.watch(
-            darkSiAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => element.$1 == SvgAssets.cartAppBarIcon.name,
-                  )
-                  .$2,
-            ),
-          )
-        : ref.watch(
-            siAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => element.$1 == SvgAssets.cartAppBarIcon.name,
-                  )
-                  .$2,
-            ),
-          );
+    final cartAppBarIcon = ref.watch(
+      siAssetsProvider.select(
+        (value) => value
+            .singleWhere(
+              (element) => element.$1 == SvgAssets.cartAppBarIcon.name,
+            )
+            .$2,
+      ),
+    );
     final activateHeartAnimation = useState(false);
     final wishListItem = ref.watch(
       wishListNotifierProvider.select(
@@ -681,29 +661,17 @@ class _ProductDetailAppBar extends HookConsumerWidget {
     // final wishListItemsSelected = ref.watch(wishListNotifierProvider.select(
     //     (value) => value.wishListItems.entity
     //         .any((element) => element.id == product.id)));
-    final heartIcon = isDarkMode
-        ? ref.watch(
-            darkSiAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => heartIconPressed.value
-                        ? element.$1 == SvgAssets.heartSelected.name
-                        : element.$1 == SvgAssets.heart.name,
-                  )
-                  .$2,
-            ),
-          )
-        : ref.watch(
-            siAssetsProvider.select(
-              (value) => value
-                  .singleWhere(
-                    (element) => heartIconPressed.value
-                        ? element.$1 == SvgAssets.heartSelected.name
-                        : element.$1 == SvgAssets.heart.name,
-                  )
-                  .$2,
-            ),
-          );
+    final heartIcon = ref.watch(
+      siAssetsProvider.select(
+        (value) => value
+            .singleWhere(
+              (element) => heartIconPressed.value
+                  ? element.$1 == SvgAssets.heartSelected.name
+                  : element.$1 == SvgAssets.heart.name,
+            )
+            .$2,
+      ),
+    );
 
     return SliverAppBar(
       clipBehavior: Clip.none,
@@ -714,161 +682,165 @@ class _ProductDetailAppBar extends HookConsumerWidget {
       ),
       centerTitle: true,
       actions: [
-        Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-              top: 100,
-              child: Container(
-                height: 48,
-                width: 48,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: .5,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  image: DecorationImage(
-                    image: ExtendedNetworkImageProvider(
-                      product.productImage1,
-                      cache: true,
-                      cacheMaxAge: const Duration(days: 30),
+        if (user != null) ...[
+          Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                top: 100,
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                      width: .5,
                     ),
-                    fit: BoxFit.cover,
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    image: DecorationImage(
+                      image: ExtendedNetworkImageProvider(
+                        product.productImage1,
+                        cache: true,
+                        cacheMaxAge: const Duration(days: 30),
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+              )
+                  .animate(
+                    autoPlay: false,
+                    target: activateCartAnimation.value ? 1 : 0,
+                    onComplete: (controller) {
+                      controller.reset();
+                    },
+                  )
+                  .scale()
+                  .moveY(
+                    end: -99,
+                    delay: const Duration(milliseconds: 1100),
+                    curve: Curves.easeIn,
+                  )
+                  .hide(),
+              Positioned(
+                top: 0,
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  color: isDarkMode
+                      ? const Color(0xFF121212)
+                      : const Color(0xFFFAFAFA),
+                ),
               ),
-            )
+              Stack(
+                children: [
+                  Badge(
+                    isLabelVisible: cartItemState != 0,
+                    label: Text(cartItemState.toString()),
+                    offset: const Offset(24, 0),
+                    child: IconButton(
+                      onPressed: () => context.goNamed(AppRoute.cart.name),
+                      icon: ScalableImageWidget(
+                        si: cartAppBarIcon,
+                      )
+                          .animate(
+                            autoPlay: false,
+                            target: activateCartAnimation.value ? 1 : 0,
+                            onComplete: (controller) {
+                              controller.reset();
+                              activateCartAnimation.value = false;
+                            },
+                          )
+                          .shakeY(
+                            amount: 10,
+                            hz: 2,
+                            delay: const Duration(milliseconds: 1500),
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: () async {
+              final authUser =
+                  ref.read(authNotifierProvider.notifier).currentUser;
+              if (authUser != null) {
+                await HapticFeedback.vibrate();
+                activateHeartAnimation.value = true;
+                heartIconPressed.value = !heartIconPressed.value;
+                if (wishListItem != null) {
+                  await ref
+                      .read(wishListNotifierProvider.notifier)
+                      .deleteWishListItem(wishListItem);
+                } else {
+                  await ref
+                      .read(wishListNotifierProvider.notifier)
+                      .createWishListItem(
+                        WishListItem(
+                          id: null,
+                          wishListId: authUser.wishListId,
+                          productItemId: product.id,
+                          name: product.name,
+                          productImage: product.productImage1,
+                          color: product.color,
+                          size: product.size,
+                          price: product.price,
+                          active: product.active,
+                          createdAt: product.createdAt,
+                          updatedAt: product.updatedAt,
+                          categoryPromoId: product.categoryPromoId,
+                          categoryPromoName: product.categoryPromoName,
+                          categoryPromoDescription:
+                              product.categoryPromoDescription,
+                          categoryPromoDiscountRate:
+                              product.categoryPromoDiscountRate,
+                          categoryPromoActive: product.categoryPromoActive,
+                          categoryPromoStartDate:
+                              product.categoryPromoStartDate,
+                          categoryPromoEndDate: product.categoryPromoEndDate,
+                          brandPromoId: product.brandPromoId,
+                          brandPromoName: product.brandPromoName,
+                          brandPromoDescription: product.brandPromoDescription,
+                          brandPromoDiscountRate:
+                              product.brandPromoDiscountRate,
+                          brandPromoActive: product.brandPromoActive,
+                          brandPromoStartDate: product.brandPromoStartDate,
+                          brandPromoEndDate: product.brandPromoEndDate,
+                          productPromoId: product.productPromoId,
+                          productPromoName: product.productPromoName,
+                          productPromoDescription:
+                              product.productPromoDescription,
+                          productPromoDiscountRate:
+                              product.productPromoDiscountRate,
+                          productPromoActive: product.productPromoActive,
+                          productPromoStartDate: product.productPromoStartDate,
+                          productPromoEndDate: product.productPromoEndDate,
+                        ),
+                      );
+                }
+              }
+            },
+            icon: ScalableImageWidget(si: heartIcon)
                 .animate(
                   autoPlay: false,
-                  target: activateCartAnimation.value ? 1 : 0,
+                  target: activateHeartAnimation.value ? 1 : 0,
                   onComplete: (controller) {
                     controller.reset();
+                    activateHeartAnimation.value = false;
                   },
                 )
-                .scale()
-                .moveY(
-                  end: -99,
-                  delay: const Duration(milliseconds: 1100),
-                  curve: Curves.easeIn,
-                )
-                .hide(),
-            Positioned(
-              top: 0,
-              child: Container(
-                height: 50,
-                width: 50,
-                color: isDarkMode
-                    ? const Color(0xFF121212)
-                    : const Color(0xFFFAFAFA),
-              ),
-            ),
-            Stack(
-              children: [
-                Badge(
-                  isLabelVisible: cartItemState != 0,
-                  label: Text(cartItemState.toString()),
-                  offset: const Offset(24, 0),
-                  child: IconButton(
-                    onPressed: () => context.goNamed(AppRoute.cart.name),
-                    icon: ScalableImageWidget(
-                      si: cartAppBarIcon,
-                    )
-                        .animate(
-                          autoPlay: false,
-                          target: activateCartAnimation.value ? 1 : 0,
-                          onComplete: (controller) {
-                            controller.reset();
-                            activateCartAnimation.value = false;
-                          },
-                        )
-                        .shakeY(
-                          amount: 10,
-                          hz: 2,
-                          delay: const Duration(milliseconds: 1500),
-                        ),
-                  ),
+                .scale(
+                  begin: const Offset(1, 1),
+                  end: const Offset(1.5, 1.5),
                 ),
-              ],
-            ),
-          ],
-        ),
-        IconButton(
-          onPressed: () async {
-            final authUser =
-                ref.read(authNotifierProvider.notifier).currentUser;
-            if (authUser != null) {
-              await HapticFeedback.vibrate();
-              activateHeartAnimation.value = true;
-              heartIconPressed.value = !heartIconPressed.value;
-              if (wishListItem != null) {
-                await ref
-                    .read(wishListNotifierProvider.notifier)
-                    .deleteWishListItem(wishListItem);
-              } else {
-                await ref
-                    .read(wishListNotifierProvider.notifier)
-                    .createWishListItem(
-                      WishListItem(
-                        id: null,
-                        wishListId: authUser.wishListId,
-                        productItemId: product.id,
-                        name: product.name,
-                        productImage: product.productImage1,
-                        color: product.color,
-                        size: product.size,
-                        price: product.price,
-                        active: product.active,
-                        createdAt: product.createdAt,
-                        updatedAt: product.updatedAt,
-                        categoryPromoId: product.categoryPromoId,
-                        categoryPromoName: product.categoryPromoName,
-                        categoryPromoDescription:
-                            product.categoryPromoDescription,
-                        categoryPromoDiscountRate:
-                            product.categoryPromoDiscountRate,
-                        categoryPromoActive: product.categoryPromoActive,
-                        categoryPromoStartDate: product.categoryPromoStartDate,
-                        categoryPromoEndDate: product.categoryPromoEndDate,
-                        brandPromoId: product.brandPromoId,
-                        brandPromoName: product.brandPromoName,
-                        brandPromoDescription: product.brandPromoDescription,
-                        brandPromoDiscountRate: product.brandPromoDiscountRate,
-                        brandPromoActive: product.brandPromoActive,
-                        brandPromoStartDate: product.brandPromoStartDate,
-                        brandPromoEndDate: product.brandPromoEndDate,
-                        productPromoId: product.productPromoId,
-                        productPromoName: product.productPromoName,
-                        productPromoDescription:
-                            product.productPromoDescription,
-                        productPromoDiscountRate:
-                            product.productPromoDiscountRate,
-                        productPromoActive: product.productPromoActive,
-                        productPromoStartDate: product.productPromoStartDate,
-                        productPromoEndDate: product.productPromoEndDate,
-                      ),
-                    );
-              }
-            }
-          },
-          icon: ScalableImageWidget(si: heartIcon)
-              .animate(
-                autoPlay: false,
-                target: activateHeartAnimation.value ? 1 : 0,
-                onComplete: (controller) {
-                  controller.reset();
-                  activateHeartAnimation.value = false;
-                },
-              )
-              .scale(
-                begin: const Offset(1, 1),
-                end: const Offset(1.5, 1.5),
-              ),
-        ),
-        const SizedBox(
-          width: 16,
-        ),
+          ),
+          const SizedBox(
+            width: 16,
+          ),
+        ],
       ],
     );
   }

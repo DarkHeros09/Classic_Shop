@@ -52,7 +52,7 @@ class BrandChipNotifier extends _$BrandChipNotifier {
     return const BrandChipGroupValue(null);
   }
 
-  void groupValue(int value) {
+  void groupValue(int? value) {
     state = BrandChipGroupValue(value);
   }
 }
@@ -64,7 +64,7 @@ class SelectedBrandId extends _$SelectedBrandId {
     return null;
   }
 
-  void setId(int id) {
+  void setId(int? id) {
     state = id;
   }
 }

@@ -1,27 +1,34 @@
+import 'package:classic_shop/src/themes/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:jovial_svg/jovial_svg.dart';
 
-class CustomSearchBar extends StatefulWidget {
+class CustomSearchBar extends ConsumerStatefulWidget {
   const CustomSearchBar({
     super.key,
     this.showBackButton = false,
+    this.showOptions = false,
     this.autofocus = false,
     this.readOnly = false,
     this.onTap,
+    this.onTapOptions,
     this.onSubmitted,
   });
 
   final bool showBackButton;
+  final bool showOptions;
   final bool autofocus;
   final bool readOnly;
   final void Function()? onTap;
+  final void Function()? onTapOptions;
   final void Function(String)? onSubmitted;
 
   @override
-  State<CustomSearchBar> createState() => _CustomSearchBarState();
+  ConsumerState<CustomSearchBar> createState() => _CustomSearchBarState();
 }
 
-class _CustomSearchBarState extends State<CustomSearchBar> {
+class _CustomSearchBarState extends ConsumerState<CustomSearchBar> {
   late final FocusNode focusNode;
   late final TextEditingController controller;
   bool showCloseIcon = false;
@@ -71,6 +78,23 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
+    final slideHoriz = isDarkMode
+        ? ref.watch(
+            darkSiAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                      (element) => element.$1 == SvgAssets.slidersHoriz.name)
+                  .$2,
+            ),
+          )
+        : ref.watch(
+            siAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                      (element) => element.$1 == SvgAssets.slidersHoriz.name)
+                  .$2,
+            ),
+          );
     return Row(
       children: [
         if (widget.showBackButton)
@@ -135,6 +159,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             ),
           ),
         ),
+        if (widget.showOptions)
+          IconButton(
+            onPressed: widget.onTapOptions,
+            icon: ScalableImageWidget(si: slideHoriz),
+          ),
       ],
     );
   }

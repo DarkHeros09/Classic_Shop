@@ -261,32 +261,34 @@ class _ProfileState extends ConsumerState<Profile> {
                   ),
                   Column(
                     children: [
-                      ProfileItems(
-                        title: 'عنوان التسليم',
-                        icon: pinIcon,
-                        onTap: () => context.goNamed(AppRoute.address.name),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(
-                          height: 0,
-                          thickness: .79,
-                          color: Color(0xFFe5e5e5),
+                      if (userName.isNotEmpty) ...[
+                        ProfileItems(
+                          title: 'عنوان التسليم',
+                          icon: pinIcon,
+                          onTap: () => context.goNamed(AppRoute.address.name),
                         ),
-                      ),
-                      ProfileItems(
-                        title: 'الطلبات',
-                        icon: fileTextIcon,
-                        onTap: () => context.goNamed(AppRoute.orders.name),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(
-                          height: 0,
-                          thickness: .79,
-                          color: Color(0xFFe5e5e5),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Divider(
+                            height: 0,
+                            thickness: .79,
+                            color: Color(0xFFe5e5e5),
+                          ),
                         ),
-                      ),
+                        ProfileItems(
+                          title: 'الطلبات',
+                          icon: fileTextIcon,
+                          onTap: () => context.goNamed(AppRoute.orders.name),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Divider(
+                            height: 0,
+                            thickness: .79,
+                            color: Color(0xFFe5e5e5),
+                          ),
+                        ),
+                      ],
                       ProfileItems(
                         title: 'الإعدادات',
                         icon: gearIcon,

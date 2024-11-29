@@ -49,6 +49,7 @@ enum SvgAssets {
   addToWishList,
   searching,
   noData,
+  slidersHoriz,
 }
 
 @Riverpod(keepAlive: true)
@@ -203,6 +204,11 @@ FutureOr<List<(String, ScalableImage)>> initAssets(
       rootBundle,
       Assets.noDataSi,
     ),
+    ScalableImage.fromSIAsset(
+      rootBundle,
+      Assets.slidersHorizSi,
+      currentColor: isDarkMode ? Colors.white : Colors.black,
+    ),
   ];
 
   final assetsPath = [
@@ -237,6 +243,7 @@ FutureOr<List<(String, ScalableImage)>> initAssets(
     SvgAssets.addToWishList.name,
     SvgAssets.searching.name,
     SvgAssets.noData.name,
+    SvgAssets.slidersHoriz.name,
   ];
 
   final initializedSiAssets = await Future.wait(siAssets);

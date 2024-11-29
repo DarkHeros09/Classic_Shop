@@ -91,7 +91,7 @@ final brandChipIndexProvider = Provider<int>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef BrandChipIndexRef = ProviderRef<int>;
-String _$brandChipNotifierHash() => r'8f1138e8b6de731336fe7e449239d5b944ad173d';
+String _$brandChipNotifierHash() => r'0b6f5537a501cda491ba47b40580d01eb1a3dd2b';
 
 /// See also [BrandChipNotifier].
 @ProviderFor(BrandChipNotifier)
@@ -107,7 +107,7 @@ final brandChipNotifierProvider = AutoDisposeNotifierProvider<BrandChipNotifier,
 );
 
 typedef _$BrandChipNotifier = AutoDisposeNotifier<BrandChipGroupValue>;
-String _$selectedBrandIdHash() => r'92a2c60901c04442f66a5bae5608011322185048';
+String _$selectedBrandIdHash() => r'2f3ca166fce4ffc33a097b06aa450cf4d0399e92';
 
 /// See also [SelectedBrandId].
 @ProviderFor(SelectedBrandId)

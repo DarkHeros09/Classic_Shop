@@ -26,7 +26,7 @@ class _CSAppBarState extends ConsumerState<CSAppBar> {
       toolbarHeight: 0,
       pinned: isPinned,
       bottom: const PreferredSize(
-        preferredSize: Size(double.infinity, 121),
+        preferredSize: Size(double.infinity, 73),
         child: AppBarPreferredSizeWidget(),
       ),
       surfaceTintColor: Colors.white,
@@ -47,22 +47,30 @@ class AppBarPreferredSizeWidget extends StatelessWidget {
         const SizedBox(
           height: 16,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: SizedBox(
-            height: 56,
-            width: double.infinity,
-            child: CustomSearchBar(
-              showBackButton: true,
-              readOnly: true,
-              onTap: () => context.pushNamed(AppRoute.search.name),
-            ),
+        SizedBox(
+          height: 56,
+          width: double.infinity,
+          child: CustomSearchBar(
+            showBackButton: true,
+            readOnly: true,
+            onTap: () => context.pushNamed(AppRoute.search.name),
+            showOptions: true,
+            onTapOptions: () {
+              showModalBottomSheet<void>(
+                context: context,
+                showDragHandle: true,
+                isScrollControlled: true,
+                builder: (context) {
+                  return const SortOptionsBottomSheet();
+                },
+              );
+            },
           ),
         ),
-        const SizedBox(
-          height: 8,
-        ),
-        const UnderAppBarOptions(),
+        // const SizedBox(
+        //   height: 8,
+        // ),
+        // const UnderAppBarOptions(),
       ],
     );
   }
