@@ -7,6 +7,7 @@ class Product with ProductMappable {
   const Product({
     required this.id,
     required this.name,
+    required this.description,
     required this.productId,
     required this.categoryId,
     required this.brandId,
@@ -16,7 +17,7 @@ class Product with ProductMappable {
     required this.productImage1,
     required this.productImage2,
     required this.productImage3,
-    required this.size,
+    // required this.size,
     required this.color,
     required this.price,
     required this.active,
@@ -48,6 +49,7 @@ class Product with ProductMappable {
   });
   final int id;
   final String name;
+  final String description;
   final int productId;
   final int categoryId;
   final int brandId;
@@ -57,7 +59,7 @@ class Product with ProductMappable {
   final String productImage1;
   final String productImage2;
   final String productImage3;
-  final String size;
+  // final String size;
   final String color;
   final String price;
   final bool active;

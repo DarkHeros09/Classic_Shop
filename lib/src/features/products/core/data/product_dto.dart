@@ -8,6 +8,7 @@ class ProductDTO with ProductDTOMappable {
   const ProductDTO({
     required this.id,
     required this.name,
+    required this.description,
     required this.productId,
     required this.categoryId,
     required this.brandId,
@@ -17,7 +18,7 @@ class ProductDTO with ProductDTOMappable {
     required this.productImage_1,
     required this.productImage_2,
     required this.productImage_3,
-    required this.sizeValue,
+    // required this.sizeValue,
     required this.colorValue,
     required this.price,
     required this.parentProductActive,
@@ -52,6 +53,7 @@ class ProductDTO with ProductDTOMappable {
     return ProductDTO(
       id: _.id,
       name: _.name,
+      description: _.description,
       productId: _.productId,
       categoryId: _.categoryId,
       brandId: _.brandId,
@@ -61,7 +63,7 @@ class ProductDTO with ProductDTOMappable {
       productImage_1: _.productImage1,
       productImage_2: _.productImage2,
       productImage_3: _.productImage3,
-      sizeValue: _.size,
+      // sizeValue: _.size,
       colorValue: _.color,
       price: _.price,
       active: _.active,
@@ -95,6 +97,7 @@ class ProductDTO with ProductDTOMappable {
 
   final int id;
   final String name;
+  final String description;
   final int productId;
   final int categoryId;
   final int brandId;
@@ -104,7 +107,7 @@ class ProductDTO with ProductDTOMappable {
   final String productImage_1;
   final String productImage_2;
   final String productImage_3;
-  final String sizeValue;
+  // final String sizeValue;
   final String colorValue;
   final String price;
   final bool parentProductActive;
@@ -138,6 +141,7 @@ class ProductDTO with ProductDTOMappable {
     return Product(
       id: id,
       name: name,
+      description: description,
       productId: productId,
       categoryId: categoryId,
       brandId: brandId,
@@ -147,7 +151,7 @@ class ProductDTO with ProductDTOMappable {
       productImage1: productImage_1,
       productImage2: productImage_2,
       productImage3: productImage_3,
-      size: sizeValue,
+      // size: sizeValue,
       color: colorValue,
       price: price,
       active: active,

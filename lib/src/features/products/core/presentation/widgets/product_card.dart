@@ -99,11 +99,13 @@ class ProductCard extends HookConsumerWidget {
       children: [
         InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
-          onTap: () => context.pushNamed(
-            AppRoute.productDetails.name,
-            pathParameters: {'id': product.id.toString()},
-            extra: (product, discountValue),
-          ),
+          onTap: () {
+            context.pushNamed(
+              AppRoute.productDetails.name,
+              pathParameters: {'id': product.id.toString()},
+              extra: (product, discountValue),
+            );
+          },
           child: Stack(
             children: [
               ExtendedImage.network(

@@ -18,8 +18,8 @@ import 'package:classic_shop/src/features/products/home_page/application/home_pa
 import 'package:classic_shop/src/features/products/home_page/presentation/home_page.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/selected_products.dart/presentation/selected_products_page.dart';
 import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category.dart';
-import 'package:classic_shop/src/features/products/listed_products/product_detail.dart';
 import 'package:classic_shop/src/features/products/listed_products/profile.dart';
+import 'package:classic_shop/src/features/products/product_details/presentation/product_details_page.dart';
 import 'package:classic_shop/src/features/products/searched_products/presentation/search_page.dart';
 import 'package:classic_shop/src/features/promotions/domain/promotion_type.dart';
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel_details.dart';
@@ -235,7 +235,7 @@ GoRouter goRouter(Ref ref) {
                       final product = extra.$1;
                       final discountValue = extra.$2;
                       return NoTransitionPage(
-                        child: ProductDetail(
+                        child: ProductDetailsPage(
                           product: product,
                           discountValue: discountValue,
                         ),

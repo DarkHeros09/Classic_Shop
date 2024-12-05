@@ -110,20 +110,18 @@ class BottomNavBar extends ConsumerWidget {
     final cartItemState = ref.watch(
       cartNotifierProvider.select((value) => value.cartItems.entity.length),
     );
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4,
-            offset: Offset(0, -2),
-            color: Color(0x24000000),
-          ),
-        ],
-      ),
-      child: SizedBox(
-        height: 56,
-        // height: 70,
+    return SafeArea(
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 4,
+              offset: Offset(0, -2),
+              color: Color(0x24000000),
+            ),
+          ],
+        ),
         child: BottomNavigationBar(
           onTap: (value) {
             switch (value) {

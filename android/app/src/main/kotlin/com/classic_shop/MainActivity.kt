@@ -1,4 +1,4 @@
-package com.example.classic_shop
+package com.classic_shop
 
 import android.os.Build
 import android.os.Bundle

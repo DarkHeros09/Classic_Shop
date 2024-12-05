@@ -24,6 +24,9 @@ class ProductMapper extends ClassMapperBase<Product> {
   static const Field<Product, int> _f$id = Field('id', _$id);
   static String _$name(Product v) => v.name;
   static const Field<Product, String> _f$name = Field('name', _$name);
+  static String _$description(Product v) => v.description;
+  static const Field<Product, String> _f$description =
+      Field('description', _$description);
   static int _$productId(Product v) => v.productId;
   static const Field<Product, int> _f$productId =
       Field('productId', _$productId, key: 'product_id');
@@ -51,8 +54,6 @@ class ProductMapper extends ClassMapperBase<Product> {
   static String _$productImage3(Product v) => v.productImage3;
   static const Field<Product, String> _f$productImage3 =
       Field('productImage3', _$productImage3, key: 'product_image3');
-  static String _$size(Product v) => v.size;
-  static const Field<Product, String> _f$size = Field('size', _$size);
   static String _$color(Product v) => v.color;
   static const Field<Product, String> _f$color = Field('color', _$color);
   static String _$price(Product v) => v.price;
@@ -161,6 +162,7 @@ class ProductMapper extends ClassMapperBase<Product> {
   final MappableFields<Product> fields = const {
     #id: _f$id,
     #name: _f$name,
+    #description: _f$description,
     #productId: _f$productId,
     #categoryId: _f$categoryId,
     #brandId: _f$brandId,
@@ -170,7 +172,6 @@ class ProductMapper extends ClassMapperBase<Product> {
     #productImage1: _f$productImage1,
     #productImage2: _f$productImage2,
     #productImage3: _f$productImage3,
-    #size: _f$size,
     #color: _f$color,
     #price: _f$price,
     #active: _f$active,
@@ -205,6 +206,7 @@ class ProductMapper extends ClassMapperBase<Product> {
     return Product(
         id: data.dec(_f$id),
         name: data.dec(_f$name),
+        description: data.dec(_f$description),
         productId: data.dec(_f$productId),
         categoryId: data.dec(_f$categoryId),
         brandId: data.dec(_f$brandId),
@@ -214,7 +216,6 @@ class ProductMapper extends ClassMapperBase<Product> {
         productImage1: data.dec(_f$productImage1),
         productImage2: data.dec(_f$productImage2),
         productImage3: data.dec(_f$productImage3),
-        size: data.dec(_f$size),
         color: data.dec(_f$color),
         price: data.dec(_f$price),
         active: data.dec(_f$active),
@@ -297,6 +298,7 @@ abstract class ProductCopyWith<$R, $In extends Product, $Out>
   $R call(
       {int? id,
       String? name,
+      String? description,
       int? productId,
       int? categoryId,
       int? brandId,
@@ -306,7 +308,6 @@ abstract class ProductCopyWith<$R, $In extends Product, $Out>
       String? productImage1,
       String? productImage2,
       String? productImage3,
-      String? size,
       String? color,
       String? price,
       bool? active,
@@ -350,6 +351,7 @@ class _ProductCopyWithImpl<$R, $Out>
   $R call(
           {int? id,
           String? name,
+          String? description,
           int? productId,
           int? categoryId,
           int? brandId,
@@ -359,7 +361,6 @@ class _ProductCopyWithImpl<$R, $Out>
           String? productImage1,
           String? productImage2,
           String? productImage3,
-          String? size,
           String? color,
           String? price,
           bool? active,
@@ -391,6 +392,7 @@ class _ProductCopyWithImpl<$R, $Out>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
+        if (description != null) #description: description,
         if (productId != null) #productId: productId,
         if (categoryId != null) #categoryId: categoryId,
         if (brandId != null) #brandId: brandId,
@@ -400,7 +402,6 @@ class _ProductCopyWithImpl<$R, $Out>
         if (productImage1 != null) #productImage1: productImage1,
         if (productImage2 != null) #productImage2: productImage2,
         if (productImage3 != null) #productImage3: productImage3,
-        if (size != null) #size: size,
         if (color != null) #color: color,
         if (price != null) #price: price,
         if (active != null) #active: active,
@@ -448,6 +449,7 @@ class _ProductCopyWithImpl<$R, $Out>
   Product $make(CopyWithData data) => Product(
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
+      description: data.get(#description, or: $value.description),
       productId: data.get(#productId, or: $value.productId),
       categoryId: data.get(#categoryId, or: $value.categoryId),
       brandId: data.get(#brandId, or: $value.brandId),
@@ -457,7 +459,6 @@ class _ProductCopyWithImpl<$R, $Out>
       productImage1: data.get(#productImage1, or: $value.productImage1),
       productImage2: data.get(#productImage2, or: $value.productImage2),
       productImage3: data.get(#productImage3, or: $value.productImage3),
-      size: data.get(#size, or: $value.size),
       color: data.get(#color, or: $value.color),
       price: data.get(#price, or: $value.price),
       active: data.get(#active, or: $value.active),

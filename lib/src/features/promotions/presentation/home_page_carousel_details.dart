@@ -57,7 +57,7 @@ class _HomePageCarouselDetailsState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: CarouselGridView(
         id: widget.id,
         promotionType: widget.promotionType!,
@@ -190,59 +190,68 @@ class _CarouselGridViewState extends ConsumerState<CarouselGridView> {
       );
     });
     return SafeArea(
-      child: itemCount == 0
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                final metrics = notification.metrics;
-                final limit =
-                    metrics.maxScrollExtent - metrics.viewportDimension / 3;
-                final isVertical = metrics.axis == Axis.vertical;
-                if (canLoadNextPage && metrics.pixels >= limit && isVertical) {
-                  canLoadNextPage = false;
-                  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                    switch (widget.promotionType) {
-                      case PromotionType.product:
-                        break;
-                      case PromotionType.brand:
-                        ref
-                            .read(listProductsNotifierProvider.notifier)
-                            .getProductsPage(
-                              productsFunction: ProductsFunction
-                                  .getProductsWithBrandPromotionsNextPage,
-                              brandId: widget.id,
-                            );
-                      case PromotionType.category:
-                        ref
-                            .read(listProductsNotifierProvider.notifier)
-                            .getProductsPage(
-                              productsFunction: ProductsFunction
-                                  .getProductsWithCategoryPromotionsNextPage,
-                              categoryId: widget.id,
-                            );
-                    }
-                  });
-                }
-                return false;
-              },
-              child: const CustomScrollView(
-                slivers: [
-                  SliverAppBar.medium(
-                    centerTitle: true,
-                    title: Text('العروض'),
-                  ),
-                  SliverToBoxAdapter(
-                    child: SizedBox(height: 20),
-                  ),
-                  SliverPadding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    sliver: SelectedCarouselGridView(),
-                  ),
-                ],
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          final metrics = notification.metrics;
+          final limit = metrics.maxScrollExtent - metrics.viewportDimension / 3;
+          final isVertical = metrics.axis == Axis.vertical;
+          if (canLoadNextPage && metrics.pixels >= limit && isVertical) {
+            canLoadNextPage = false;
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              switch (widget.promotionType) {
+                case PromotionType.product:
+                  break;
+                case PromotionType.brand:
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction
+                            .getProductsWithBrandPromotionsNextPage,
+                        brandId: widget.id,
+                      );
+                case PromotionType.category:
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction
+                            .getProductsWithCategoryPromotionsNextPage,
+                        categoryId: widget.id,
+                      );
+              }
+            });
+          }
+          return false;
+        },
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              centerTitle: true,
+              collapsedHeight: 64,
+              expandedHeight: 112,
+              pinned: true,
+              flexibleSpace: FlexibleSpaceBar(
+                expandedTitleScale: 1,
+                centerTitle: true,
+                title: itemCount == 0 ? null : const Text('العروض'),
               ),
             ),
+            if (itemCount == 0)
+              const SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(child: CircularProgressIndicator()),
+              ),
+            if (itemCount > 1) ...[
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 16),
+              ),
+              const SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                sliver: SelectedCarouselGridView(),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

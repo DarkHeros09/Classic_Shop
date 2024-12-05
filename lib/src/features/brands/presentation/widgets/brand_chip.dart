@@ -85,46 +85,39 @@ class BrandChip extends HookConsumerWidget {
                 );
         }
       },
-      child: Container(
-        height: 81,
-        width: 81,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          color: isDarkMode ? const Color(0xFF3D2622) : const Color(0xFFE6D5D2),
-          shape: BoxShape.circle,
-          border: Border.all(
-            width: groupValue == index ? 3 : 1,
-            color: groupValue == index
-                // ? isDarkMode
-                ? const Color(0xff9D331F)
-                : const Color(0xffE6D5D2),
-            // : isDarkMode
-            //     ? const Color(0xff9D331F)
-            //     : const Color(0xffE6D5D2),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: ExtendedImage.network(
-            brand.brandImage,
-            fit: BoxFit.contain,
-            shape: BoxShape.circle,
-            // height: 89,
-            // width: 89,
-            enableLoadState: false,
-            cacheMaxAge: const Duration(days: 30),
-            loadStateChanged: (state) {
-              switch (state.extendedImageLoadState) {
-                case LoadState.loading:
-                  const LoadingBrandChip();
+      child: CircleAvatar(
+        radius: 40,
+        backgroundColor: groupValue == index
+            // ? isDarkMode
+            ? const Color(0xff9D331F)
+            : const Color(0xffE6D5D2),
+        child: CircleAvatar(
+          radius: groupValue == index ? 30 : 31,
+          //backgroundColor: isDarkMode ? const Color(0xFF3D2622) : const Color(0xFFE6D5D2),
+          backgroundColor: isDarkMode ? Colors.white : const Color(0xFFE6D5D2),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(80)),
+            child: ExtendedImage.network(
+              brand.brandImage,
+              fit: BoxFit.contain,
+              // shape: BoxShape.circle,
+              // height: 89,
+              // width: 89,
+              enableLoadState: false,
+              cacheMaxAge: const Duration(days: 30),
+              loadStateChanged: (state) {
+                switch (state.extendedImageLoadState) {
+                  case LoadState.loading:
+                    const LoadingBrandChip();
 
-                case LoadState.failed:
-                  const ColoredBox(color: Colors.grey);
+                  case LoadState.failed:
+                    const ColoredBox(color: Colors.grey);
 
-                case LoadState.completed:
-              }
-              return null;
-            },
+                  case LoadState.completed:
+                }
+                return null;
+              },
+            ),
           ),
         ),
       ),

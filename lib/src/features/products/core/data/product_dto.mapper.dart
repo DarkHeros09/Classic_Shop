@@ -24,6 +24,9 @@ class ProductDTOMapper extends ClassMapperBase<ProductDTO> {
   static const Field<ProductDTO, int> _f$id = Field('id', _$id);
   static String _$name(ProductDTO v) => v.name;
   static const Field<ProductDTO, String> _f$name = Field('name', _$name);
+  static String _$description(ProductDTO v) => v.description;
+  static const Field<ProductDTO, String> _f$description =
+      Field('description', _$description);
   static int _$productId(ProductDTO v) => v.productId;
   static const Field<ProductDTO, int> _f$productId =
       Field('productId', _$productId, key: 'product_id');
@@ -51,9 +54,6 @@ class ProductDTOMapper extends ClassMapperBase<ProductDTO> {
   static String _$productImage_3(ProductDTO v) => v.productImage_3;
   static const Field<ProductDTO, String> _f$productImage_3 =
       Field('productImage_3', _$productImage_3, key: 'product_image_3');
-  static String _$sizeValue(ProductDTO v) => v.sizeValue;
-  static const Field<ProductDTO, String> _f$sizeValue =
-      Field('sizeValue', _$sizeValue, key: 'size_value');
   static String _$colorValue(ProductDTO v) => v.colorValue;
   static const Field<ProductDTO, String> _f$colorValue =
       Field('colorValue', _$colorValue, key: 'color_value');
@@ -166,6 +166,7 @@ class ProductDTOMapper extends ClassMapperBase<ProductDTO> {
   final MappableFields<ProductDTO> fields = const {
     #id: _f$id,
     #name: _f$name,
+    #description: _f$description,
     #productId: _f$productId,
     #categoryId: _f$categoryId,
     #brandId: _f$brandId,
@@ -175,7 +176,6 @@ class ProductDTOMapper extends ClassMapperBase<ProductDTO> {
     #productImage_1: _f$productImage_1,
     #productImage_2: _f$productImage_2,
     #productImage_3: _f$productImage_3,
-    #sizeValue: _f$sizeValue,
     #colorValue: _f$colorValue,
     #price: _f$price,
     #parentProductActive: _f$parentProductActive,
@@ -210,6 +210,7 @@ class ProductDTOMapper extends ClassMapperBase<ProductDTO> {
     return ProductDTO(
         id: data.dec(_f$id),
         name: data.dec(_f$name),
+        description: data.dec(_f$description),
         productId: data.dec(_f$productId),
         categoryId: data.dec(_f$categoryId),
         brandId: data.dec(_f$brandId),
@@ -219,7 +220,6 @@ class ProductDTOMapper extends ClassMapperBase<ProductDTO> {
         productImage_1: data.dec(_f$productImage_1),
         productImage_2: data.dec(_f$productImage_2),
         productImage_3: data.dec(_f$productImage_3),
-        sizeValue: data.dec(_f$sizeValue),
         colorValue: data.dec(_f$colorValue),
         price: data.dec(_f$price),
         parentProductActive: data.dec(_f$parentProductActive),
@@ -304,6 +304,7 @@ abstract class ProductDTOCopyWith<$R, $In extends ProductDTO, $Out>
   $R call(
       {int? id,
       String? name,
+      String? description,
       int? productId,
       int? categoryId,
       int? brandId,
@@ -313,7 +314,6 @@ abstract class ProductDTOCopyWith<$R, $In extends ProductDTO, $Out>
       String? productImage_1,
       String? productImage_2,
       String? productImage_3,
-      String? sizeValue,
       String? colorValue,
       String? price,
       bool? parentProductActive,
@@ -357,6 +357,7 @@ class _ProductDTOCopyWithImpl<$R, $Out>
   $R call(
           {int? id,
           String? name,
+          String? description,
           int? productId,
           int? categoryId,
           int? brandId,
@@ -366,7 +367,6 @@ class _ProductDTOCopyWithImpl<$R, $Out>
           String? productImage_1,
           String? productImage_2,
           String? productImage_3,
-          String? sizeValue,
           String? colorValue,
           String? price,
           bool? parentProductActive,
@@ -398,6 +398,7 @@ class _ProductDTOCopyWithImpl<$R, $Out>
       $apply(FieldCopyWithData({
         if (id != null) #id: id,
         if (name != null) #name: name,
+        if (description != null) #description: description,
         if (productId != null) #productId: productId,
         if (categoryId != null) #categoryId: categoryId,
         if (brandId != null) #brandId: brandId,
@@ -407,7 +408,6 @@ class _ProductDTOCopyWithImpl<$R, $Out>
         if (productImage_1 != null) #productImage_1: productImage_1,
         if (productImage_2 != null) #productImage_2: productImage_2,
         if (productImage_3 != null) #productImage_3: productImage_3,
-        if (sizeValue != null) #sizeValue: sizeValue,
         if (colorValue != null) #colorValue: colorValue,
         if (price != null) #price: price,
         if (parentProductActive != null)
@@ -455,6 +455,7 @@ class _ProductDTOCopyWithImpl<$R, $Out>
   ProductDTO $make(CopyWithData data) => ProductDTO(
       id: data.get(#id, or: $value.id),
       name: data.get(#name, or: $value.name),
+      description: data.get(#description, or: $value.description),
       productId: data.get(#productId, or: $value.productId),
       categoryId: data.get(#categoryId, or: $value.categoryId),
       brandId: data.get(#brandId, or: $value.brandId),
@@ -464,7 +465,6 @@ class _ProductDTOCopyWithImpl<$R, $Out>
       productImage_1: data.get(#productImage_1, or: $value.productImage_1),
       productImage_2: data.get(#productImage_2, or: $value.productImage_2),
       productImage_3: data.get(#productImage_3, or: $value.productImage_3),
-      sizeValue: data.get(#sizeValue, or: $value.sizeValue),
       colorValue: data.get(#colorValue, or: $value.colorValue),
       price: data.get(#price, or: $value.price),
       parentProductActive:

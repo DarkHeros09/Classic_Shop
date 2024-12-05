@@ -58,17 +58,22 @@ class HomePage extends ConsumerWidget {
                 .products
                 .entity
                 .clear();
-            // ref
-            //     .read(homePageNotifierProvider(ProductType.isPromoted))
-            //     .promotedProducts
-            //     .entity
-            //     .clear();
+            ref
+                .read(homePageNotifierProvider(ProductType.isBestSellers))
+                .products
+                .entity
+                .clear();
+            ref
+                .read(homePageNotifierProvider(ProductType.isLimited))
+                .products
+                .entity
+                .clear();
             await Future.wait([
               ref.read(textBannerNotifierProvider.notifier).fetchTextBanner(),
               ref
                   .read(homePageNotifierProvider(ProductType.isNew).notifier)
                   .getPage(
-                    pageSize: 6,
+                    pageSize: 7,
                     isNew: true,
                   ),
               ref
@@ -76,7 +81,7 @@ class HomePage extends ConsumerWidget {
                     homePageNotifierProvider(ProductType.isPromoted).notifier,
                   )
                   .getPage(
-                    pageSize: 6,
+                    pageSize: 7,
                     isPromoted: true,
                   ),
               ref
@@ -84,7 +89,7 @@ class HomePage extends ConsumerWidget {
                     homePageNotifierProvider(ProductType.isFeatured).notifier,
                   )
                   .getPage(
-                    pageSize: 6,
+                    pageSize: 7,
                     isFeatured: true,
                   ),
               ref
@@ -93,14 +98,14 @@ class HomePage extends ConsumerWidget {
                         .notifier,
                   )
                   .getBestSellers(
-                    pageSize: 6,
+                    pageSize: 7,
                   ),
               ref
                   .read(
                     homePageNotifierProvider(ProductType.isLimited).notifier,
                   )
                   .getPage(
-                    pageSize: 6,
+                    pageSize: 7,
                     isLimited: true,
                   ),
               ref.read(promotionsNotifierProvider.notifier).getPromotions(),

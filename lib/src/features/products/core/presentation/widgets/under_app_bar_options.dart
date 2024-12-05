@@ -305,6 +305,9 @@ class _SortOptionTab extends HookConsumerWidget {
                             orderByHighPrice: true,
                           );
                   }
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
                 },
               ),
             ],
