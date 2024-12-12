@@ -153,6 +153,7 @@ class CartRepository {
           userId: user.id,
           cartId: user.shoppingCartId ?? 0,
           productItemId: dto.productItemId,
+          sizeId: dto.sizeId ?? 0,
           qty: dto.qty,
         );
 
@@ -197,7 +198,8 @@ class CartRepository {
           userId: user.id,
           cartId: user.shoppingCartId ?? 0,
           productItemId: dto.productItemId,
-          shopCartItemId: dto.id!,
+          sizeId: dto.sizeId ?? 0,
+          shopCartItemId: dto.id ?? 0,
           qty: dto.qty,
         );
 

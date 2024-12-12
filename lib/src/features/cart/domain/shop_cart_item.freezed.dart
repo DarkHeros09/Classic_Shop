@@ -23,6 +23,7 @@ mixin _$ShopCartItem {
   int get qty => throw _privateConstructorUsedError;
   String? get productImage => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
+  int? get sizeId => throw _privateConstructorUsedError;
   String? get size => throw _privateConstructorUsedError;
   String? get price => throw _privateConstructorUsedError;
   bool? get active => throw _privateConstructorUsedError;
@@ -71,6 +72,7 @@ abstract class $ShopCartItemCopyWith<$Res> {
       int qty,
       String? productImage,
       String? color,
+      int? sizeId,
       String? size,
       String? price,
       bool? active,
@@ -121,6 +123,7 @@ class _$ShopCartItemCopyWithImpl<$Res, $Val extends ShopCartItem>
     Object? qty = null,
     Object? productImage = freezed,
     Object? color = freezed,
+    Object? sizeId = freezed,
     Object? size = freezed,
     Object? price = freezed,
     Object? active = freezed,
@@ -177,6 +180,10 @@ class _$ShopCartItemCopyWithImpl<$Res, $Val extends ShopCartItem>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
+      sizeId: freezed == sizeId
+          ? _value.sizeId
+          : sizeId // ignore: cast_nullable_to_non_nullable
+              as int?,
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -301,6 +308,7 @@ abstract class _$$ShopCartItemImplCopyWith<$Res>
       int qty,
       String? productImage,
       String? color,
+      int? sizeId,
       String? size,
       String? price,
       bool? active,
@@ -349,6 +357,7 @@ class __$$ShopCartItemImplCopyWithImpl<$Res>
     Object? qty = null,
     Object? productImage = freezed,
     Object? color = freezed,
+    Object? sizeId = freezed,
     Object? size = freezed,
     Object? price = freezed,
     Object? active = freezed,
@@ -405,6 +414,10 @@ class __$$ShopCartItemImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
+      sizeId: freezed == sizeId
+          ? _value.sizeId
+          : sizeId // ignore: cast_nullable_to_non_nullable
+              as int?,
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -524,6 +537,7 @@ class _$ShopCartItemImpl implements _ShopCartItem {
       required this.qty,
       required this.productImage,
       required this.color,
+      required this.sizeId,
       required this.size,
       required this.price,
       required this.active,
@@ -565,6 +579,8 @@ class _$ShopCartItemImpl implements _ShopCartItem {
   final String? productImage;
   @override
   final String? color;
+  @override
+  final int? sizeId;
   @override
   final String? size;
   @override
@@ -620,7 +636,7 @@ class _$ShopCartItemImpl implements _ShopCartItem {
 
   @override
   String toString() {
-    return 'ShopCartItem(id: $id, shoppingCartId: $shoppingCartId, productItemId: $productItemId, name: $name, qty: $qty, productImage: $productImage, color: $color, size: $size, price: $price, active: $active, createdAt: $createdAt, updatedAt: $updatedAt, categoryPromoId: $categoryPromoId, categoryPromoName: $categoryPromoName, categoryPromoDescription: $categoryPromoDescription, categoryPromoDiscountRate: $categoryPromoDiscountRate, categoryPromoActive: $categoryPromoActive, categoryPromoStartDate: $categoryPromoStartDate, categoryPromoEndDate: $categoryPromoEndDate, brandPromoId: $brandPromoId, brandPromoName: $brandPromoName, brandPromoDescription: $brandPromoDescription, brandPromoDiscountRate: $brandPromoDiscountRate, brandPromoActive: $brandPromoActive, brandPromoStartDate: $brandPromoStartDate, brandPromoEndDate: $brandPromoEndDate, productPromoId: $productPromoId, productPromoName: $productPromoName, productPromoDescription: $productPromoDescription, productPromoDiscountRate: $productPromoDiscountRate, productPromoActive: $productPromoActive, productPromoStartDate: $productPromoStartDate, productPromoEndDate: $productPromoEndDate)';
+    return 'ShopCartItem(id: $id, shoppingCartId: $shoppingCartId, productItemId: $productItemId, name: $name, qty: $qty, productImage: $productImage, color: $color, sizeId: $sizeId, size: $size, price: $price, active: $active, createdAt: $createdAt, updatedAt: $updatedAt, categoryPromoId: $categoryPromoId, categoryPromoName: $categoryPromoName, categoryPromoDescription: $categoryPromoDescription, categoryPromoDiscountRate: $categoryPromoDiscountRate, categoryPromoActive: $categoryPromoActive, categoryPromoStartDate: $categoryPromoStartDate, categoryPromoEndDate: $categoryPromoEndDate, brandPromoId: $brandPromoId, brandPromoName: $brandPromoName, brandPromoDescription: $brandPromoDescription, brandPromoDiscountRate: $brandPromoDiscountRate, brandPromoActive: $brandPromoActive, brandPromoStartDate: $brandPromoStartDate, brandPromoEndDate: $brandPromoEndDate, productPromoId: $productPromoId, productPromoName: $productPromoName, productPromoDescription: $productPromoDescription, productPromoDiscountRate: $productPromoDiscountRate, productPromoActive: $productPromoActive, productPromoStartDate: $productPromoStartDate, productPromoEndDate: $productPromoEndDate)';
   }
 
   @override
@@ -638,6 +654,7 @@ class _$ShopCartItemImpl implements _ShopCartItem {
             (identical(other.productImage, productImage) ||
                 other.productImage == productImage) &&
             (identical(other.color, color) || other.color == color) &&
+            (identical(other.sizeId, sizeId) || other.sizeId == sizeId) &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.active, active) || other.active == active) &&
@@ -701,6 +718,7 @@ class _$ShopCartItemImpl implements _ShopCartItem {
         qty,
         productImage,
         color,
+        sizeId,
         size,
         price,
         active,
@@ -747,6 +765,7 @@ abstract class _ShopCartItem implements ShopCartItem {
       required final int qty,
       required final String? productImage,
       required final String? color,
+      required final int? sizeId,
       required final String? size,
       required final String? price,
       required final bool? active,
@@ -788,6 +807,8 @@ abstract class _ShopCartItem implements ShopCartItem {
   String? get productImage;
   @override
   String? get color;
+  @override
+  int? get sizeId;
   @override
   String? get size;
   @override

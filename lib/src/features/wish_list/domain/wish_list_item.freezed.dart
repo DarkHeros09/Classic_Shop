@@ -22,6 +22,7 @@ mixin _$WishListItem {
   String? get name => throw _privateConstructorUsedError;
   String? get productImage => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
+  int? get sizeId => throw _privateConstructorUsedError;
   String? get size => throw _privateConstructorUsedError;
   String? get price => throw _privateConstructorUsedError;
   bool? get active => throw _privateConstructorUsedError;
@@ -69,6 +70,7 @@ abstract class $WishListItemCopyWith<$Res> {
       String? name,
       String? productImage,
       String? color,
+      int? sizeId,
       String? size,
       String? price,
       bool? active,
@@ -118,6 +120,7 @@ class _$WishListItemCopyWithImpl<$Res, $Val extends WishListItem>
     Object? name = freezed,
     Object? productImage = freezed,
     Object? color = freezed,
+    Object? sizeId = freezed,
     Object? size = freezed,
     Object? price = freezed,
     Object? active = freezed,
@@ -170,6 +173,10 @@ class _$WishListItemCopyWithImpl<$Res, $Val extends WishListItem>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
+      sizeId: freezed == sizeId
+          ? _value.sizeId
+          : sizeId // ignore: cast_nullable_to_non_nullable
+              as int?,
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -293,6 +300,7 @@ abstract class _$$WishListItemImplCopyWith<$Res>
       String? name,
       String? productImage,
       String? color,
+      int? sizeId,
       String? size,
       String? price,
       bool? active,
@@ -340,6 +348,7 @@ class __$$WishListItemImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? productImage = freezed,
     Object? color = freezed,
+    Object? sizeId = freezed,
     Object? size = freezed,
     Object? price = freezed,
     Object? active = freezed,
@@ -392,6 +401,10 @@ class __$$WishListItemImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String?,
+      sizeId: freezed == sizeId
+          ? _value.sizeId
+          : sizeId // ignore: cast_nullable_to_non_nullable
+              as int?,
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
@@ -510,6 +523,7 @@ class _$WishListItemImpl implements _WishListItem {
       required this.name,
       required this.productImage,
       required this.color,
+      required this.sizeId,
       required this.size,
       required this.price,
       required this.active,
@@ -549,6 +563,8 @@ class _$WishListItemImpl implements _WishListItem {
   final String? productImage;
   @override
   final String? color;
+  @override
+  final int? sizeId;
   @override
   final String? size;
   @override
@@ -604,7 +620,7 @@ class _$WishListItemImpl implements _WishListItem {
 
   @override
   String toString() {
-    return 'WishListItem(id: $id, wishListId: $wishListId, productItemId: $productItemId, name: $name, productImage: $productImage, color: $color, size: $size, price: $price, active: $active, createdAt: $createdAt, updatedAt: $updatedAt, categoryPromoId: $categoryPromoId, categoryPromoName: $categoryPromoName, categoryPromoDescription: $categoryPromoDescription, categoryPromoDiscountRate: $categoryPromoDiscountRate, categoryPromoActive: $categoryPromoActive, categoryPromoStartDate: $categoryPromoStartDate, categoryPromoEndDate: $categoryPromoEndDate, brandPromoId: $brandPromoId, brandPromoName: $brandPromoName, brandPromoDescription: $brandPromoDescription, brandPromoDiscountRate: $brandPromoDiscountRate, brandPromoActive: $brandPromoActive, brandPromoStartDate: $brandPromoStartDate, brandPromoEndDate: $brandPromoEndDate, productPromoId: $productPromoId, productPromoName: $productPromoName, productPromoDescription: $productPromoDescription, productPromoDiscountRate: $productPromoDiscountRate, productPromoActive: $productPromoActive, productPromoStartDate: $productPromoStartDate, productPromoEndDate: $productPromoEndDate)';
+    return 'WishListItem(id: $id, wishListId: $wishListId, productItemId: $productItemId, name: $name, productImage: $productImage, color: $color, sizeId: $sizeId, size: $size, price: $price, active: $active, createdAt: $createdAt, updatedAt: $updatedAt, categoryPromoId: $categoryPromoId, categoryPromoName: $categoryPromoName, categoryPromoDescription: $categoryPromoDescription, categoryPromoDiscountRate: $categoryPromoDiscountRate, categoryPromoActive: $categoryPromoActive, categoryPromoStartDate: $categoryPromoStartDate, categoryPromoEndDate: $categoryPromoEndDate, brandPromoId: $brandPromoId, brandPromoName: $brandPromoName, brandPromoDescription: $brandPromoDescription, brandPromoDiscountRate: $brandPromoDiscountRate, brandPromoActive: $brandPromoActive, brandPromoStartDate: $brandPromoStartDate, brandPromoEndDate: $brandPromoEndDate, productPromoId: $productPromoId, productPromoName: $productPromoName, productPromoDescription: $productPromoDescription, productPromoDiscountRate: $productPromoDiscountRate, productPromoActive: $productPromoActive, productPromoStartDate: $productPromoStartDate, productPromoEndDate: $productPromoEndDate)';
   }
 
   @override
@@ -621,6 +637,7 @@ class _$WishListItemImpl implements _WishListItem {
             (identical(other.productImage, productImage) ||
                 other.productImage == productImage) &&
             (identical(other.color, color) || other.color == color) &&
+            (identical(other.sizeId, sizeId) || other.sizeId == sizeId) &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.active, active) || other.active == active) &&
@@ -683,6 +700,7 @@ class _$WishListItemImpl implements _WishListItem {
         name,
         productImage,
         color,
+        sizeId,
         size,
         price,
         active,
@@ -728,6 +746,7 @@ abstract class _WishListItem implements WishListItem {
       required final String? name,
       required final String? productImage,
       required final String? color,
+      required final int? sizeId,
       required final String? size,
       required final String? price,
       required final bool? active,
@@ -767,6 +786,8 @@ abstract class _WishListItem implements WishListItem {
   String? get productImage;
   @override
   String? get color;
+  @override
+  int? get sizeId;
   @override
   String? get size;
   @override

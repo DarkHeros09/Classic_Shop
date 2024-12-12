@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$settingsLocalServiceHash() =>
-    r'55afbeddcfccf4c57ffc6a8bd89b4e48492b36ab';
+    r'598e918d9fa5467e30f5d666bac893d6da56b651';
 
 /// See also [settingsLocalService].
 @ProviderFor(settingsLocalService)

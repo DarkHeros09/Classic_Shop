@@ -11,7 +11,7 @@ part 'provider.g.dart';
 @Riverpod(keepAlive: true)
 CategoryLocalService categoryLocalService(Ref ref) {
   return CategoryLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

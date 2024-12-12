@@ -68,8 +68,8 @@ class CartNotifier extends _$CartNotifier {
     final dto = ShopCartItemDTO.fromDomain(shopCartItem);
     final updatedOrFailure = await _repository.updateCartItem(dto);
 
-    updatedOrFailure.fold(
-      (l) => null,
+    state = updatedOrFailure.fold(
+      (l) => CartState.loadFailure(state.cartItems, l),
       (r) {
         final i = state.cartItems.entity.indexWhere(
           (element) => element.productItemId == shopCartItem.productItemId,
@@ -77,7 +77,7 @@ class CartNotifier extends _$CartNotifier {
 
         if (r != null) state.cartItems.entity[i] = r;
 
-        state = CartState.loadSuccess(state.cartItems);
+        return CartState.loadSuccess(state.cartItems);
       },
     );
   }

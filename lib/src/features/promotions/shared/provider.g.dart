@@ -7,7 +7,7 @@ part of 'provider.dart';
 // **************************************************************************
 
 String _$productPromotionsLocalServiceHash() =>
-    r'c0c394846f14526b88c46bcda70acf25c367e767';
+    r'3994308dfd906f07f9fbea7f0922d6c350940563';
 
 /// See also [productPromotionsLocalService].
 @ProviderFor(productPromotionsLocalService)
@@ -27,7 +27,7 @@ final productPromotionsLocalServiceProvider =
 typedef ProductPromotionsLocalServiceRef
     = ProviderRef<ProductPromotionsLocalService>;
 String _$brandPromotionsLocalServiceHash() =>
-    r'11b20980283a92e8b7f2c9df7fd8bab5b2e93d3f';
+    r'3be3731c1a404da8721df3ab245285fd86522b19';
 
 /// See also [brandPromotionsLocalService].
 @ProviderFor(brandPromotionsLocalService)
@@ -47,7 +47,7 @@ final brandPromotionsLocalServiceProvider =
 typedef BrandPromotionsLocalServiceRef
     = ProviderRef<BrandPromotionsLocalService>;
 String _$categoryPromotionsLocalServiceHash() =>
-    r'f4c0b7845878c430542a9c80af46eb50dba84ae2';
+    r'a47b5beb2695b9483738cacc65649240d26679c2';
 
 /// See also [categoryPromotionsLocalService].
 @ProviderFor(categoryPromotionsLocalService)

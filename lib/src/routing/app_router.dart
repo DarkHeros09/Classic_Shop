@@ -108,21 +108,14 @@ GoRouter goRouter(Ref ref) {
           debugPrint('isSplashShown: $isSplashShown');
           if (isSplashShown != null && isSplashShown) {
             late final themeMode = ref.read(themeModeNotifierProvider);
-            if (themeMode != ThemeMode.dark) {
-              SystemChrome.setSystemUIOverlayStyle(
-                SystemUiOverlayStyle(
-                  statusBarColor: Colors.black.withOpacity(0),
-                  statusBarIconBrightness: Brightness.dark,
-                ),
-              );
-            } else {
-              SystemChrome.setSystemUIOverlayStyle(
-                SystemUiOverlayStyle(
-                  statusBarColor: Colors.black.withOpacity(0),
-                  statusBarIconBrightness: Brightness.light,
-                ),
-              );
-            }
+            SystemChrome.setSystemUIOverlayStyle(
+              SystemUiOverlayStyle(
+                statusBarColor: Colors.black.withOpacity(0),
+                statusBarIconBrightness: themeMode != ThemeMode.dark
+                    ? Brightness.dark
+                    : Brightness.light,
+              ),
+            );
             return '/home';
           } else {
             return '/splash';

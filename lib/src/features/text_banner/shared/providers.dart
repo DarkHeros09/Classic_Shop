@@ -11,7 +11,7 @@ part 'providers.g.dart';
 @Riverpod(keepAlive: true)
 TextBannerLocalService textBannerLocalService(Ref ref) {
   return TextBannerLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

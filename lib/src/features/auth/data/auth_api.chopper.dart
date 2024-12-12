@@ -20,7 +20,7 @@ final class _$AuthApi extends AuthApi {
   @override
   Future<Response<Map<String, dynamic>>> signUp(
       {required Map<String, dynamic> data}) {
-    final Uri $url = Uri.parse('http://192.168.1.105:8080/api/v1/users');
+    final Uri $url = Uri.parse('http://192.168.1.101:8080/api/v1/users');
     final Map<String, String> $headers = {
       'Content-Type': 'application/json',
     };
@@ -38,7 +38,7 @@ final class _$AuthApi extends AuthApi {
   @override
   Future<Response<Map<String, dynamic>>> signUpV2(
       {required Map<String, dynamic> data}) {
-    final Uri $url = Uri.parse('http://192.168.1.105:8080/api/v1/users/signup');
+    final Uri $url = Uri.parse('http://192.168.1.101:8080/api/v1/users/signup');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -53,7 +53,7 @@ final class _$AuthApi extends AuthApi {
   Future<Response<Map<String, dynamic>>> verifyOTP(
       {required Map<String, dynamic> data}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.105:8080/api/v1/users/verify-otp');
+        Uri.parse('http://192.168.1.101:8080/api/v1/users/verify-otp');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -68,7 +68,7 @@ final class _$AuthApi extends AuthApi {
   Future<Response<Map<String, dynamic>>> resendOTP(
       {required Map<String, dynamic> data}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.105:8080/api/v1/users/resend-otp');
+        Uri.parse('http://192.168.1.101:8080/api/v1/users/resend-otp');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -82,7 +82,7 @@ final class _$AuthApi extends AuthApi {
   @override
   Future<Response<Map<String, dynamic>>> signIn(
       {required Map<String, dynamic> data}) {
-    final Uri $url = Uri.parse('http://192.168.1.105:8080/api/v1/users/login');
+    final Uri $url = Uri.parse('http://192.168.1.101:8080/api/v1/users/login');
     final Map<String, String> $headers = {
       'Content-Type': 'application/json',
     };
@@ -101,7 +101,7 @@ final class _$AuthApi extends AuthApi {
   Future<Response<Map<String, dynamic>>> renewAccessToken(
       {required Map<String, dynamic> data}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.105:8080/api/v1/auth/access-token');
+        Uri.parse('http://192.168.1.101:8080/api/v1/auth/access-token');
     final Map<String, String> $headers = {
       'Content-Type': 'application/json',
     };
@@ -120,7 +120,7 @@ final class _$AuthApi extends AuthApi {
   Future<Response<Map<String, dynamic>>> renewRefreshToken(
       {required Map<String, dynamic> data}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.105:8080/api/v1/auth/refresh-token');
+        Uri.parse('http://192.168.1.101:8080/api/v1/auth/refresh-token');
     final Map<String, String> $headers = {
       'Content-Type': 'application/json',
     };
@@ -154,7 +154,7 @@ final class _$AuthApi2 extends AuthApi2 {
     required Map<String, dynamic> data,
   }) {
     final Uri $url =
-        Uri.parse('http://192.168.1.105:8080/usr/v1/users/${userId}/logout');
+        Uri.parse('http://192.168.1.101:8080/usr/v1/users/${userId}/logout');
     final Map<String, String> $headers = {
       'Authorization': accessToken,
       'Content-Type': 'application/json',

@@ -12,21 +12,21 @@ part 'provider.g.dart';
 @Riverpod(keepAlive: true)
 ProductPromotionsLocalService productPromotionsLocalService(Ref ref) {
   return ProductPromotionsLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 
 @Riverpod(keepAlive: true)
 BrandPromotionsLocalService brandPromotionsLocalService(Ref ref) {
   return BrandPromotionsLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 
 @Riverpod(keepAlive: true)
 CategoryPromotionsLocalService categoryPromotionsLocalService(Ref ref) {
   return CategoryPromotionsLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

@@ -1,10 +1,9 @@
+import 'package:classic_shop/src/features/settings/data/settings_local_service.dart';
 import 'package:classic_shop/src/shared/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'theme_mode_notifier.g.dart';
-
-const spkIsDarkMode = 'isDarkMode';
 
 @Riverpod(keepAlive: true)
 class ThemeModeNotifier extends _$ThemeModeNotifier {

@@ -3,20 +3,33 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
 
 class SembastDatabase {
-  SembastDatabase(this._instance);
+  // SembastDatabase(this._instance);
 
-  late final Database _instance;
-  Database get instance => _instance;
+  // late final Database _instance;
+  Database get instance => db!;
+  Database? db;
 
   // bool _hasBeenInitialized = false;
+  Future<void> init() async {
+    if (db != null) return;
+    // _hasBeenInitialized = true;
 
-  // Future<void> delete() async {
-  //   if (_hasBeenInitialized) return;
-  //   _hasBeenInitialized = true;
+    final dbDirectory = await getApplicationDocumentsDirectory();
+    await dbDirectory.create(recursive: true);
+    final dbPath = join(dbDirectory.path, 'db.sembast');
+    db = await databaseFactoryIo.openDatabase(dbPath);
+  }
 
-  //  await _instance.close();
-  //         await databaseFactoryIo.deleteDatabase(_instance.path);
-  // }
+  Future<void> delete() async {
+    if (db != null) {
+      await db?.close();
+      await databaseFactoryIo.deleteDatabase(db!.path);
+      db = null;
+      // _hasBeenInitialized = false;
+      await init();
+      // await SembastInit().init();
+    }
+  }
 }
 
 class SembastInit {

@@ -110,3 +110,33 @@ Future<void> showQuickToast(
     },
   );
 }
+
+Future<void> showSuccessToast(
+  String message,
+  BuildContext context,
+) async {
+  await showFlash(
+    context: context,
+    duration: const Duration(seconds: 1),
+    builder: (context, controller) {
+      return FlashBar(
+        backgroundColor: Colors.green,
+        controller: controller,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        margin: const EdgeInsets.all(8),
+        content: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(
+            message,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}

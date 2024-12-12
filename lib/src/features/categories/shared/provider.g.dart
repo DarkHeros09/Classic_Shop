@@ -7,7 +7,7 @@ part of 'provider.dart';
 // **************************************************************************
 
 String _$categoryLocalServiceHash() =>
-    r'e7ca77e1dac803d5488cb34009563e776f6c62bd';
+    r'b77f1f8da85c6179c9ba80df9af56f2882fa8099';
 
 /// See also [categoryLocalService].
 @ProviderFor(categoryLocalService)

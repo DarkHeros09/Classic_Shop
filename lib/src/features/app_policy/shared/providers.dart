@@ -11,7 +11,7 @@ part 'providers.g.dart';
 @Riverpod(keepAlive: true)
 AppPolicyLocalService appPolicyLocalService(Ref ref) {
   return AppPolicyLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

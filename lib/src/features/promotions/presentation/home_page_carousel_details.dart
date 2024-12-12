@@ -248,6 +248,9 @@ class _CarouselGridViewState extends ConsumerState<CarouselGridView> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 sliver: SelectedCarouselGridView(),
               ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 16),
+              ),
             ],
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/themes/assets.dart';
@@ -106,10 +107,12 @@ class BottomNavBar extends ConsumerWidget {
                   .$2,
             ),
           );
-
+    final user = ref.watch(authStreamProvider);
+    final tokenisValid = ref.watch(tokenValidStreamProvider).value;
     final cartItemState = ref.watch(
       cartNotifierProvider.select((value) => value.cartItems.entity.length),
     );
+    debugPrint('ididid $cartItemState');
     return SafeArea(
       child: DecoratedBox(
         decoration: const BoxDecoration(
@@ -158,9 +161,12 @@ class BottomNavBar extends ConsumerWidget {
             ),
             BottomNavigationBarItem(
               icon: Badge(
-                isLabelVisible: cartItemState != 0,
+                isLabelVisible: cartItemState != 0 &&
+                    user.value != null &&
+                    tokenisValid != null &&
+                    tokenisValid,
                 label: Text(cartItemState.toString()),
-                offset: const Offset(20, -8),
+                offset: const Offset(20, -5),
                 child: ScalableImageWidget(si: cartIcon),
               ),
               label: 'الحقيبة',

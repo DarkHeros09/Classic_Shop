@@ -10,7 +10,7 @@ part 'providers.g.dart';
 
 @Riverpod(keepAlive: true)
 ShopOrderLocalService shopOrderLocalService(Ref ref) {
-  return ShopOrderLocalService(ref.watch(sembastProvider));
+  return ShopOrderLocalService(ref.watch(sembastDatabaseProvider));
 }
 
 @Riverpod(keepAlive: true)

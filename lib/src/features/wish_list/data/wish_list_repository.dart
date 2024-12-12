@@ -125,6 +125,7 @@ class WishListRepository {
           userId: user.id,
           wishListId: user.wishListId ?? 0,
           productItemId: dto.productItemId,
+          sizeId: dto.sizeId ?? 0,
         );
 
         return right(
@@ -162,7 +163,8 @@ class WishListRepository {
           userId: user.id,
           wishListId: user.wishListId ?? 0,
           productItemId: dto.productItemId,
-          wishListItemId: dto.id!,
+          wishListItemId: dto.id ?? 0,
+          sizeId: dto.sizeId ?? 0,
         );
 
         return right(

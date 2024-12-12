@@ -1,12 +1,6 @@
 import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
-import 'package:classic_shop/src/features/auth/shared/providers.dart';
-import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
-import 'package:classic_shop/src/features/cart/shared/providers.dart';
-import 'package:classic_shop/src/features/categories/shared/provider.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/promotions/shared/provider.dart';
 import 'package:classic_shop/src/features/settings/application/settings_notifier.dart';
-import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/assets.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +30,9 @@ class _ProfileState extends ConsumerState<Profile> {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final controller = useScrollController();
-    final userName = ref.watch(authNotifierProvider).maybeMap(
-          orElse: () => '',
-          authenticated: (value) => value.user?.username ?? '',
-        );
-    final email =
-        ref.watch(authNotifierProvider.notifier).currentUser?.email ?? '';
+    final userName = ref.watch(authStreamProvider).value?.username ?? '';
+    final email = ref.watch(authStreamProvider).value?.email ?? '';
+    final tokenIsValid = ref.watch(tokenValidStreamProvider).value;
     final pinIcon = isDarkMode
         ? ref.watch(
             darkSiAssetsProvider.select(
@@ -261,7 +252,9 @@ class _ProfileState extends ConsumerState<Profile> {
                   ),
                   Column(
                     children: [
-                      if (userName.isNotEmpty) ...[
+                      if (userName.isNotEmpty &&
+                          tokenIsValid != null &&
+                          tokenIsValid) ...[
                         ProfileItems(
                           title: 'عنوان التسليم',
                           icon: pinIcon,
@@ -321,7 +314,9 @@ class _ProfileState extends ConsumerState<Profile> {
                         icon: folderOpenIcon,
                         onTap: () => context.pushNamed(AppRoute.policy.name),
                       ),
-                      if (userName.isNotEmpty) ...[
+                      if (userName.isNotEmpty &&
+                          tokenIsValid != null &&
+                          tokenIsValid) ...[
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
                           child: Divider(
@@ -334,49 +329,10 @@ class _ProfileState extends ConsumerState<Profile> {
                           title: 'تسجيل الخروج',
                           icon: logoutIcon,
                           onTap: () async {
-                            final user =
-                                await ref.read(userStorageProvider).read();
-                            await ref
-                                .read(authNotifierProvider.notifier)
-                                .signOut();
-                            if (user != null) {
-                              ref
-                                  .read(cartNotifierProvider)
-                                  .cartItems
-                                  .entity
-                                  .clear();
-                              await Future.wait([
-                                ref
-                                    .read(categoryLocalServiceProvider)
-                                    .deleteAllCategories(),
-                                ref
-                                    .read(authNotifierProvider.notifier)
-                                    .signOut(),
-                                ref
-                                    .read(responseHeaderCacheProvider)
-                                    .deleteAllHeaders(),
-                                ref
-                                    .read(cartLocalServiceProvider)
-                                    .deleteAllCartItems(user.id),
-                                ref
-                                    .read(wishListLocalServiceProvider)
-                                    .deleteAllWishListItems(),
-                                ref
-                                    .read(productPromotionsLocalServiceProvider)
-                                    .deleteAllProductPromotions(),
-                                ref
-                                    .read(brandPromotionsLocalServiceProvider)
-                                    .deleteAllBrandPromotions(),
-                                ref
-                                    .read(
-                                      categoryPromotionsLocalServiceProvider,
-                                    )
-                                    .deleteAllCategoryPromotions(),
-                                // ref
-                                //     .read(shopOrderLocalServiceProvider)
-                                //     .deleteAllShopOrders()
-                              ]);
-                            }
+                            await Future.wait([
+                              ref.read(sembastDatabaseProvider).delete(),
+                              ref.read(authNotifierProvider.notifier).signOut(),
+                            ]);
                           },
                         ),
                       ],

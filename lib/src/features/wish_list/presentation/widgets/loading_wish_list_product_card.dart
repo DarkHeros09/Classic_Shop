@@ -7,20 +7,21 @@ class LoadingWishListProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Container(
       clipBehavior: Clip.hardEdge,
       height: 128,
       width: 396,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
+      decoration: BoxDecoration(
+        color: isDarkMode ? const Color(0xFF0D0D0D) : Colors.white,
+        boxShadow: const [
           BoxShadow(
             color: Color(0x24000000),
             offset: Offset(0, 2),
             blurRadius: 4,
           ),
         ],
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
       ),
@@ -69,15 +70,15 @@ class LoadingWishListProductCard extends StatelessWidget {
               borderRadius: 2,
             ),
           ),
-          const Positioned(
-            right: 144,
-            bottom: 12,
-            child: CustomShimmer(
-              height: 20,
-              width: 100,
-              borderRadius: 2,
-            ),
-          ),
+          // const Positioned(
+          //   right: 144,
+          //   bottom: 12,
+          //   child: CustomShimmer(
+          //     height: 20,
+          //     width: 100,
+          //     borderRadius: 2,
+          //   ),
+          // ),
         ],
       ),
     );

@@ -11,6 +11,7 @@ class WishListItem with _$WishListItem {
     required String? name,
     required String? productImage,
     required String? color,
+    required int? sizeId,
     required String? size,
     required String? price,
     required bool? active,

@@ -25,6 +25,7 @@ abstract class IWishListRemoteService {
     required int userId,
     required int wishListId,
     required int productItemId,
+    required int sizeId,
   });
 
   Future<RemoteResponse<WishListItemDTO>> updateWishListItem({
@@ -32,6 +33,7 @@ abstract class IWishListRemoteService {
     required int wishListId,
     required int wishListItemId,
     required int productItemId,
+    required int sizeId,
   });
 
   Future<RemoteResponse<bool>> deleteWishListItem({
@@ -99,6 +101,7 @@ class WishListRemoteService implements IWishListRemoteService {
     required int userId,
     required int wishListId,
     required int productItemId,
+    required int sizeId,
   }) async {
     try {
       final response = await _cartApi.createWishListItem(
@@ -106,11 +109,13 @@ class WishListRemoteService implements IWishListRemoteService {
         wishListId: wishListId.toString(),
         data: {
           'product_item_id': productItemId,
+          'size_id': sizeId,
         },
       );
 
       if (!response.isSuccessful) {
-        throw RestApiException(response.statusCode);
+        // throw RestApiException(response.statusCode);
+        return const RemoteResponse.noConnection();
       }
 
       final body = response.body;
@@ -121,8 +126,10 @@ class WishListRemoteService implements IWishListRemoteService {
 
       final shopWishListItemDTO = WishListItemDTO.fromJson(body);
 
-      return RemoteResponse.withNewData(shopWishListItemDTO,
-          nextAvailable: false);
+      return RemoteResponse.withNewData(
+        shopWishListItemDTO,
+        nextAvailable: false,
+      );
     } on SocketException {
       return const RemoteResponse.noConnection();
     }
@@ -133,6 +140,7 @@ class WishListRemoteService implements IWishListRemoteService {
     required int userId,
     required int wishListId,
     required int productItemId,
+    required int sizeId,
     required int wishListItemId,
   }) async {
     try {
@@ -142,6 +150,7 @@ class WishListRemoteService implements IWishListRemoteService {
         wishListItemId: wishListItemId.toString(),
         data: {
           'product_item_id': productItemId,
+          'size_id': sizeId,
         },
       );
       if (!response.isSuccessful) {
@@ -156,8 +165,10 @@ class WishListRemoteService implements IWishListRemoteService {
 
       final shopWishListItemDTO = WishListItemDTO.fromJson(body);
 
-      return RemoteResponse.withNewData(shopWishListItemDTO,
-          nextAvailable: false);
+      return RemoteResponse.withNewData(
+        shopWishListItemDTO,
+        nextAvailable: false,
+      );
     } on SocketException {
       return const RemoteResponse.noConnection();
     }

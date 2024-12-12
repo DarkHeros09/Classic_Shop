@@ -376,6 +376,7 @@ class _OptionsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     final wishListItem = ref.watch(
       wishListNotifierProvider.select(
         (value) => value.wishListItems.entity
@@ -413,6 +414,7 @@ class _OptionsButton extends ConsumerWidget {
                         name: cartItems.name,
                         productImage: cartItems.productImage,
                         color: cartItems.color,
+                        sizeId: cartItems.sizeId,
                         size: cartItems.size,
                         price: cartItems.price,
                         active: cartItems.active,
@@ -460,9 +462,9 @@ class _OptionsButton extends ConsumerWidget {
                 const SizedBox(
                   width: 28,
                 ),
-                const Icon(
+                Icon(
                   Icons.favorite,
-                  color: Colors.black,
+                  color: isDarkMode ? Colors.white : Colors.black,
                 ),
               ],
             ),

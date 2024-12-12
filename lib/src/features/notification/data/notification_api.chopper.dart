@@ -24,7 +24,7 @@ final class _$NotificationApi extends NotificationApi {
     required String? deviceId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.105:8080/usr/v1/users/${userId}/notification/${deviceId}');
+        'http://192.168.1.101:8080/usr/v1/users/${userId}/notification/${deviceId}');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };
@@ -43,7 +43,7 @@ final class _$NotificationApi extends NotificationApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.105:8080/usr/v1/users/${userId}/notification');
+        'http://192.168.1.101:8080/usr/v1/users/${userId}/notification');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -61,7 +61,7 @@ final class _$NotificationApi extends NotificationApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.105:8080/usr/v1/users/${userId}/notification/${deviceId}');
+        'http://192.168.1.101:8080/usr/v1/users/${userId}/notification/${deviceId}');
     final $body = data;
     final Request $request = Request(
       'PUT',
@@ -78,7 +78,7 @@ final class _$NotificationApi extends NotificationApi {
     required String? deviceId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.105:8080/usr/v1/users/${userId}/notification/${deviceId}');
+        'http://192.168.1.101:8080/usr/v1/users/${userId}/notification/${deviceId}');
     final Request $request = Request(
       'DELETE',
       $url,

@@ -12,6 +12,7 @@ class ShopCartItem with _$ShopCartItem {
     required int qty,
     required String? productImage,
     required String? color,
+    required int? sizeId,
     required String? size,
     required String? price,
     required bool? active,

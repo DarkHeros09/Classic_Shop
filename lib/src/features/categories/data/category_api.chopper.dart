@@ -20,7 +20,7 @@ final class _$CategoryApi extends CategoryApi {
   @override
   Future<Response<List<Map<String, dynamic>>>> getCategories(
       {required String ifNoneMatch}) {
-    final Uri $url = Uri.parse('http://192.168.1.105:8080/api/v1/categories');
+    final Uri $url = Uri.parse('http://192.168.1.101:8080/api/v1/categories');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };

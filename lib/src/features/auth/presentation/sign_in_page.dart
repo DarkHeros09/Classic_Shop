@@ -56,12 +56,23 @@ class _SignInPageState extends ConsumerState<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     ref.listen(authNotifierProvider, (previous, next) {
       next.mapOrNull(
         loading: (_) => showDialog<Widget>(
           context: context,
-          builder: (context) => const Center(
-            child: CircularProgressIndicator(),
+          builder: (context) => Center(
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: isDarkMode ? const Color(0xFF0D0D0D) : Colors.white,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(16),
+                child: CircularProgressIndicator(),
+              ),
+            ),
           ),
         ),
         authenticated: (_) {
@@ -90,7 +101,6 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         },
       );
     });
-    final appTheme = Theme.of(context);
     // final formKey = ref.watch(signInFormKeyProvider);
     final height = MediaQuery.sizeOf(context).height + kToolbarHeight;
     final signUpImage = ref.watch(
@@ -176,7 +186,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                             email: values!['email']!.value.toString(),
                             password: values['password']!.value.toString(),
                           );
-                      formKey.currentState?.reset();
+                      // formKey.currentState?.reset();
                     }
                   },
                   style: ElevatedButton.styleFrom(

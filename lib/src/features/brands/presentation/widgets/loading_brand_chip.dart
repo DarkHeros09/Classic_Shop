@@ -10,7 +10,7 @@ class LoadingBrandChip extends StatelessWidget {
       baseColor: Colors.grey.shade500,
       highlightColor: Colors.grey.shade400,
       child: const CircleAvatar(
-        radius: 45,
+        radius: 40,
       ),
     );
   }

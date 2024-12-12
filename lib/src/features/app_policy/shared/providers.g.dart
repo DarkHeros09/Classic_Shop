@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$appPolicyLocalServiceHash() =>
-    r'546bfd121abd7c0ec67063c8c534cd2455af8ef0';
+    r'24627d26b851369f6fce2c667de1eb56894a8353';
 
 /// See also [appPolicyLocalService].
 @ProviderFor(appPolicyLocalService)

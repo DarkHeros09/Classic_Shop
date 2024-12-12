@@ -29,12 +29,16 @@ class SizePage extends ConsumerWidget {
       itemBuilder: (context, index) => state.maybeMap(
         loadSuccess: (value) {
           if (index == 0) {
-            return const Center(
-              child: Text('الأحجام'),
+            return Center(
+              child: Text(
+                'الأحجام',
+                style: appTheme.textTheme.bodyLarge
+                    ?.copyWith(fontWeight: FontWeight.w600),
+              ),
             );
           }
           if (index == value.sizes.entity.length + 1) {
-            return const SizedBox(height: 32);
+            return const SizedBox(height: 40);
           }
           return InkWell(
             onTap: () {

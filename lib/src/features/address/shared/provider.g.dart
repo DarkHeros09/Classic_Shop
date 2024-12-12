@@ -7,7 +7,7 @@ part of 'provider.dart';
 // **************************************************************************
 
 String _$addressLocalServiceHash() =>
-    r'8ecb60cc2cb5e44640ae6edad87e053cfaa936bd';
+    r'aa3b156a3fe27027432c21641d9b57cff69a3d1f';
 
 /// See also [addressLocalService].
 @ProviderFor(addressLocalService)

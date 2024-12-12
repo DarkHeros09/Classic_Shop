@@ -55,6 +55,7 @@ class AppBarPreferredSizeWidget extends StatelessWidget {
             readOnly: true,
             onTap: () => context.pushNamed(AppRoute.search.name),
             showOptions: true,
+            searchFieldHeight: 40,
             onTapOptions: () {
               showModalBottomSheet<void>(
                 context: context,

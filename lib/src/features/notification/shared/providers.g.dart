@@ -26,7 +26,7 @@ final secureNotificationStorageProvider =
 // ignore: unused_element
 typedef SecureNotificationStorageRef = ProviderRef<SecureNotificationStorage>;
 String _$notificationLocalServiceHash() =>
-    r'f7543145e6d4f8306568b5ead1f003bdcd69a135';
+    r'73199b77efaac7e2fd6b1a096fdc77399c10dc58';
 
 /// See also [notificationLocalService].
 @ProviderFor(notificationLocalService)

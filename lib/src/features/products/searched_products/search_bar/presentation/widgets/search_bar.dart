@@ -14,6 +14,7 @@ class CustomSearchBar extends ConsumerStatefulWidget {
     this.onTap,
     this.onTapOptions,
     this.onSubmitted,
+    this.searchFieldHeight,
   });
 
   final bool showBackButton;
@@ -23,6 +24,7 @@ class CustomSearchBar extends ConsumerStatefulWidget {
   final void Function()? onTap;
   final void Function()? onTapOptions;
   final void Function(String)? onSubmitted;
+  final double? searchFieldHeight;
 
   @override
   ConsumerState<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -83,7 +85,8 @@ class _CustomSearchBarState extends ConsumerState<CustomSearchBar> {
             darkSiAssetsProvider.select(
               (value) => value
                   .singleWhere(
-                      (element) => element.$1 == SvgAssets.slidersHoriz.name)
+                    (element) => element.$1 == SvgAssets.slidersHoriz.name,
+                  )
                   .$2,
             ),
           )
@@ -91,79 +94,91 @@ class _CustomSearchBarState extends ConsumerState<CustomSearchBar> {
             siAssetsProvider.select(
               (value) => value
                   .singleWhere(
-                      (element) => element.$1 == SvgAssets.slidersHoriz.name)
+                    (element) => element.$1 == SvgAssets.slidersHoriz.name,
+                  )
                   .$2,
             ),
           );
     return Row(
       children: [
-        if (widget.showBackButton)
-          IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back),
-          ),
+        if (widget.showBackButton) const BackButton(),
         Expanded(
-          child: TextField(
-            controller: controller,
-            onTap: widget.onTap,
-            onSubmitted: widget.onSubmitted,
-            autocorrect: false,
-            autofocus: widget.autofocus,
-            focusNode: focusNode,
-            readOnly: widget.readOnly,
-            onTapOutside: (event) {
-              focusNode.unfocus();
-            },
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(25),
-            ],
-            decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 0.1,
-                  color: isDarkMode
-                      ? const Color(0xFFFFFFFF)
-                      : const Color(0xFF000000),
+          child: SizedBox(
+            height: widget.searchFieldHeight,
+            child: TextField(
+              controller: controller,
+              onTap: widget.onTap,
+              onSubmitted: widget.onSubmitted,
+              autocorrect: false,
+              autofocus: widget.autofocus,
+              focusNode: focusNode,
+              readOnly: widget.readOnly,
+              onTapOutside: (event) {
+                focusNode.unfocus();
+              },
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(25),
+              ],
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 0.1,
+                    color: isDarkMode
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0xFF000000),
+                  ),
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  width: 0.1,
-                  color: isDarkMode
-                      ? const Color(0xFFFFFFFF)
-                      : const Color(0xFF000000),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 0.1,
+                    color: isDarkMode
+                        ? const Color(0xFFFFFFFF)
+                        : const Color(0xFF000000),
+                  ),
                 ),
-              ),
-              fillColor: const Color(0xfff9f9f9),
-              prefixIcon: const Icon(Icons.search),
-              suffixIcon: showCloseIcon
-                  ? IconButton(
-                      onPressed: () {
-                        if (context.mounted) {
-                          setState(controller.clear);
-                        }
-                      },
-                      icon: const Icon(Icons.close),
-                    )
-                  : null,
-              hintText: 'بحث',
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8),
+                fillColor: const Color(0xfff9f9f9),
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: showCloseIcon
+                    ? IconButton(
+                        onPressed: () {
+                          if (context.mounted) {
+                            setState(controller.clear);
+                          }
+                        },
+                        icon: const Icon(Icons.close),
+                      )
+                    : null,
+                hintText: 'بحث',
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
                 ),
+                hintStyle: appTheme.textTheme.bodySmall
+                    ?.copyWith(color: const Color(0xff858080)),
               ),
-              hintStyle: appTheme.textTheme.bodySmall
-                  ?.copyWith(color: const Color(0xff858080)),
             ),
           ),
         ),
-        if (widget.showOptions)
+        if (widget.showOptions) ...[
+          const SizedBox(width: 4),
           IconButton(
             onPressed: widget.onTapOptions,
             icon: ScalableImageWidget(si: slideHoriz),
+            style: IconButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+                side: BorderSide(
+                  width: 0.1,
+                  color: isDarkMode
+                      ? const Color(0xFFFFFFFF)
+                      : const Color(0xFF000000),
+                ),
+              ),
+            ),
           ),
+          const SizedBox(width: 8),
+        ],
       ],
     );
   }

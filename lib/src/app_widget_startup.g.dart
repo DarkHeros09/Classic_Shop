@@ -6,7 +6,7 @@ part of 'app_widget_startup.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appStartupHash() => r'47d71e529f3845f489e9fa0c2c1f09511b196830';
+String _$appStartupHash() => r'e321f89fb335c320cea5e6b802fcd659ea2987e7';
 
 /// list of providers to be warmed up
 ///

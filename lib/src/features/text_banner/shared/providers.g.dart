@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$textBannerLocalServiceHash() =>
-    r'41b08dafbe3f6ab95a65f6159bcc2d9f90211a01';
+    r'f19c3dfcc6516ca18ece3c15516e3f29fd6ac97a';
 
 /// See also [textBannerLocalService].
 @ProviderFor(textBannerLocalService)

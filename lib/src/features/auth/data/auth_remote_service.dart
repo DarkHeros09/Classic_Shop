@@ -219,7 +219,10 @@ class AuthRemoteService {
           debugPrint('TRRRUUUUEEEEE');
           final failureOrCredentials = await renewAccessToken(storedtoken);
           return failureOrCredentials.fold(
-            (l) async => null,
+            (l) async {
+              // await _credentialsStorage.clear();
+              return null;
+            },
             (r) => r,
           );
         }

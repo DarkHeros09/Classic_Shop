@@ -13,7 +13,7 @@ part 'providers.g.dart';
 
 @Riverpod(keepAlive: true)
 ListProductsLocalService listProductsLocalService(Ref ref) {
-  return ListProductsLocalService(ref.watch(sembastProvider));
+  return ListProductsLocalService(ref.watch(sembastDatabaseProvider));
 }
 
 @Riverpod(keepAlive: true)

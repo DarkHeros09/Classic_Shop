@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$wishListLocalServiceHash() =>
-    r'4c5a15aca532af1e7835210a22ae335fcec1f40c';
+    r'622ee79d9a09491fcb2399ec985d924f31053b77';
 
 /// See also [wishListLocalService].
 @ProviderFor(wishListLocalService)

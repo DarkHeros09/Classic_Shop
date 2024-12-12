@@ -7,9 +7,11 @@ import 'package:classic_shop/src/features/wish_list/domain/wish_list_item.dart';
 import 'package:classic_shop/src/features/wish_list/presentation/widgets/loading_wish_list_image.dart';
 import 'package:classic_shop/src/features/wish_list/presentation/widgets/wish_list_item_list.dart';
 import 'package:classic_shop/src/shared/toasts.dart';
+import 'package:classic_shop/src/themes/assets.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:jovial_svg/jovial_svg.dart';
 
 class WishListProductCard extends ConsumerWidget {
   const WishListProductCard({
@@ -44,20 +46,22 @@ class _WishListProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Container(
       clipBehavior: Clip.hardEdge,
       height: 128,
       width: 396,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
+      decoration: BoxDecoration(
+        color: isDarkMode ? const Color(0xFF0D0D0D) : Colors.white,
+        boxShadow: const [
           BoxShadow(
             color: Color(0x24000000),
             offset: Offset(0, 2),
             blurRadius: 4,
           ),
         ],
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(8),
         ),
       ),
@@ -227,6 +231,26 @@ class _OptionsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
+    final cartAppBarIcon = isDarkMode
+        ? ref.watch(
+            darkSiAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                    (element) => element.$1 == SvgAssets.cartSelected.name,
+                  )
+                  .$2,
+            ),
+          )
+        : ref.watch(
+            siAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                    (element) => element.$1 == SvgAssets.cartSelected.name,
+                  )
+                  .$2,
+            ),
+          );
     return Positioned(
       top: 0,
       left: 0,
@@ -263,6 +287,7 @@ class _OptionsButton extends ConsumerWidget {
                           qty: 1,
                           productImage: wishListItems.productImage,
                           color: wishListItems.color,
+                          sizeId: wishListItems.sizeId,
                           size: wishListItems.size,
                           price: wishListItems.price,
                           active: wishListItems.active,
@@ -303,6 +328,9 @@ class _OptionsButton extends ConsumerWidget {
                               wishListItems.productPromoEndDate,
                         ),
                       );
+                  await Future(
+                    () => ref.read(cartNotifierProvider.notifier).fetchCart(),
+                  );
                 }
               }
             },
@@ -317,10 +345,7 @@ class _OptionsButton extends ConsumerWidget {
                 const SizedBox(
                   width: 28,
                 ),
-                const Icon(
-                  Icons.favorite,
-                  color: Colors.black,
-                ),
+                ScalableImageWidget(si: cartAppBarIcon),
               ],
             ),
           ),

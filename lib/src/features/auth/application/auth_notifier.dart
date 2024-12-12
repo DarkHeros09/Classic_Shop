@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:classic_shop/src/features/auth/data/auth_remote_service.dart';
+import 'package:classic_shop/src/features/auth/data/credentials_dto.dart';
+import 'package:classic_shop/src/features/auth/data/token_storage/secure_token_storage.dart';
 import 'package:classic_shop/src/features/auth/domain/auth_failure.dart';
 import 'package:classic_shop/src/features/auth/shared/providers.dart';
 import 'package:classic_shop/src/features/core/data/user_storage/secure_user_storage.dart';
@@ -8,6 +10,7 @@ import 'package:classic_shop/src/features/core/domain/user.dart';
 import 'package:classic_shop/src/helpers/in_memory_store.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_notifier.freezed.dart';
@@ -28,6 +31,7 @@ class AuthState with _$AuthState {
 class AuthNotifier extends _$AuthNotifier {
   late final AuthRemoteService _authRemoteService;
   late final SecureUserStorage _userStorage;
+  late final SecureCredentialsStorage _credentialsStorage;
   final _authUser = InMemoryStore<User?>(null);
 
   // Stream<User?> authStateChanges() => Stream.value(user);
@@ -46,6 +50,7 @@ class AuthNotifier extends _$AuthNotifier {
   AuthState build() {
     _authRemoteService = ref.watch(authRemoteServiceProvider);
     _userStorage = ref.watch(userStorageProvider);
+    _credentialsStorage = ref.watch(credentialsStorageProvider);
     _userStorage.read().then((value) => _authUser.value = value?.toDomain());
     ref.onDispose(dispose);
     return state = const AuthState.initial();
@@ -151,6 +156,7 @@ class AuthNotifier extends _$AuthNotifier {
     _authUser.value = null;
     debugPrint('USERIS ${_authUser.value}');
     await _userStorage.clear();
+    await _credentialsStorage.clear();
     final failureOrSuccess = await _authRemoteService.signOut();
     state = failureOrSuccess.fold(
       (l) => const AuthState.unauthenticated(),
@@ -162,4 +168,41 @@ class AuthNotifier extends _$AuthNotifier {
     _authUser.value = null;
     state = const AuthState.unauthenticated();
   }
+}
+
+@Riverpod(keepAlive: true, dependencies: [])
+class AuthStream extends _$AuthStream {
+  @override
+  Stream<User?> build() {
+    return ref.watch(authNotifierProvider.notifier).authStateChanges();
+  }
+}
+
+@riverpod
+FutureOr<CredentialsDTO?> getCredentials(Ref ref) {
+  return ref.watch(credentialsStorageProvider).read();
+}
+
+@Riverpod(keepAlive: true, dependencies: [])
+Stream<bool> tokenValidStream(Ref ref) async* {
+  late CredentialsDTO? token;
+  token = await ref.watch(getCredentialsProvider.future);
+  yield* Stream.periodic(
+    const Duration(seconds: 1),
+    (_) {
+      // debugPrint('dddd $token');
+      if (token != null && !token!.isExpired) {
+        return true;
+      }
+      ref.read(authRemoteServiceProvider).getSignedInCredentials().then(
+        (value) {
+          if (value != null) {
+            ref.read(credentialsStorageProvider).save(value);
+          }
+          return token = value;
+        },
+      );
+      return token != null;
+    },
+  );
 }

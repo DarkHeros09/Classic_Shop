@@ -6,7 +6,7 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cartLocalServiceHash() => r'0eccee52b567309863d11a4de8b5f18bd79ff600';
+String _$cartLocalServiceHash() => r'5f3fbd8f177944edb87779a87cbf232acabf2687';
 
 /// See also [cartLocalService].
 @ProviderFor(cartLocalService)

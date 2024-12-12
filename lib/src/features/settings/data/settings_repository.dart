@@ -10,20 +10,17 @@ class SettingsRepository {
 
   final SettingsLocalService _localService;
 
-  Future<Settings> fetchSettings(int userId) async {
-    try {
-      final settings = await _localService.getSettings(userId);
-      debugPrint('settingssRepo: $settings');
-      return settings.toDomain();
-    } on Exception catch (_) {
-      rethrow;
-    }
+  Settings fetchSettings() {
+    // try {
+    final settings = _localService.getSettings();
+    debugPrint('settingssRepo: $settings');
+    return settings.toDomain();
+    // } on Exception catch (_) {
+    //   rethrow;
+    // }
   }
 
-  Future<void> updateSettings(
-    SettingsDTO dto,
-    int userId,
-  ) async {
-    await _localService.updateSettings(dto, userId);
+  Future<void> updateSettings(SettingsDTO dto) async {
+    await _localService.updateSettings(dto);
   }
 }

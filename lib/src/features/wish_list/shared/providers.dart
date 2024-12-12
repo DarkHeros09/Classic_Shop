@@ -12,7 +12,7 @@ part 'providers.g.dart';
 @Riverpod(keepAlive: true)
 WishListLocalService wishListLocalService(Ref ref) {
   return WishListLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

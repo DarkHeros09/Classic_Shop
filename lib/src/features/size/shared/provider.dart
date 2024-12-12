@@ -12,7 +12,7 @@ part 'provider.g.dart';
 @Riverpod(keepAlive: true)
 SizeLocalService sizeLocalService(Ref ref) {
   return SizeLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

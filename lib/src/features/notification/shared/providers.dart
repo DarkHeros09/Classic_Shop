@@ -20,7 +20,7 @@ SecureNotificationStorage secureNotificationStorage(Ref ref) {
 @Riverpod(keepAlive: true)
 NotificationLocalService notificationLocalService(Ref ref) {
   return NotificationLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

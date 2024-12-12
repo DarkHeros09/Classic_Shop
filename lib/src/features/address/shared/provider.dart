@@ -13,7 +13,7 @@ part 'provider.g.dart';
 @Riverpod(keepAlive: true)
 AddressLocalService addressLocalService(Ref ref) {
   return AddressLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

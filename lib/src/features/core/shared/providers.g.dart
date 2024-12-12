@@ -6,40 +6,25 @@ part of 'providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dbHash() => r'b97dc756d876d9ef29bcfeaafbe1ea50a623bb1f';
+String _$sembastDatabaseHash() => r'ee95429ae607cab48b6d0f46327786b85670199d';
 
-/// See also [db].
-@ProviderFor(db)
-final dbProvider = FutureProvider<Database>.internal(
-  db,
-  name: r'dbProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$dbHash,
+/// See also [sembastDatabase].
+@ProviderFor(sembastDatabase)
+final sembastDatabaseProvider = Provider<SembastDatabase>.internal(
+  sembastDatabase,
+  name: r'sembastDatabaseProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$sembastDatabaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DbRef = FutureProviderRef<Database>;
-String _$sembastHash() => r'0362cb28c9183806fea1fee3e826f88451e35a51';
-
-/// See also [sembast].
-@ProviderFor(sembast)
-final sembastProvider = Provider<SembastDatabase>.internal(
-  sembast,
-  name: r'sembastProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$sembastHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SembastRef = ProviderRef<SembastDatabase>;
+typedef SembastDatabaseRef = ProviderRef<SembastDatabase>;
 String _$responseHeaderCacheHash() =>
-    r'9f5e9759dee684718e3ed522fe1a78388ee2cf6c';
+    r'a62e4d6a1dcb9250f75631aae428773805fad690';
 
 /// See also [responseHeaderCache].
 @ProviderFor(responseHeaderCache)

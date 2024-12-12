@@ -304,94 +304,99 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
                             final authUser = ref
                                 .read(authNotifierProvider.notifier)
                                 .currentUser;
-                            final cuurentCartItems = ref
-                                .read(cartNotifierProvider)
-                                .cartItems
-                                .entity
-                                .where(
-                                  (element) =>
-                                      element.productItemId ==
-                                      widget.product.id,
-                                )
-                                .firstOrNull;
-                            if (cuurentCartItems == null &&
-                                authUser != null &&
-                                buyButtonIsPressed.value == false) {
-                              // await Future(
-                              //   () => ref
-                              //       .read(cartItemsNumberProvider.notifier)
-                              //       .length++,
-                              // );
-                              await HapticFeedback.vibrate();
-                              buyButtonIsPressed.value = true;
-                              await ref
-                                  .read(cartNotifierProvider.notifier)
-                                  .createCartItem(
-                                    ShopCartItem(
-                                      id: null,
-                                      shoppingCartId: authUser.shoppingCartId,
-                                      productItemId: widget.product.id,
-                                      name: widget.product.name,
-                                      qty: 1,
-                                      productImage:
-                                          widget.product.productImage1,
-                                      color: widget.product.color,
-                                      size: selectedSize?.sizeValue,
-                                      price: widget.product.price,
-                                      active: widget.product.active,
-                                      createdAt: widget.product.createdAt,
-                                      updatedAt: widget.product.updatedAt,
-                                      categoryPromoId:
-                                          widget.product.categoryPromoId,
-                                      categoryPromoName:
-                                          widget.product.categoryPromoName,
-                                      categoryPromoDescription: widget
-                                          .product.categoryPromoDescription,
-                                      categoryPromoDiscountRate: widget
-                                          .product.categoryPromoDiscountRate,
-                                      categoryPromoActive:
-                                          widget.product.categoryPromoActive,
-                                      categoryPromoStartDate:
-                                          widget.product.categoryPromoStartDate,
-                                      categoryPromoEndDate:
-                                          widget.product.categoryPromoEndDate,
-                                      brandPromoId: widget.product.brandPromoId,
-                                      brandPromoName:
-                                          widget.product.brandPromoName,
-                                      brandPromoDescription:
-                                          widget.product.brandPromoDescription,
-                                      brandPromoDiscountRate:
-                                          widget.product.brandPromoDiscountRate,
-                                      brandPromoActive:
-                                          widget.product.brandPromoActive,
-                                      brandPromoStartDate:
-                                          widget.product.brandPromoStartDate,
-                                      brandPromoEndDate:
-                                          widget.product.brandPromoEndDate,
-                                      productPromoId:
-                                          widget.product.productPromoId,
-                                      productPromoName:
-                                          widget.product.productPromoName,
-                                      productPromoDescription: widget
-                                          .product.productPromoDescription,
-                                      productPromoDiscountRate: widget
-                                          .product.productPromoDiscountRate,
-                                      productPromoActive:
-                                          widget.product.productPromoActive,
-                                      productPromoStartDate:
-                                          widget.product.productPromoStartDate,
-                                      productPromoEndDate:
-                                          widget.product.productPromoEndDate,
-                                    ),
-                                  );
-                              await Future(
-                                () => ref
+                            if (authUser != null) {
+                              final cuurentCartItems = ref
+                                  .read(cartNotifierProvider)
+                                  .cartItems
+                                  .entity
+                                  .where(
+                                    (element) =>
+                                        element.productItemId ==
+                                        widget.product.id,
+                                  )
+                                  .firstOrNull;
+                              if (cuurentCartItems == null &&
+                                  buyButtonIsPressed.value == false) {
+                                // await Future(
+                                //   () => ref
+                                //       .read(cartItemsNumberProvider.notifier)
+                                //       .length++,
+                                // );
+                                await HapticFeedback.vibrate();
+                                buyButtonIsPressed.value = true;
+                                await ref
                                     .read(cartNotifierProvider.notifier)
-                                    .fetchCart(),
-                              ).then(
-                                (value) =>
-                                    widget.activateCartAnimation.value = true,
-                              );
+                                    .createCartItem(
+                                      ShopCartItem(
+                                        id: null,
+                                        shoppingCartId: authUser.shoppingCartId,
+                                        productItemId: widget.product.id,
+                                        name: widget.product.name,
+                                        qty: 1,
+                                        productImage:
+                                            widget.product.productImage1,
+                                        color: widget.product.color,
+                                        sizeId: selectedSize?.id,
+                                        size: selectedSize?.sizeValue,
+                                        price: widget.product.price,
+                                        active: widget.product.active,
+                                        createdAt: widget.product.createdAt,
+                                        updatedAt: widget.product.updatedAt,
+                                        categoryPromoId:
+                                            widget.product.categoryPromoId,
+                                        categoryPromoName:
+                                            widget.product.categoryPromoName,
+                                        categoryPromoDescription: widget
+                                            .product.categoryPromoDescription,
+                                        categoryPromoDiscountRate: widget
+                                            .product.categoryPromoDiscountRate,
+                                        categoryPromoActive:
+                                            widget.product.categoryPromoActive,
+                                        categoryPromoStartDate: widget
+                                            .product.categoryPromoStartDate,
+                                        categoryPromoEndDate:
+                                            widget.product.categoryPromoEndDate,
+                                        brandPromoId:
+                                            widget.product.brandPromoId,
+                                        brandPromoName:
+                                            widget.product.brandPromoName,
+                                        brandPromoDescription: widget
+                                            .product.brandPromoDescription,
+                                        brandPromoDiscountRate: widget
+                                            .product.brandPromoDiscountRate,
+                                        brandPromoActive:
+                                            widget.product.brandPromoActive,
+                                        brandPromoStartDate:
+                                            widget.product.brandPromoStartDate,
+                                        brandPromoEndDate:
+                                            widget.product.brandPromoEndDate,
+                                        productPromoId:
+                                            widget.product.productPromoId,
+                                        productPromoName:
+                                            widget.product.productPromoName,
+                                        productPromoDescription: widget
+                                            .product.productPromoDescription,
+                                        productPromoDiscountRate: widget
+                                            .product.productPromoDiscountRate,
+                                        productPromoActive:
+                                            widget.product.productPromoActive,
+                                        productPromoStartDate: widget
+                                            .product.productPromoStartDate,
+                                        productPromoEndDate:
+                                            widget.product.productPromoEndDate,
+                                      ),
+                                    );
+                                await Future(
+                                  () => ref
+                                      .read(cartNotifierProvider.notifier)
+                                      .fetchCart(),
+                                ).then(
+                                  (value) =>
+                                      widget.activateCartAnimation.value = true,
+                                );
+                              }
+                            } else {
+                              context.goNamed(AppRoute.signIn.name);
                             }
                           },
                     style: ElevatedButton.styleFrom(
@@ -402,7 +407,10 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
                     ),
-                    icon: ScalableImageWidget(si: cartButtonIcon),
+                    icon: cartNotifierState.mapOrNull(
+                      loadSuccess: (_) =>
+                          ScalableImageWidget(si: cartButtonIcon),
+                    ),
                     label: cartNotifierState.map(
                       initial: (_) => Text(
                         widget.product.qtyInStock != 0
@@ -414,8 +422,11 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
                         ),
                       ),
                       loadInProgress: (value) => const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
+                        child: SizedBox.square(
+                          dimension: 25,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       loadSuccess: (_) => Text(
@@ -685,20 +696,31 @@ class _ProductDetailAppBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appTheme = Theme.of(context);
-    final user = ref.watch(authNotifierProvider.notifier).currentUser;
+    final user = ref.read(authStreamProvider).value;
+    final tokenIsValid = ref.watch(tokenValidStreamProvider).value;
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final cartItemState = ref.watch(
       cartNotifierProvider.select((value) => value.cartItems.entity.length),
     );
-    final cartAppBarIcon = ref.watch(
-      siAssetsProvider.select(
-        (value) => value
-            .singleWhere(
-              (element) => element.$1 == SvgAssets.cartAppBarIcon.name,
-            )
-            .$2,
-      ),
-    );
+    final cartAppBarIcon = isDarkMode
+        ? ref.watch(
+            darkSiAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                    (element) => element.$1 == SvgAssets.cartAppBarIcon.name,
+                  )
+                  .$2,
+            ),
+          )
+        : ref.watch(
+            siAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                    (element) => element.$1 == SvgAssets.cartAppBarIcon.name,
+                  )
+                  .$2,
+            ),
+          );
     final activateHeartAnimation = useState(false);
     final wishListItem = ref.watch(
       wishListNotifierProvider.select(
@@ -713,17 +735,29 @@ class _ProductDetailAppBar extends HookConsumerWidget {
     // final wishListItemsSelected = ref.watch(wishListNotifierProvider.select(
     //     (value) => value.wishListItems.entity
     //         .any((element) => element.id == product.id)));
-    final heartIcon = ref.watch(
-      siAssetsProvider.select(
-        (value) => value
-            .singleWhere(
-              (element) => heartIconPressed.value
-                  ? element.$1 == SvgAssets.heartSelected.name
-                  : element.$1 == SvgAssets.heart.name,
-            )
-            .$2,
-      ),
-    );
+    final heartIcon = isDarkMode
+        ? ref.watch(
+            darkSiAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                    (element) => heartIconPressed.value
+                        ? element.$1 == SvgAssets.heartSelected.name
+                        : element.$1 == SvgAssets.heart.name,
+                  )
+                  .$2,
+            ),
+          )
+        : ref.watch(
+            siAssetsProvider.select(
+              (value) => value
+                  .singleWhere(
+                    (element) => heartIconPressed.value
+                        ? element.$1 == SvgAssets.heartSelected.name
+                        : element.$1 == SvgAssets.heart.name,
+                  )
+                  .$2,
+            ),
+          );
     final selectedSize = ref.watch(selectedSizeProvider);
     return SliverAppBar(
       clipBehavior: Clip.none,
@@ -734,7 +768,7 @@ class _ProductDetailAppBar extends HookConsumerWidget {
       ),
       centerTitle: true,
       actions: [
-        if (user != null) ...[
+        if (user != null && tokenIsValid != null && tokenIsValid) ...[
           Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.center,
@@ -817,8 +851,7 @@ class _ProductDetailAppBar extends HookConsumerWidget {
           ),
           IconButton(
             onPressed: () async {
-              final authUser =
-                  ref.read(authNotifierProvider.notifier).currentUser;
+              final authUser = ref.read(authStreamProvider).value;
               if (authUser != null) {
                 await HapticFeedback.vibrate();
                 activateHeartAnimation.value = true;
@@ -838,6 +871,7 @@ class _ProductDetailAppBar extends HookConsumerWidget {
                           name: product.name,
                           productImage: product.productImage1,
                           color: product.color,
+                          sizeId: selectedSize?.id,
                           size: selectedSize?.sizeValue,
                           price: product.price,
                           active: product.active,

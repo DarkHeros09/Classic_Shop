@@ -6,7 +6,7 @@ part of 'provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sizeLocalServiceHash() => r'28263c971f623e0984e9395388900fec943b78da';
+String _$sizeLocalServiceHash() => r'ae8d4970ec4224f1ff06da9cdbf711a6d0224eb4';
 
 /// See also [sizeLocalService].
 @ProviderFor(sizeLocalService)

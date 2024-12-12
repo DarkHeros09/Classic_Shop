@@ -23,21 +23,13 @@ class AppWidget extends HookConsumerWidget {
     late final themeMode = ref.watch(themeModeNotifierProvider);
     late final goRouter = ref.watch(goRouterProvider);
     late final locale = ref.watch(selectedLocaleProvider);
-    if (themeMode != ThemeMode.dark) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarColor: Colors.black.withOpacity(0),
-          statusBarIconBrightness: Brightness.dark,
-        ),
-      );
-    } else {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarColor: Colors.black.withOpacity(0),
-          statusBarIconBrightness: Brightness.light,
-        ),
-      );
-    }
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.black.withOpacity(0),
+        statusBarIconBrightness:
+            themeMode != ThemeMode.dark ? Brightness.dark : Brightness.light,
+      ),
+    );
     return MaterialApp.router(
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,

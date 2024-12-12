@@ -25,6 +25,7 @@ abstract class ICartRemoteService {
     required int userId,
     required int cartId,
     required int productItemId,
+    required int sizeId,
     required int qty,
   });
 
@@ -33,6 +34,7 @@ abstract class ICartRemoteService {
     required int cartId,
     required int shopCartItemId,
     required int productItemId,
+    required int sizeId,
     required int qty,
   });
 
@@ -101,6 +103,7 @@ class CartRemoteService implements ICartRemoteService {
     required int userId,
     required int cartId,
     required int productItemId,
+    required int sizeId,
     required int qty,
   }) async {
     try {
@@ -109,6 +112,7 @@ class CartRemoteService implements ICartRemoteService {
         cartId: cartId.toString(),
         data: {
           'product_item_id': productItemId,
+          'size_id': sizeId,
           'qty': qty,
         },
       );
@@ -136,6 +140,7 @@ class CartRemoteService implements ICartRemoteService {
     required int userId,
     required int cartId,
     required int productItemId,
+    required int sizeId,
     required int shopCartItemId,
     required int qty,
   }) async {
@@ -146,6 +151,7 @@ class CartRemoteService implements ICartRemoteService {
         shoppingCartItemId: shopCartItemId.toString(),
         data: {
           'product_item_id': productItemId,
+          'size_id': sizeId,
           'qty': qty,
         },
       );

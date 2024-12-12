@@ -12,7 +12,7 @@ part 'providers.g.dart';
 @Riverpod(keepAlive: true)
 CartLocalService cartLocalService(Ref ref) {
   return CartLocalService(
-    ref.watch(sembastProvider),
+    ref.watch(sembastDatabaseProvider),
   );
 }
 

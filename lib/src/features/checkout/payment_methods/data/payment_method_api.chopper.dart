@@ -23,7 +23,7 @@ final class _$PaymentMethodApi extends PaymentMethodApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.105:8080/usr/v1/users/${userId}/payment-methods');
+        'http://192.168.1.101:8080/usr/v1/users/${userId}/payment-methods');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -40,7 +40,7 @@ final class _$PaymentMethodApi extends PaymentMethodApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.105:8080/usr/v1/users/${userId}/payment-method');
+        'http://192.168.1.101:8080/usr/v1/users/${userId}/payment-method');
     final $body = data;
     final Request $request = Request(
       'GET',

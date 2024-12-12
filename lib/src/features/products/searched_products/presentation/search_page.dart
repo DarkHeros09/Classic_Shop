@@ -50,7 +50,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                 height: 16,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.only(left: 16),
                 child: SizedBox(
                   height: 56,
                   width: double.infinity,

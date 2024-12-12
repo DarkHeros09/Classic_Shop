@@ -7,7 +7,7 @@ part of 'providers.dart';
 // **************************************************************************
 
 String _$shopOrderItemsLocalServiceHash() =>
-    r'a2c2b3dc6e51d8e683584929cd0f35a71dc837fd';
+    r'4634dc9032823a03c30341f81cff0532ee45684b';
 
 /// See also [shopOrderItemsLocalService].
 @ProviderFor(shopOrderItemsLocalService)

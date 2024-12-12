@@ -1,4 +1,5 @@
 import 'package:classic_shop/firebase_options.dart';
+import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/features/notification/shared/providers.dart';
 import 'package:classic_shop/src/features/splash/presentation/splash_page.dart';
@@ -26,13 +27,15 @@ Future<void> appStartup(Ref ref) async {
     // DeviceInfo init
     ref.watch(deviceInfoProvider.future),
     //SembestDB init
-    ref.watch(dbProvider.future),
+    ref.watch(sembastDatabaseProvider).init(),
     // sharedPrefrences int
     ref.watch(sharedPreferencesProvider.future),
   ]);
   // ref.watch(sharedPreferencesProvider).requireValue;
   final fcm = ref.watch(firebaseMessagingProvider);
-  await fcm.requestPermission(provisional: true);
+  final s = await fcm.getToken();
+  debugPrint('ididid $s');
+  // await fcm.requestPermission(provisional: true);
 }
 
 class AppWidgetStartup extends ConsumerWidget {
@@ -45,6 +48,9 @@ class AppWidgetStartup extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appStartupState = ref.watch(appStartupProvider);
+    ref
+      ..watch(authStreamProvider)
+      ..watch(tokenValidStreamProvider);
     return appStartupState.when(
       data: (_) => onLoaded(context),
       loading: SplashPage.new,

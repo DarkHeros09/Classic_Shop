@@ -5,7 +5,6 @@ import 'package:classic_shop/src/features/wish_list/domain/wish_list_item.dart';
 import 'package:classic_shop/src/features/wish_list/domain/wish_list_item_failure.dart';
 import 'package:classic_shop/src/features/wish_list/shared/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'wish_list_notifier.freezed.dart';
