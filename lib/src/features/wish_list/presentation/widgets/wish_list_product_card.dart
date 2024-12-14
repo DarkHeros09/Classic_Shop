@@ -48,55 +48,83 @@ class _WishListProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      height: 128,
-      width: 396,
-      decoration: BoxDecoration(
-        color: isDarkMode ? const Color(0xFF0D0D0D) : Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x24000000),
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
-        ),
-      ),
-      child: Stack(
-        children: [
-          ExtendedImage.network(
-            loadStateChanged: (state) {
-              switch (state.extendedImageLoadState) {
-                case LoadState.loading:
-                case LoadState.failed:
-                  return const LoadingWishListImage();
-                case LoadState.completed:
-                  return state.completedWidget;
-              }
-            },
-            shape: BoxShape.rectangle,
-            height: 128,
-            width: 128,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8),
-              bottomRight: Radius.circular(8),
+    return Column(
+      children: [
+        Container(
+          clipBehavior: Clip.hardEdge,
+          height: 128,
+          width: 396,
+          decoration: BoxDecoration(
+            color: isDarkMode ? const Color(0xFF0D0D0D) : Colors.white,
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x24000000),
+                offset: Offset(0, 2),
+                blurRadius: 4,
+              ),
+            ],
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
             ),
-            fit: BoxFit.cover,
-            wishListItems.productImage ?? '',
-            cacheMaxAge: const Duration(days: 30),
           ),
-          _ProductName(wishListItems: wishListItems),
-          _ProductColor(wishListItems: wishListItems),
-          _ProductSize(wishListItems: wishListItems),
-          _OptionsButton(
-            wishListItems,
+          child: Stack(
+            children: [
+              ExtendedImage.network(
+                loadStateChanged: (state) {
+                  switch (state.extendedImageLoadState) {
+                    case LoadState.loading:
+                    case LoadState.failed:
+                      return const LoadingWishListImage();
+                    case LoadState.completed:
+                      return ColorFiltered(
+                        colorFilter: wishListItems.sizeQty == 0
+                            ? const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.color,
+                              )
+                            : const ColorFilter.mode(
+                                Colors.transparent,
+                                BlendMode.color,
+                              ),
+                        child: state.completedWidget,
+                      );
+                  }
+                },
+                shape: BoxShape.rectangle,
+                height: 128,
+                width: 128,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                fit: BoxFit.cover,
+                wishListItems.productImage ?? '',
+                cacheMaxAge: const Duration(days: 30),
+              ),
+              _ProductName(wishListItems: wishListItems),
+              _ProductColor(wishListItems: wishListItems),
+              _ProductSize(wishListItems: wishListItems),
+              _OptionsButton(
+                wishListItems,
+              ),
+              _ProductPrice(wishListItems: wishListItems),
+              if (wishListItems.sizeQty != 0) ...[
+                _ProductPrice(wishListItems: wishListItems),
+              ],
+            ],
           ),
-          _ProductPrice(wishListItems: wishListItems),
+        ),
+        if (wishListItems.sizeQty == 0) ...[
+          const SizedBox(height: 8),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              'عذرًا، هذا المنتج غير متوفر حاليًا',
+              style: appTheme.textTheme.bodySmall?.copyWith(fontSize: 12),
+            ),
+          ),
         ],
-      ),
+      ],
     );
   }
 }
@@ -288,7 +316,8 @@ class _OptionsButton extends ConsumerWidget {
                           productImage: wishListItems.productImage,
                           color: wishListItems.color,
                           sizeId: wishListItems.sizeId,
-                          size: wishListItems.size,
+                          sizeValue: wishListItems.sizeValue,
+                          sizeQty: wishListItems.sizeQty,
                           price: wishListItems.price,
                           active: wishListItems.active,
                           createdAt: wishListItems.createdAt ?? DateTime.now(),
@@ -394,6 +423,7 @@ class _ProductSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Positioned(
       right: 240,
       top: 43,
@@ -405,8 +435,16 @@ class _ProductSize extends StatelessWidget {
                 ?.copyWith(color: const Color(0xff7D7979)),
           ),
           Text(
-            wishListItems.size ?? '',
-            style: appTheme.textTheme.bodySmall,
+            wishListItems.sizeValue ?? '',
+            style: appTheme.textTheme.bodySmall?.copyWith(
+              color: isDarkMode
+                  ? wishListItems.sizeQty == 0
+                      ? Colors.white.withAlpha(50)
+                      : null
+                  : wishListItems.sizeQty == 0
+                      ? Colors.black.withAlpha(50)
+                      : null,
+            ),
           ),
         ],
       ),
@@ -424,6 +462,7 @@ class _ProductColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Positioned(
       right: 144,
       top: 43,
@@ -436,7 +475,15 @@ class _ProductColor extends StatelessWidget {
           ),
           Text(
             wishListItems.color ?? '',
-            style: appTheme.textTheme.bodySmall,
+            style: appTheme.textTheme.bodySmall?.copyWith(
+              color: isDarkMode
+                  ? wishListItems.sizeQty == 0
+                      ? Colors.white.withAlpha(50)
+                      : null
+                  : wishListItems.sizeQty == 0
+                      ? Colors.black.withAlpha(50)
+                      : null,
+            ),
           ),
         ],
       ),
@@ -454,13 +501,22 @@ class _ProductName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Positioned(
       right: 144,
       top: 12,
       child: Text(
-        wishListItems.name!,
-        style:
-            appTheme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+        wishListItems.name ?? '',
+        style: appTheme.textTheme.bodySmall?.copyWith(
+          fontWeight: FontWeight.w700,
+          color: isDarkMode
+              ? wishListItems.sizeQty == 0
+                  ? Colors.white.withAlpha(50)
+                  : null
+              : wishListItems.sizeQty == 0
+                  ? Colors.black.withAlpha(50)
+                  : null,
+        ),
       ),
     );
   }

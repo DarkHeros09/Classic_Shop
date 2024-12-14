@@ -47,59 +47,90 @@ class _CartProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     final isDarkMode = appTheme.brightness == Brightness.dark;
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      height: 128,
-      width: 396,
-      decoration: BoxDecoration(
-        color: isDarkMode ? const Color(0xFF0D0D0D) : Colors.white,
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x24000000),
-            offset: Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
-        borderRadius: const BorderRadius.all(
-          Radius.circular(8),
-        ),
-      ),
-      child: Stack(
-        children: [
-          ExtendedImage.network(
-            loadStateChanged: (state) {
-              switch (state.extendedImageLoadState) {
-                case LoadState.loading:
-                case LoadState.failed:
-                  return const LoadingCartImage();
-                case LoadState.completed:
-                  return state.completedWidget;
-              }
-            },
-            shape: BoxShape.rectangle,
-            height: 128,
-            width: 128,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(8),
-              bottomRight: Radius.circular(8),
+    return Column(
+      children: [
+        Container(
+          clipBehavior: Clip.hardEdge,
+          height: 128,
+          width: 396,
+          decoration: BoxDecoration(
+            color: isDarkMode
+                ? cartItems.sizeQty != 0
+                    ? const Color(0xFF0D0D0D)
+                    : const Color(0xFF4D4D4D)
+                : Colors.white,
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x24000000),
+                offset: Offset(0, 2),
+                blurRadius: 4,
+              ),
+            ],
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
             ),
-            fit: BoxFit.cover,
-            cartItems.productImage ?? '',
-            cacheMaxAge: const Duration(days: 30),
           ),
-          _ProductName(cartItems: cartItems),
-          _ProductColor(cartItems: cartItems),
-          _ProductSize(cartItems: cartItems),
-          _OptionsButton(
-            cartItems,
+          child: Stack(
+            children: [
+              ExtendedImage.network(
+                loadStateChanged: (state) {
+                  switch (state.extendedImageLoadState) {
+                    case LoadState.loading:
+                    case LoadState.failed:
+                      return const LoadingCartImage();
+                    case LoadState.completed:
+                      return ColorFiltered(
+                        colorFilter: cartItems.sizeQty == 0
+                            ? const ColorFilter.mode(
+                                Colors.white,
+                                BlendMode.color,
+                              )
+                            : const ColorFilter.mode(
+                                Colors.transparent,
+                                BlendMode.color,
+                              ),
+                        child: state.completedWidget,
+                      );
+                  }
+                },
+                shape: BoxShape.rectangle,
+                height: 128,
+                width: 128,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                ),
+                fit: BoxFit.cover,
+                cartItems.productImage ?? '',
+                cacheMaxAge: const Duration(days: 30),
+              ),
+              _ProductName(cartItems: cartItems),
+              _ProductColor(cartItems: cartItems),
+              _ProductSize(cartItems: cartItems),
+              _OptionsButton(
+                cartItems,
+              ),
+              if (cartItems.sizeQty != 0) ...[
+                _ProductPrice(cartItems: cartItems),
+                _ProductQTY(
+                  cartItems: cartItems,
+                  key: Key(cartItems.id.toString()),
+                ),
+              ],
+            ],
           ),
-          _ProductPrice(cartItems: cartItems),
-          _ProductQTY(
-            cartItems: cartItems,
-            key: Key(cartItems.id.toString()),
+        ),
+        if (cartItems.sizeQty == 0) ...[
+          const SizedBox(height: 8),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              'عذرًا، هذا المنتج غير متوفر حاليًا',
+              style: appTheme.textTheme.bodySmall?.copyWith(fontSize: 12),
+            ),
           ),
         ],
-      ),
+      ],
     );
   }
 }
@@ -114,7 +145,7 @@ class _CartProductCard extends StatelessWidget {
 //     final cartRepository = ref.watch(cartRepositoryProvider);
 //     final cartItem = await cartRepository.getCartItem(productItemId);
 //     debugPrint('CART STATE: $cartItem');
-//     state = cartItem?.qty ?? 1;
+//     state = cartItem?.sizeQty ?? 1;
 //     debugPrint('STATE: $state');
 //   }
 
@@ -124,16 +155,16 @@ class _CartProductCard extends StatelessWidget {
 //   //   final updatedCartItem = await cartRepository.updateCartItem(
 //   //     ShopCartItemDTO.fromDomain(cartItem!),
 //   //   );
-//   //   state = updatedCartItem?.qty ?? 1;
+//   //   state = updatedCartItem?.sizeQty ?? 1;
 //   // }
 
-//   set qty(int length) {
+//   set sizeQty(int length) {
 //     if (length > 1 && length < 5) {
 //       state = length;
 //     }
 //   }
 
-//   int get qty => state;
+//   int get sizeQty => state;
 // }
 
 // final productQTYNotifierProvider =
@@ -153,12 +184,12 @@ class _ProductQTY extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final productQty = ref.watch(productQTYNotifierProvider);
     final qty = useState(cartItems.qty);
-    // qty.addListener(
+    // sizeQty.addListener(
     //   () {
-    //     debugPrint('CARTINT ${cartItems.name}: $qty');
+    //     debugPrint('CARTINT ${cartItems.name}: $sizeQty');
     //   },
     // );
-    // debugPrint('previuosQty: ${qty.value}');
+    // debugPrint('previuosQty: ${sizeQty.value}');
     return Positioned(
       right: 144,
       bottom: 12,
@@ -167,11 +198,11 @@ class _ProductQTY extends HookConsumerWidget {
           _CounterButton(
             icon: Icons.add,
             onTap: () async {
-              // final qty = ++ref.read(productQTYNotifierProvider.notifier).qty;
+              // final sizeQty = ++ref.read(productQTYNotifierProvider.notifier).sizeQty;
 
               if (qty.value < 5) {
                 final qty1 = ++qty.value;
-                // debugPrint('CARTINT ${cartItems.name}: $qty1');
+                // debugPrint('CARTINT ${cartItems.name}: $sizeQty1');
                 await ref
                     .read(cartNotifierProvider.notifier)
                     .updateCart(cartItems.copyWith(qty: qty1));
@@ -193,7 +224,7 @@ class _ProductQTY extends HookConsumerWidget {
               // final qty = --ref.read(productQTYNotifierProvider.notifier).qty;
               if (qty.value > 1) {
                 final qty1 = --qty.value;
-                // debugPrint('CARTINT ${cartItems.name}: $qty1');
+                // debugPrint('CARTINT ${cartItems.name}: $sizeQty1');
                 await ref
                     .read(cartNotifierProvider.notifier)
                     .updateCart(cartItems.copyWith(qty: qty1));
@@ -415,7 +446,8 @@ class _OptionsButton extends ConsumerWidget {
                         productImage: cartItems.productImage,
                         color: cartItems.color,
                         sizeId: cartItems.sizeId,
-                        size: cartItems.size,
+                        sizeValue: cartItems.sizeValue,
+                        sizeQty: cartItems.sizeQty,
                         price: cartItems.price,
                         active: cartItems.active,
                         createdAt: cartItems.createdAt,
@@ -513,6 +545,7 @@ class _ProductSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Positioned(
       right: 240,
       top: 43,
@@ -524,8 +557,16 @@ class _ProductSize extends StatelessWidget {
                 ?.copyWith(color: const Color(0xff7D7979)),
           ),
           Text(
-            cartItems.size ?? '',
-            style: appTheme.textTheme.bodySmall,
+            cartItems.sizeValue ?? '',
+            style: appTheme.textTheme.bodySmall?.copyWith(
+              color: isDarkMode
+                  ? cartItems.sizeQty == 0
+                      ? Colors.white.withAlpha(50)
+                      : null
+                  : cartItems.sizeQty == 0
+                      ? Colors.black.withAlpha(50)
+                      : null,
+            ),
           ),
         ],
       ),
@@ -543,6 +584,7 @@ class _ProductColor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Positioned(
       right: 144,
       top: 43,
@@ -555,7 +597,15 @@ class _ProductColor extends StatelessWidget {
           ),
           Text(
             cartItems.color ?? '',
-            style: appTheme.textTheme.bodySmall,
+            style: appTheme.textTheme.bodySmall?.copyWith(
+              color: isDarkMode
+                  ? cartItems.sizeQty == 0
+                      ? Colors.white.withAlpha(50)
+                      : null
+                  : cartItems.sizeQty == 0
+                      ? Colors.black.withAlpha(50)
+                      : null,
+            ),
           ),
         ],
       ),
@@ -573,13 +623,22 @@ class _ProductName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
+    final isDarkMode = appTheme.brightness == Brightness.dark;
     return Positioned(
       right: 144,
       top: 12,
       child: Text(
-        cartItems.name!,
-        style:
-            appTheme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+        cartItems.name ?? '',
+        style: appTheme.textTheme.bodySmall?.copyWith(
+          fontWeight: FontWeight.w700,
+          color: isDarkMode
+              ? cartItems.sizeQty == 0
+                  ? Colors.white.withAlpha(50)
+                  : null
+              : cartItems.sizeQty == 0
+                  ? Colors.black.withAlpha(50)
+                  : null,
+        ),
       ),
     );
   }

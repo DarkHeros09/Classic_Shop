@@ -170,7 +170,6 @@ class _ProductDetailBottomButtonsBar extends StatefulHookConsumerWidget {
   const _ProductDetailBottomButtonsBar({
     required this.product,
     required this.activateCartAnimation,
-    super.key,
   });
 
   final Product product;
@@ -337,7 +336,8 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
                                             widget.product.productImage1,
                                         color: widget.product.color,
                                         sizeId: selectedSize?.id,
-                                        size: selectedSize?.sizeValue,
+                                        sizeValue: selectedSize?.sizeValue,
+                                        sizeQty: selectedSize?.qty ?? 0,
                                         price: widget.product.price,
                                         active: widget.product.active,
                                         createdAt: widget.product.createdAt,
@@ -768,7 +768,10 @@ class _ProductDetailAppBar extends HookConsumerWidget {
       ),
       centerTitle: true,
       actions: [
-        if (user != null && tokenIsValid != null && tokenIsValid) ...[
+        if (user != null &&
+            tokenIsValid != null &&
+            tokenIsValid &&
+            product.qtyInStock != 0) ...[
           Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.center,
@@ -872,7 +875,8 @@ class _ProductDetailAppBar extends HookConsumerWidget {
                           productImage: product.productImage1,
                           color: product.color,
                           sizeId: selectedSize?.id,
-                          size: selectedSize?.sizeValue,
+                          sizeValue: selectedSize?.sizeValue,
+                          sizeQty: selectedSize?.qty ?? 0,
                           price: product.price,
                           active: product.active,
                           createdAt: product.createdAt,

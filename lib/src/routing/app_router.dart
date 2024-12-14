@@ -9,6 +9,7 @@ import 'package:classic_shop/src/features/categories/presentation/categories.dar
 import 'package:classic_shop/src/features/checkout/core/presentation/checkkout_success.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkout_page.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
+import 'package:classic_shop/src/features/error/Presentation/error_page.dart';
 import 'package:classic_shop/src/features/notification/presentation/notifications_page.dart';
 import 'package:classic_shop/src/features/on_boarding/application/on_boarding_notifier.dart';
 import 'package:classic_shop/src/features/on_boarding/presentation/onboarding.dart';
@@ -18,9 +19,9 @@ import 'package:classic_shop/src/features/products/home_page/application/home_pa
 import 'package:classic_shop/src/features/products/home_page/presentation/home_page.dart';
 import 'package:classic_shop/src/features/products/home_page/presentation/selected_products.dart/presentation/selected_products_page.dart';
 import 'package:classic_shop/src/features/products/listed_products/presentation/selected_category.dart';
-import 'package:classic_shop/src/features/products/listed_products/profile.dart';
 import 'package:classic_shop/src/features/products/product_details/presentation/product_details_page.dart';
 import 'package:classic_shop/src/features/products/searched_products/presentation/search_page.dart';
+import 'package:classic_shop/src/features/profile/presentation/profile_page.dart';
 import 'package:classic_shop/src/features/promotions/domain/promotion_type.dart';
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel_details.dart';
 import 'package:classic_shop/src/features/settings/presentation/settings_page.dart';
@@ -93,6 +94,8 @@ GoRouter goRouter(Ref ref) {
         onBoarding.onBoardingShownStateChanges(),
       ],
     ),
+    errorPageBuilder: (context, state) =>
+        const NoTransitionPage(child: ErrorPage()),
     routes: [
       // GoRoute(
       //   path: '/test',
@@ -488,7 +491,7 @@ GoRouter goRouter(Ref ref) {
                 name: AppRoute.profile.name,
                 parentNavigatorKey: _shellNavigatorProfileKey,
                 pageBuilder: (context, state) {
-                  return const NoTransitionPage(child: Profile());
+                  return const NoTransitionPage(child: ProfilePage());
                 },
                 routes: [
                   GoRoute(

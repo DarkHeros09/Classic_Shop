@@ -1,3 +1,4 @@
+import 'package:classic_shop/src/features/error/Presentation/error_page.dart';
 import 'package:classic_shop/src/localization/locale_notifier.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
@@ -25,11 +26,16 @@ class AppWidget extends HookConsumerWidget {
     late final locale = ref.watch(selectedLocaleProvider);
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withOpacity(0),
+        statusBarColor: Colors.black.withAlpha(0),
         statusBarIconBrightness:
             themeMode != ThemeMode.dark ? Brightness.dark : Brightness.light,
       ),
     );
+    ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+      return const ErrorPage(
+        showHomeButton: false,
+      );
+    };
     return MaterialApp.router(
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,

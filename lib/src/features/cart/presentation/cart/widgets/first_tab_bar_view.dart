@@ -43,10 +43,14 @@ class _FirstTabBarViewState extends ConsumerState<FirstTabBarView> {
           state.map(
         initial: (_) => null,
         loadInProgress: (_) => null,
-        loadSuccess: (_) =>
-            _.cartItems.entity.isEmpty ? null : const [FirstTabBottom()],
-        loadFailure: (_) =>
-            _.cartItems.entity.isEmpty ? null : const [FirstTabBottom()],
+        loadSuccess: (_) => _.cartItems.entity.isEmpty ||
+                _.cartItems.entity.every((element) => element.sizeQty == 0)
+            ? null
+            : const [FirstTabBottom()],
+        loadFailure: (_) => _.cartItems.entity.isEmpty ||
+                _.cartItems.entity.every((element) => element.sizeQty == 0)
+            ? null
+            : const [FirstTabBottom()],
       ),
       body: CustomScrollView(
         controller: controller,

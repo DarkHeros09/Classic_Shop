@@ -49,7 +49,9 @@ class SizeNotifier extends _$SizeNotifier {
     );
     state = failureOrCategories.fold(
       (l) => SizeState.loadFailure(state.sizes, l),
-      SizeState.loadSuccess,
+      (r) => SizeState.loadSuccess(
+        Fresh.yes(r.entity.where((element) => element.qty != 0).toList()),
+      ),
     );
   }
 }

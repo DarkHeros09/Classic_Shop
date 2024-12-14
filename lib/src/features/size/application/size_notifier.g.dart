@@ -6,7 +6,7 @@ part of 'size_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sizeNotifierHash() => r'00fea84d151147a90116968733daa34623397eb2';
+String _$sizeNotifierHash() => r'08ab762527d6cbad100ef9e66c12623e0c3f96f2';
 
 /// See also [SizeNotifier].
 @ProviderFor(SizeNotifier)

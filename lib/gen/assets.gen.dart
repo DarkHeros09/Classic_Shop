@@ -15,6 +15,8 @@ class Assets {
   static const String classicLogo = 'assets/ClassicLogo.svg';
   static const String eCommerceCropped1 = 'assets/E-Commerce-cropped 1.svg';
   static const String eCommerceCropped = 'assets/E-Commerce-cropped.si';
+  static const String errorBrokenRobotSvg = 'assets/Error Broken Robot.svg';
+  static const String errorBrokenRobotSi = 'assets/errorBrokenRobot.si';
   static const String loginPana = 'assets/Login-pana.svg';
   static const String mobileLoginCuateCroppedSi =
       'assets/Mobile login-cuate-cropped.si';
@@ -89,6 +91,8 @@ class Assets {
         classicLogo,
         eCommerceCropped1,
         eCommerceCropped,
+        errorBrokenRobotSvg,
+        errorBrokenRobotSi,
         loginPana,
         mobileLoginCuateCroppedSi,
         mobileLoginCuateCroppedSvg,

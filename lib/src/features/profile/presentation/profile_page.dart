@@ -9,14 +9,14 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:jovial_svg/jovial_svg.dart';
 
-class Profile extends StatefulHookConsumerWidget {
-  const Profile({super.key});
+class ProfilePage extends StatefulHookConsumerWidget {
+  const ProfilePage({super.key});
 
   @override
-  ConsumerState<Profile> createState() => _ProfileState();
+  ConsumerState<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileState extends ConsumerState<Profile> {
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   void initState() {
     super.initState();
@@ -255,7 +255,7 @@ class _ProfileState extends ConsumerState<Profile> {
                       if (userName.isNotEmpty &&
                           tokenIsValid != null &&
                           tokenIsValid) ...[
-                        ProfileItems(
+                        ProfilePageItems(
                           title: 'عنوان التسليم',
                           icon: pinIcon,
                           onTap: () => context.goNamed(AppRoute.address.name),
@@ -268,7 +268,7 @@ class _ProfileState extends ConsumerState<Profile> {
                             color: Color(0xFFe5e5e5),
                           ),
                         ),
-                        ProfileItems(
+                        ProfilePageItems(
                           title: 'الطلبات',
                           icon: fileTextIcon,
                           onTap: () => context.goNamed(AppRoute.orders.name),
@@ -282,7 +282,7 @@ class _ProfileState extends ConsumerState<Profile> {
                           ),
                         ),
                       ],
-                      ProfileItems(
+                      ProfilePageItems(
                         title: 'الإعدادات',
                         icon: gearIcon,
                         onTap: () => context.goNamed(AppRoute.settings.name),
@@ -295,7 +295,7 @@ class _ProfileState extends ConsumerState<Profile> {
                           color: Color(0xFFe5e5e5),
                         ),
                       ),
-                      ProfileItems(
+                      ProfilePageItems(
                         title: 'رسالة الترحيب',
                         icon: activityIcon,
                         onTap: () =>
@@ -309,7 +309,7 @@ class _ProfileState extends ConsumerState<Profile> {
                           color: Color(0xFFe5e5e5),
                         ),
                       ),
-                      ProfileItems(
+                      ProfilePageItems(
                         title: 'سياسة التطبيق',
                         icon: folderOpenIcon,
                         onTap: () => context.pushNamed(AppRoute.policy.name),
@@ -325,7 +325,7 @@ class _ProfileState extends ConsumerState<Profile> {
                             color: Color(0xFFe5e5e5),
                           ),
                         ),
-                        ProfileItems(
+                        ProfilePageItems(
                           title: 'تسجيل الخروج',
                           icon: logoutIcon,
                           onTap: () async {
@@ -348,8 +348,8 @@ class _ProfileState extends ConsumerState<Profile> {
   }
 }
 
-class ProfileItems extends StatelessWidget {
-  const ProfileItems({
+class ProfilePageItems extends StatelessWidget {
+  const ProfilePageItems({
     required this.title,
     required this.icon,
     required this.onTap,

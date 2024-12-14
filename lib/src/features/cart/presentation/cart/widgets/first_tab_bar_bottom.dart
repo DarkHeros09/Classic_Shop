@@ -179,12 +179,15 @@ class TotalBottomBar extends ConsumerWidget {
     final sum = cartItems?.fold<num>(
           0,
           (previous, cartItem) {
-            final discountValue = discount(cartItem);
-            final discountedPrice = (num.parse(cartItem.price!) *
-                    cartItem.qty *
-                    (1 - (discountValue / 100)))
-                .toStringAsFixed(2);
-            return previous + num.parse(discountedPrice);
+            if (cartItem.sizeQty != 0) {
+              final discountValue = discount(cartItem);
+              final discountedPrice = (num.parse(cartItem.price!) *
+                      cartItem.qty *
+                      (1 - (discountValue / 100)))
+                  .toStringAsFixed(2);
+              return previous + num.parse(discountedPrice);
+            }
+            return 0;
           },
         ) ??
         0;
