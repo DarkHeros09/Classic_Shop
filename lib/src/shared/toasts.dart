@@ -12,16 +12,16 @@ Future<void> showNoConnectionToast(
     builder: (context, controller) {
       return FlashBar/*<Widget>.dialog*/(
         controller: controller,
-        backgroundColor: Colors.black.withOpacity(0.8),
+        backgroundColor: Colors.black.withAlpha(230),
         // borderRadius: BorderRadius.circular(8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
         margin: const EdgeInsets.all(8),
         content: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Text(
-            textAlign: TextAlign.justify,
+            // textAlign: TextAlign.justify,
             message,
             style: const TextStyle(
               color: Colors.white,
@@ -62,15 +62,15 @@ Future<void> showAuthErrorToast(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        margin: const EdgeInsets.all(4),
+        margin: const EdgeInsets.all(8),
         content: Padding(
-          padding: const EdgeInsets.all(4),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Text(
-            textAlign: TextAlign.justify,
+            // textAlign: TextAlign.justify,
             message,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 14,
             ),
           ),
         ),
@@ -81,28 +81,30 @@ Future<void> showAuthErrorToast(
 
 Future<void> showQuickToast(
   String message,
-  BuildContext context,
-) async {
+  BuildContext context, {
+  FlashPosition position = FlashPosition.bottom,
+}) async {
   await showFlash(
     context: context,
     duration: const Duration(seconds: 2),
     builder: (context, controller) {
       return FlashBar/*<Widget>.dialog*/(
+        position: position,
         controller: controller,
-        backgroundColor: Colors.black.withOpacity(0.7),
+        backgroundColor: Colors.black.withAlpha(230),
         // borderRadius: BorderRadius.circular(8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
         margin: const EdgeInsets.all(8),
         content: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Text(
-            textAlign: TextAlign.center,
+            // textAlign: TextAlign.center,
             message,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 14,
             ),
           ),
         ),
@@ -127,7 +129,7 @@ Future<void> showSuccessToast(
         ),
         margin: const EdgeInsets.all(8),
         content: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
           child: Text(
             message,
             style: const TextStyle(

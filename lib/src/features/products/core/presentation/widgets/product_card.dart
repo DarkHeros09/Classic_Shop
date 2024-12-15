@@ -236,9 +236,14 @@ class ProductCard extends HookConsumerWidget {
           style: appTheme.textTheme.bodySmall
               ?.copyWith(color: const Color(0xFF9B9B9B)),
         ),
-        Text(
-          product.name,
-          style: appTheme.textTheme.bodyLarge,
+        SizedBox(
+          width: 190,
+          child: Text(
+            product.name,
+            style: appTheme.textTheme.bodyLarge,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
         ),
         Row(
           children: [

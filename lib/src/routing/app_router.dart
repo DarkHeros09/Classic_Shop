@@ -9,7 +9,6 @@ import 'package:classic_shop/src/features/categories/presentation/categories.dar
 import 'package:classic_shop/src/features/checkout/core/presentation/checkkout_success.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkout_page.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
-import 'package:classic_shop/src/features/error/Presentation/error_page.dart';
 import 'package:classic_shop/src/features/notification/presentation/notifications_page.dart';
 import 'package:classic_shop/src/features/on_boarding/application/on_boarding_notifier.dart';
 import 'package:classic_shop/src/features/on_boarding/presentation/onboarding.dart';
@@ -82,6 +81,21 @@ GoRouter goRouter(Ref ref) {
   final auth = ref.watch(authNotifierProvider.notifier);
   final splash = ref.watch(splashNotifierProvider.notifier);
   final onBoarding = ref.watch(onBoardingNotifierProvider.notifier);
+
+  FutureOr<String?> redirectAuth(BuildContext context, GoRouterState state) {
+    final isLoggedIn = auth.currentUser != null;
+    final isEmailVerified = auth.currentUser?.isEmailVerified ?? false;
+    final isBlocked = auth.currentUser?.isBlocked ?? true;
+    debugPrint('APPROUTER IS2 LOGGEDIN: $isLoggedIn');
+    debugPrint('USER IS ${auth.currentUser}');
+
+    if (isLoggedIn && isEmailVerified && !isBlocked) {
+      return null;
+    } else {
+      return '/sign-in';
+    }
+  }
+
   return GoRouter(
     // initialLocation: '/home',
     initialLocation: '/splash',
@@ -94,8 +108,8 @@ GoRouter goRouter(Ref ref) {
         onBoarding.onBoardingShownStateChanges(),
       ],
     ),
-    errorPageBuilder: (context, state) =>
-        const NoTransitionPage(child: ErrorPage()),
+    // errorPageBuilder: (context, state) =>
+    //     const NoTransitionPage(child: ErrorPage()),
     routes: [
       // GoRoute(
       //   path: '/test',
@@ -113,7 +127,7 @@ GoRouter goRouter(Ref ref) {
             late final themeMode = ref.read(themeModeNotifierProvider);
             SystemChrome.setSystemUIOverlayStyle(
               SystemUiOverlayStyle(
-                statusBarColor: Colors.black.withOpacity(0),
+                statusBarColor: Colors.black.withAlpha(0),
                 statusBarIconBrightness: themeMode != ThemeMode.dark
                     ? Brightness.dark
                     : Brightness.light,
@@ -324,20 +338,7 @@ GoRouter goRouter(Ref ref) {
                 pageBuilder: (context, state) {
                   return const NoTransitionPage(child: CartPage());
                 },
-                redirect: (context, state) {
-                  final isLoggedIn = auth.currentUser != null;
-                  final isEmailVerified =
-                      auth.currentUser?.isEmailVerified ?? false;
-                  final isBlocked = auth.currentUser?.isBlocked ?? true;
-                  debugPrint('APPROUTER IS2 LOGGEDIN: $isLoggedIn');
-                  debugPrint('USER IS ${auth.currentUser}');
-
-                  if (isLoggedIn && isEmailVerified && !isBlocked) {
-                    return null;
-                  } else {
-                    return '/sign-in';
-                  }
-                },
+                redirect: redirectAuth,
                 routes: [
                   GoRoute(
                     path: 'checkout',
@@ -360,12 +361,7 @@ GoRouter goRouter(Ref ref) {
                         },
                       );
                     },
-                    // redirect: (context, state) {
-                    //   final isLoggedIn = auth.currentUser != null;
-                    //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
-
-                    //   return isLoggedIn ? null : '/sign-in';
-                    // },
+                    redirect: redirectAuth,
                     routes: [
                       GoRoute(
                         path: 'address',
@@ -390,6 +386,7 @@ GoRouter goRouter(Ref ref) {
                             },
                           );
                         },
+                        redirect: redirectAuth,
                       ),
                       GoRoute(
                         path: 'successs',
@@ -513,6 +510,7 @@ GoRouter goRouter(Ref ref) {
                         },
                       );
                     },
+                    redirect: redirectAuth,
                   ),
                   GoRoute(
                     path: 'orders',
@@ -521,6 +519,7 @@ GoRouter goRouter(Ref ref) {
                     pageBuilder: (context, state) {
                       return const NoTransitionPage(child: ShopOrder2Page());
                     },
+                    redirect: redirectAuth,
                     routes: [
                       GoRoute(
                         path: 'order_details/:id',

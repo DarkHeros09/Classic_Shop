@@ -12,8 +12,10 @@ import 'package:classic_shop/src/features/size/shared/provider.dart';
 import 'package:classic_shop/src/features/wish_list/application/wish_list_notifier.dart';
 import 'package:classic_shop/src/features/wish_list/domain/wish_list_item.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
+import 'package:classic_shop/src/shared/toasts.dart';
 import 'package:classic_shop/src/themes/assets.dart';
 import 'package:extended_image/extended_image.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -70,10 +72,17 @@ class ProductDetailsPage extends HookConsumerWidget {
                 height: 8,
               ),
             ),
-            _ProductDetailNameAndPrice(
+            _ProductDetailBrandAndPrice(
               product: product,
               discountValue: discountValue,
             ),
+            _ProductName(product: product),
+            const SliverToBoxAdapter(
+              child: SizedBox(
+                height: 16,
+              ),
+            ),
+            _ProductColor(product: product),
             const SliverToBoxAdapter(
               child: SizedBox(
                 height: 16,
@@ -92,7 +101,7 @@ class ProductDetailsPage extends HookConsumerWidget {
                       //   fontWeight: FontWeight.w400,
                       //   color: Colors.black,
                       // ),
-                      appTheme.textTheme.bodySmall,
+                      appTheme.textTheme.bodyLarge,
                 ),
               ),
             ),
@@ -160,6 +169,60 @@ class ProductDetailsPage extends HookConsumerWidget {
             //   ),
             // )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductColor extends StatelessWidget {
+  const _ProductColor({
+    required this.product,
+  });
+
+  final Product product;
+  @override
+  Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      sliver: SliverToBoxAdapter(
+        child: Row(
+          children: [
+            Text(
+              'اللون: ',
+              style: appTheme.textTheme.titleSmall
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            Text(
+              product.color,
+              style: appTheme.textTheme.titleSmall
+                  ?.copyWith(color: const Color(0xFF9B9B9B)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProductName extends StatelessWidget {
+  const _ProductName({
+    required this.product,
+  });
+
+  final Product product;
+
+  @override
+  Widget build(BuildContext context) {
+    final appTheme = Theme.of(context);
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      sliver: SliverToBoxAdapter(
+        child: Text(
+          product.name,
+          style: appTheme.textTheme.titleLarge
+              ?.copyWith(fontWeight: FontWeight.w700),
         ),
       ),
     );
@@ -304,6 +367,14 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
                                 .read(authNotifierProvider.notifier)
                                 .currentUser;
                             if (authUser != null) {
+                              if (selectedSize?.id == null) {
+                                await showQuickToast(
+                                  'يرجى اختيار الحجم قبل إضافة المنتج إلى حقيبة التسوق',
+                                  context,
+                                  position: FlashPosition.top,
+                                );
+                                return;
+                              }
                               final cuurentCartItems = ref
                                   .read(cartNotifierProvider)
                                   .cartItems
@@ -394,6 +465,14 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
                                   (value) =>
                                       widget.activateCartAnimation.value = true,
                                 );
+                              } else {
+                                if (context.mounted) {
+                                  await showQuickToast(
+                                    'تمت إضافة هذا المنتج في حقيبة التسوق بالفعل',
+                                    context,
+                                    position: FlashPosition.top,
+                                  );
+                                }
                               }
                             } else {
                               context.goNamed(AppRoute.signIn.name);
@@ -459,8 +538,8 @@ class _State extends ConsumerState<_ProductDetailBottomButtonsBar> {
   }
 }
 
-class _ProductDetailNameAndPrice extends HookConsumerWidget {
-  const _ProductDetailNameAndPrice({
+class _ProductDetailBrandAndPrice extends HookConsumerWidget {
+  const _ProductDetailBrandAndPrice({
     required this.product,
     required this.discountValue,
   });
@@ -490,57 +569,60 @@ class _ProductDetailNameAndPrice extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              product.name,
-              style: appTheme.textTheme.titleLarge!
-                  .copyWith(fontWeight: FontWeight.w700),
+              product.brandName,
+              style: appTheme.textTheme.titleSmall
+                  ?.copyWith(color: const Color(0xFF9B9B9B)),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Stack(
-                  children: [
-                    Text(
-                      '${product.price} د.ل',
-                      style: appTheme.textTheme.titleLarge?.copyWith(
-                        fontWeight:
-                            discountValue != 0 || product.qtyInStock == 0
-                                ? FontWeight.normal
-                                : FontWeight.w700,
-                        color: discountValue != 0 || product.qtyInStock == 0
-                            ? const Color(0xFF9B9B9B)
-                            : null,
-                      ),
-                    ),
-                    if (discountValue != 0 || product.qtyInStock == 0)
-                      const Positioned.fill(
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Divider(
-                            color: Color(0xFF9B9B9B),
-                            // height: 25,
-                            thickness: 1,
-                          ),
+            Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Stack(
+                    children: [
+                      Text(
+                        '${product.price} د.ل',
+                        style: appTheme.textTheme.titleMedium?.copyWith(
+                          fontWeight:
+                              discountValue != 0 || product.qtyInStock == 0
+                                  ? FontWeight.normal
+                                  : FontWeight.w700,
+                          color: discountValue != 0 || product.qtyInStock == 0
+                              ? const Color(0xFF9B9B9B)
+                              : null,
                         ),
                       ),
-                  ],
-                ),
-                if (discountValue != 0 && product.qtyInStock != 0) ...[
-                  const SizedBox(width: 8),
-                  Text(
-                    '$discountedPrice د.ل',
-                    style: appTheme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
-                      // color: const Color(0xFFB71C1C),
-                      color: const Color(0xFFDB3022),
-                    ),
+                      if (discountValue != 0 || product.qtyInStock == 0)
+                        const Positioned.fill(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Divider(
+                              color: Color(0xFF9B9B9B),
+                              // height: 25,
+                              thickness: 1,
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
+                  if (discountValue != 0 && product.qtyInStock != 0) ...[
+                    const SizedBox(width: 8),
+                    Text(
+                      '$discountedPrice د.ل',
+                      style: appTheme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        // color: const Color(0xFFB71C1C),
+                        color: const Color(0xFFDB3022),
+                      ),
+                    ),
+                  ],
+                  // const Icon(Icons.price_check),
+                  // Transform.flip(
+                  //   flipX: true,
+                  //   child: ScalableImageWidget(si: priceTagIcon),
+                  // ),
                 ],
-                // const Icon(Icons.price_check),
-                // Transform.flip(
-                //   flipX: true,
-                //   child: ScalableImageWidget(si: priceTagIcon),
-                // ),
-              ],
+              ),
             ),
           ],
         ),
@@ -853,66 +935,78 @@ class _ProductDetailAppBar extends HookConsumerWidget {
             ],
           ),
           IconButton(
-            onPressed: () async {
-              final authUser = ref.read(authStreamProvider).value;
-              if (authUser != null) {
-                await HapticFeedback.vibrate();
-                activateHeartAnimation.value = true;
-                heartIconPressed.value = !heartIconPressed.value;
-                if (wishListItem != null) {
-                  await ref
-                      .read(wishListNotifierProvider.notifier)
-                      .deleteWishListItem(wishListItem);
-                } else {
-                  await ref
-                      .read(wishListNotifierProvider.notifier)
-                      .createWishListItem(
-                        WishListItem(
-                          id: null,
-                          wishListId: authUser.wishListId,
-                          productItemId: product.id,
-                          name: product.name,
-                          productImage: product.productImage1,
-                          color: product.color,
-                          sizeId: selectedSize?.id,
-                          sizeValue: selectedSize?.sizeValue,
-                          sizeQty: selectedSize?.qty ?? 0,
-                          price: product.price,
-                          active: product.active,
-                          createdAt: product.createdAt,
-                          updatedAt: product.updatedAt,
-                          categoryPromoId: product.categoryPromoId,
-                          categoryPromoName: product.categoryPromoName,
-                          categoryPromoDescription:
-                              product.categoryPromoDescription,
-                          categoryPromoDiscountRate:
-                              product.categoryPromoDiscountRate,
-                          categoryPromoActive: product.categoryPromoActive,
-                          categoryPromoStartDate:
-                              product.categoryPromoStartDate,
-                          categoryPromoEndDate: product.categoryPromoEndDate,
-                          brandPromoId: product.brandPromoId,
-                          brandPromoName: product.brandPromoName,
-                          brandPromoDescription: product.brandPromoDescription,
-                          brandPromoDiscountRate:
-                              product.brandPromoDiscountRate,
-                          brandPromoActive: product.brandPromoActive,
-                          brandPromoStartDate: product.brandPromoStartDate,
-                          brandPromoEndDate: product.brandPromoEndDate,
-                          productPromoId: product.productPromoId,
-                          productPromoName: product.productPromoName,
-                          productPromoDescription:
-                              product.productPromoDescription,
-                          productPromoDiscountRate:
-                              product.productPromoDiscountRate,
-                          productPromoActive: product.productPromoActive,
-                          productPromoStartDate: product.productPromoStartDate,
-                          productPromoEndDate: product.productPromoEndDate,
-                        ),
-                      );
-                }
-              }
-            },
+            onPressed: selectedSize?.id == null && !heartIconPressed.value
+                ? () => showQuickToast(
+                      'يرجى اختيار الحجم قبل إضافة المنتج إلى حقيبة التسوق',
+                      context,
+                      position: FlashPosition.top,
+                    )
+                : () async {
+                    final authUser = ref.read(authStreamProvider).value;
+                    if (authUser != null) {
+                      await HapticFeedback.vibrate();
+                      activateHeartAnimation.value = true;
+                      heartIconPressed.value = !heartIconPressed.value;
+                      if (wishListItem != null) {
+                        await ref
+                            .read(wishListNotifierProvider.notifier)
+                            .deleteWishListItem(wishListItem);
+                      } else {
+                        await ref
+                            .read(wishListNotifierProvider.notifier)
+                            .createWishListItem(
+                              WishListItem(
+                                id: null,
+                                wishListId: authUser.wishListId,
+                                productItemId: product.id,
+                                name: product.name,
+                                productImage: product.productImage1,
+                                color: product.color,
+                                sizeId: selectedSize?.id,
+                                sizeValue: selectedSize?.sizeValue,
+                                sizeQty: selectedSize?.qty ?? 0,
+                                price: product.price,
+                                active: product.active,
+                                createdAt: product.createdAt,
+                                updatedAt: product.updatedAt,
+                                categoryPromoId: product.categoryPromoId,
+                                categoryPromoName: product.categoryPromoName,
+                                categoryPromoDescription:
+                                    product.categoryPromoDescription,
+                                categoryPromoDiscountRate:
+                                    product.categoryPromoDiscountRate,
+                                categoryPromoActive:
+                                    product.categoryPromoActive,
+                                categoryPromoStartDate:
+                                    product.categoryPromoStartDate,
+                                categoryPromoEndDate:
+                                    product.categoryPromoEndDate,
+                                brandPromoId: product.brandPromoId,
+                                brandPromoName: product.brandPromoName,
+                                brandPromoDescription:
+                                    product.brandPromoDescription,
+                                brandPromoDiscountRate:
+                                    product.brandPromoDiscountRate,
+                                brandPromoActive: product.brandPromoActive,
+                                brandPromoStartDate:
+                                    product.brandPromoStartDate,
+                                brandPromoEndDate: product.brandPromoEndDate,
+                                productPromoId: product.productPromoId,
+                                productPromoName: product.productPromoName,
+                                productPromoDescription:
+                                    product.productPromoDescription,
+                                productPromoDiscountRate:
+                                    product.productPromoDiscountRate,
+                                productPromoActive: product.productPromoActive,
+                                productPromoStartDate:
+                                    product.productPromoStartDate,
+                                productPromoEndDate:
+                                    product.productPromoEndDate,
+                              ),
+                            );
+                      }
+                    }
+                  },
             icon: ScalableImageWidget(si: heartIcon)
                 .animate(
                   autoPlay: false,

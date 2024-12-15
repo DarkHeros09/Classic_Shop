@@ -96,25 +96,6 @@ final deviceInfoProvider = FutureProvider<String?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef DeviceInfoRef = FutureProviderRef<String?>;
-String _$notificationRepositoryHash() =>
-    r'222db1240c26a264e3f823d2dc5b67819ae5c774';
-
-/// See also [notificationRepository].
-@ProviderFor(notificationRepository)
-final notificationRepositoryProvider =
-    Provider<NotificationRepository>.internal(
-  notificationRepository,
-  name: r'notificationRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$notificationRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef NotificationRepositoryRef = ProviderRef<NotificationRepository>;
 String _$firebaseMessagingHash() => r'1672e956b9febea725d18574f63c5ce88cefb132';
 
 /// See also [firebaseMessaging].
@@ -132,5 +113,44 @@ final firebaseMessagingProvider = Provider<FirebaseMessaging>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FirebaseMessagingRef = ProviderRef<FirebaseMessaging>;
+String _$notificationMessagingServiceHash() =>
+    r'75e09e9a1139fe508bbdc05c3d2d450fbc2952ed';
+
+/// See also [notificationMessagingService].
+@ProviderFor(notificationMessagingService)
+final notificationMessagingServiceProvider =
+    Provider<NotificationMessagingService>.internal(
+  notificationMessagingService,
+  name: r'notificationMessagingServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$notificationMessagingServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef NotificationMessagingServiceRef
+    = ProviderRef<NotificationMessagingService>;
+String _$notificationRepositoryHash() =>
+    r'c1fbaeec0a80a04ddaf443f568b2f8a63a30bd5a';
+
+/// See also [notificationRepository].
+@ProviderFor(notificationRepository)
+final notificationRepositoryProvider =
+    Provider<NotificationRepository>.internal(
+  notificationRepository,
+  name: r'notificationRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$notificationRepositoryHash,
+  dependencies: const <ProviderOrFamily>[],
+  allTransitiveDependencies: const <ProviderOrFamily>{},
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef NotificationRepositoryRef = ProviderRef<NotificationRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

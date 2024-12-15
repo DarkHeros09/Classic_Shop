@@ -3,10 +3,8 @@ import 'package:classic_shop/src/features/notification/data/notification_reposit
 import 'package:classic_shop/src/features/notification/domain/notification.dart';
 import 'package:classic_shop/src/features/notification/domain/notification_failure.dart';
 import 'package:classic_shop/src/features/notification/shared/providers.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notification_notifier.freezed.dart';
@@ -33,11 +31,11 @@ class NotificationState with _$NotificationState {
 @Riverpod(keepAlive: true)
 class NotificationNotifier extends _$NotificationNotifier {
   late final NotificationRepository _repository;
-  late final FirebaseMessaging _firebaseMessaging;
+  // late final FirebaseMessaging _firebaseMessaging;
   @override
   NotificationState build() {
     _repository = ref.watch(notificationRepositoryProvider);
-    _firebaseMessaging = ref.watch(firebaseMessagingProvider);
+    // _firebaseMessaging = ref.watch(firebaseMessagingProvider);
     return state = NotificationState.initial(
       Fresh.no(
         const Notification(
@@ -66,23 +64,15 @@ class NotificationNotifier extends _$NotificationNotifier {
 
   Future<void> createNotification() async {
     state = NotificationState.loadInProgress(state.notification);
-    final fcmToken = await _firebaseMessaging
-        .getToken()
-        .onError((error, stackTrace) => null);
 
-    debugPrint('fcmToken: $fcmToken');
-
-    /*final c = */ await _repository.createNotification(fcmToken: fcmToken);
+    /*final c = */ await _repository.createNotification();
     // state = NotificationState.loadSuccess(state.notification);
   }
 
-  Future<void> updateNotification(Notification notification) async {
+  Future<void> updateNotification() async {
     state = NotificationState.loadInProgress(state.notification);
-    final fcmToken = await _firebaseMessaging
-        .getToken()
-        .onError((error, stackTrace) => null);
-    final updatedOrFailure =
-        await _repository.updateNotification(fcmToken: fcmToken);
+
+    final updatedOrFailure = await _repository.updateNotification();
 
     updatedOrFailure.fold(
       (l) => null,

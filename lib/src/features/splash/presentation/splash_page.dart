@@ -30,7 +30,7 @@ class _State extends ConsumerState<SplashPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withOpacity(0),
+        statusBarColor: Colors.black.withAlpha(0),
         statusBarIconBrightness: Brightness.light,
       ),
     );

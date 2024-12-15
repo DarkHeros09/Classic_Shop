@@ -4,6 +4,7 @@ import 'package:classic_shop/src/features/core/data/response_headers_cache.dart'
 import 'package:classic_shop/src/features/core/data/user_storage/user_storage.dart';
 import 'package:classic_shop/src/features/core/domain/fresh.dart';
 import 'package:classic_shop/src/features/notification/data/notification_dto.dart';
+import 'package:classic_shop/src/features/notification/data/notification_messaging_service.dart';
 import 'package:classic_shop/src/features/notification/data/notification_remote_service.dart';
 import 'package:classic_shop/src/features/notification/data/notification_storage.dart';
 import 'package:classic_shop/src/features/notification/domain/notification.dart';
@@ -15,6 +16,7 @@ class NotificationRepository {
   const NotificationRepository(
     // this._localService,
     this._remoteService,
+    this._messagingService,
     this._userStorage,
     this._headersCache,
     this._deviceId,
@@ -24,6 +26,7 @@ class NotificationRepository {
   final SecureNotificationStorage _secureNotificationStorage;
   // final NotificationLocalService _localService;
   final NotificationRemoteService _remoteService;
+  final NotificationMessagingService _messagingService;
   final ResponseHeadersCache _headersCache;
   final UserStorage _userStorage;
   final String? _deviceId;
@@ -135,13 +138,12 @@ class NotificationRepository {
     }
   }
 
-  Future<Either<NotificationFailure, Unit>> createNotification({
-    required String? fcmToken,
-  }) async {
+  Future<Either<NotificationFailure, Unit>> createNotification() async {
     final user = await _userStorage.read();
 
     if (user != null) {
       try {
+        final fcmToken = await _messagingService.getToken();
         final notification = await _remoteService.createNotification(
           userId: user.id,
           deviceId: _deviceId,
@@ -180,13 +182,13 @@ class NotificationRepository {
   //   return shopNotification?.toDomain();
   // }
 
-  Future<Either<NotificationFailure, Notification?>> updateNotification({
-    required String? fcmToken,
-  }) async {
+  Future<Either<NotificationFailure, Notification?>>
+      updateNotification() async {
     final user = await _userStorage.read();
 
     if (user != null) {
       try {
+        final fcmToken = await _messagingService.getToken();
         final notification = await _remoteService.updateNotification(
           userId: user.id,
           deviceId: _deviceId,

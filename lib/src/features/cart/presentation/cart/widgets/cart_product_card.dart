@@ -627,17 +627,22 @@ class _ProductName extends StatelessWidget {
     return Positioned(
       right: 144,
       top: 12,
-      child: Text(
-        cartItems.name ?? '',
-        style: appTheme.textTheme.bodySmall?.copyWith(
-          fontWeight: FontWeight.w700,
-          color: isDarkMode
-              ? cartItems.sizeQty == 0
-                  ? Colors.white.withAlpha(50)
-                  : null
-              : cartItems.sizeQty == 0
-                  ? Colors.black.withAlpha(50)
-                  : null,
+      child: SizedBox(
+        width: 180,
+        child: Text(
+          cartItems.name ?? '',
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: appTheme.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w700,
+            color: isDarkMode
+                ? cartItems.sizeQty == 0
+                    ? Colors.white.withAlpha(50)
+                    : null
+                : cartItems.sizeQty == 0
+                    ? Colors.black.withAlpha(50)
+                    : null,
+          ),
         ),
       ),
     );

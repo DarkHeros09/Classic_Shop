@@ -505,17 +505,22 @@ class _ProductName extends StatelessWidget {
     return Positioned(
       right: 144,
       top: 12,
-      child: Text(
-        wishListItems.name ?? '',
-        style: appTheme.textTheme.bodySmall?.copyWith(
-          fontWeight: FontWeight.w700,
-          color: isDarkMode
-              ? wishListItems.sizeQty == 0
-                  ? Colors.white.withAlpha(50)
-                  : null
-              : wishListItems.sizeQty == 0
-                  ? Colors.black.withAlpha(50)
-                  : null,
+      child: SizedBox(
+        width: 180,
+        child: Text(
+          wishListItems.name ?? '',
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: appTheme.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w700,
+            color: isDarkMode
+                ? wishListItems.sizeQty == 0
+                    ? Colors.white.withAlpha(50)
+                    : null
+                : wishListItems.sizeQty == 0
+                    ? Colors.black.withAlpha(50)
+                    : null,
+          ),
         ),
       ),
     );

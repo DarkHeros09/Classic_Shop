@@ -14,7 +14,7 @@ part 'app_widget_startup.g.dart';
 
 /// list of providers to be warmed up
 @Riverpod(keepAlive: true)
-Future<void> appStartup(Ref ref) async {
+Future<void> appStartup(Ref ref, BuildContext context) async {
   // await for all initialization code to be complete before returning
   await Future.wait([
     // App assets
@@ -31,10 +31,11 @@ Future<void> appStartup(Ref ref) async {
     // sharedPrefrences int
     ref.watch(sharedPreferencesProvider.future),
   ]);
+  ref.watch(notificationMessagingServiceProvider).init();
+
   // ref.watch(sharedPreferencesProvider).requireValue;
-  final fcm = ref.watch(firebaseMessagingProvider);
-  final s = await fcm.getToken();
-  debugPrint('ididid $s');
+  // final s = await ref.watch(notificationMessagingServiceProvider).getToken();
+  // debugPrint('ididid $s');
   // await fcm.requestPermission(provisional: true);
 }
 
@@ -47,10 +48,13 @@ class AppWidgetStartup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appStartupState = ref.watch(appStartupProvider);
+    final appStartupState = ref.watch(appStartupProvider(context));
+
     ref
       ..watch(authStreamProvider)
       ..watch(tokenValidStreamProvider);
+    // ..watch(notificationMessagingServiceProvider);
+
     return appStartupState.when(
       data: (_) => onLoaded(context),
       loading: SplashPage.new,
