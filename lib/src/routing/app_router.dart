@@ -9,6 +9,7 @@ import 'package:classic_shop/src/features/categories/presentation/categories.dar
 import 'package:classic_shop/src/features/checkout/core/presentation/checkkout_success.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkout_page.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
+import 'package:classic_shop/src/features/error/Presentation/error_page.dart';
 import 'package:classic_shop/src/features/notification/presentation/notifications_page.dart';
 import 'package:classic_shop/src/features/on_boarding/application/on_boarding_notifier.dart';
 import 'package:classic_shop/src/features/on_boarding/presentation/onboarding.dart';
@@ -25,7 +26,7 @@ import 'package:classic_shop/src/features/promotions/domain/promotion_type.dart'
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel_details.dart';
 import 'package:classic_shop/src/features/settings/presentation/settings_page.dart';
 import 'package:classic_shop/src/features/shop_order/core/domain/shop_order.dart';
-import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_2.dart';
+import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_page.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/shop_order_items_details.dart';
 import 'package:classic_shop/src/features/splash/application/splash_notifier.dart';
 import 'package:classic_shop/src/features/splash/presentation/splash_page.dart';
@@ -108,8 +109,8 @@ GoRouter goRouter(Ref ref) {
         onBoarding.onBoardingShownStateChanges(),
       ],
     ),
-    // errorPageBuilder: (context, state) =>
-    //     const NoTransitionPage(child: ErrorPage()),
+    errorPageBuilder: (context, state) =>
+        const NoTransitionPage(child: ErrorPage()),
     routes: [
       // GoRoute(
       //   path: '/test',
@@ -517,7 +518,7 @@ GoRouter goRouter(Ref ref) {
                     name: AppRoute.orders.name,
                     parentNavigatorKey: _shellNavigatorProfileKey,
                     pageBuilder: (context, state) {
-                      return const NoTransitionPage(child: ShopOrder2Page());
+                      return const NoTransitionPage(child: ShopOrderPage());
                     },
                     redirect: redirectAuth,
                     routes: [

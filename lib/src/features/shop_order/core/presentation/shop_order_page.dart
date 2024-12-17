@@ -11,14 +11,14 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class ShopOrder2Page extends StatefulHookConsumerWidget {
-  const ShopOrder2Page({super.key});
+class ShopOrderPage extends StatefulHookConsumerWidget {
+  const ShopOrderPage({super.key});
 
   @override
-  ConsumerState<ShopOrder2Page> createState() => _ShopOrder2PageState();
+  ConsumerState<ShopOrderPage> createState() => _ShopOrderPageState();
 }
 
-class _ShopOrder2PageState extends ConsumerState<ShopOrder2Page> {
+class _ShopOrderPageState extends ConsumerState<ShopOrderPage> {
   @override
   void initState() {
     super.initState();

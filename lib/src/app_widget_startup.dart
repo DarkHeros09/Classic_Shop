@@ -1,6 +1,7 @@
 import 'package:classic_shop/firebase_options.dart';
 import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
+import 'package:classic_shop/src/features/error/Presentation/error_page.dart';
 import 'package:classic_shop/src/features/notification/shared/providers.dart';
 import 'package:classic_shop/src/features/splash/presentation/splash_page.dart';
 import 'package:classic_shop/src/shared/providers.dart';
@@ -14,7 +15,7 @@ part 'app_widget_startup.g.dart';
 
 /// list of providers to be warmed up
 @Riverpod(keepAlive: true)
-Future<void> appStartup(Ref ref, BuildContext context) async {
+Future<void> appStartup(Ref ref) async {
   // await for all initialization code to be complete before returning
   await Future.wait([
     // App assets
@@ -48,7 +49,7 @@ class AppWidgetStartup extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appStartupState = ref.watch(appStartupProvider(context));
+    final appStartupState = ref.watch(appStartupProvider);
 
     ref
       ..watch(authStreamProvider)
@@ -58,29 +59,15 @@ class AppWidgetStartup extends ConsumerWidget {
     return appStartupState.when(
       data: (_) => onLoaded(context),
       loading: SplashPage.new,
-      error: (e, st) => AppStartupErrorWidget(
-        message: e.toString(),
-        onRetry: () {
-          ref
-            ..invalidate(sharedPreferencesProvider)
-            ..invalidate(appStartupProvider);
-        },
-      ),
-    );
-  }
-}
-
-class AppStartupLoadingWidget extends StatelessWidget {
-  const AppStartupLoadingWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      error: (e, st) => const ErrorPage(),
+      // error: (e, st) => AppStartupErrorWidget(
+      //   message: e.toString(),
+      //   onRetry: () {
+      //     ref
+      //       ..invalidate(sharedPreferencesProvider)
+      //       ..invalidate(appStartupProvider);
+      //   },
+      // ),
     );
   }
 }
