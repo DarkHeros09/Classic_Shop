@@ -20,7 +20,7 @@ final class _$TextBannerApi extends TextBannerApi {
   @override
   Future<Response<List<Map<String, dynamic>>>> getTextBanners(
       {required String ifNoneMatch}) {
-    final Uri $url = Uri.parse('http://192.168.1.101:8080/api/v1/text-banners');
+    final Uri $url = Uri.parse('http://192.168.0.155:8080/api/v1/text-banners');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };

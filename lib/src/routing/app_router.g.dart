@@ -6,7 +6,24 @@ part of 'app_router.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goRouterHash() => r'ac5c48e83c36e8f1afd5fda28071d245c875d47d';
+String _$rootNavigatorKeyHash() => r'1834816a327b702dc5a45f50205567f1fb8e5f67';
+
+/// See also [rootNavigatorKey].
+@ProviderFor(rootNavigatorKey)
+final rootNavigatorKeyProvider = Provider<GlobalKey<NavigatorState>>.internal(
+  rootNavigatorKey,
+  name: r'rootNavigatorKeyProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$rootNavigatorKeyHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef RootNavigatorKeyRef = ProviderRef<GlobalKey<NavigatorState>>;
+String _$goRouterHash() => r'8f3a3feb12f0e1b3298aa9d93faae2d7e68d00e4';
 
 /// See also [goRouter].
 @ProviderFor(goRouter)

@@ -28,19 +28,22 @@ class _State extends ConsumerState<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withAlpha(0),
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    // (_) {
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   SystemUiOverlayStyle(
+    //     statusBarColor: Colors.black.withAlpha(0),
+    //     statusBarIconBrightness: Brightness.light,
+    //   ),
+    // );
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [
         SystemUiOverlay.top,
       ],
     );
-
+    // },
+    // );
     final controller = useAnimationController();
     controller.addListener(
       () {
@@ -56,21 +59,27 @@ class _State extends ConsumerState<SplashPage> {
       debugShowCheckedModeBanner: false,
       darkTheme: darkTheme,
       // locale: locale,
-      home: Scaffold(
-        body: Center(
-          child: Image.asset(
-            // bundle: rootBundle,
-            Assets.android12splash.path,
-            // scale: .89,
-            filterQuality: FilterQuality.high,
-          )
-              .animate(
-                controller: controller,
-              )
-              .fadeOut(
-                delay: const Duration(milliseconds: 250),
-                duration: const Duration(milliseconds: 300),
-              ),
+      home: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+        ),
+        child: Scaffold(
+          body: Center(
+            child: Image.asset(
+              // bundle: rootBundle,
+              Assets.android12splash.path,
+              // scale: .89,
+              filterQuality: FilterQuality.high,
+            )
+                .animate(
+                  controller: controller,
+                )
+                .fadeOut(
+                  delay: const Duration(milliseconds: 250),
+                  duration: const Duration(milliseconds: 300),
+                ),
+          ),
         ),
       ),
     );

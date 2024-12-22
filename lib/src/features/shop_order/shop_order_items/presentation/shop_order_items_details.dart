@@ -50,6 +50,7 @@ class _ShopOrderItemsDetailsState extends ConsumerState<ShopOrderItemsDetails> {
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
+                surfaceTintColor: Colors.transparent,
                 pinned: true,
                 // automaticallyImplyLeading: false,
                 title: Text(

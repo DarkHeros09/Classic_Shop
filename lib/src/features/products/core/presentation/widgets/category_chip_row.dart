@@ -72,57 +72,69 @@ class _CategoryChipRowState extends ConsumerState<CategoryChipRow> {
       scrollDirection: Axis.horizontal,
       itemCount: categories.length,
       itemBuilder: (context, index) {
-        // final categoryId = ref.watch(selectedCategoryIdProvider);
+        final categoryId = ref.watch(selectedCategoryIdProvider);
         return CategoryChip(
           categoryText: categories[index].categoryName,
           categoryValue: index,
           onPressed: () {
-            final brandId = ref.read(selectedBrandIdProvider);
-            ref
-                .read(selectedCategoryIdProvider.notifier)
-                .setId(categories[index].id);
-            ref.read(categoryChipNotifierProvider.notifier).groupValue(index);
-            ref.read(listProductsNotifierProvider).products.entity.clear();
-            final selectedSortOption = ref.watch(
-              sortOptionsNotifierProvider.select(
-                (value) => value.groupValue,
-              ),
-            );
-            switch (selectedSortOption) {
-              case 'recommended':
-                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                      productsFunction: ProductsFunction.getProducts,
-                      categoryId: categories[index].id,
-                      brandId: brandId,
-                    );
-              case 'new':
-                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                      productsFunction: ProductsFunction.getProducts,
-                      categoryId: categories[index].id,
-                      brandId: brandId,
-                      orderByNew: true,
-                    );
-              case 'old':
-                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                      productsFunction: ProductsFunction.getProducts,
-                      categoryId: categories[index].id,
-                      brandId: brandId,
-                      orderByOld: true,
-                    );
-              case 'priceDesc':
-                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                      productsFunction: ProductsFunction.getProducts,
-                      categoryId: categories[index].id,
-                      brandId: brandId,
-                      orderByHighPrice: true,
-                    );
-              case 'priceAsc':
-                ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                      productsFunction: ProductsFunction.getProducts,
-                      categoryId: categories[index].id,
-                      brandId: brandId,
-                      orderByLowPrice: true,
-                    );
+            if (categoryId != categories[index].id) {
+              final brandId = ref.read(selectedBrandIdProvider);
+              ref
+                  .read(selectedCategoryIdProvider.notifier)
+                  .setId(categories[index].id);
+              ref.read(categoryChipNotifierProvider.notifier).groupValue(index);
+              ref.read(listProductsNotifierProvider).products.entity.clear();
+              final selectedSortOption = ref.watch(
+                sortOptionsNotifierProvider.select(
+                  (value) => value.groupValue,
+                ),
+              );
+              switch (selectedSortOption) {
+                case 'recommended':
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction.getProducts,
+                        categoryId: categories[index].id,
+                        brandId: brandId,
+                      );
+                case 'new':
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction.getProducts,
+                        categoryId: categories[index].id,
+                        brandId: brandId,
+                        orderByNew: true,
+                      );
+                case 'old':
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction.getProducts,
+                        categoryId: categories[index].id,
+                        brandId: brandId,
+                        orderByOld: true,
+                      );
+                case 'priceDesc':
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction.getProducts,
+                        categoryId: categories[index].id,
+                        brandId: brandId,
+                        orderByHighPrice: true,
+                      );
+                case 'priceAsc':
+                  ref
+                      .read(listProductsNotifierProvider.notifier)
+                      .getProductsPage(
+                        productsFunction: ProductsFunction.getProducts,
+                        categoryId: categories[index].id,
+                        brandId: brandId,
+                        orderByLowPrice: true,
+                      );
+              }
             }
           },
         );

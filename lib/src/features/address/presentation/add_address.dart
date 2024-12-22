@@ -23,6 +23,7 @@ class AddAddress extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               automaticallyImplyLeading: false,
               pinned: true,
               title: Text(

@@ -1,0 +1,35 @@
+ide: "vscode"
+app:
+  android:
+    flavorDimensions: "flavor-type"
+  
+flavors:
+  dev:
+    app:
+      name: "Classic Shop Dev"
+    android:
+      applicationId: "com.classic_shop.dev"
+      icon: "assets/android-app-icon.png"
+      adaptiveIcon:
+        background: "assets/android-app-icon-background.png"
+        foreground: "assets/dev/android-dev-app-icon-foreground.png"
+      firebase:
+        config: "android/app/src/dev/google-services.json"
+    ios:
+      bundleId: "com.classicShop.dev"
+      icon: "assets/dev/ios-dev-app-icon.png"
+  
+  prod:
+    app:
+      name: "Classic Shop"
+    android:
+      applicationId: "com.classic_shop"
+      icon: "assets/android-app-icon.png"
+      adaptiveIcon:
+        background: "assets/android-app-icon-background.png"
+        foreground: "assets/android-app-icon-foreground.png"
+      firebase:
+        config: "android/app/google-services.json"
+    ios:
+      bundleId: "com.classicShop"
+      icon: "assets/ios-app-icon.png"

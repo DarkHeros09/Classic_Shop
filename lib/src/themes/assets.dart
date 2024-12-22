@@ -45,12 +45,16 @@ enum SvgAssets {
   logout,
   priceTag,
   signUp,
+  signIn,
   addToCart,
   addToWishList,
   searching,
   noData,
   slidersHoriz,
   error,
+  enterOtp,
+  changePassword,
+  forgotPassword,
 }
 
 @Riverpod(keepAlive: true)
@@ -186,8 +190,11 @@ FutureOr<List<(String, ScalableImage)>> initAssets(
     ),
     ScalableImage.fromSIAsset(
       rootBundle,
-      Assets.mobileLoginCuateCroppedSi,
-      currentColor: isDarkMode ? Colors.white : Colors.black,
+      Assets.tabletLoginPanaSi,
+    ),
+    ScalableImage.fromSIAsset(
+      rootBundle,
+      Assets.signInBroSi,
     ),
     ScalableImage.fromSIAsset(
       rootBundle,
@@ -213,6 +220,18 @@ FutureOr<List<(String, ScalableImage)>> initAssets(
     ScalableImage.fromSIAsset(
       rootBundle,
       Assets.errorBrokenRobotSi,
+    ),
+    ScalableImage.fromSIAsset(
+      rootBundle,
+      Assets.enterOTPBroSi,
+    ),
+    ScalableImage.fromSIAsset(
+      rootBundle,
+      Assets.myPasswordPanaSi,
+    ),
+    ScalableImage.fromSIAsset(
+      rootBundle,
+      Assets.forgotPasswordPanaSi,
     ),
   ];
 
@@ -244,12 +263,16 @@ FutureOr<List<(String, ScalableImage)>> initAssets(
     SvgAssets.logout.name,
     SvgAssets.priceTag.name,
     SvgAssets.signUp.name,
+    SvgAssets.signIn.name,
     SvgAssets.addToCart.name,
     SvgAssets.addToWishList.name,
     SvgAssets.searching.name,
     SvgAssets.noData.name,
     SvgAssets.slidersHoriz.name,
     SvgAssets.error.name,
+    SvgAssets.enterOtp.name,
+    SvgAssets.changePassword.name,
+    SvgAssets.forgotPassword.name,
   ];
 
   final initializedSiAssets = await Future.wait(siAssets);

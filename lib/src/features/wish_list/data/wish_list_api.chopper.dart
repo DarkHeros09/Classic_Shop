@@ -23,7 +23,7 @@ final class _$WishListApi extends WishListApi {
     required String userId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/wish-lists/items');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/wish-lists/items');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };
@@ -44,7 +44,7 @@ final class _$WishListApi extends WishListApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/wish-lists/${wishListId}/items');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/wish-lists/${wishListId}/items');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -63,7 +63,7 @@ final class _$WishListApi extends WishListApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/wish-lists/${wishListId}/items/${wishListItemId}');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/wish-lists/${wishListId}/items/${wishListItemId}');
     final $body = data;
     final Request $request = Request(
       'PUT',
@@ -81,7 +81,7 @@ final class _$WishListApi extends WishListApi {
     required String wishListItemId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/wish-lists/${wishListId}/items/${wishListItemId}');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/wish-lists/${wishListId}/items/${wishListItemId}');
     final Request $request = Request(
       'DELETE',
       $url,
@@ -96,7 +96,7 @@ final class _$WishListApi extends WishListApi {
     required String wishListId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/wish-lists/${wishListId}');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/wish-lists/${wishListId}');
     final Request $request = Request(
       'DELETE',
       $url,

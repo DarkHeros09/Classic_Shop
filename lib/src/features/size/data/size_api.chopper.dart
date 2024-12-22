@@ -21,7 +21,7 @@ final class _$SizeApi extends SizeApi {
   Future<Response<List<Map<String, dynamic>>>> listSizesByProductItemId(
       {required String productItemId}) {
     final Uri $url =
-        Uri.parse('http://192.168.1.101:8080/api/v1/sizes/${productItemId}');
+        Uri.parse('http://192.168.0.155:8080/api/v1/sizes/${productItemId}');
     final Request $request = Request(
       'GET',
       $url,

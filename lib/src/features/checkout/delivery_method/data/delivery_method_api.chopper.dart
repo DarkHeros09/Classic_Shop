@@ -21,7 +21,7 @@ final class _$DeliveryMethodApi extends DeliveryMethodApi {
   Future<Response<List<Map<String, dynamic>>>> listDeliveryMethods(
       {required String userId}) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/shipping-method');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/shipping-method');
     final Request $request = Request(
       'GET',
       $url,

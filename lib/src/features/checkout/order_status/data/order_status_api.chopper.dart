@@ -23,7 +23,7 @@ final class _$OrderStatusApi extends OrderStatusApi {
     required String statusId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/order-status/${statusId}');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/order-status/${statusId}');
     final Request $request = Request(
       'GET',
       $url,

@@ -1,144 +1,156 @@
 import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
+import 'package:classic_shop/src/routing/app_router.dart';
+import 'package:classic_shop/src/shared/toasts.dart';
+import 'package:classic_shop/src/themes/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:jovial_svg/jovial_svg.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPPage extends HookConsumerWidget {
-  const OTPPage({super.key});
+  const OTPPage({
+    this.signIn = true,
+    this.setting = true,
+    super.key,
+  });
+
+  final bool signIn;
+  final bool setting;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final formKey = ref.watch(formKeyProvider);
-    final controller = useTextEditingController();
     final appTheme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        automaticallyImplyLeading: !signIn,
+        leading: signIn
+            ? BackButton(
+                onPressed: () {
+                  context.pop();
+                  ref.read(authNotifierProvider.notifier).signOut();
+                },
+              )
+            : null,
+        actions: [
+          TextButton(
+            onPressed: () async {
+              await showWarningDialog(context, appTheme, setting: setting);
+            },
+            child: const Text('إلغاء'),
+          ),
+        ],
+      ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                automaticallyImplyLeading: false,
-                leading: BackButton(
-                  onPressed: () {
-                    context.pop();
-                    ref.read(authNotifierProvider.notifier).signOut();
-                  },
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 56),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'رقم التحقق',
-                    style: appTheme.textTheme.headlineSmall,
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 16),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                sliver: SliverToBoxAdapter(
-                  child: Text(
-                    'لقد أرسلنا رمز التحقق إلى عنوان بريدك الإلكتروني',
-                    style: appTheme.textTheme.bodyLarge
-                        ?.copyWith(color: const Color(0xFF666666)),
-                  ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 48),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                sliver: SliverToBoxAdapter(
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Pinput(
-                      length: 6,
-                      controller: controller,
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(6),
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      defaultPinTheme: PinTheme(
-                        height: 64,
-                        width: 64,
-                        textStyle: appTheme.textTheme.headlineSmall,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(
-                            color: const Color(0xffD9D9D9),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  //  FormBuilder(
-                  //   key: formKey,
-                  //   child: const Row(
-                  //     textDirection: TextDirection.ltr,
-                  //     children: [
-                  //       OTPTextField(name: '1'),
-                  //       SizedBox(width: 12),
-                  //       OTPTextField(name: '2'),
-                  //       SizedBox(width: 12),
-                  //       OTPTextField(name: '3'),
-                  //       SizedBox(width: 12),
-                  //       OTPTextField(name: '4'),
-                  //       SizedBox(width: 12),
-                  //       OTPTextField(name: '5'),
-                  //       SizedBox(width: 12),
-                  //       OTPTextField(name: '6'),
-                  //     ],
-                  //   ),
-                  // ),
-                ),
-              ),
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 56),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      ref.read(authNotifierProvider.notifier).verifyOTP(
-                            otp: controller.text,
-                          );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff9D331F),
-                      disabledBackgroundColor: Colors.grey,
-                      fixedSize: const Size(double.maxFinite, 56),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                    ),
-                    child: Text(
-                      'تحقق من الرمز',
-                      style: appTheme.textTheme.bodySmall?.copyWith(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+        child: OTPBody(signIn: signIn),
+      ),
+    );
+  }
+}
+
+class OTPBody extends HookConsumerWidget {
+  const OTPBody({
+    super.key,
+    this.signIn = true,
+  });
+
+  final bool signIn;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appTheme = Theme.of(context);
+    final controller = useTextEditingController();
+    final otpImage = ref.watch(
+      siAssetsProvider.select(
+        (value) => value
+            .singleWhere(
+              (element) => element.$1 == SvgAssets.enterOtp.name,
+            )
+            .$2,
+      ),
+    );
+    return Column(
+      children: [
+        ScalableImageWidget(si: otpImage, scale: .55),
+        const SizedBox(height: 32),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            'رقم التحقق',
+            style: appTheme.textTheme.bodyLarge
+                ?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
-      ),
+        const SizedBox(height: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Text(
+            'لقد أرسلنا رمز التحقق إلى عنوان بريدك الإلكتروني',
+            style: appTheme.textTheme.bodySmall
+                ?.copyWith(color: const Color(0xFF666666)),
+          ),
+        ),
+        const SizedBox(height: 24),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Pinput(
+              length: 6,
+              controller: controller,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(6),
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              defaultPinTheme: PinTheme(
+                height: 64,
+                width: 64,
+                textStyle: appTheme.textTheme.headlineSmall,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(
+                    color: const Color(0xffD9D9D9),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          child: ElevatedButton(
+            onPressed: signIn
+                ? () {
+                    ref.read(authNotifierProvider.notifier).verifyOTP(
+                          otp: controller.text,
+                        );
+                  }
+                : () {
+                    context.pushNamed(AppRoute.changePasswordOTP.name);
+                  },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xff9D331F),
+              disabledBackgroundColor: Colors.grey,
+              fixedSize: const Size(double.maxFinite, 56),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+              ),
+            ),
+            child: Text(
+              'تحقق من الرمز',
+              style: appTheme.textTheme.bodySmall?.copyWith(
+                color: Colors.white,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

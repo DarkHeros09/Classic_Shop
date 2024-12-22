@@ -15,20 +15,36 @@ class Assets {
   static const String classicLogo = 'assets/ClassicLogo.svg';
   static const String eCommerceCropped1 = 'assets/E-Commerce-cropped 1.svg';
   static const String eCommerceCropped = 'assets/E-Commerce-cropped.si';
+  static const String enterOTPBroSvg = 'assets/Enter OTP-bro.svg';
+  static const String enterOTPBroSi = 'assets/Enter-OTP-bro.si';
   static const String errorBrokenRobotSvg = 'assets/Error Broken Robot.svg';
   static const String errorBrokenRobotSi = 'assets/errorBrokenRobot.si';
+  static const String forgotPasswordPanaSvg = 'assets/Forgot password-pana.svg';
+  static const String forgotPasswordPanaSi = 'assets/Forgot-password-pana.si';
   static const String loginPana = 'assets/Login-pana.svg';
+  static const String mobileLoginAmicoSi = 'assets/Mobile login-amico.si';
+  static const String mobileLoginAmicoSi_ = 'assets/Mobile-login-amico.si';
+  static const String mobileLoginAmicoSvg = 'assets/Mobile login-amico.svg';
   static const String mobileLoginCuateCroppedSi =
       'assets/Mobile login-cuate-cropped.si';
   static const String mobileLoginCuateCroppedSvg =
       'assets/Mobile login-cuate-cropped.svg';
   static const String mobileLoginCuate = 'assets/Mobile login-cuate.svg';
+  static const String myPasswordPanaSvg = 'assets/My password-pana.svg';
+  static const String myPasswordPanaSi = 'assets/My-password-pana.si';
   static const String onlineShoppingCropped1 =
       'assets/Online Shopping-cropped 1.svg';
   static const String onlineShoppingCropped =
       'assets/Online Shopping-cropped.si';
+  static const String signInBroSi = 'assets/Sign in-bro.si';
+  static const String signInBroSvg = 'assets/Sign-in-bro.svg';
+  static const String signUpPanaSvg = 'assets/Sign up-pana.svg';
+  static const String signUpPanaSi = 'assets/Sign-up-pana.si';
   static const String storefrontCropped1 = 'assets/Storefront-cropped 1.svg';
   static const String storefrontCropped = 'assets/Storefront-cropped.si';
+  static const String tabletLoginPanaSi = 'assets/Tablet login-pana.si';
+  static const String tabletLoginPanaSi_ = 'assets/Tablet-login-pana.si';
+  static const String tabletLoginPanaSvg = 'assets/Tablet login-pana.svg';
   static const String activity = 'assets/activity.si';
   static const AssetGenImage androidAppIconBackground =
       AssetGenImage('assets/android-app-icon-background.png');
@@ -91,16 +107,32 @@ class Assets {
         classicLogo,
         eCommerceCropped1,
         eCommerceCropped,
+        enterOTPBroSvg,
+        enterOTPBroSi,
         errorBrokenRobotSvg,
         errorBrokenRobotSi,
+        forgotPasswordPanaSvg,
+        forgotPasswordPanaSi,
         loginPana,
+        mobileLoginAmicoSi,
+        mobileLoginAmicoSi_,
+        mobileLoginAmicoSvg,
         mobileLoginCuateCroppedSi,
         mobileLoginCuateCroppedSvg,
         mobileLoginCuate,
+        myPasswordPanaSvg,
+        myPasswordPanaSi,
         onlineShoppingCropped1,
         onlineShoppingCropped,
+        signInBroSi,
+        signInBroSvg,
+        signUpPanaSvg,
+        signUpPanaSi,
         storefrontCropped1,
         storefrontCropped,
+        tabletLoginPanaSi,
+        tabletLoginPanaSi_,
+        tabletLoginPanaSvg,
         activity,
         androidAppIconBackground,
         androidAppIconForeground,

@@ -12,6 +12,7 @@ class Prices extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             const SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               title: Text('أسعار'),
               centerTitle: true,
             ),

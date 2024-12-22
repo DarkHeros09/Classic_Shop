@@ -23,7 +23,7 @@ final class _$AddressApi extends AddressApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url =
-        Uri.parse('http://192.168.1.101:8080/usr/v1/users/${userId}/addresses');
+        Uri.parse('http://192.168.0.155:8080/usr/v1/users/${userId}/addresses');
     final $body = data;
     final Request $request = Request(
       'POST',
@@ -42,7 +42,7 @@ final class _$AddressApi extends AddressApi {
     required int pageSize,
   }) {
     final Uri $url =
-        Uri.parse('http://192.168.1.101:8080/usr/v1/users/${userId}/addresses');
+        Uri.parse('http://192.168.0.155:8080/usr/v1/users/${userId}/addresses');
     final Map<String, dynamic> $params = <String, dynamic>{
       'page_id': pageId,
       'page_size': pageSize,
@@ -68,7 +68,7 @@ final class _$AddressApi extends AddressApi {
     required Map<String, dynamic> data,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/addresses/${addressId}');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/addresses/${addressId}');
     final $body = data;
     final Request $request = Request(
       'PUT',
@@ -85,7 +85,7 @@ final class _$AddressApi extends AddressApi {
     required String addressId,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/usr/v1/users/${userId}/addresses/${addressId}');
+        'http://192.168.0.155:8080/usr/v1/users/${userId}/addresses/${addressId}');
     final Request $request = Request(
       'DELETE',
       $url,

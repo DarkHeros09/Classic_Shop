@@ -22,6 +22,7 @@ class _CSAppBarState extends ConsumerState<CSAppBar> {
     final isDarkMode = appTheme.brightness == Brightness.dark;
     final isPinned = ref.watch(isProductEmptyProvider);
     return SliverAppBar(
+      surfaceTintColor: Colors.transparent,
       backgroundColor: isDarkMode ? const Color(0xFF121212) : Colors.white,
       toolbarHeight: 0,
       pinned: isPinned,
@@ -29,7 +30,6 @@ class _CSAppBarState extends ConsumerState<CSAppBar> {
         preferredSize: Size(double.infinity, 73),
         child: AppBarPreferredSizeWidget(),
       ),
-      surfaceTintColor: Colors.white,
     );
   }
 }

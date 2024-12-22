@@ -168,6 +168,7 @@ class _SelectedProductsPageState extends ConsumerState<SelectedProductsPage> {
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
+                surfaceTintColor: Colors.transparent,
                 pinned: true,
                 centerTitle: true,
                 title: Skeletonizer(

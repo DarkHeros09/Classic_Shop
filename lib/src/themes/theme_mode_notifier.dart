@@ -1,6 +1,7 @@
 import 'package:classic_shop/src/features/settings/data/settings_local_service.dart';
 import 'package:classic_shop/src/shared/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'theme_mode_notifier.g.dart';
@@ -19,5 +20,12 @@ class ThemeModeNotifier extends _$ThemeModeNotifier {
 
   void changeTheme({bool isDarkMode = false}) {
     state = isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.black.withAlpha(0),
+        statusBarIconBrightness:
+            state != ThemeMode.dark ? Brightness.dark : Brightness.light,
+      ),
+    );
   }
 }

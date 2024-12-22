@@ -49,6 +49,7 @@ class _AddressPageState extends ConsumerState<AddressPage> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               pinned: true,
               title: Text(
                 'عنوان التسليم',

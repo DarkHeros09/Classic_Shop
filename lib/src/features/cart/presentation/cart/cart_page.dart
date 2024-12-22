@@ -25,6 +25,7 @@ class CartPage extends HookConsumerWidget {
                     context,
                   ),
                   sliver: const SliverAppBar(
+                    surfaceTintColor: Colors.transparent,
                     toolbarHeight: 0,
                     pinned: true,
                     bottom: PreferredSize(

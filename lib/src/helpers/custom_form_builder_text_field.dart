@@ -71,12 +71,15 @@ class _CustomFormBuilderTextFieldState
         floatingLabelBehavior: FloatingLabelBehavior.always,
         hintTextDirection: widget.hintTextDirection,
         enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide(
             color: Color(0xffD9D9D9),
           ),
         ),
         fillColor: const Color(0xffFAFAFA),
-        border: const OutlineInputBorder(),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
       ),
       name: widget.name,
       inputFormatters: widget.inputFormatters,

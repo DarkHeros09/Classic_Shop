@@ -225,6 +225,7 @@ class _CarouselGridViewState extends ConsumerState<CarouselGridView> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               centerTitle: true,
               collapsedHeight: 64,
               expandedHeight: 112,

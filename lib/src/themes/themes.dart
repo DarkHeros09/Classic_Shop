@@ -46,9 +46,14 @@ final lightTheme = FlexThemeData.light(
     error: Color(0xffBA1A1A),
     surface: Color(0xFFFAFAFA),
   ),
-  useMaterial3: true,
   // appBarStyle: FlexAppBarStyle.scaffoldBackground,
 ).copyWith(
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ),
+  ),
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(Color(0xFF000000)),
@@ -110,7 +115,6 @@ const myFlexLightColorScheme = FlexColorScheme(
     error: Color(0xffBA1A1A),
     surface: Color(0xFFFAFAFA),
   ),
-  useMaterial3: true,
 );
 
 // .toTheme.copyWith(
@@ -180,9 +184,14 @@ final darkTheme = FlexThemeData.dark(
     // surface: Color(0xFFFAFAFA),
     // onSurface: Color(0xFF000000),
   ),
-  useMaterial3: true,
   // appBarStyle: FlexAppBarStyle.scaffoldBackground,
 ).copyWith(
+  appBarTheme: const AppBarTheme(
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  ),
   elevatedButtonTheme: const ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStatePropertyAll(Color(0xFFFFFFFF)),
@@ -249,7 +258,6 @@ final myFlexDarkColorScheme = const FlexColorScheme(
     // surface: Color(0xFFFAFAFA),
     // onSurface: Color(0xFF000000),
   ),
-  useMaterial3: true,
 ).toTheme.copyWith(
       elevatedButtonTheme: const ElevatedButtonThemeData(
         style: ButtonStyle(

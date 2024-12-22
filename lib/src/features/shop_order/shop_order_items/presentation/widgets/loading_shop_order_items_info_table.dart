@@ -13,6 +13,7 @@ class LoadingShopOrderItemsDetails extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               pinned: true,
               // automaticallyImplyLeading: false,
               title: Text(

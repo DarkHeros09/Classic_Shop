@@ -583,6 +583,7 @@ class _ProductDetailBrandAndPrice extends HookConsumerWidget {
                       Text(
                         '${product.price} د.ل',
                         style: appTheme.textTheme.titleMedium?.copyWith(
+                          fontSize: discountValue == 0 ? 22 : null,
                           fontWeight:
                               discountValue != 0 || product.qtyInStock == 0
                                   ? FontWeight.normal
@@ -842,6 +843,7 @@ class _ProductDetailAppBar extends HookConsumerWidget {
           );
     final selectedSize = ref.watch(selectedSizeProvider);
     return SliverAppBar(
+      surfaceTintColor: Colors.transparent,
       clipBehavior: Clip.none,
       pinned: true,
       title: Text(

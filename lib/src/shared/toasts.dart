@@ -1,6 +1,8 @@
 import 'package:classic_shop/src/helpers/locale_extension.dart';
+import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 Future<void> showNoConnectionToast(
   String message,
@@ -140,5 +142,81 @@ Future<void> showSuccessToast(
         ),
       );
     },
+  );
+}
+
+Future<void> showWarningDialog(
+  BuildContext context,
+  ThemeData appTheme, {
+  required bool setting,
+}) async {
+  await showModalFlash<bool>(
+    useRootNavigator: true,
+    barrierBlur: 2,
+    context: context,
+    builder: (context, controller) => AlertDialog(
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      // icon: const Icon(
+      //   Icons.warning_rounded,
+      //   color: Colors.amber,
+      //   size: 50,
+      // ),
+      // title: const Text('Flash'),
+      title: const Text(
+        'هل أنت متأكد أنك تريد إلغاء استعادة كلمة المرور؟',
+        textAlign: TextAlign.center,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      content: Text(
+        'لن يتم حفظ أي تقدم في عملية استعادة كلمة المرور، وستحتاج إلى البدء من جديد إذا قمت بالإلغاء.',
+        // textAlign: TextAlign.center,
+        style: TextStyle(
+          height: 1.5,
+          color: Colors.grey[700],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            context.pop();
+            if (setting) {
+              context.goNamed(AppRoute.settings.name);
+            } else {
+              context.goNamed(AppRoute.cart.name);
+            }
+          },
+          style: FilledButton.styleFrom(
+            disabledBackgroundColor: Colors.grey,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+          ),
+          child: Text(
+            'نعم، ألغِ العملية',
+            style: appTheme.textTheme.bodyMedium?.copyWith(color: Colors.red),
+          ),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          style: TextButton.styleFrom(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+          ),
+          child: Text(
+            'لا، أريد الاستمرار',
+            style: appTheme.textTheme.bodyMedium,
+            // ?.copyWith(color: Colors.blue),
+          ),
+        ),
+      ],
+    ),
   );
 }

@@ -35,7 +35,7 @@ final class _$ProductApi extends ProductApi {
     bool? orderByOld,
   }) {
     final Uri $url =
-        Uri.parse('http://192.168.1.101:8080/api/v1/product-items-v2');
+        Uri.parse('http://192.168.0.155:8080/api/v1/product-items-v2');
     final Map<String, dynamic> $params = <String, dynamic>{
       'limit': pageSize,
       'category_id': categoryId,
@@ -87,7 +87,7 @@ final class _$ProductApi extends ProductApi {
     bool? orderByOld,
   }) {
     final Uri $url =
-        Uri.parse('http://192.168.1.101:8080/api/v1/product-items-next-page');
+        Uri.parse('http://192.168.0.155:8080/api/v1/product-items-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'product_item_cursor': lastItemId,
       'product_cursor': lastProductId,
@@ -127,7 +127,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-best-sellers');
+        'http://192.168.0.155:8080/api/v1/product-items-best-sellers');
     final Map<String, dynamic> $params = <String, dynamic>{'limit': pageSize};
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
@@ -149,7 +149,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url =
-        Uri.parse('http://192.168.1.101:8080/api/v1/search-product-items');
+        Uri.parse('http://192.168.0.155:8080/api/v1/search-product-items');
     final Map<String, dynamic> $params = <String, dynamic>{
       'query': query,
       'limit': pageSize,
@@ -176,7 +176,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/search-product-items-next-page');
+        'http://192.168.0.155:8080/api/v1/search-product-items-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'query': query,
       'product_item_cursor': lastItemId,
@@ -204,7 +204,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-with-promotions');
+        'http://192.168.0.155:8080/api/v1/product-items-with-promotions');
     final Map<String, dynamic> $params = <String, dynamic>{
       'product_id': productId,
       'limit': pageSize,
@@ -233,7 +233,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-with-promotions-next-page');
+        'http://192.168.0.155:8080/api/v1/product-items-with-promotions-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'product_item_cursor': lastItemId,
       'product_cursor': lastProductId,
@@ -261,7 +261,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-with-brand-promotions');
+        'http://192.168.0.155:8080/api/v1/product-items-with-brand-promotions');
     final Map<String, dynamic> $params = <String, dynamic>{
       'brand_id': brandId,
       'limit': pageSize,
@@ -291,7 +291,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-with-brand-promotions-next-page');
+        'http://192.168.0.155:8080/api/v1/product-items-with-brand-promotions-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'brand_id': brandId,
       'product_item_cursor': lastItemId,
@@ -321,7 +321,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-with-category-promotions');
+        'http://192.168.0.155:8080/api/v1/product-items-with-category-promotions');
     final Map<String, dynamic> $params = <String, dynamic>{
       'category_id': categoryId,
       'limit': pageSize,
@@ -351,7 +351,7 @@ final class _$ProductApi extends ProductApi {
     required int pageSize,
   }) {
     final Uri $url = Uri.parse(
-        'http://192.168.1.101:8080/api/v1/product-items-with-category-promotions-next-page');
+        'http://192.168.0.155:8080/api/v1/product-items-with-category-promotions-next-page');
     final Map<String, dynamic> $params = <String, dynamic>{
       'category_id': categoryId,
       'product_item_cursor': lastItemId,

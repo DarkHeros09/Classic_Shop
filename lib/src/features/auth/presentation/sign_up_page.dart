@@ -78,7 +78,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
       );
     });
     // final formKey = ref.watch(signUpFormKeyProvider);
-    final height = MediaQuery.sizeOf(context).height + kToolbarHeight;
+    // final height = MediaQuery.sizeOf(context).height + kToolbarHeight;
     final signUpImage = ref.watch(
       siAssetsProvider.select(
         (value) => value
@@ -94,17 +94,24 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
         child: FormBuilder(
           key: formKey,
           child: CustomScrollView(
+            physics: const ClampingScrollPhysics(),
             slivers: [
               SliverAppBar(
+                surfaceTintColor: Colors.transparent,
+                // collapsedHeight: 200,
                 // floating: true,
                 pinned: true,
-                expandedHeight: height * .20,
+                // toolbarHeight: 200,
+                expandedHeight: 200,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: ScalableImageWidget(
-                    si: signUpImage,
-                    alignment: Alignment.topCenter,
-                    fit: BoxFit.cover,
-                    scale: .8,
+                  background: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: ScalableImageWidget(
+                      si: signUpImage,
+                      // alignment: Alignment.topCenter,
+                      fit: BoxFit.scaleDown,
+                      // scale: .,
+                    ),
                   ),
                   // SvgPicture.asset(
                   //   height: height * .35,
@@ -114,7 +121,11 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   // ),
                 ),
               ),
-              SliverToBoxAdapter(child: SizedBox(height: height * .034)),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 8,
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -125,7 +136,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(child: SizedBox(height: height * .042)),
+              const SliverToBoxAdapter(child: SizedBox(height: 24)),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -133,12 +144,12 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     // textDirection: TextDirection.ltr,
                     name: 'userName',
                     labelText: 'إسم المستخدم',
-                    errorStyle: const TextStyle(fontSize: 12),
+                    errorStyle: const TextStyle(fontSize: 11),
                     validator: FormBuilderValidators.compose([]),
                   ),
                 ),
               ),
-              SliverToBoxAdapter(child: SizedBox(height: height * .021)),
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -146,7 +157,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     textDirection: TextDirection.ltr,
                     name: 'email',
                     labelText: 'البريد الإلكتروني',
-                    errorStyle: const TextStyle(fontSize: 12),
+                    errorStyle: const TextStyle(fontSize: 11),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.email(
                         errorText: 'يرجى إدخال الإيميل الخاص بك بشكل صحيح',
@@ -156,7 +167,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   ),
                 ),
               ),
-              // SliverToBoxAdapter(child: SizedBox(height: height * .021)),
+              // SliverToBoxAdapter(child: SizedBox(height: 16)),
               // SliverToBoxAdapter(
               //   child: Padding(
               //     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -164,7 +175,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
               //       // textDirection: TextDirection.ltr,
               //       name: 'phoneNumber',
               //       labelText: 'رقم الهاتف',
-              //       errorStyle: const TextStyle(fontSize: 12),
+              //       errorStyle: const TextStyle(fontSize: 11),
               //       validator: FormBuilderValidators.compose([
               //         FormBuilderValidators.required(
               //           errorText: 'هذا الحقل لا يمكن أن يكون فارغاً',
@@ -181,7 +192,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
               //     ),
               //   ),
               // ),
-              SliverToBoxAdapter(child: SizedBox(height: height * .021)),
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -190,7 +201,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     obscureText: true,
                     name: 'password',
                     labelText: 'كلمة المرور',
-                    errorStyle: const TextStyle(fontSize: 12),
+                    errorStyle: const TextStyle(fontSize: 11),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.minLength(
                         6,
@@ -200,7 +211,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(child: SizedBox(height: height * .021)),
+              const SliverToBoxAdapter(child: SizedBox(height: 16)),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -209,7 +220,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     obscureText: true,
                     name: 'passwordConfirmation',
                     labelText: 'تأكيد كلمة المرور',
-                    errorStyle: const TextStyle(fontSize: 12),
+                    errorStyle: const TextStyle(fontSize: 11),
                     validator: FormBuilderValidators.compose([
                       FormBuilderValidators.minLength(
                         6,
@@ -230,8 +241,8 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(height: height * .034),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 20),
               ),
               SliverToBoxAdapter(
                 child: Padding(
@@ -266,7 +277,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                       disabledBackgroundColor: Colors.grey,
                       fixedSize: const Size(double.maxFinite, 56),
                       shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                     ),
                     child: Text(
@@ -279,9 +290,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                   ),
                 ),
               ),
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: SizedBox(
-                  height: height * .015,
+                  height: 4,
                 ),
               ),
               SliverToBoxAdapter(
@@ -311,9 +322,6 @@ class _SignUpPageState extends ConsumerState<SignUpPage> {
                     ),
                   ],
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: SizedBox(height: height * .1),
               ),
             ],
           ),

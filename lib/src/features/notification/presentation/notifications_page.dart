@@ -12,6 +12,7 @@ class NotificationsPage extends HookConsumerWidget {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               centerTitle: true,
               title: Text(context.loc.notifications),
             ),

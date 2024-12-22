@@ -20,7 +20,7 @@ final class _$AppPolicyApi extends AppPolicyApi {
   @override
   Future<Response<Map<String, dynamic>>> getAppPolicy(
       {required String ifNoneMatch}) {
-    final Uri $url = Uri.parse('http://192.168.1.101:8080/api/v1/app-policy');
+    final Uri $url = Uri.parse('http://192.168.0.155:8080/api/v1/app-policy');
     final Map<String, String> $headers = {
       'If-None-Match': ifNoneMatch,
     };

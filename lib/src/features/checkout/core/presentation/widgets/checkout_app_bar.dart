@@ -7,6 +7,7 @@ class CheckoutAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = Theme.of(context);
     return SliverAppBar(
+      surfaceTintColor: Colors.transparent,
       pinned: true,
       centerTitle: true,
       title: Text(

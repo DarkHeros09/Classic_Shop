@@ -1,7 +1,5 @@
 import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
 import 'package:classic_shop/src/features/cart/application/cart_notifier.dart';
-import 'package:classic_shop/src/features/products/helper/enums.dart';
-import 'package:classic_shop/src/features/products/listed_products/application/list_products_notifier.dart';
 import 'package:classic_shop/src/features/wish_list/application/wish_list_notifier.dart';
 import 'package:classic_shop/src/helpers/custom_form_builder_text_field.dart';
 import 'package:classic_shop/src/routing/app_router.dart';
@@ -78,9 +76,9 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         authenticated: (_) {
           context.pop();
           Future.wait([
-            ref.read(listProductsNotifierProvider.notifier).getProductsPage(
-                  productsFunction: ProductsFunction.getProducts,
-                ),
+            // ref.read(listProductsNotifierProvider.notifier).getProductsPage(
+            //       productsFunction: ProductsFunction.getProducts,
+            //     ),
             ref.read(cartNotifierProvider.notifier).fetchCart(),
             ref.read(wishListNotifierProvider.notifier).fetchWishList(),
           ]);
@@ -102,12 +100,12 @@ class _SignInPageState extends ConsumerState<SignInPage> {
       );
     });
     // final formKey = ref.watch(signInFormKeyProvider);
-    final height = MediaQuery.sizeOf(context).height + kToolbarHeight;
-    final signUpImage = ref.watch(
+    // final height = MediaQuery.sizeOf(context).height + kToolbarHeight;
+    final signInImage = ref.watch(
       siAssetsProvider.select(
         (value) => value
             .singleWhere(
-              (element) => element.$1 == SvgAssets.signUp.name,
+              (element) => element.$1 == SvgAssets.signIn.name,
             )
             .$2,
       ),
@@ -117,15 +115,15 @@ class _SignInPageState extends ConsumerState<SignInPage> {
         child: FormBuilder(
           key: formKey,
           child: ListView(
+            physics: const ClampingScrollPhysics(),
             children: [
               // height * .40
               ScalableImageWidget(
-                si: signUpImage,
+                si: signInImage,
                 alignment: Alignment.topCenter,
-                fit: BoxFit.cover,
-                scale: .5,
+                fit: BoxFit.fitHeight,
+                scale: .55,
               ),
-              SizedBox(height: height * .034),
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
@@ -137,14 +135,14 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ),
                 ),
               ),
-              SizedBox(height: height * .042),
+              const SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: CustomFormBuilderTextField(
                   textDirection: TextDirection.ltr,
                   name: 'email',
                   labelText: 'البريد الإلكتروني',
-                  errorStyle: const TextStyle(fontSize: 12),
+                  errorStyle: const TextStyle(fontSize: 11),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.email(
                       errorText: 'يرجى إدخال الإيميل الخاص بك بشكل صحيح',
@@ -153,8 +151,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   keyboardType: TextInputType.emailAddress,
                 ),
               ),
-              SizedBox(
-                height: height * .021,
+              const SizedBox(
+                height: 16,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
@@ -163,7 +161,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   obscureText: true,
                   name: 'password',
                   labelText: 'كلمة المرور',
-                  errorStyle: const TextStyle(fontSize: 12),
+                  errorStyle: const TextStyle(fontSize: 11),
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.minLength(
                       6,
@@ -172,7 +170,25 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ]),
                 ),
               ),
-              SizedBox(height: height * .034),
+              // const SizedBox(height: 8),
+              Align(
+                alignment: AlignmentDirectional.topEnd,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
+                  child: TextButton(
+                    onPressed: () =>
+                        context.pushNamed(AppRoute.forgotPassword.name),
+                    child: Text(
+                      'نسيت كلمة المرور؟',
+                      style: appTheme.textTheme.bodyMedium?.copyWith(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: ElevatedButton(
@@ -194,7 +210,7 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                     disabledBackgroundColor: Colors.grey,
                     fixedSize: const Size(double.maxFinite, 56),
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                   ),
                   child: Text(
@@ -206,8 +222,8 @@ class _SignInPageState extends ConsumerState<SignInPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: height * .015,
+              const SizedBox(
+                height: 4,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

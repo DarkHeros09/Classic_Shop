@@ -1,11 +1,12 @@
 import 'package:classic_shop/src/features/address/presentation/address_page.dart';
 import 'package:classic_shop/src/features/app_policy/presentation/app_policy_page.dart';
 import 'package:classic_shop/src/features/auth/application/auth_notifier.dart';
+import 'package:classic_shop/src/features/auth/presentation/forgot_password_page.dart';
 import 'package:classic_shop/src/features/auth/presentation/sign_in_page.dart';
 import 'package:classic_shop/src/features/auth/presentation/sign_up_page.dart';
 import 'package:classic_shop/src/features/bottom_nav_bar/presentation/bottom_nav_bar.dart';
 import 'package:classic_shop/src/features/cart/presentation/cart/cart_page.dart';
-import 'package:classic_shop/src/features/categories/presentation/categories.dart';
+import 'package:classic_shop/src/features/categories/presentation/categories_page.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkkout_success.dart';
 import 'package:classic_shop/src/features/checkout/core/presentation/checkout_page.dart';
 import 'package:classic_shop/src/features/core/shared/providers.dart';
@@ -25,15 +26,14 @@ import 'package:classic_shop/src/features/profile/presentation/profile_page.dart
 import 'package:classic_shop/src/features/promotions/domain/promotion_type.dart';
 import 'package:classic_shop/src/features/promotions/presentation/home_page_carousel_details.dart';
 import 'package:classic_shop/src/features/settings/presentation/settings_page.dart';
+import 'package:classic_shop/src/features/settings/presentation/widgets/change_password_page.dart';
 import 'package:classic_shop/src/features/shop_order/core/domain/shop_order.dart';
 import 'package:classic_shop/src/features/shop_order/core/presentation/shop_order_page.dart';
 import 'package:classic_shop/src/features/shop_order/shop_order_items/presentation/shop_order_items_details.dart';
 import 'package:classic_shop/src/features/splash/application/splash_notifier.dart';
 import 'package:classic_shop/src/features/splash/presentation/splash_page.dart';
 import 'package:classic_shop/src/routing/go_router_refresh_stream.dart';
-import 'package:classic_shop/src/themes/theme_mode_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -44,8 +44,11 @@ enum AppRoute {
   splash,
   signIn,
   signUp,
-  otp,
+  forgotPassword,
+  changePassword,
   signInOTP,
+  forgotPasswordOTP,
+  changePasswordOTP,
   home,
   search,
   product,
@@ -76,6 +79,11 @@ final _shellNavigatorCategoryKey =
 final _shellNavigatorCartKey = GlobalKey<NavigatorState>(debugLabel: 'cart');
 final _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'profile');
+
+@Riverpod(keepAlive: true)
+GlobalKey<NavigatorState> rootNavigatorKey(Ref ref) {
+  return _rootNavigatorKey;
+}
 
 @Riverpod(keepAlive: true, dependencies: [])
 GoRouter goRouter(Ref ref) {
@@ -109,8 +117,11 @@ GoRouter goRouter(Ref ref) {
         onBoarding.onBoardingShownStateChanges(),
       ],
     ),
-    errorPageBuilder: (context, state) =>
-        const NoTransitionPage(child: ErrorPage()),
+    errorPageBuilder: (context, state) => NoTransitionPage(
+      child: ErrorPage(
+        showHomeButton: state.topRoute?.parentNavigatorKey != _rootNavigatorKey,
+      ),
+    ),
     routes: [
       // GoRoute(
       //   path: '/test',
@@ -125,15 +136,17 @@ GoRouter goRouter(Ref ref) {
           final isSplashShown = splash.isSplashShown;
           debugPrint('isSplashShown: $isSplashShown');
           if (isSplashShown != null && isSplashShown) {
-            late final themeMode = ref.read(themeModeNotifierProvider);
-            SystemChrome.setSystemUIOverlayStyle(
-              SystemUiOverlayStyle(
-                statusBarColor: Colors.black.withAlpha(0),
-                statusBarIconBrightness: themeMode != ThemeMode.dark
-                    ? Brightness.dark
-                    : Brightness.light,
-              ),
-            );
+            // late final themeMode = ref.read(themeModeNotifierProvider);
+            // WidgetsBinding.instance.addPostFrameCallback(
+            //   (_) => SystemChrome.setSystemUIOverlayStyle(
+            //     SystemUiOverlayStyle(
+            //       statusBarColor: Colors.transparent,
+            //       statusBarIconBrightness: themeMode != ThemeMode.dark
+            //           ? Brightness.dark
+            //           : Brightness.light,
+            //     ),
+            //   ),
+            // );
             return '/home';
           } else {
             return '/splash';
@@ -178,36 +191,21 @@ GoRouter goRouter(Ref ref) {
           return const NoTransitionPage(child: SearchPage());
         },
       ),
-      GoRoute(
-        path: '/sign-up',
-        name: AppRoute.signUp.name,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          return const NoTransitionPage(child: SignUpPage());
-        },
-        // redirect: (context, state) {
-        //   final previousPath = ref.watch(previousPathProvider);
-        //   final isLoggedIn = auth.currentUser != null;
-        //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+      // GoRoute(
+      //   path: '/otp',
+      //   name: AppRoute.otp.name,
+      //   parentNavigatorKey: _rootNavigatorKey,
+      //   pageBuilder: (context, state) {
+      //     return const NoTransitionPage(child: OTPPage());
+      //   },
+      //   // redirect: (context, state) {
+      //   //   final previousPath = ref.watch(previousPathProvider);
+      //   //   final isLoggedIn = auth.currentUser != null;
+      //   //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
 
-        //   return isLoggedIn ? previousPath ?? '/home' : null;
-        // },
-      ),
-      GoRoute(
-        path: '/otp',
-        name: AppRoute.otp.name,
-        parentNavigatorKey: _rootNavigatorKey,
-        pageBuilder: (context, state) {
-          return const NoTransitionPage(child: OTPPage());
-        },
-        // redirect: (context, state) {
-        //   final previousPath = ref.watch(previousPathProvider);
-        //   final isLoggedIn = auth.currentUser != null;
-        //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
-
-        //   return isLoggedIn ? previousPath ?? '/home' : null;
-        // },
-      ),
+      //   //   return isLoggedIn ? previousPath ?? '/home' : null;
+      //   // },
+      // ),
       StatefulShellRoute.indexedStack(
         // navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
@@ -302,7 +300,7 @@ GoRouter goRouter(Ref ref) {
                 path: '/categories',
                 name: AppRoute.categories.name,
                 pageBuilder: (context, state) {
-                  return const NoTransitionPage(child: Categories());
+                  return const NoTransitionPage(child: CategoriesPage());
                 },
                 routes: [
                   GoRoute(
@@ -447,11 +445,150 @@ GoRouter goRouter(Ref ref) {
                 },
                 routes: [
                   GoRoute(
+                    path: 'sign-up',
+                    name: AppRoute.signUp.name,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) {
+                      return CustomTransitionPage(
+                        child: const SignUpPage(),
+                        transitionsBuilder: (
+                          context,
+                          animation,
+                          secondaryAnimation,
+                          child,
+                        ) {
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(1, 0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        },
+                      );
+                    },
+                    // redirect: (context, state) {
+                    //   final previousPath = ref.watch(previousPathProvider);
+                    //   final isLoggedIn = auth.currentUser != null;
+                    //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+
+                    //   return isLoggedIn ? previousPath ?? '/home' : null;
+                    // },
+                  ),
+                  GoRoute(
+                    path: 'forgot-password',
+                    name: AppRoute.forgotPassword.name,
+                    parentNavigatorKey: _rootNavigatorKey,
+                    pageBuilder: (context, state) {
+                      return CustomTransitionPage(
+                        child: const ForgotPasswordPage(),
+                        transitionsBuilder: (
+                          context,
+                          animation,
+                          secondaryAnimation,
+                          child,
+                        ) {
+                          return SlideTransition(
+                            position: animation.drive(
+                              Tween(begin: const Offset(1, 0), end: Offset.zero)
+                                  .chain(CurveTween(curve: Curves.easeInOut)),
+                            ),
+                            child: child,
+                          );
+                        },
+                      );
+                    },
+                    // redirect: (context, state) {
+                    //   final previousPath = ref.watch(previousPathProvider);
+                    //   final isLoggedIn = auth.currentUser != null;
+                    //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+
+                    //   return isLoggedIn ? previousPath ?? '/home' : null;
+                    // },
+                    routes: [
+                      GoRoute(
+                        path: 'otp',
+                        name: AppRoute.forgotPasswordOTP.name,
+                        parentNavigatorKey: _rootNavigatorKey,
+                        pageBuilder: (context, state) {
+                          return CustomTransitionPage(
+                            child: const OTPPage(
+                              signIn: false,
+                              setting: false,
+                            ),
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
+                              return SlideTransition(
+                                position: animation.drive(
+                                  Tween(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).chain(
+                                    CurveTween(curve: Curves.easeInOut),
+                                  ),
+                                ),
+                                child: child,
+                              );
+                            },
+                          );
+                        },
+
+                        // redirect: (context, state) {
+                        //   final previousPath = ref.watch(previousPathProvider);
+                        //   final isLoggedIn = auth.currentUser != null;
+                        //   debugPrint('APPROUTER IS LOGGEDIN: $isLoggedIn');
+
+                        //   return isLoggedIn ? previousPath ?? '/home' : null;
+                        // },
+                        routes: [
+                          GoRoute(
+                            path: 'change_password',
+                            name: AppRoute.changePasswordOTP.name,
+                            parentNavigatorKey: _rootNavigatorKey,
+                            pageBuilder: (context, state) {
+                              return CustomTransitionPage(
+                                child: const ChangePasswordPage(),
+                                transitionsBuilder: (
+                                  context,
+                                  animation,
+                                  secondaryAnimation,
+                                  child,
+                                ) {
+                                  return SlideTransition(
+                                    position: animation.drive(
+                                      Tween(
+                                        begin: const Offset(1, 0),
+                                        end: Offset.zero,
+                                      ).chain(
+                                        CurveTween(
+                                          curve: Curves.easeInOut,
+                                        ),
+                                      ),
+                                    ),
+                                    child: child,
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  GoRoute(
                     path: 'otp',
                     name: AppRoute.signInOTP.name,
                     parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
-                      return const NoTransitionPage(child: OTPPage());
+                      return const NoTransitionPage(
+                        child: OTPPage(
+                          setting: false,
+                        ),
+                      );
                     },
                     redirect: (context, state) {
                       // final previousPath = ref.watch(previousPathProvider);
@@ -523,7 +660,7 @@ GoRouter goRouter(Ref ref) {
                     redirect: redirectAuth,
                     routes: [
                       GoRoute(
-                        path: 'order_details/:id',
+                        path: 'order-details/:id',
                         name: AppRoute.orderDetails.name,
                         parentNavigatorKey: _rootNavigatorKey,
                         pageBuilder: (context, state) {
@@ -568,6 +705,34 @@ GoRouter goRouter(Ref ref) {
                     pageBuilder: (context, state) {
                       return const NoTransitionPage(child: SettingsPage());
                     },
+                    routes: [
+                      GoRoute(
+                        path: 'change_password',
+                        name: AppRoute.changePassword.name,
+                        parentNavigatorKey: _rootNavigatorKey,
+                        pageBuilder: (context, state) {
+                          return CustomTransitionPage(
+                            child: const ChangePasswordPage(
+                              forgotPassword: false,
+                            ),
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

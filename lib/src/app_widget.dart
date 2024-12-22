@@ -23,30 +23,42 @@ class AppWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     late final themeMode = ref.watch(themeModeNotifierProvider);
     late final goRouter = ref.watch(goRouterProvider);
+    late final rootNavigatorKey = ref.watch(rootNavigatorKeyProvider);
     late final locale = ref.watch(selectedLocaleProvider);
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Colors.black.withAlpha(0),
-        statusBarIconBrightness:
-            themeMode != ThemeMode.dark ? Brightness.dark : Brightness.light,
-      ),
-    );
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (_) => SystemChrome.setSystemUIOverlayStyle(
+    //     SystemUiOverlayStyle(
+    //       statusBarColor: Colors.black.withAlpha(0),
+    //       statusBarIconBrightness:
+    //           themeMode != ThemeMode.dark ? Brightness.dark : Brightness.light,
+    //     ),
+    //   ),
+    // );
     ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-      return const ErrorPage(
-        showHomeButton: false,
+      return ErrorPage(
+        showHomeButton:
+            goRouter.state?.topRoute?.parentNavigatorKey == rootNavigatorKey,
       );
     };
-    return MaterialApp.router(
-      themeMode: themeMode,
-      debugShowCheckedModeBanner: false,
-      // debugShowMaterialGrid: true,
-      // theme: myFlexLightColorScheme,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      locale: locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: goRouter,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness:
+            themeMode == ThemeMode.dark ? Brightness.light : Brightness.dark,
+      ),
+      child: MaterialApp.router(
+        // showPerformanceOverlay: true,
+        themeMode: themeMode,
+        debugShowCheckedModeBanner: false,
+        // debugShowMaterialGrid: true,
+        // theme: myFlexLightColorScheme,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        locale: locale,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: goRouter,
+      ),
     );
   }
 }

@@ -1,10 +1,12 @@
 import 'package:classic_shop/src/features/core/shared/providers.dart';
 import 'package:classic_shop/src/features/notification/shared/providers.dart';
 import 'package:classic_shop/src/features/settings/application/settings_notifier.dart';
+import 'package:classic_shop/src/routing/app_router.dart';
 import 'package:classic_shop/src/shared/toasts.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingsPage extends HookConsumerWidget {
@@ -15,11 +17,13 @@ class SettingsPage extends HookConsumerWidget {
     final appTheme = Theme.of(context);
     final settings =
         ref.watch(settingsNotifierProvider.select((value) => value.settings));
-    return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverAppBar(
+              surfaceTintColor: Colors.transparent,
               pinned: true,
               title: Text(
                 'الإعدادات',
@@ -47,6 +51,24 @@ class SettingsPage extends HookConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const Text('الحساب'),
+                    GestureDetector(
+                      onTap: () =>
+                          context.pushNamed(AppRoute.changePassword.name),
+                      child: ListTile(
+                        visualDensity: const VisualDensity(vertical: -.5),
+                        contentPadding: EdgeInsets.zero,
+                        title: const Text('تغيير كلمة المرور'),
+                        trailing: IconButton(
+                          onPressed: () =>
+                              context.pushNamed(AppRoute.changePassword.name),
+                          icon: const Icon(Icons.arrow_forward_ios),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 32,
+                    ),
                     const Text('الإشعارات'),
                     ListTile(
                       visualDensity: const VisualDensity(vertical: -.5),
@@ -150,10 +172,10 @@ class SettingsPage extends HookConsumerWidget {
                     const SizedBox(
                       height: 32,
                     ),
-                    const Text('البيانات'),
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    // const Text('البيانات'),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
                     ListTile(
                       visualDensity: const VisualDensity(vertical: -.5),
                       contentPadding: EdgeInsets.zero,
@@ -188,11 +210,17 @@ class SettingsPage extends HookConsumerWidget {
                               // title: const Text('Flash'),
                               title: const Text(
                                 'حذف البيانات المؤقتة؟',
-                              ),
-                              content: const Text(
-                                'يُنصح باستخدام هذا الخيار إذا كنت تواجه مشكلة. سيؤدي هذا إلى حذف الصور المخزنة مؤقتًا والبيانات الأخرى.',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 12),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              content: Text(
+                                'يُنصح باستخدام هذا الخيار إذا كنت تواجه مشكلة. سيؤدي هذا إلى حذف الصور المخزنة مؤقتًا والبيانات الأخرى.',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  height: 1.5,
+                                  color: Colors.grey[700],
+                                ),
                               ),
                               actions: <Widget>[
                                 FilledButton(

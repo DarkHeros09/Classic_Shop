@@ -57,6 +57,7 @@ class _ShopOrderPageState extends ConsumerState<ShopOrderPage> {
                     context,
                   ),
                   sliver: SliverAppBar(
+                    surfaceTintColor: Colors.transparent,
                     centerTitle: true,
                     title: Text(
                       'الطلبات',
